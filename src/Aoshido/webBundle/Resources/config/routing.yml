@@ -1,0 +1,3 @@
+aoshidoweb_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: AoshidowebBundle:Default:index }
