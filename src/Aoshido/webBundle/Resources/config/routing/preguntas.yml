@@ -1,0 +1,3 @@
+preguntas_new:
+    path:     /
+    defaults: { _controller: AoshidowebBundle:Preguntas:new }
