@@ -3,6 +3,7 @@
 namespace Aoshido\webBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Carrera
@@ -10,8 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity
  */
-class Carrera
-{
+class Carrera {
+
     /**
      * @var integer
      *
@@ -35,14 +36,21 @@ class Carrera
      */
     private $activo;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Tema", mappedBy="carreras")
+     * */
+    private $materias;
+
+    public function __construct() {
+        $this->materias = new ArrayCollection();
+    }
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -52,8 +60,7 @@ class Carrera
      * @param string $Descripcion
      * @return Carrera
      */
-    public function setDescripcion($Descripcion)
-    {
+    public function setDescripcion($Descripcion) {
         $this->Descripcion = $Descripcion;
 
         return $this;
@@ -64,8 +71,7 @@ class Carrera
      *
      * @return string 
      */
-    public function getDescripcion()
-    {
+    public function getDescripcion() {
         return $this->Descripcion;
     }
 
@@ -75,8 +81,7 @@ class Carrera
      * @param boolean $activo
      * @return Carrera
      */
-    public function setActivo($activo)
-    {
+    public function setActivo($activo) {
         $this->activo = $activo;
 
         return $this;
@@ -87,8 +92,41 @@ class Carrera
      *
      * @return boolean 
      */
-    public function getActivo()
-    {
+    public function getActivo() {
         return $this->activo;
+    }
+
+
+    /**
+     * Add materias
+     *
+     * @param \Aoshido\webBundle\Entity\Tema $materias
+     * @return Carrera
+     */
+    public function addMateria(\Aoshido\webBundle\Entity\Tema $materias)
+    {
+        $this->materias[] = $materias;
+
+        return $this;
+    }
+
+    /**
+     * Remove materias
+     *
+     * @param \Aoshido\webBundle\Entity\Tema $materias
+     */
+    public function removeMateria(\Aoshido\webBundle\Entity\Tema $materias)
+    {
+        $this->materias->removeElement($materias);
+    }
+
+    /**
+     * Get materias
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMaterias()
+    {
+        return $this->materias;
     }
 }

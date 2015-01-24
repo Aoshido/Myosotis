@@ -3,6 +3,7 @@
 namespace Aoshido\webBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Pregunta
@@ -49,6 +50,22 @@ class Pregunta
      */
     private $activo;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Respuesta", mappedBy="pregunta")
+     */
+    protected $respuestas;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Tema", inversedBy="preguntas")
+     * @ORM\JoinTable(name="PreguntasTemas")
+     **/
+    private $temas;
+    
+    public function __construct()
+    {
+        $this->temas = new ArrayCollection();
+        $this->respuestas = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -150,5 +167,71 @@ class Pregunta
     public function getActivo()
     {
         return $this->activo;
+    }
+
+    /**
+     * Add respuestas
+     *
+     * @param \Aoshido\webBundle\Entity\Respuesta $respuestas
+     * @return Pregunta
+     */
+    public function addRespuesta(\Aoshido\webBundle\Entity\Respuesta $respuestas)
+    {
+        $this->respuestas[] = $respuestas;
+
+        return $this;
+    }
+
+    /**
+     * Remove respuestas
+     *
+     * @param \Aoshido\webBundle\Entity\Respuesta $respuestas
+     */
+    public function removeRespuesta(\Aoshido\webBundle\Entity\Respuesta $respuestas)
+    {
+        $this->respuestas->removeElement($respuestas);
+    }
+
+    /**
+     * Get respuestas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRespuestas()
+    {
+        return $this->respuestas;
+    }
+
+    /**
+     * Add temas
+     *
+     * @param \Aoshido\webBundle\Entity\Tema $temas
+     * @return Pregunta
+     */
+    public function addTema(\Aoshido\webBundle\Entity\Tema $temas)
+    {
+        $this->temas[] = $temas;
+
+        return $this;
+    }
+
+    /**
+     * Remove temas
+     *
+     * @param \Aoshido\webBundle\Entity\Tema $temas
+     */
+    public function removeTema(\Aoshido\webBundle\Entity\Tema $temas)
+    {
+        $this->temas->removeElement($temas);
+    }
+
+    /**
+     * Get temas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTemas()
+    {
+        return $this->temas;
     }
 }

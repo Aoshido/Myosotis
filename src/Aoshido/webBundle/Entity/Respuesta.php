@@ -42,6 +42,12 @@ class Respuesta
      */
     private $activo;
 
+    
+     /**
+     * @ORM\ManyToOne(targetEntity="Pregunta", inversedBy="respuestas")
+     * @ORM\JoinColumn(name="IdPregunta", referencedColumnName="id")
+     */
+    protected $pregunta;
 
     /**
      * Get id
@@ -120,5 +126,28 @@ class Respuesta
     public function getActivo()
     {
         return $this->activo;
+    }
+
+    /**
+     * Set Pregunta
+     *
+     * @param \Aoshido\webBundle\Entity\Pregunta $pregunta
+     * @return Respuesta
+     */
+    public function setPregunta(\Aoshido\webBundle\Entity\Pregunta $pregunta = null)
+    {
+        $this->pregunta = $pregunta;
+
+        return $this;
+    }
+
+    /**
+     * Get Pregunta
+     *
+     * @return \Aoshido\webBundle\Entity\Pregunta 
+     */
+    public function getPregunta()
+    {
+        return $this->pregunta;
     }
 }
