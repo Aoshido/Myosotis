@@ -11,19 +11,35 @@
             <!-- Optional theme -->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
+            {% stylesheets '../app/Resources/public/css/style.css' %}
+            <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+            {% endstylesheets %}
+
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body>
-    {% block body %}{% endblock %}
-    {% block javascripts %}
 
-        <!-- Jquery from GOOGLE CDN -->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <body background="{% image '@AoshidowebBundle/img/background.jpg' %} {{ asset_url }} {% endimage %}">
+        {% block body %}
+            <div id="wrap">
+                {% include 'AoshidowebBundle::navbar.html.twig' %}
+                <div class="container">
+                    {% block content%}
 
-    {% endblock %}
-</body>
+                    {% endblock %}
+                </div>
+            </div>
+            {% include 'AoshidowebBundle::footer.html.twig' %}
+        {% endblock %}
+
+        {% block javascripts %}
+
+            <!-- Jquery from GOOGLE CDN -->
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+            <!-- Latest compiled and minified JavaScript -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+        {% endblock %}
+    </body>
 </html>
