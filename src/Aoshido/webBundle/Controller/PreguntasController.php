@@ -8,6 +8,6 @@ class PreguntasController extends Controller
 {
     public function newAction()
     {
-        return $this->render('AoshidowebBundle:Preguntas:index.html.twig');
+        return $this->render('AoshidowebBundle:Preguntas:new.html.twig');
     }
 }

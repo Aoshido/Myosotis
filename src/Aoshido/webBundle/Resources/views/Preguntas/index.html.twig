@@ -2,12 +2,25 @@
 
 {% block title %}Preguntas ABM{% endblock %}
 {% block content %}
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            Gimmie questions:
+    <div role="tabpanel">
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="{%block tabPreg %} {% endblock %}"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Preguntas</a></li>
+            <li role="presentation" class="{%block tabResp %} {% endblock %}"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Respuestas</a></li>
+            <li role="presentation" class="{%block tabTema %} {% endblock %}"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Temas</a></li>
+            <li role="presentation" class="{%block tabMate %} {% endblock %}"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Materias</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in alpha60{%block navPreg %} {% endblock %}" id="home">{% block Preguntas %} {% endblock %}</div>
+            <div role="tabpanel" class="tab-pane fade {%block navResp %} {% endblock %}" id="profile">{% block Respuestas %} {% endblock %}</div>
+            <div role="tabpanel" class="tab-pane fade {%block navTema %} {% endblock %}" id="messages">{% block Temas %} {% endblock %}</div>
+            <div role="tabpanel" class="tab-pane fade {%block navMate %} {% endblock %}" id="settings">{% block Materias %} {% endblock %}</div>
         </div>
-        <div class="panel-body">
-            aca va el formeo
-        </div>
+
     </div>
+
+
 {% endblock %}
