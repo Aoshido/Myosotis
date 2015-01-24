@@ -19,7 +19,7 @@ class PreguntaType extends AbstractType {
     }
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'Aoshido\studyBundle\Entity\Pregunta',
+            'data_class' => 'Aoshido\webBundle\Entity\Pregunta',
         ));
     }
     public function getName() {

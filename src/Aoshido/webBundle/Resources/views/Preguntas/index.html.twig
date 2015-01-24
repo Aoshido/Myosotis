@@ -14,13 +14,11 @@
 
         <!-- Tab panes -->
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane fade in alpha60{%block navPreg %} {% endblock %}" id="home">{% block Preguntas %} {% endblock %}</div>
+            <div role="tabpanel" class="tab-pane fade in alpha60 col-md-12 {%block navPreg %} {% endblock %}" id="home">{% block Preguntas %} {% endblock %}</div>
             <div role="tabpanel" class="tab-pane fade {%block navResp %} {% endblock %}" id="profile">{% block Respuestas %} {% endblock %}</div>
             <div role="tabpanel" class="tab-pane fade {%block navTema %} {% endblock %}" id="messages">{% block Temas %} {% endblock %}</div>
             <div role="tabpanel" class="tab-pane fade {%block navMate %} {% endblock %}" id="settings">{% block Materias %} {% endblock %}</div>
         </div>
 
     </div>
-
-
 {% endblock %}

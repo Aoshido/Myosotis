@@ -4,8 +4,46 @@
 {%block tabPreg %} active {% endblock %}
 
 {% block Preguntas %} 
-    <div class="container">
-        Aca va el contenido de preguntas y la pija
-        {{ form(form)}}
+    <div class="container col-md-12">
+        <div class="panel-heading">Preguntas Disponibles: {{ cantidad }}</div>
+        <div class="panel-body">
+            <table class="table table-striped">
+                <tr>
+                    <th class="col-md-6">Contenido</th>
+                    <th class="col-md-1">&nbsp</th>
+                </tr>
+                {% for pregunta in paginas %}
+                    <tr>
+                        <td class="col-md-6">{{ pregunta.contenido }}</td>
+                        <td class="col-md-1">
+                            <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                <button type="button" class="btn btn-success" aria-label="Left Align" onclick="location.href = '#{# url('preguntas_EDIT',{ 'id': pregunta.id})#}';">
+                                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                                </button>    
+                                <button type="button" class="btn btn-danger" aria-label="Left Align" onclick="location.href = '#{# url('preguntas_DELETE',{ 'id': pregunta.id})#}';">
+                                    <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                                </button>    
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <div class="navigation">
+                {{ knp_pagination_render(paginas) }}
+            </div>
+        </div>
+        <div class="panel panel-info">
+            <div class="panel-heading">Agregar preguntas</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    {{ form_start(form)}}
+                    {{ form_errors(form)}}
+                    {{ form_label(form.contenido)}}
+                    {{ form_widget(form.contenido,{ 'attr' : { 'class' : 'form-control' } }) }}
+                    {{ form_widget(form.save,{ 'attr': {'class': 'btn btn-default'} }) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

@@ -2,6 +2,8 @@
 
 namespace Aoshido\webBundle\Controller;
 
+use Aoshido\webBundle\Entity\Pregunta;
+use Aoshido\webBundle\form\PreguntaType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -20,7 +22,7 @@ class PreguntasController extends Controller {
         $cantidad = count($preguntas);
         
         $pregunta = new Pregunta();
-        $form = $this->createFormPregunta($pregunta);
+        $form = $this->createForm(new PreguntaType(), $pregunta);
 
         $form->handleRequest($request);
 
@@ -28,10 +30,12 @@ class PreguntasController extends Controller {
             $pregunta->setActivo(TRUE);
             $pregunta->setVecesVista(0);
             $pregunta->setVecesAcertada(0);
+            
             $em = $this->getDoctrine()->getManager();
             $em->persist($pregunta);
             $em->flush();
-            return $this->redirect($this->generateUrl('preguntas_ABM'));
+            
+            return $this->redirect($this->generateUrl('preguntas_new'));
         }
 
 
