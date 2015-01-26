@@ -26,14 +26,6 @@ class PreguntasController extends Controller {
         
         $pregunta = new Pregunta();
         
-        /*$tema1 = new Tema();
-        $tema1->setDescripcion = 'Tema1';
-        $pregunta->getTemas()->add($tema1);
-        
-        $tema2 = new Tema();
-        $tema2->setDescripcion = 'Tema2';
-        $pregunta->getTemas()->add($tema2);*/
-        
         $form = $this->createForm(new PreguntaType(), $pregunta);
 
         $form->handleRequest($request);
@@ -43,14 +35,16 @@ class PreguntasController extends Controller {
             $pregunta->setVecesVista(0);
             $pregunta->setVecesAcertada(0);
             
+            foreach ($pregunta->getTemas() as $tema){
+                $tema->setActivo(TRUE);
+            }
+            
             $em = $this->getDoctrine()->getManager();
             $em->persist($pregunta);
             $em->flush();
             
             return $this->redirect($this->generateUrl('preguntas_new'));
         }
-
-
 
         return $this->render('AoshidowebBundle:Preguntas:new.html.twig', array(
                     'form' => $form->createView(),

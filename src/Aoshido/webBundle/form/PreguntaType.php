@@ -17,6 +17,8 @@ class PreguntaType extends AbstractType {
         $builder->add('temas','collection' , array(
             'type' => new Tematype(),
             'allow_add'    => true,
+            'allow_delete' => true,
+            'by_reference' => false,
         ));
         
         

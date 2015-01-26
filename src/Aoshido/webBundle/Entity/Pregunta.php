@@ -56,7 +56,7 @@ class Pregunta
     protected $respuestas;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Tema", inversedBy="preguntas")
+     * @ORM\ManyToMany(targetEntity="Tema", inversedBy="preguntas", cascade={"persist"})
      * @ORM\JoinTable(name="PreguntasTemas")
      **/
     private $temas;
