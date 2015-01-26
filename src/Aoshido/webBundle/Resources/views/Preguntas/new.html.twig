@@ -4,7 +4,7 @@
 {%block tabPreg %} active {% endblock %}
 
 {% block Preguntas %} 
-{% form_theme form 'AoshidowebBundle:Temas:Theme/_field-prototype.html.twig' %}
+    {% form_theme form 'AoshidowebBundle:Temas:Theme/_field-prototype.html.twig' %}
     <div class="container col-md-12">
         <div class="panel-heading">Preguntas Disponibles: {{ cantidad }}</div>
         <div class="panel-body">
@@ -36,7 +36,6 @@
         <div class="panel panel-info">
             <div class="panel-heading">Agregar preguntas</div>
 
-
             <div class="panel-body">
                 {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
                 {{ form_errors(form)}}
@@ -48,32 +47,28 @@
                 </div>
 
                 <div id="temas" data-prototype="{% filter escape %}
-             {{ include('AoshidowebBundle:Temas:Theme/_field-prototype.html.twig', { 'form': form.temas.vars.prototype }) }}
-         {% endfilter %}">
-                    {# iterate over each existing tag and render its only field: Descripcion #}
-                    {% for tema in form.temas %}
-                        <div id="temaCont" class="form-group">
-                            {{ form_label(tema.descripcion,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }} 
-                            <div class="col-md-8">
-                                {{ form_widget(tema.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }} 
+                     {{ include('AoshidowebBundle:Temas:Theme/_field-prototype.html.twig', { 'form': form.temas.vars.prototype }) }}
+                     {% endfilter %}">
+                        {# iterate over each existing tag and render its only field: Descripcion #}
+                        {% for tema in form.temas %}
+                            <div id="temaCont" class="form-group">
+                                {{ form_label(tema.descripcion,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }} 
+                                <div class="col-md-8">
+                                    {{ form_widget(tema.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }} 
+                                </div>
                             </div>
-                        </div>
-                    {% endfor %}
-                    #}
+                        {% endfor %}                    
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_widget(form.save,{ 'attr': {'class': 'btn btn-success'} }) }}
+                        {{ form_row(form._token) }}
+                        {{ form_end(form, {'render_rest': false}) }}
+                    </div>
+
                 </div>
-
-
-
-                <div class="form-group">
-                    {{ form_widget(form.save,{ 'attr': {'class': 'btn btn-success'} }) }}
-                    {{ form_row(form._token) }}
-                    {{ form_end(form, {'render_rest': false}) }}
-                </div>
-
-
             </div>
         </div>
     </div>
-</div>
 
-{% endblock %}
+    {% endblock %}
