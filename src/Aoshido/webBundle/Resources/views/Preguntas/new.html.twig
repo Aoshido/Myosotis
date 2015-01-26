@@ -4,6 +4,7 @@
 {%block tabPreg %} active {% endblock %}
 
 {% block Preguntas %} 
+{% form_theme form 'AoshidowebBundle:Temas:Theme/_field-prototype.html.twig' %}
     <div class="container col-md-12">
         <div class="panel-heading">Preguntas Disponibles: {{ cantidad }}</div>
         <div class="panel-body">
@@ -47,7 +48,9 @@
                 </div>
 
 
-                <div id="temas" data-prototype="{{ form_widget(form.temas.vars.prototype)|e }}">
+                <div id="temas" data-prototype="{% filter escape %}
+             {{ include('AoshidowebBundle:Temas:Theme/_field-prototype.html.twig', { 'form': form.temas.vars.prototype }) }}
+         {% endfilter %}">
                     {# iterate over each existing tag and render its only field: Descripcion #}
                     {% for tema in form.temas %}
                         <div id="temaCont" class="form-group">

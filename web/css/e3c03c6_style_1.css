@@ -1,0 +1,145 @@
+.green {
+    color: greenyellow;
+}
+.red {
+    color: red;
+}
+.blue {
+    color: dodgerblue;
+}
+
+.alpha60 {
+    /* Fallback for web browsers that don't support RGBa */
+    background-color: rgb(0, 0, 0);
+    /* RGBa with 0.6 opacity */
+    background-color: rgba(255, 255, 255, 0.9);
+    /* For IE 5.5 - 7*/
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+    /* For IE 8*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+}
+
+.card_back{
+    text-align: center;
+    background-image: url("/img/card_background3.jpg");
+    background-position-x: 0px;
+    background-position-y: 0px;
+    border-radius: 5%;
+}
+
+.card_back_text{
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    top: 75px;
+    left: 20px;
+    width: 160px;
+    height: 100px;
+}
+
+.card_front{
+    padding-top: 5%;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5%;
+}
+
+.card_club{
+    background-image: url("/img/card_frontCLUB.jpg");
+}
+.card_heart{
+    background-image: url("/img/card_frontHERT.jpg");
+}
+.card_diam{
+    background-image: url("/img/card_frontDIAM.jpg");
+}
+.card_spade{
+    background-image: url("/img/card_frontSPAD.jpg");
+}
+
+.card_answer{
+    position: absolute;
+    top: 75px;
+    left: 20px;
+    width: 160px;
+    height: 100px;
+}
+
+.footer_text{
+    text-align: center;
+    vertical-align: middle;
+}
+/*FLIP CSS*/
+/*http://davidwalsh.name/css-flip*/
+
+/* entire container, keeps perspective */
+.flip-container {
+    perspective: 1000;
+}
+/* flip the pane when hovered */
+.flip-container:hover .flipper, .flip-container.hover .flipper {
+    transform: rotateY(180deg);
+}
+
+.flip-container, .front, .back {
+    width: 200px;
+    height: 300px;
+}
+
+/* flip speed goes here */
+.flipper {
+    transition: 0.6s;
+    transform-style: preserve-3d;
+
+    position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+    backface-visibility: hidden;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+    z-index: 2;
+    /* for firefox 31 */
+    transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+    transform: rotateY(180deg);
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -30px;
+  /* Pad bottom by footer height */
+  padding: 0 0 30px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+  color: white;
+  font-size: 10px;
+  font-style: italic;
+  height: 30px;
+  background-color: #000000;
+  border-radius: 10%;
+}
