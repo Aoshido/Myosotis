@@ -44,12 +44,15 @@
                 var $collectionHolder;
 
                 // setup an "add a tag" link
-                var $addTagLink = $('<a href="#" class="add_tag_link">Agregar Tema</a>');
-                var $newLinkLi = $('<div></div>').append($addTagLink);
+                var $addTagLink = $('<button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Tema</button>');
+                var $newLinkLi = $('<div class="col-md-offset-8"></div>').append($addTagLink);
 
                 jQuery(document).ready(function () {
                     // Get the ul that holds the collection of tags
                     $collectionHolder = $('div#temas');
+                    
+                    // Get the ul that holds the collection of tags
+                    $addAnchor = $('div#anchor');
 
                     // add a delete link to all of the existing tag form li elements
                     $collectionHolder.find('div#temaCont').each(function () {
@@ -73,7 +76,7 @@
                 });
                 
                 function addTagFormDeleteLink($tagFormLi) {
-                    var $removeFormA = $('<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></button>');
+                    var $removeFormA = $('<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>');
                     $tagFormLi.append($removeFormA);
 
                     $removeFormA.on('click', function (e) {
