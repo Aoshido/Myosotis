@@ -48,7 +48,7 @@
 
 
                 <div id="temas" data-prototype="{{ form_widget(form.temas.vars.prototype)|e }}">
-                    {# iterate over each existing tag and render its only field: Descripcion #}
+                    {# iterate over each existing tag and render its only field: Descripcion 
                     {% for tema in form.temas %}
                         <div id="temaCont" class="form-group">
                             {{ form_label(tema.descripcion,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }} 
@@ -57,6 +57,7 @@
                             </div>
                         </div>
                     {% endfor %}
+                    #}
                 </div>
 
 
