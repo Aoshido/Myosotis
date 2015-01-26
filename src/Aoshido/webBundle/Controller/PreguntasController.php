@@ -25,7 +25,11 @@ class PreguntasController extends Controller {
         $cantidad = count($preguntas);
         
         $pregunta = new Pregunta();
+        $tema = new Tema();
+        $tema2 = new Tema();
         
+        $pregunta->addTema($tema);
+        $pregunta->addTema($tema2);
         $form = $this->createForm(new PreguntaType(), $pregunta);
 
         $form->handleRequest($request);

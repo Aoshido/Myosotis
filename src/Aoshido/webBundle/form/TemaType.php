@@ -10,7 +10,10 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class TemaType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('descripcion', 'text', array(
-            'label' => false,
+            'label' => 'Tema:',
+            'label_attr' => array(
+                'class' => 'col-md-2 control-label'
+            ),
             'attr' => array(
                 'class' => 'form-control'
             )

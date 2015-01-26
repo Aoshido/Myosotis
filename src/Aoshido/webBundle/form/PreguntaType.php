@@ -1,40 +1,43 @@
 <?php
 
 namespace Aoshido\webBundle\form;
-use Aoshido\webBundle\form\TemaType;
 
+use Aoshido\webBundle\form\TemaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-
 class PreguntaType extends AbstractType {
+
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('contenido', 'text', array(
-            'label' => 'Pregunta:'
+            'label' => 'Pregunta:',
         ));
-        
-        $builder->add('temas','collection' , array(
+
+        $builder->add('temas', 'collection', array(
             'type' => new Tematype(),
-            'allow_add'    => true,
+            'allow_add' => true,
             'allow_delete' => true,
             'by_reference' => false,
         ));
-        
-        
-        
-        
-        /************ SUBMIT ****************/
+
+        /*         * ********** SUBMIT *************** */
         $builder->add('save', 'submit', array(
             'label' => 'Agregar',
+            'attr' => array(
+                'class' => 'btn btn-success'
+            ),
         ));
     }
+
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'Aoshido\webBundle\Entity\Pregunta',
         ));
     }
+
     public function getName() {
         return 'pregunta';
     }
+
 }

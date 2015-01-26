@@ -34,24 +34,38 @@
         </div>
         <div class="panel panel-info">
             <div class="panel-heading">Agregar preguntas</div>
+
+
             <div class="panel-body">
                 {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
                 {{ form_errors(form)}}
+                <div class="form-group">
+                    {{ form_label(form.contenido,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } })}}
+                    <div class="col-md-8">
+                        {{ form_widget(form.contenido,{ 'attr' : { 'class' : 'form-control' } }) }}
+                    </div>
+                </div>
 
-                {{ form_label(form.contenido)}}
-                {{ form_widget(form.contenido,{ 'attr' : { 'class' : 'form-control' } }) }}
 
-
-                <ul class="temas" data-prototype="{{ form_widget(form.temas.vars.prototype)|e }}">
+                <div id="temas" data-prototype="{{ form_widget(form.temas.vars.prototype)|e }}">
                     {# iterate over each existing tag and render its only field: Descripcion #}
                     {% for tema in form.temas %}
-                        {{ form_row(tema.descripcion) }}
+                        <div id="temaCont" class="form-group">
+                            {{ form_label(tema.descripcion,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }} 
+                            <div class="col-md-8">
+                                {{ form_widget(tema.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }} 
+                            </div>
+                        </div>
                     {% endfor %}
-                </ul>
+                </div>
 
-                {{ form_widget(form.save,{ 'attr': {'class': 'btn btn-default'} }) }}
-                {{ form_row(form._token) }}
-                {{ form_end(form, {'render_rest': false}) }}
+
+
+                <div class="form-group">
+                    {{ form_widget(form.save,{ 'attr': {'class': 'btn btn-success'} }) }}
+                    {{ form_row(form._token) }}
+                    {{ form_end(form, {'render_rest': false}) }}
+                </div>
 
 
             </div>
