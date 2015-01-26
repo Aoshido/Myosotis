@@ -40,10 +40,19 @@
                     {{ form_errors(form)}}
                     {{ form_label(form.contenido)}}
                     {{ form_widget(form.contenido,{ 'attr' : { 'class' : 'form-control' } }) }}
+
+                    <ul class="temas" data-prototype="{{ form_widget(form.temas.vars.prototype)|e }}">
+                        {# iterate over each existing tag and render its only field: Descripcion #}
+                        {% for tema in form.temas %}
+                            <li>{{ form_row(tema.descripcion) }}</li>
+                            {% endfor %}
+                    </ul>
+
                     {{ form_widget(form.save,{ 'attr': {'class': 'btn btn-default'} }) }}
                     {{ form_end(form) }}
                 </div>
             </div>
         </div>
     </div>
+    
 {% endblock %}

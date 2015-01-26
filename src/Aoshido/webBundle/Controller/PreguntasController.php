@@ -3,7 +3,10 @@
 namespace Aoshido\webBundle\Controller;
 
 use Aoshido\webBundle\Entity\Pregunta;
+use Aoshido\webBundle\Entity\Tema;
 use Aoshido\webBundle\form\PreguntaType;
+
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -22,6 +25,15 @@ class PreguntasController extends Controller {
         $cantidad = count($preguntas);
         
         $pregunta = new Pregunta();
+        
+        /*$tema1 = new Tema();
+        $tema1->setDescripcion = 'Tema1';
+        $pregunta->getTemas()->add($tema1);
+        
+        $tema2 = new Tema();
+        $tema2->setDescripcion = 'Tema2';
+        $pregunta->getTemas()->add($tema2);*/
+        
         $form = $this->createForm(new PreguntaType(), $pregunta);
 
         $form->handleRequest($request);

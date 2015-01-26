@@ -1,6 +1,7 @@
 <?php
 
 namespace Aoshido\webBundle\form;
+use Aoshido\webBundle\form\TemaType;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,6 +14,15 @@ class PreguntaType extends AbstractType {
             'label' => 'Pregunta:'
         ));
         
+        $builder->add('temas','collection' , array(
+            'type' => new Tematype(),
+            'allow_add'    => true,
+        ));
+        
+        
+        
+        
+        /************ SUBMIT ****************/
         $builder->add('save', 'submit', array(
             'label' => 'Agregar',
         ));
