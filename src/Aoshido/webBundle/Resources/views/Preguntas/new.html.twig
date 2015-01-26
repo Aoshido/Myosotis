@@ -35,25 +35,28 @@
         <div class="panel panel-info">
             <div class="panel-heading">Agregar preguntas</div>
             <div class="panel-body">
-                <div class="form-group">
-                    {{ form_start(form)}}
-                    {{ form_errors(form)}}
-                    {{ form_label(form.contenido)}}
-                    {{ form_widget(form.contenido,{ 'attr' : { 'class' : 'form-control' } }) }}
+                {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
+                {{ form_errors(form)}}
 
-                    <ul class="temas" data-prototype="{{ form_widget(form.temas.vars.prototype)|e }}">
-                        {# iterate over each existing tag and render its only field: Descripcion #}
-                        {% for tema in form.temas %}
-                            <li>{{ form_row(tema.descripcion) }}</li>
-                            {% endfor %}
-                    </ul>
+                {{ form_label(form.contenido)}}
+                {{ form_widget(form.contenido,{ 'attr' : { 'class' : 'form-control' } }) }}
 
-                    {{ form_widget(form.save,{ 'attr': {'class': 'btn btn-default'} }) }}
-                    {{ form_row(form._token) }}
-                    {{ form_end(form, {'render_rest': false}) }}
-                </div>
+
+                <ul class="temas" data-prototype="{{ form_widget(form.temas.vars.prototype)|e }}">
+                    {# iterate over each existing tag and render its only field: Descripcion #}
+                    {% for tema in form.temas %}
+                        {{ form_row(tema.descripcion) }}
+                    {% endfor %}
+                </ul>
+
+                {{ form_widget(form.save,{ 'attr': {'class': 'btn btn-default'} }) }}
+                {{ form_row(form._token) }}
+                {{ form_end(form, {'render_rest': false}) }}
+
+
             </div>
         </div>
     </div>
-    
+</div>
+
 {% endblock %}
