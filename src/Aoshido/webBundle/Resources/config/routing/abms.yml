@@ -1,0 +1,7 @@
+abms_index:
+    path:     /
+    defaults: { _controller: AoshidowebBundle:Abms:index }
+    
+abms_preguntas:
+    path:     /preguntas
+    defaults: { _controller: AoshidowebBundle:Preguntas:new }    

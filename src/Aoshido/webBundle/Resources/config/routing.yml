@@ -1,7 +1,11 @@
 aoshidoweb_homepage:
     path:     /
     defaults: { _controller: AoshidowebBundle:Default:index }
+
+aoshidoweb_bio:
+    path:     /bio
+    defaults: { _controller: AoshidowebBundle:Default:bio }
     
-preguntas_abm:
-    resource: "@AoshidowebBundle/Resources/config/routing/preguntas.yml"
-    prefix:   /preguntas
+abms:
+    resource: "@AoshidowebBundle/Resources/config/routing/abms.yml"
+    prefix:   /abms

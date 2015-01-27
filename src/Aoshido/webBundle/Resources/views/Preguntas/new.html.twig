@@ -1,9 +1,9 @@
-{% extends 'AoshidowebBundle:Preguntas:index.html.twig' %}
-
+{% extends 'AoshidowebBundle:Abms:index.html.twig' %}
+{#
 {%block navPreg %} active {% endblock %}
 {%block tabPreg %} active {% endblock %}
-
-{% block Preguntas %} 
+#}
+{% block abms_contenido %} 
     {% form_theme form 'AoshidowebBundle:Temas:Theme/_field-prototype.html.twig' %}
     <div class="container col-md-12">
         <div class="panel-heading">Preguntas Disponibles: {{ cantidad }}</div>

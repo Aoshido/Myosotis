@@ -10,7 +10,14 @@ use Aoshido\webBundle\form\PreguntaType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class PreguntasController extends Controller {
+class AbmsController extends Controller {
+
+    public function indexAction(Request $request) {
+                
+
+        return $this->render('AoshidowebBundle:Abms:index.html.twig', array(
+        ));
+    }
     
     public function newAction(Request $request) {
         //Display a list of all Preguntas
@@ -45,7 +52,7 @@ class PreguntasController extends Controller {
             return $this->redirect($this->generateUrl('preguntas_new'));
         }
 
-        return $this->render('AoshidowebBundle:Preguntas:new.html.twig', array(
+        return $this->render('AoshidowebBundle:Abms:index.html.twig', array(
                     'form' => $form->createView(),
                     'paginas' => $pagination,
                     'cantidad' => $cantidad,
