@@ -56,7 +56,7 @@ class Pregunta
     protected $respuestas;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Tema", inversedBy="preguntas")
+     * @ORM\ManyToMany(targetEntity="Tema", inversedBy="preguntas", cascade={"persist"})
      * @ORM\JoinTable(name="PreguntasTemas")
      **/
     private $temas;
@@ -200,5 +200,38 @@ class Pregunta
     public function getRespuestas()
     {
         return $this->respuestas;
+    }
+
+    /**
+     * Add temas
+     *
+     * @param \Aoshido\webBundle\Entity\Tema $temas
+     * @return Pregunta
+     */
+    public function addTema(\Aoshido\webBundle\Entity\Tema $temas)
+    {
+        $this->temas[] = $temas;
+
+        return $this;
+    }
+
+    /**
+     * Remove temas
+     *
+     * @param \Aoshido\webBundle\Entity\Tema $temas
+     */
+    public function removeTema(\Aoshido\webBundle\Entity\Tema $temas)
+    {
+        $this->temas->removeElement($temas);
+    }
+
+    /**
+     * Get temas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTemas()
+    {
+        return $this->temas;
     }
 }

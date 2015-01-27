@@ -37,7 +37,7 @@ class Carrera {
     private $activo;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Tema", mappedBy="carreras")
+     * @ORM\ManyToMany(targetEntity="Materia", mappedBy="carreras")
      * */
     private $materias;
 
@@ -96,4 +96,37 @@ class Carrera {
         return $this->activo;
     }
 
+
+    /**
+     * Add materias
+     *
+     * @param \Aoshido\webBundle\Entity\Tema $materias
+     * @return Carrera
+     */
+    public function addMateria(\Aoshido\webBundle\Entity\Tema $materias)
+    {
+        $this->materias[] = $materias;
+
+        return $this;
+    }
+
+    /**
+     * Remove materias
+     *
+     * @param \Aoshido\webBundle\Entity\Tema $materias
+     */
+    public function removeMateria(\Aoshido\webBundle\Entity\Tema $materias)
+    {
+        $this->materias->removeElement($materias);
+    }
+
+    /**
+     * Get materias
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMaterias()
+    {
+        return $this->materias;
+    }
 }

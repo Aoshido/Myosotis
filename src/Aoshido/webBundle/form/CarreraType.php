@@ -2,7 +2,7 @@
 
 namespace Aoshido\webBundle\form;
 
-/*use Aoshido\webBundle\form\MateriaType;*/
+use Aoshido\webBundle\form\MateriaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -14,12 +14,12 @@ class CarreraType extends AbstractType {
             'label' => 'Nombre:',
         ));
 
-        /*$builder->add('temas', 'collection', array(
-            'type' => new Tematype(),
+        $builder->add('materias', 'collection', array(
+            'type' => new Materiatype(),
             'allow_add' => true,
             'allow_delete' => true,
             'by_reference' => false,
-        ));*/
+        ));
 
         /*         * ********** SUBMIT *************** */
         $builder->add('save', 'submit', array(

@@ -37,7 +37,7 @@ class Carrera {
     private $activo;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Tema", mappedBy="carreras")
+     * @ORM\ManyToMany(targetEntity="Materia", mappedBy="carreras", cascade={"persist"})
      * */
     private $materias;
 
@@ -100,10 +100,10 @@ class Carrera {
     /**
      * Add materias
      *
-     * @param \Aoshido\webBundle\Entity\Tema $materias
+     * @param \Aoshido\webBundle\Entity\Materia $materias
      * @return Carrera
      */
-    public function addMateria(\Aoshido\webBundle\Entity\Tema $materias)
+    public function addMateria(\Aoshido\webBundle\Entity\Materia $materias)
     {
         $this->materias[] = $materias;
 
@@ -113,9 +113,9 @@ class Carrera {
     /**
      * Remove materias
      *
-     * @param \Aoshido\webBundle\Entity\Tema $materias
+     * @param \Aoshido\webBundle\Entity\Materia $materias
      */
-    public function removeMateria(\Aoshido\webBundle\Entity\Tema $materias)
+    public function removeMateria(\Aoshido\webBundle\Entity\Materia $materias)
     {
         $this->materias->removeElement($materias);
     }

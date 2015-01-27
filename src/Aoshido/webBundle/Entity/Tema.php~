@@ -107,4 +107,60 @@ class Tema
     {
         return $this->activo;
     }
+
+    /**
+     * Set materia
+     *
+     * @param \Aoshido\webBundle\Entity\Materia $materia
+     * @return Tema
+     */
+    public function setMateria(\Aoshido\webBundle\Entity\Materia $materia = null)
+    {
+        $this->materia = $materia;
+
+        return $this;
+    }
+
+    /**
+     * Get materia
+     *
+     * @return \Aoshido\webBundle\Entity\Materia 
+     */
+    public function getMateria()
+    {
+        return $this->materia;
+    }
+
+    /**
+     * Add preguntas
+     *
+     * @param \Aoshido\webBundle\Entity\Pregunta $preguntas
+     * @return Tema
+     */
+    public function addPregunta(\Aoshido\webBundle\Entity\Pregunta $preguntas)
+    {
+        $this->preguntas[] = $preguntas;
+
+        return $this;
+    }
+
+    /**
+     * Remove preguntas
+     *
+     * @param \Aoshido\webBundle\Entity\Pregunta $preguntas
+     */
+    public function removePregunta(\Aoshido\webBundle\Entity\Pregunta $preguntas)
+    {
+        $this->preguntas->removeElement($preguntas);
+    }
+
+    /**
+     * Get preguntas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPreguntas()
+    {
+        return $this->preguntas;
+    }
 }

@@ -131,4 +131,70 @@ class Materia {
         return $this->activo;
     }
 
+
+    /**
+     * Add temas
+     *
+     * @param \Aoshido\webBundle\Entity\Tema $temas
+     * @return Materia
+     */
+    public function addTema(\Aoshido\webBundle\Entity\Tema $temas)
+    {
+        $this->temas[] = $temas;
+
+        return $this;
+    }
+
+    /**
+     * Remove temas
+     *
+     * @param \Aoshido\webBundle\Entity\Tema $temas
+     */
+    public function removeTema(\Aoshido\webBundle\Entity\Tema $temas)
+    {
+        $this->temas->removeElement($temas);
+    }
+
+    /**
+     * Get temas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTemas()
+    {
+        return $this->temas;
+    }
+
+    /**
+     * Add carreras
+     *
+     * @param \Aoshido\webBundle\Entity\Carrera $carreras
+     * @return Materia
+     */
+    public function addCarrera(\Aoshido\webBundle\Entity\Carrera $carreras)
+    {
+        $this->carreras[] = $carreras;
+
+        return $this;
+    }
+
+    /**
+     * Remove carreras
+     *
+     * @param \Aoshido\webBundle\Entity\Carrera $carreras
+     */
+    public function removeCarrera(\Aoshido\webBundle\Entity\Carrera $carreras)
+    {
+        $this->carreras->removeElement($carreras);
+    }
+
+    /**
+     * Get carreras
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCarreras()
+    {
+        return $this->carreras;
+    }
 }

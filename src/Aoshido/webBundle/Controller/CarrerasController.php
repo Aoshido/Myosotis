@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class CarrerasController extends Controller {
     
     public function newAction(Request $request) {
-        //Display a list of all Preguntas
+        //Display a list of all Carreras
         $preguntas = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Carrera')
                 ->findBy(array('activo' => TRUE));
@@ -30,10 +30,9 @@ class CarrerasController extends Controller {
         if ($form->isValid()) {
             $carrera->setActivo(TRUE);
             
-            /* Similar pero con Materias */
-            /*foreach ($carrera->getTemas() as $tema){
-                $tema->setActivo(TRUE);
-            } */
+            foreach ($carrera->getMaterias() as $materia){
+                $materia->setActivo(TRUE);
+            } 
             
             $em = $this->getDoctrine()->getManager();
             $em->persist($carrera);
@@ -48,5 +47,4 @@ class CarrerasController extends Controller {
                     'cantidad' => $cantidad,
         ));
     }
-
 }
