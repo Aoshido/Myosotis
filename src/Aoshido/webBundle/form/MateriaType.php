@@ -18,7 +18,7 @@ class MateriaType extends AbstractType {
                 'class' => 'form-control'
             )
         ));
-        
+
         $builder->add('aniocarrera', 'integer', array(
             'label' => 'Año',
             'label_attr' => array(
@@ -28,7 +28,15 @@ class MateriaType extends AbstractType {
                 'class' => 'form-control'
             )
         ));
-        
+
+        $builder->add('carreras', 'entity', array(
+            'class' => 'AoshidowebBundle:Carrera',
+            'required' => false,
+            'expanded' => false,
+            'multiple' => true,
+            'property' => 'descripcion',
+        ));
+
         $builder->add('save', 'submit', array(
             'label' => 'Agregar Materia',
             'attr' => array(
