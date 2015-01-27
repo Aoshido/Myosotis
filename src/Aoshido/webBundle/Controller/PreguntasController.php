@@ -42,7 +42,7 @@ class PreguntasController extends Controller {
             $em->persist($pregunta);
             $em->flush();
             
-            return $this->redirect($this->generateUrl('preguntas_new'));
+            return $this->redirect($this->generateUrl('abms_preguntas'));
         }
 
         return $this->render('AoshidowebBundle:Preguntas:new.html.twig', array(

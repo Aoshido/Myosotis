@@ -5,3 +5,7 @@ abms_index:
 abms_preguntas:
     path:     /preguntas
     defaults: { _controller: AoshidowebBundle:Preguntas:new }    
+
+abms_temas:
+    path:     /temas
+    defaults: { _controller: AoshidowebBundle:Temas:new }    
