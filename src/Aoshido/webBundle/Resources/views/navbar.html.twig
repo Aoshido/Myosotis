@@ -18,9 +18,18 @@
                         <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
                     </a>
                 </li>
-                <li {% block abms %} {% endblock %} ><a href="{{path('abms_index')}}">
+                <li class="dropdown" >
+                    <a data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle" href="#{#path('abms_index')#}">
                         <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> ABMs
+                        <span class="caret"></span>
                     </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{path('abms_preguntas')}}"  data-parent="#MainMenu">Preguntas</a></li>
+                        <li><a href="#"  data-parent="#MainMenu">Respuestas</a></li>
+                        <li><a href="{{path('abms_temas')}}"  data-parent="#MainMenu">Temas</a></li>
+                        <li><a href="{{path('abms_materias')}}"  data-parent="#MainMenu">Materias</a></li>
+                        <li><a href="{{path('abms_carreras')}}"  data-parent="#MainMenu">Carreras</a></li>
+                    </ul>
                 </li> 
                 <li class="disabled" {% block quiz %} {% endblock %} ><a href="#">
                         <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Quiz!
@@ -40,3 +49,4 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
+
