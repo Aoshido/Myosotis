@@ -13,3 +13,7 @@ abms_temas:
 abms_carreras:
     path:     /carreras
     defaults: { _controller: AoshidowebBundle:Carreras:new }    
+    
+abms_materias:
+    path:     /materias
+    defaults: { _controller: AoshidowebBundle:Materias:new }    
