@@ -21,7 +21,6 @@ class PreguntaType extends AbstractType {
             'by_reference' => false,
         ));
 
-        /*         * ********** SUBMIT *************** */
         $builder->add('save', 'submit', array(
             'label' => 'Agregar Pregunta',
             'attr' => array(
