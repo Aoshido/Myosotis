@@ -2,7 +2,6 @@
 
 namespace Aoshido\webBundle\form;
 
-use Aoshido\webBundle\form\MateriaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
