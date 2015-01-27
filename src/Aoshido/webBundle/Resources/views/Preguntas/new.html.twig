@@ -48,12 +48,7 @@
                 <div id="temas" data-prototype="{% filter escape %}{{ include('AoshidowebBundle:Themes:field-prototype.html.twig', { 'form': form.temas.vars.prototype }) }}{% endfilter %}">
                     {# iterate over each existing tag and render its only field: Descripcion #}
                     {% for tema in form.temas %}
-                        <div id="temaCont" class="form-group">
-                            {{ form_label(tema.descripcion,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }} 
-                            <div class="col-md-6">
-                                {{ form_widget(tema.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }} 
-                            </div>
-                        </div>
+                        
                     {% endfor %}                    
                 </div>
 

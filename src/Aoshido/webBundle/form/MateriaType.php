@@ -10,7 +10,7 @@ class MateriaType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('descripcion', 'text', array(
-            'label' => 'Materia:',
+            'label' => 'Materia',
             'label_attr' => array(
                 'class' => 'col-md-2 control-label'
             ),
@@ -20,7 +20,7 @@ class MateriaType extends AbstractType {
         ));
         
         $builder->add('aniocarrera', 'integer', array(
-            'label' => 'Anio',
+            'label' => 'Año',
             'label_attr' => array(
                 'class' => 'col-md-2 control-label'
             ),

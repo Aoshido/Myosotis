@@ -104,8 +104,9 @@
                 });
 
                 function addTagFormDeleteLink($tagFormLi) {
-                    var $removeFormA = $('<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>');
-                    $tagFormLi.append($removeFormA);
+                    var $removeFormA = $('<button type="button" class="btn btn-danger "><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>');
+                                      
+                    $tagFormLi.find('div#temaCont').append($removeFormA);
 
                     $removeFormA.on('click', function (e) {
                         // prevent the link from creating a "#" on the URL
@@ -131,11 +132,12 @@
                     $collectionHolder.data('index', index + 1);
 
                     // Display the form in the page in an li, before the "Add a tag" link li
-                    var $newFormLi = $('<div class="form-group"></div>').append(newForm);
+                    var $newFormLi = $('<div></div>').append(newForm);
                     $newLinkLi.before($newFormLi);
 
                     // add a delete link to the new form
                     addTagFormDeleteLink($newFormLi);
+                    
                 }
             </script>
         {% endblock %}
