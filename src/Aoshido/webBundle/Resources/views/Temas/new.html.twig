@@ -1,16 +1,19 @@
 {% extends 'AoshidowebBundle:Abms:index.html.twig' %}
-
+{#
+{%block navPreg %} active {% endblock %}
+{%block tabPreg %} active {% endblock %}
+#}
 {% block abms_contenido %} 
-    {% form_theme form 'AoshidowebBundle:Themes:field-prototype.html.twig' %}
+    {% form_theme form 'AoshidowebBundle:Temas:Theme/_field-prototype.html.twig' %}
     <div class="container col-md-12">
         <div class="panel panel-primary">
             <div class="panel-heading text-right">Preguntas Disponibles: {{ cantidad }}</div>
             
                 <table class="table table-condensed">
-                  {# <tr class="info">
+                    <tr class="info">
                         <th class="col-md-6">Contenido</th>
                         <th class="col-md-1">&nbsp</th>
-                    </tr>#}
+                    </tr>
                     {% for pregunta in paginas %}
                         <tr>
                             <td class="col-md-6">{{ pregunta.contenido }}</td>
@@ -45,7 +48,7 @@
                     </div>
                 </div>
 
-                <div id="temas" data-prototype="{% filter escape %}{{ include('AoshidowebBundle:Themes:field-prototype.html.twig', { 'form': form.temas.vars.prototype }) }}{% endfilter %}">
+                <div id="temas" data-prototype="{% filter escape %}{{ include('AoshidowebBundle:Temas:Theme/_field-prototype.html.twig', { 'form': form.temas.vars.prototype }) }}{% endfilter %}">
                     {# iterate over each existing tag and render its only field: Descripcion #}
                     {% for tema in form.temas %}
                         <div id="temaCont" class="form-group">
