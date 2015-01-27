@@ -1,0 +1,71 @@
+{% extends 'AoshidowebBundle:Abms:index.html.twig' %}
+
+{% block abms_contenido %} 
+  {#  {% form_theme form 'AoshidowebBundle:Themes:field-prototype.html.twig' %}#}
+    <div class="container col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading text-right">Carreras Disponibles: {{ cantidad }}</div>
+            
+                <table class="table table-condensed">
+                  {# <tr class="info">
+                        <th class="col-md-6">Contenido</th>
+                        <th class="col-md-1">&nbsp</th>
+                    </tr>#}
+                    {% for carrera in paginas %}
+                        <tr>
+                            <td class="col-md-6">{{ carrera.descripcion }}</td>
+                            <td class="col-md-1">
+                                <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-success" aria-label="Left Align" onclick="location.href = '#{# url('preguntas_EDIT',{ 'id': pregunta.id})#}';">
+                                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                                    </button>    
+                                    <button type="button" class="btn btn-danger" aria-label="Left Align" onclick="location.href = '#{# url('preguntas_DELETE',{ 'id': pregunta.id})#}';">
+                                        <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                                    </button>    
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <div class="navigation">
+                    {{ knp_pagination_render(paginas) }}
+                </div>
+            
+        </div>
+        <div class="panel panel-info">
+            <div class="panel-heading">Agregar carreras</div>
+
+            <div class="panel-body">
+                {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
+                {{ form_errors(form)}}
+                <div class="form-group">
+                    {{ form_label(form.descripcion,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } })}}
+                    <div id="anchor" class="col-md-6">
+                        {{ form_widget(form.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }}
+                    </div>
+                </div>
+{#
+                <div id="temas" data-prototype="{% filter escape %}{{ include('AoshidowebBundle:Themes:field-prototype.html.twig', { 'form': form.temas.vars.prototype }) }}{% endfilter %}">
+                    {# iterate over each existing tag and render its only field: Descripcion 
+                    {% for tema in form.temas %}
+                        <div id="temaCont" class="form-group">
+                            {{ form_label(tema.descripcion,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }} 
+                            <div class="col-md-6">
+                                {{ form_widget(tema.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }} 
+                            </div>
+                        </div>
+                    {% endfor %}                    
+                </div>#}
+
+                <div class="form-group">
+                    <div id="anchor" class="col-md-offset-2 col-md-4">
+                        {{ form_widget(form.save,{ 'attr': {'class': 'btn btn-success'} }) }}
+                    </div>
+                    {{ form_row(form._token) }}
+                    {{ form_end(form, {'render_rest': false}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

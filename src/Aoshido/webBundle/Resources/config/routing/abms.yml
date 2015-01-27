@@ -9,3 +9,7 @@ abms_preguntas:
 abms_temas:
     path:     /temas
     defaults: { _controller: AoshidowebBundle:Temas:new }    
+
+abms_carreras:
+    path:     /carreras
+    defaults: { _controller: AoshidowebBundle:Carreras:new }    
