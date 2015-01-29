@@ -5,32 +5,32 @@
     <div class="container col-md-12">
         <div class="panel panel-primary">
             <div class="panel-heading text-right">Preguntas Disponibles: {{ cantidad }}</div>
-            
-                <table class="table table-condensed">
-                  {# <tr class="info">
-                        <th class="col-md-6">Contenido</th>
-                        <th class="col-md-1">&nbsp</th>
-                    </tr>#}
-                    {% for pregunta in paginas %}
-                        <tr>
-                            <td class="col-md-6">{{ pregunta.contenido }}</td>
-                            <td class="col-md-1">
-                                <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                                    <button type="button" class="btn btn-success" aria-label="Left Align" onclick="location.href = '#{# url('preguntas_EDIT',{ 'id': pregunta.id})#}';">
-                                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-                                    </button>    
-                                    <button type="button" class="btn btn-danger" aria-label="Left Align" onclick="location.href = '#{# url('preguntas_DELETE',{ 'id': pregunta.id})#}';">
-                                        <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                                    </button>    
-                                </div>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </table>
-                <div class="col-md-offset-4 navigation">
-                    {{ knp_pagination_render(paginas) }}
-                </div>
-            
+
+            <table class="table table-condensed">
+                {# <tr class="info">
+                      <th class="col-md-6">Contenido</th>
+                      <th class="col-md-1">&nbsp</th>
+                  </tr>#}
+                {% for pregunta in paginas %}
+                    <tr>
+                        <td class="col-md-6">{{ pregunta.contenido }}</td>
+                        <td class="col-md-1">
+                            <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                <button type="button" class="btn btn-success" aria-label="Left Align" onclick="location.href = '#{# url('preguntas_EDIT',{ 'id': pregunta.id})#}';">
+                                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                                </button>    
+                                <button type="button" class="btn btn-danger" aria-label="Left Align" onclick="location.href = '#{# url('preguntas_DELETE',{ 'id': pregunta.id})#}';">
+                                    <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                                </button>    
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <div class="col-md-offset-4 navigation">
+                {{ knp_pagination_render(paginas) }}
+            </div>
+
         </div>
         <div class="panel panel-info">
             <div class="panel-heading">Agregar preguntas</div>
@@ -38,6 +38,7 @@
             <div class="panel-body">
                 {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
                 {{ form_errors(form)}}
+
                 <div class="form-group">
                     {{ form_label(form.contenido,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } })}}
                     <div id="anchor" class="col-md-6">
@@ -45,10 +46,24 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    {{ form_label(form.idcarrera,null,{ 'attr' : { 'class' : 'col-md-2 control-label' } }) }}
+                    <div id="anchor" class="col-md-6">
+                        {{ form_widget(form.idcarrera,{ 'attr' : { 'class' : 'form-control' } }) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.idmateria,null,{ 'attr' : { 'class' : 'col-md-2 control-label' } }) }}
+                    <div class="col-md-6">
+                        {{ form_widget(form.idmateria,{ 'attr' : { 'class' : 'form-control' } }) }}
+                    </div>
+                </div>    
+
                 <div id="temas" data-prototype="{% filter escape %}{{ include('AoshidowebBundle:Themes:field-prototype.html.twig', { 'form': form.temas.vars.prototype }) }}{% endfilter %}">
                     {# iterate over each existing tag and render its only field: Descripcion #}
                     {% for tema in form.temas %}
-                        
+
                     {% endfor %}                    
                 </div>
 
@@ -63,4 +78,32 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %} 
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $("select[id$='idcarrera']").change(function () {
+            var data = {
+                idcarrera: $(this).val()
+            };
+            
+            $.ajax({
+                type: 'post',
+                url: '{{ path("preguntas_addMateria") }}',
+                data: data,
+                success: function (data) {
+                    var $materia_selector = $("select[id$='idmateria']");
+
+                    $materia_selector.html('<option value="">- Seleccione Materia -</option>');
+
+                    for (var i = 0, total = data.length; i < total; i++) {
+                        $materia_selector.append('<option value="' + data[i].idmateria + '">' + data[i].descripcion + ' </option>');
+                    }
+                }
+            });
+        });
+    </script>
+
 {% endblock %}

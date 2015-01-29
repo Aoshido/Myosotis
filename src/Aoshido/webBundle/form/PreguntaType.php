@@ -6,14 +6,29 @@ use Aoshido\webBundle\Form\TemaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+//use Aoshido\webBundle\Form\DataTransformer\MateriaToStringTransformer;
+use Aoshido\webBundle\Form\EventListener\AddMateriaByCarreraFieldSuscriber;
 
 class PreguntaType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
+        /* $entityManager = $options['em'];
+
+
+          $materiatransformer = new MateriaToStringTransformer($entityManager); */
         $builder->add('contenido', 'text', array(
             'label' => 'Pregunta:',
         ));
-
+                        
+        $builder->add('idcarrera', 'entity', array(
+            'class' => 'AoshidowebBundle:Carrera',
+            'mapped' => false,
+            'required' => false,
+            'expanded' => false,
+            'multiple' => false,
+            'property' => 'descripcion',
+        ));
+        
         $builder->add('temas', 'collection', array(
             'type' => new Tematype(),
             'allow_add' => true,
@@ -27,11 +42,19 @@ class PreguntaType extends AbstractType {
                 'class' => 'btn btn-success'
             ),
         ));
+        $builder
+                ->addEventSubscriber(new AddMateriaByCarreraFieldSuscriber());
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'Aoshido\webBundle\Entity\Pregunta',
+                    'data_class' => 'Aoshido\webBundle\Entity\Pregunta',
+                ))
+                ->setRequired(array(
+                    'em',
+                ))
+                ->setAllowedTypes(array(
+                    'em' => 'Doctrine\Common\Persistence\ObjectManager',
         ));
     }
 
