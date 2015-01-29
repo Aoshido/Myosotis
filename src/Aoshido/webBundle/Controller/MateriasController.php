@@ -3,7 +3,7 @@
 namespace Aoshido\webBundle\Controller;
 
 use Aoshido\webBundle\Entity\Materia;
-use Aoshido\webBundle\form\MateriaType;
+use Aoshido\webBundle\Form\MateriaType;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

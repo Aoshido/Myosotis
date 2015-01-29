@@ -3,7 +3,7 @@
 namespace Aoshido\webBundle\Controller;
 
 use Aoshido\webBundle\Entity\Tema;
-use Aoshido\webBundle\form\TemaType;
+use Aoshido\webBundle\Form\TemaType;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

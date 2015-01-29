@@ -1,8 +1,8 @@
 <?php
 
-namespace Aoshido\webBundle\form;
+namespace Aoshido\webBundle\Form;
 
-use Aoshido\webBundle\form\TemaType;
+use Aoshido\webBundle\Form\TemaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;

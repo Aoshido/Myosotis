@@ -3,7 +3,7 @@
 namespace Aoshido\webBundle\Controller;
 
 use Aoshido\webBundle\Entity\Carrera;
-use Aoshido\webBundle\form\CarreraType;
+use Aoshido\webBundle\Form\CarreraType;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
