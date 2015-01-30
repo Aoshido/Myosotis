@@ -10,6 +10,10 @@ preguntas_addMateria:
     path:     /preguntas/addMaterias
     defaults: { _controller: AoshidowebBundle:Preguntas:MateriasByCarrera }
 
+preguntas_addTemas:
+    path:     /preguntas/addTemas
+    defaults: { _controller: AoshidowebBundle:Preguntas:TemasByMateria }
+
 abms_temas:
     path:     /temas
     defaults: { _controller: AoshidowebBundle:Temas:new }    

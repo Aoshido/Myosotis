@@ -8,12 +8,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 //use Aoshido\webBundle\Form\DataTransformer\MateriaToStringTransformer;
 use Aoshido\webBundle\Form\EventListener\AddMateriaByCarreraFieldSuscriber;
+use Aoshido\webBundle\Form\EventListener\AddTemaByMateriaFieldSuscriber;
 
 class PreguntaType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         /* $entityManager = $options['em'];
-
 
           $materiatransformer = new MateriaToStringTransformer($entityManager); */
         $builder->add('contenido', 'text', array(
@@ -44,8 +44,8 @@ class PreguntaType extends AbstractType {
                 'class' => 'btn btn-success'
             ),
         ));
-        $builder
-                ->addEventSubscriber(new AddMateriaByCarreraFieldSuscriber());
+        $builder->addEventSubscriber(new AddMateriaByCarreraFieldSuscriber());
+        $builder->addEventSubscriber(new AddTemaByMateriaFieldSuscriber());
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver) {

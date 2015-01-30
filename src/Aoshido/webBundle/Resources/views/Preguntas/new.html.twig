@@ -37,7 +37,7 @@
 
             <div class="panel-body">
                 {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
-                
+
 
                 <div class="form-group">
                     {{ form_errors(form)}}
@@ -64,12 +64,20 @@
                     </div>
                 </div>    
 
-               {# <div id="temas" data-prototype="{% filter escape %}{{ include('AoshidowebBundle:Themes:field-prototype.html.twig', { 'form': form.temas.vars.prototype }) }}{% endfilter %}">
-                     iterate over each existing tag and render its only field: Descripcion 
-                    {% for tema in form.temas %}
+                <div class="form-group">
+                    {{ form_errors(form.idtema) }}
+                    {{ form_label(form.idtema,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
+                    <div class="col-md-6">
+                        {{ form_widget(form.idtema,{ 'attr' : { 'class' : 'form-control' } }) }}
+                    </div>
+                </div>    
 
-                    {% endfor %}                    
-                </div>#}
+                {# <div id="temas" data-prototype="{% filter escape %}{{ include('AoshidowebBundle:Themes:field-prototype.html.twig', { 'form': form.temas.vars.prototype }) }}{% endfilter %}">
+                      iterate over each existing tag and render its only field: Descripcion 
+                     {% for tema in form.temas %}
+ 
+                     {% endfor %}                    
+                 </div>#}
 
                 <div class="form-group">
                     <div id="anchor" class="col-md-offset-2 col-md-4">
@@ -92,7 +100,7 @@
             var data = {
                 idcarrera: $(this).val()
             };
-            
+
             $.ajax({
                 type: 'post',
                 url: '{{ path("preguntas_addMateria") }}',
@@ -110,4 +118,26 @@
         });
     </script>
 
+    <script type="text/javascript">
+        $("select[id$='idmateria']").change(function () {
+            var data = {
+                idmateria: $(this).val()
+            };
+
+            $.ajax({
+                type: 'post',
+                url: '{{ path("preguntas_addTemas") }}',
+                data: data,
+                success: function (data) {
+                    var tema_selector = $("select[id$='idtema']");
+
+                    tema_selector.html('<option value="">- Seleccione Tema -</option>');
+
+                    for (var i = 0, total = data.length; i < total; i++) {
+                        tema_selector.append('<option value="' + data[i].id + '">' + data[i].descripcion + ' </option>');
+                    }
+                }
+            });
+        });
+    </script>
 {% endblock %}

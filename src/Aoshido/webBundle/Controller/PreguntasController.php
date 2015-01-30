@@ -28,11 +28,11 @@ class PreguntasController extends Controller {
             'em' => $this->getDoctrine()->getManager()));
 
         $form->handleRequest($request);
-      /*  if ($form->isSubmitted()) {
-            $data=$form->getData();
-            print_r($data);
-            die();
-        }*/
+        /*  if ($form->isSubmitted()) {
+          $data=$form->getData();
+          print_r($data);
+          die();
+          } */
         if ($form->isValid()) {
             $pregunta->setActivo(TRUE);
             $pregunta->setVecesVista(0);
@@ -71,6 +71,23 @@ class PreguntasController extends Controller {
         $materias = $qb->getQuery()->getArrayResult();
 
         return new JsonResponse($materias);
+    }
+
+    public function TemasByMateriaAction(Request $request) {
+        $idmateria = $request->request->get('idmateria');
+
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->getRepository("AoshidowebBundle:Tema")->createQueryBuilder('t')
+                ->where('t.activo=true')
+                ->innerJoin('t.materia', 'm')
+                ->andWhere('m.activo=true')
+                ->andWhere('m=:idmateria')
+                ->setParameter('idmateria', $idmateria)
+                ->addOrderBy('m.descripcion', 'ASC');
+
+        $temas = $qb->getQuery()->getArrayResult();
+
+        return new JsonResponse($temas);
     }
 
 }
