@@ -37,9 +37,11 @@
 
             <div class="panel-body">
                 {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
-                {{ form_errors(form)}}
+                
 
                 <div class="form-group">
+                    {{ form_errors(form)}}
+                    {{ form_errors(form.idmateria) }}
                     {{ form_label(form.contenido,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } })}}
                     <div id="anchor" class="col-md-6">
                         {{ form_widget(form.contenido,{ 'attr' : { 'class' : 'form-control' } }) }}
@@ -47,25 +49,27 @@
                 </div>
 
                 <div class="form-group">
-                    {{ form_label(form.idcarrera,null,{ 'attr' : { 'class' : 'col-md-2 control-label' } }) }}
+                    {{ form_label(form.idcarrera,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
+                    {{ form_errors(form.idmateria) }}
                     <div id="anchor" class="col-md-6">
                         {{ form_widget(form.idcarrera,{ 'attr' : { 'class' : 'form-control' } }) }}
                     </div>
                 </div>
 
                 <div class="form-group">
-                    {{ form_label(form.idmateria,null,{ 'attr' : { 'class' : 'col-md-2 control-label' } }) }}
+                    {{ form_errors(form.idmateria) }}
+                    {{ form_label(form.idmateria,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
                     <div class="col-md-6">
                         {{ form_widget(form.idmateria,{ 'attr' : { 'class' : 'form-control' } }) }}
                     </div>
                 </div>    
 
-                <div id="temas" data-prototype="{% filter escape %}{{ include('AoshidowebBundle:Themes:field-prototype.html.twig', { 'form': form.temas.vars.prototype }) }}{% endfilter %}">
-                    {# iterate over each existing tag and render its only field: Descripcion #}
+               {# <div id="temas" data-prototype="{% filter escape %}{{ include('AoshidowebBundle:Themes:field-prototype.html.twig', { 'form': form.temas.vars.prototype }) }}{% endfilter %}">
+                     iterate over each existing tag and render its only field: Descripcion 
                     {% for tema in form.temas %}
 
                     {% endfor %}                    
-                </div>
+                </div>#}
 
                 <div class="form-group">
                     <div id="anchor" class="col-md-offset-2 col-md-4">
@@ -99,7 +103,7 @@
                     $materia_selector.html('<option value="">- Seleccione Materia -</option>');
 
                     for (var i = 0, total = data.length; i < total; i++) {
-                        $materia_selector.append('<option value="' + data[i].idmateria + '">' + data[i].descripcion + ' </option>');
+                        $materia_selector.append('<option value="' + data[i].id + '">' + data[i].descripcion + ' </option>');
                     }
                 }
             });

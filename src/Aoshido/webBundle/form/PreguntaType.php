@@ -22,11 +22,13 @@ class PreguntaType extends AbstractType {
                         
         $builder->add('idcarrera', 'entity', array(
             'class' => 'AoshidowebBundle:Carrera',
+            'label' => 'Carrera:',
             'mapped' => false,
             'required' => false,
             'expanded' => false,
             'multiple' => false,
             'property' => 'descripcion',
+            'empty_value' => '- Seleccione Carrera -',
         ));
         
         $builder->add('temas', 'collection', array(

@@ -28,7 +28,11 @@ class PreguntasController extends Controller {
             'em' => $this->getDoctrine()->getManager()));
 
         $form->handleRequest($request);
-
+      /*  if ($form->isSubmitted()) {
+            $data=$form->getData();
+            print_r($data);
+            die();
+        }*/
         if ($form->isValid()) {
             $pregunta->setActivo(TRUE);
             $pregunta->setVecesVista(0);
@@ -65,7 +69,7 @@ class PreguntasController extends Controller {
                 ->addOrderBy('m.descripcion', 'ASC');
 
         $materias = $qb->getQuery()->getArrayResult();
-        
+
         return new JsonResponse($materias);
     }
 
