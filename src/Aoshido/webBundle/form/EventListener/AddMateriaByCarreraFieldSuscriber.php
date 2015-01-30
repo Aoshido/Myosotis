@@ -10,8 +10,6 @@ use Doctrine\ORM\EntityRepository;
 
 class AddMateriaByCarreraFieldSuscriber implements EventSubscriberInterface {
 
-
-
     public static function getSubscribedEvents() {
         return array(
             FormEvents::PRE_SET_DATA => 'preSetData',
@@ -25,21 +23,18 @@ class AddMateriaByCarreraFieldSuscriber implements EventSubscriberInterface {
             'label' => 'Materia',
             'required' => true,
             'mapped' => false,
-            'empty_value' => '- Seleccione -',
+            'empty_value' => '- Seleccione Materia -',
             'property' => 'descripcion',
             'query_builder' => function (\Doctrine\ORM\EntityRepository $repository) use ($idcarrera) {
-        $qb = $repository->createQueryBuilder('m')
-               ->where('m.activo=true')
-                ->innerJoin('m.carreras', 'c')
-               ->andWhere('c.activo=true')
-               ->andWhere('c=:idcarrera')
-                /*->where('ua.idusuario = :idusuario and ua.activo = true and a.activo = true')*/
-                ->setParameter('idcarrera', $idcarrera)
-                ->addOrderBy('m.descripcion','ASC');
-
-
-        return $qb;
-    }
+                $qb = $repository->createQueryBuilder('m')
+                        ->where('m.activo=true')
+                        ->innerJoin('m.carreras', 'c')
+                        ->andWhere('c.activo=true')
+                        ->andWhere('c=:idcarrera')
+                        ->setParameter('idcarrera', $idcarrera)
+                        ->addOrderBy('m.descripcion', 'ASC');
+                return $qb;
+            }
         );
 
         if ($idcarrera) {
@@ -59,7 +54,7 @@ class AddMateriaByCarreraFieldSuscriber implements EventSubscriberInterface {
 
         $accessor = PropertyAccess::getPropertyAccessor();
 
-       // $idcarrera = $accessor->getValue($data, 'idcarrera');
+        //$idcarrera = $accessor->getValue($data, 'idcarrera');
 
         $this->addMateriaForm($form);
     }
