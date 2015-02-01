@@ -10,10 +10,10 @@
                 {% for pregunta in paginas %}
                     <tr>
                         <td class="col-md-6">
-                            <span class="badge progress-bar-success" data-toggle="tooltip" data-placement="left" title="Veces Vista">
+                            <span class="badge progress-bar-warning" data-toggle="tooltip" data-placement="left" title="Veces Vista">
                                 {{pregunta.vecesVista}}
                             </span>
-                            <span class="badge progress-bar-warning" data-toggle="tooltip" data-placement="top" title="Veces Acertada">
+                            <span class="badge progress-bar-success" data-toggle="tooltip" data-placement="top" title="Veces Acertada">
                                 {{pregunta.vecesAcertada}}
                             </span>
                             {{ pregunta.contenido }}
@@ -26,7 +26,7 @@
                                 <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Editar" onclick="location.href = '#';">
                                     <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                                 </button>    
-                                <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Borrar" onclick="location.href = '{{ url('preguntas_disable',{ 'idPregunta': pregunta.id}) }}';">
+                                <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Eliminar"  onclick=" location.href = '{{ url('preguntas_disable',{ 'idPregunta': pregunta.id}) }}';">
                                     <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                                 </button>    
                             </div>
@@ -95,9 +95,14 @@
     {{ parent() }}
 
     <script type="text/javascript">
+        var options = "singleton=true";
+        $('[data-toggle="confirmation"]').confirmation(options);
+    </script>
+    
+    <script type="text/javascript">
         $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
+            $('[data-toggle="tooltip"]').tooltip();
+        });
     </script>
 
     <script type="text/javascript">
