@@ -16,13 +16,17 @@
                             <span class="badge progress-bar-warning" data-toggle="tooltip" data-placement="top" title="Veces Acertada">
                                 {{pregunta.vecesAcertada}}
                             </span>
-                            {{ pregunta.contenido }}</td>
-                        <td class="col-md-1">
-                            <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                                <button type="button" class="btn btn-success" aria-label="Left Align" onclick="location.href = '#{# url('preguntas_EDIT',{ 'id': pregunta.id})#}';">
+                            {{ pregunta.contenido }}
+                        </td>
+                        <td class="col-md-2">
+                            <div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." >
+                                <button type="button" class="btn btn-info" aria-label="Left Align" data-toggle="tooltip" data-placement="left" title="Responder" onclick="location.href = '#';">
+                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                </button>
+                                <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Editar" onclick="location.href = '#';">
                                     <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                                 </button>    
-                                <button type="button" class="btn btn-danger" aria-label="Left Align" onclick="location.href = '#{# url('preguntas_DELETE',{ 'id': pregunta.id})#}';">
+                                <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Borrar" onclick="location.href = '{{ url('preguntas_disable',{ 'idPregunta': pregunta.id}) }}';">
                                     <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                                 </button>    
                             </div>
@@ -76,7 +80,7 @@
 
                 <div class="form-group">
                     <div id="anchor" class="col-md-offset-2 col-md-4">
-                        {{ form_widget(form.save,{ 'attr': {'class': 'btn btn-success'} }) }}
+                        {{ form_widget(form.save,{ 'attr': {'class': 'btn btn-success' }  } ) }}
                     </div>
                     {{ form_row(form._token) }}
                     {{ form_end(form, {'render_rest': false}) }}
@@ -95,7 +99,7 @@
             $('[data-toggle="tooltip"]').tooltip()
         })
     </script>
-        
+
     <script type="text/javascript">
         $("select[id$='idcarrera']").change(function () {
             var data = {

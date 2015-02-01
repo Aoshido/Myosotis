@@ -13,6 +13,10 @@ preguntas_addMateria:
 preguntas_addTemas:
     path:     /preguntas/addTemas
     defaults: { _controller: AoshidowebBundle:Preguntas:TemasByMateria }
+    
+preguntas_disable:
+    path:     /preguntas/disable/{idPregunta}
+    defaults: { _controller: AoshidowebBundle:Preguntas:disable }
 
 abms_temas:
     path:     /temas

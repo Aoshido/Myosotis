@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class PreguntasController extends Controller {
 
     public function newAction(Request $request) {
-        //Display a list of all Preguntas
         $preguntas = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Pregunta')
                 ->findBy(array('activo' => TRUE));
@@ -28,11 +27,6 @@ class PreguntasController extends Controller {
             'em' => $this->getDoctrine()->getManager()));
 
         $form->handleRequest($request);
-        /*  if ($form->isSubmitted()) {
-          $data=$form->getData();
-          print_r($data);
-          die();
-          } */
         if ($form->isValid()) {
             $pregunta->setActivo(TRUE);
             $pregunta->setVecesVista(0);
@@ -54,6 +48,21 @@ class PreguntasController extends Controller {
                     'paginas' => $pagination,
                     'cantidad' => $cantidad,
         ));
+    }
+
+    public function disableAction($idPregunta) {
+
+        $pregunta = $this->getDoctrine()
+                ->getRepository('AoshidowebBundle:Pregunta')
+                ->find($idPregunta);
+        
+        $pregunta->setActivo(false);
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($pregunta);
+        $em->flush();
+        
+        return $this->redirect($this->generateUrl('abms_preguntas'));
     }
 
     public function MateriasByCarreraAction(Request $request) {
