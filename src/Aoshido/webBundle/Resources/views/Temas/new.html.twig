@@ -1,33 +1,42 @@
 {% extends 'AoshidowebBundle:Abms:index.html.twig' %}
 
 {% block abms_contenido %} 
-    
+
     <div class="container col-md-12">
         <div class="panel panel-primary">
             <div class="panel-heading text-right">Preguntas Disponibles: {{ cantidad }}</div>
-            
-                <table class="table table-condensed">
 
-                    {% for tema in paginas %}
-                        <tr>
-                            <td class="col-md-6">{{ tema.descripcion }}</td>
-                            <td class="col-md-1">
-                                <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                                    <button type="button" class="btn btn-success" aria-label="Left Align" onclick="location.href = '#{# url('preguntas_EDIT',{ 'id': pregunta.id})#}';">
-                                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-                                    </button>    
-                                    <button type="button" class="btn btn-danger" aria-label="Left Align" onclick="location.href = '#{# url('preguntas_DELETE',{ 'id': pregunta.id})#}';">
-                                        <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                                    </button>    
-                                </div>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </table>
-                <div class="navigation">
-                    {{ knp_pagination_render(paginas) }}
-                </div>
-            
+            <table class="table table-condensed">
+
+                {% for tema in paginas %}
+                    <tr>
+                        <td class="col-md-6">
+                            <span class="badge progress-bar-info" data-toggle="tooltip" data-placement="left" title="Cantidad de Preguntas">
+                                {% if tema.id in preguntasTemas|keys %}
+                                    {{preguntasTemas[tema.id]}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </span>
+                            {{ tema.descripcion }}
+                        </td>
+                        <td class="col-md-1">
+                            <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                <button type="button" class="btn btn-success" aria-label="Left Align" onclick="location.href = '#{# url('preguntas_EDIT',{ 'id': pregunta.id})#}';">
+                                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                                </button>    
+                                <button type="button" class="btn btn-danger" aria-label="Left Align" onclick="location.href = '#{# url('preguntas_DELETE',{ 'id': pregunta.id})#}';">
+                                    <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                                </button>    
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <div class="navigation">
+                {{ knp_pagination_render(paginas) }}
+            </div>
+
         </div>
         <div class="panel panel-info">
             <div class="panel-heading">Agregar Temas</div>
@@ -53,4 +62,13 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %} 
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 {% endblock %}

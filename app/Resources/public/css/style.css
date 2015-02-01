@@ -1,3 +1,8 @@
+/* stackoverflow.com/questions/18730116/twitter-bootstrap-3-0-how-do-i-badge-badge-important-now */
+.label-as-badge {
+    border-radius: 0.5em;
+}
+
 .green {
     color: greenyellow;
 }

@@ -10,7 +10,17 @@
 
                 {% for materia in paginas %}
                     <tr>
-                        <td class="col-md-6">{{ materia.descripcion }}</td>
+                        <td class="col-md-6">
+                            <span class="badge progress-bar-info" data-toggle="tooltip" data-placement="left" title="Cantidad de Temas">
+                                {% if materia.id in temasMaterias|keys %}
+                                    {{temasMaterias[materia.id]}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </span>
+
+                            {{ materia.descripcion }}
+                        </td>
                         <td class="col-md-1">{{ materia.aniocarrera }}</td>
                         <td class="col-md-1">
                             <div class="btn-group btn-group-sm" role="group" aria-label="...">
@@ -71,4 +81,13 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %} 
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 {% endblock %}

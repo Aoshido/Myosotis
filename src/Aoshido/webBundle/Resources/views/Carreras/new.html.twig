@@ -10,7 +10,17 @@
 
                 {% for carrera in paginas %}
                     <tr>
-                        <td class="col-md-6">{{ carrera.descripcion }}</td>
+                        <td class="col-md-6"> 
+                            <span class="badge progress-bar-info" data-toggle="tooltip" data-placement="left" title="Cantidad de Materias">
+                                {% if carrera.id in materiasxcarrera|keys %}
+                                    {{materiasxcarrera[carrera.id]}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </span>
+                            &nbsp;{{ carrera.descripcion }}
+                        </td>
+
                         <td class="col-md-1">
                             <div class="btn-group btn-group-sm" role="group" aria-label="...">
                                 <button type="button" class="btn btn-success" aria-label="Left Align" onclick="location.href = '#{# url('preguntas_EDIT',{ 'id': pregunta.id})#}';">
@@ -59,4 +69,94 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %} 
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+    <script>
+        var $collectionHolder;
+
+        // setup an "add a tag" link
+        var $addTagLink = $('<button type="button" class="btn btn-success">\n\
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>\n\
+                                Materia\n\
+                            </button>');
+
+        var $newLinkLi = $('<div class="col-md-offset-8"></div>').append($addTagLink);
+
+        jQuery(document).ready(function () {
+            // Get the ul that holds the collection of tags
+            $collectionHolder = $('div#temas');
+
+            // Get the ul that holds the collection of tags
+            $addAnchor = $('div#anchor');
+
+            // add a delete link to all of the existing tag form li elements
+            $collectionHolder.find('div#temaCont').each(function () {
+                addTagFormDeleteLink($(this));
+            });
+
+            // add the "add a tag" anchor and li to the tags ul
+            $collectionHolder.append($newLinkLi);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            $addTagLink.on('click', function (e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new tag form (see next code block)
+                addTagForm($collectionHolder, $newLinkLi);
+            });
+        });
+
+        function addTagFormDeleteLink($tagFormLi) {
+            var $removeFormA = $('<div class="col-sm-1">\n\
+                                    <button type="button" class="btn btn-danger ">\n\
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>\n\
+                                    </button> \n\
+                                </div>');
+
+            $tagFormLi.find('div#temaCont').append($removeFormA);
+
+            $removeFormA.on('click', function (e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // remove the li for the tag form
+                $tagFormLi.remove();
+            });
+        }
+
+        function addTagForm($collectionHolder, $newLinkLi) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var newForm = prototype.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a tag" link li
+            var $newFormLi = $('<div></div>').append(newForm);
+            $newLinkLi.before($newFormLi);
+
+            // add a delete link to the new form
+            addTagFormDeleteLink($newFormLi);
+        }
+    </script>
+
 {% endblock %}
