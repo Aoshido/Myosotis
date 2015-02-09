@@ -8,8 +8,8 @@
 
             <table class="table table-condensed">
                 {% for pregunta in paginas %}
-                    <tr>
-                        <td class="col-md-6">
+                    <tr class="row">
+                        <td class="col-sm-9">
                             <span class="badge progress-bar-warning" data-toggle="tooltip" data-placement="left" title="Veces Vista">
                                 {{pregunta.vecesVista}}
                             </span>
@@ -18,18 +18,19 @@
                             </span>
                             {{ pregunta.contenido }}
                         </td>
-                        <td class="col-md-2">
+                        <td class="col-sm-3">
                             <div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." >
                                 <button type="button" class="btn btn-info" aria-label="Left Align" data-toggle="tooltip" data-placement="left" title="Responder" onclick="location.href = '#';">
                                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                 </button>
-                                <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Editar" onclick="location.href = '#';">
+                                <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Editar" onclick="location.href = '#';">
                                     <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                                 </button>    
                                 <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Eliminar"  onclick=" location.href = '{{ url('preguntas_disable',{ 'idPregunta': pregunta.id}) }}';">
                                     <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                                 </button>    
                             </div>
+
                         </td>
                     </tr>
                 {% endfor %}
@@ -95,10 +96,15 @@
     {{ parent() }}
 
     <script type="text/javascript">
-        var options = "singleton=true";
-        $('[data-toggle="confirmation"]').confirmation(options);
+        $(".btn-danger").popConfirm({
+            title: "Borrar Pregunta",
+            content: "¿Seguro que desea borrar la pregunta?",
+            placement: "right",
+            yesBtn: "Si",
+            noBtn: "No"
+        });
     </script>
-    
+
     <script type="text/javascript">
         $(function () {
             $('[data-toggle="tooltip"]').tooltip();
