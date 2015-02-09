@@ -29,3 +29,7 @@ abms_carreras:
 abms_materias:
     path:     /materias
     defaults: { _controller: AoshidowebBundle:Materias:new }    
+    
+respuestas_new:
+    path:     /respuestas/{idPregunta}
+    defaults: { _controller: AoshidowebBundle:Respuestas:new }    

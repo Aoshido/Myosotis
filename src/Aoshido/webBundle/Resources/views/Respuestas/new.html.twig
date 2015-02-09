@@ -1,32 +1,25 @@
 {% extends 'AoshidowebBundle:Abms:index.html.twig' %}
 
 {% block abms_contenido %} 
-    {% form_theme form 'AoshidowebBundle:Themes:field-prototype.html.twig' %}
     <div class="container col-md-12">
         <div class="panel panel-primary">
-            <div class="panel-heading text-right">Preguntas Disponibles: {{ cantidad }}</div>
+            <div class="panel-heading text-right">Respuestas Disponibles: {{ cantidad }}</div>
 
             <table class="table table-condensed">
-                {% for pregunta in paginas %}
+                {% for respuesta in paginas %}
                     <tr class="row">
                         <td class="col-sm-9">
-                            <span class="badge progress-bar-warning" data-toggle="tooltip" data-placement="left" title="Veces Vista">
-                                {{pregunta.vecesVista}}
-                            </span>
-                            <span class="badge progress-bar-success" data-toggle="tooltip" data-placement="top" title="Veces Acertada">
-                                {{pregunta.vecesAcertada}}
-                            </span>
-                            {{ pregunta.contenido }}
+                            {{ respuesta.contenido }}
                         </td>
                         <td class="col-sm-3">
                             <div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." >
-                                <button type="button" class="btn btn-info" aria-label="Left Align" data-toggle="tooltip" data-placement="left" title="Responder" onclick="location.href = '{{ url('respuestas_new',{ 'idPregunta': pregunta.id}) }}';">
+                                <button type="button" class="btn btn-info" aria-label="Left Align" data-toggle="tooltip" data-placement="left" title="Responder" onclick="location.href = '#';">
                                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                 </button>
                                 <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Editar" onclick="location.href = '#';">
                                     <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                                 </button>    
-                                <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Eliminar"  onclick=" location.href = '{{ url('preguntas_disable',{ 'idPregunta': pregunta.id}) }}';">
+                                <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Eliminar"  onclick=" location.href = '#';">
                                     <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                                 </button>    
                             </div>
@@ -41,8 +34,7 @@
 
         </div>
         <div class="panel panel-primary">
-            <div class="panel-heading">Agregar preguntas</div>
-
+            <div class="panel-heading">Agregar Respuesta</div>
             <div class="panel-body">
                 {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
 
@@ -53,31 +45,12 @@
                     <div id="anchor" class="col-md-6">
                         {{ form_widget(form.contenido,{ 'attr' : { 'class' : 'form-control' } }) }}
                     </div>
-                </div>
-
-                <div class="form-group">
-                    {{ form_label(form.idcarrera,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
-                    {{ form_errors(form.idmateria) }}
-                    <div id="anchor" class="col-md-6">
-                        {{ form_widget(form.idcarrera,{ 'attr' : { 'class' : 'form-control' } }) }}
+                    
+                    <div class="col-md-2">
+                        {{ form_widget(form.correcta) }}
                     </div>
                 </div>
-
-                <div class="form-group">
-                    {{ form_errors(form.idmateria) }}
-                    {{ form_label(form.idmateria,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
-                    <div class="col-md-6">
-                        {{ form_widget(form.idmateria,{ 'attr' : { 'class' : 'form-control' } }) }}
-                    </div>
-                </div>    
-
-                <div class="form-group">
-                    {{ form_errors(form.idtema) }}
-                    {{ form_label(form.idtema,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
-                    <div class="col-md-6">
-                        {{ form_widget(form.idtema,{ 'attr' : { 'class' : 'form-control' } }) }}
-                    </div>
-                </div>    
+                    
 
                 <div class="form-group">
                     <div id="anchor" class="col-md-offset-2 col-md-4">
@@ -89,7 +62,8 @@
             </div>
         </div>
     </div>
-</div>
+
+
 {% endblock %}
 
 {% block javascripts %} 
