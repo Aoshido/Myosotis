@@ -11,3 +11,5 @@
 /bin/
 /composer.phar
 /web/images
+/web/js
+/web/css
