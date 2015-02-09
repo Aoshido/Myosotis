@@ -45,16 +45,16 @@ class RespuestasController extends Controller {
         ));
     }
 
-    public function disableAction($idPregunta) {
+    public function disableAction($idRespuesta) {
 
-        $pregunta = $this->getDoctrine()
-                ->getRepository('AoshidowebBundle:Pregunta')
-                ->find($idPregunta);
+        $respuesta = $this->getDoctrine()
+                ->getRepository('AoshidowebBundle:Respuesta')
+                ->find($idRespuesta);
         
-        $pregunta->setActivo(false);
+        $respuesta->setActivo(false);
         
         $em = $this->getDoctrine()->getManager();
-        $em->persist($pregunta);
+        $em->persist($respuesta);
         $em->flush();
         
         return $this->redirect($this->generateUrl('abms_preguntas'));

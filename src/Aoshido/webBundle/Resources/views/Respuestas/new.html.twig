@@ -19,7 +19,7 @@
                                 <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Editar" onclick="location.href = '#';">
                                     <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                                 </button>    
-                                <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Eliminar"  onclick=" location.href = '#';">
+                                <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Eliminar"  onclick=" location.href = '{{ url('respuestas_disable',{ 'idRespuesta': respuesta.id}) }}';">
                                     <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                                 </button>    
                             </div>
@@ -72,7 +72,7 @@
     <script type="text/javascript">
         $(".btn-danger").popConfirm({
             title: "Borrar Pregunta",
-            content: "¿Seguro que desea borrar la pregunta?",
+            content: "¿Seguro que desea borrar la Respuesta?",
             placement: "right",
             yesBtn: "Si",
             noBtn: "No"

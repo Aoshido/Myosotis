@@ -33,3 +33,7 @@ abms_materias:
 respuestas_new:
     path:     /respuestas/{idPregunta}
     defaults: { _controller: AoshidowebBundle:Respuestas:new }    
+    
+respuestas_disable:
+    path:     /respuestas/disable/{idRespuesta}
+    defaults: { _controller: AoshidowebBundle:Respuestas:disable }    
