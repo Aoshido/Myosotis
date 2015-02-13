@@ -62,7 +62,9 @@ class AddTemaByMateriaFieldSuscriber implements EventSubscriberInterface {
     public function preSubmit(FormEvent $event) {
         $data = $event->getData();
         $form = $event->getForm();
-
+        
+        print_r($data);
+        die();
         $idmateria = array_key_exists('idmateria', $data) ? $data['idmateria'] : null;
         $this->addTemaForm($form, $idmateria);
     }

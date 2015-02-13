@@ -50,18 +50,56 @@ class PreguntasController extends Controller {
         ));
     }
 
-    public function disableAction($idPregunta) {
+    public function editAction(Request $request,$idPregunta) {
+        $preguntas = $this->getDoctrine()
+                ->getRepository('AoshidowebBundle:Pregunta')
+                ->findBy(array('activo' => TRUE));
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($preguntas, $this->getRequest()->query->get('page', 1), 10);
+        $pagination->setPageRange(6);
+
+        $cantidad = count($preguntas);
 
         $pregunta = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Pregunta')
                 ->find($idPregunta);
         
-        $pregunta->setActivo(false);
+        $form = $this->createForm(new PreguntaType(), $pregunta, array(
+            'em' => $this->getDoctrine()->getManager()));
+
+        $form['temas'] = $pregunta->getTemas();
+        //$form['materia'] = $form['temas'][0]->getMateria();
         
+        $form->handleRequest($request);
+        
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($pregunta);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('abms_preguntas'));
+        }
+
+        return $this->render('AoshidowebBundle:Preguntas:edit.html.twig', array(
+                    'form' => $form->createView(),
+                    'paginas' => $pagination,
+                    'cantidad' => $cantidad,
+        ));
+    }
+
+    public function disableAction($idPregunta) {
+
+        $pregunta = $this->getDoctrine()
+                ->getRepository('AoshidowebBundle:Pregunta')
+                ->find($idPregunta);
+
+        $pregunta->setActivo(false);
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($pregunta);
         $em->flush();
-        
+
         return $this->redirect($this->generateUrl('abms_preguntas'));
     }
 

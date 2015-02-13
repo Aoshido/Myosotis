@@ -18,6 +18,10 @@ preguntas_disable:
     path:     /preguntas/disable/{idPregunta}
     defaults: { _controller: AoshidowebBundle:Preguntas:disable }
 
+preguntas_edit:
+    path:     /preguntas/edit/{idPregunta}
+    defaults: { _controller: AoshidowebBundle:Preguntas:edit }
+
 abms_temas:
     path:     /temas
     defaults: { _controller: AoshidowebBundle:Temas:new }    
