@@ -70,11 +70,9 @@ class AddCarreraFieldSuscriber implements EventSubscriberInterface {
     }
 
     public function preSubmit(FormEvent $event) {
-        $data = $event->getData();
         $form = $event->getForm();
-
-        $carrera = array_key_exists('carrera', $data) ? $data['carrera'] : null;
-        $this->addCarreraForm($form, $carrera);
+ 
+        $this->addCarreraForm($form);
     }
 
 }

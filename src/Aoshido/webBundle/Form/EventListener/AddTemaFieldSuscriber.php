@@ -23,7 +23,7 @@ class AddTemaFieldSuscriber implements EventSubscriberInterface {
         );
     }
 
-    private function addTemaForm($form, $idmateria = null) {
+    private function addTemaForm($form, $idmateria = null,$tema_seleccionado = null) {
         $formOptions = array(
             'class'         => 'AoshidowebBundle:Tema',
             'empty_value'   => '- Seleccione Tema -',
@@ -32,6 +32,7 @@ class AddTemaFieldSuscriber implements EventSubscriberInterface {
             'attr'          => array(
                 'class' => 'tema_selector',
             ),
+            'data' => $tema_seleccionado,
             'property' => 'descripcion',
             'query_builder' => function (EntityRepository $repository) use ($idmateria) {
                          $qb = $repository->createQueryBuilder('t')
@@ -65,15 +66,24 @@ class AddTemaFieldSuscriber implements EventSubscriberInterface {
         $tema = $temas[0];
         $materia_id = ($tema) ? $tema->getMateria()->getId() : null;
         
-        $this->addTemaForm($form, $materia_id);
+        $this->addTemaForm($form, $materia_id,$tema);
     }
 
     public function preSubmit(FormEvent $event) {
         $data = $event->getData();
         $form = $event->getForm();
 
-        $idmateria = array_key_exists('temas', $data) ? $data['temas'] : null;
-        $this->addTemaForm($form, $idmateria);
+        $idmateria = array_key_exists('materia', $data) ? $data['materia'] : null;
+        
+        $tema = $form->get('temas');
+        //print_r ($idmateria);
+        //print_r($tema->getViewData());
+        //die();
+        //$accessor    = PropertyAccess::createPropertyAccessor();
+        //$tema        = $accessor->getValue($data, $this->propertyPathToTema);
+        //$tema = $temas[0];
+        
+        $this->addTemaForm($form, $idmateria,$tema);
     }
 
 }

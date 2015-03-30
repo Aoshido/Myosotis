@@ -36,7 +36,6 @@ class PreguntasController extends Controller {
             $temas->setActivo(TRUE);
             $pregunta->addTema($temas);
             
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($pregunta);
             $em->flush();
