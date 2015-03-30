@@ -7,7 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 //use Aoshido\webBundle\Form\DataTransformer\MateriaToStringTransformer;
-use Aoshido\webBundle\Form\EventListener\AddMateriaByCarreraFieldSuscriber;
+use Aoshido\webBundle\Form\EventListener\AddMateriaFieldSuscriber;
 use Aoshido\webBundle\Form\EventListener\AddTemaByMateriaFieldSuscriber;
 
 
@@ -21,7 +21,7 @@ class PreguntaType extends AbstractType {
         $propertyPathToTema = 'temas';
 
         $builder->addEventSubscriber(new AddTemaFieldSuscriber($propertyPathToTema));
-        //$builder->addEventSubscriber(new AddMateriaByCarreraFieldSuscriber($propertyPathToTema));
+        $builder->addEventSubscriber(new AddMateriaFieldSuscriber($propertyPathToTema));
         //$builder->addEventSubscriber(new AddTemaByMateriaFieldSuscriber($propertyPathToTema));
 
         $builder->add('contenido', 'text', array(

@@ -62,15 +62,15 @@
                         {{ form_widget(form.idcarrera,{ 'attr' : { 'class' : 'form-control' } }) }}
                     </div>
                 </div>
-
+#}
                 <div class="form-group">
-                    {{ form_errors(form.idmateria) }}
-                    {{ form_label(form.idmateria,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
+                    {{ form_errors(form.materia) }}
+                    {{ form_label(form.materia,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
                     <div class="col-md-6">
-                        {{ form_widget(form.idmateria,{ 'attr' : { 'class' : 'form-control' } }) }}
+                        {{ form_widget(form.materia,{ 'attr' : { 'class' : 'form-control' } }) }}
                     </div>
                 </div>    
-#}
+
                 <div class="form-group">
                     {{ form_errors(form.temas) }}
                     {{ form_label(form.temas,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
