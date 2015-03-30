@@ -84,7 +84,7 @@ class AddMateriaFieldSuscriber implements EventSubscriberInterface {
 
         $idcarrera = array_key_exists('carrera', $data) ? $data['carrera'] : null;
 
-        $this->addProvinceForm($form, $idcarrera);
+        $this->addMateriaForm($form, $idcarrera);
     }
 
 }

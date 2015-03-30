@@ -56,28 +56,28 @@
                 </div>
 
                 <div class="form-group">
-                    {{ form_label(form.idcarrera,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
-                    {{ form_errors(form.idmateria) }}
+                    {{ form_label(form.carrera,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
+                    {{ form_errors(form.carrera) }}
                     <div id="anchor" class="col-md-6">
-                        {{ form_widget(form.idcarrera,{ 'attr' : { 'class' : 'form-control' } }) }}
+                        {{ form_widget(form.carrera,{ 'attr' : { 'class' : 'form-control' } }) }}
                     </div>
                 </div>
 
                 <div class="form-group">
-                    {{ form_errors(form.idmateria) }}
-                    {{ form_label(form.idmateria,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
+                    {{ form_errors(form.materia) }}
+                    {{ form_label(form.materia,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
                     <div class="col-md-6">
-                        {{ form_widget(form.idmateria,{ 'attr' : { 'class' : 'form-control' } }) }}
+                        {{ form_widget(form.materia,{ 'attr' : { 'class' : 'form-control' } }) }}
                     </div>
                 </div>    
 
                 <div class="form-group">
-                    {{ form_errors(form.idtema) }}
-                    {{ form_label(form.idtema,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
+                    {{ form_errors(form.temas) }}
+                    {{ form_label(form.temas,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
                     <div class="col-md-6">
-                        {{ form_widget(form.idtema,{ 'attr' : { 'class' : 'form-control' } }) }}
+                        {{ form_widget(form.temas,{ 'attr' : { 'class' : 'form-control' } }) }}
                     </div>
-                </div>    
+                </div> 
 
                 <div class="form-group">
                     <div id="anchor" class="col-md-offset-2 col-md-4">
@@ -112,7 +112,7 @@
     </script>
 
     <script type="text/javascript">
-        $("select[id$='idcarrera']").change(function () {
+        $("select[id$='carrera']").change(function () {
             var data = {
                 idcarrera: $(this).val()
             };
@@ -122,7 +122,7 @@
                 url: '{{ path("preguntas_addMateria") }}',
                 data: data,
                 success: function (data) {
-                    var $materia_selector = $("select[id$='idmateria']");
+                    var $materia_selector = $("select[id$='materia']");
 
                     $materia_selector.html('<option value="">- Seleccione Materia -</option>');
 
@@ -135,7 +135,7 @@
     </script>
 
     <script type="text/javascript">
-        $("select[id$='idmateria']").change(function () {
+        $("select[id$='materia']").change(function () {
             var data = {
                 idmateria: $(this).val()
             };
@@ -145,7 +145,7 @@
                 url: '{{ path("preguntas_addTemas") }}',
                 data: data,
                 success: function (data) {
-                    var tema_selector = $("select[id$='idtema']");
+                    var tema_selector = $("select[id$='temas']");
 
                     tema_selector.html('<option value="">- Seleccione Tema -</option>');
 

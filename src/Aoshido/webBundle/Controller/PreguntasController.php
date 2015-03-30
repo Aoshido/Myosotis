@@ -64,11 +64,7 @@ class PreguntasController extends Controller {
                 ->getRepository('AoshidowebBundle:Pregunta')
                 ->find($idPregunta);
         
-        $form = $this->createForm(new PreguntaType(), $pregunta, array(
-            'em' => $this->getDoctrine()->getManager()));
-
-        $form['temas'] = $pregunta->getTemas();
-        //$form['materia'] = $form['temas'][0]->getMateria();
+        $form = $this->createForm(new PreguntaType(), $pregunta);
         
         $form->handleRequest($request);
         
