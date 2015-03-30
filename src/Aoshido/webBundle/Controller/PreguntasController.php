@@ -30,10 +30,12 @@ class PreguntasController extends Controller {
             $pregunta->setActivo(TRUE);
             $pregunta->setVecesVista(0);
             $pregunta->setVecesAcertada(0);
-
-            foreach ($pregunta->getTemas() as $tema) {
-                $tema->setActivo(TRUE);
-            }
+            
+            $temas = $form->get('temas')->getData();
+            /*foreach ($temas as $tema) {*/
+            $temas->setActivo(TRUE);
+            $pregunta->addTema($temas);
+            
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($pregunta);
