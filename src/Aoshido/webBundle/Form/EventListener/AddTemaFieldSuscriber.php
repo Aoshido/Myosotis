@@ -28,7 +28,7 @@ class AddTemaFieldSuscriber implements EventSubscriberInterface {
             'class'         => 'AoshidowebBundle:Tema',
             'empty_value'   => '- Seleccione Tema -',
             'label'         => 'Tema:',
-            'mapped'        => false,
+            //'mapped'        => false,
             'attr'          => array(
                 'class' => 'tema_selector',
             ),
@@ -57,9 +57,13 @@ class AddTemaFieldSuscriber implements EventSubscriberInterface {
 
         $accessor    = PropertyAccess::createPropertyAccessor();
 
-        $tema        = $accessor->getValue($data, $this->propertyPathToTema);
+        $temas        = $accessor->getValue($data, $this->propertyPathToTema);
+        
+        //Elijo el primer tema de todos los que puede tener ya que todos 
+        //pertenecen a la misma materia
+        $tema = $temas[0];
         $materia_id = ($tema) ? $tema->getMateria()->getId() : null;
- 
+        
         $this->addTemaForm($form, $materia_id);
     }
 

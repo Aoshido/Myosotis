@@ -55,7 +55,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                {#<div class="form-group">
                     {{ form_label(form.idcarrera,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
                     {{ form_errors(form.idmateria) }}
                     <div id="anchor" class="col-md-6">
@@ -70,12 +70,12 @@
                         {{ form_widget(form.idmateria,{ 'attr' : { 'class' : 'form-control' } }) }}
                     </div>
                 </div>    
-
+#}
                 <div class="form-group">
-                    {{ form_errors(form.idtema) }}
-                    {{ form_label(form.idtema,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
+                    {{ form_errors(form.temas) }}
+                    {{ form_label(form.temas,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
                     <div class="col-md-6">
-                        {{ form_widget(form.idtema,{ 'attr' : { 'class' : 'form-control' } }) }}
+                        {{ form_widget(form.temas,{ 'attr' : { 'class' : 'form-control' } }) }}
                     </div>
                 </div>    
 

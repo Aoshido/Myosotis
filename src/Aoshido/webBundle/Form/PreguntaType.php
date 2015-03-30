@@ -18,9 +18,9 @@ use Aoshido\webBundle\Form\EventListener\AddTemaFieldSuscriber;
 class PreguntaType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $propertyPathToTema = 'tema';
+        $propertyPathToTema = 'temas';
 
-       // $builder->addEventSubscriber(new AddTemaFieldSuscriber($propertyPathToTema));
+        $builder->addEventSubscriber(new AddTemaFieldSuscriber($propertyPathToTema));
         //$builder->addEventSubscriber(new AddMateriaByCarreraFieldSuscriber($propertyPathToTema));
         //$builder->addEventSubscriber(new AddTemaByMateriaFieldSuscriber($propertyPathToTema));
 
