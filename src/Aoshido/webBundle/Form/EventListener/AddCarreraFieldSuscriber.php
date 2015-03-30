@@ -8,7 +8,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Doctrine\ORM\EntityRepository;
 
-class AddMateriaFieldSuscriber implements EventSubscriberInterface {
+class AddCarreraFieldSuscriber implements EventSubscriberInterface {
 
     private $propertyPathToTema;
 
@@ -23,32 +23,24 @@ class AddMateriaFieldSuscriber implements EventSubscriberInterface {
         );
     }
 
-    private function addMateriaForm($form, $idcarrera, $materia = null) {
+    private function addCarreraForm($form, $idcarrera = null) {
         $formOptions = array(
-            'class'         => 'AoshidowebBundle:Materia',
-            'empty_value'   => '- Seleccione Materia -',
-            'label'         => 'Materia:',
-            'mapped'        => false,
-            'attr'          => array(
-                'class' => 'materia_selector',
+            'class' => 'AoshidowebBundle:Carrera',
+            'label' => 'Carrera:',
+            'empty_value' => '- Seleccione Carrera -',
+            'mapped' => false,
+            'attr' => array(
+                'class' => 'country_selector',
             ),
-            'query_builder' => function (\Doctrine\ORM\EntityRepository $repository) use ($idcarrera) {
-        $qb = $repository->createQueryBuilder('m')
-                ->where('m.activo=true')
-                ->innerJoin('m.carreras', 'c')
-                ->andWhere('c.activo=true')
-                ->andWhere('c=:idcarrera')
-                ->setParameter('idcarrera', $idcarrera)
-                ->addOrderBy('m.descripcion', 'ASC');
-        return $qb;
-    }
+            'required' => true,
+            'property' => 'descripcion',
         );
 
-        if ($materia) {
-            $formOptions['data'] = $materia;
+        if ($idcarrera) {
+            $formOptions['data'] = $idcarrera;
         }
 
-        $form->add('materia', 'entity', $formOptions);
+        $form->add('carrera', 'entity', $formOptions);
     }
 
     public function preSetData(FormEvent $event) {
@@ -69,22 +61,20 @@ class AddMateriaFieldSuscriber implements EventSubscriberInterface {
 
         //Una materia puede pertenecer a varias carreras, elijo una al azar
         if ($materia == null) {
-            $idcarrera = NULL;
+            $carrera = NULL;
         } else {
             $carreras = $materia->getCarreras();
-            $idcarrera = $carreras[0]->getId();
+            $carrera = $carreras[0];
         }
-        
-        $this->addMateriaForm($form, $idcarrera, $materia);
+        $this->addCarreraForm($form, $carrera);
     }
 
     public function preSubmit(FormEvent $event) {
         $data = $event->getData();
         $form = $event->getForm();
 
-        $idcarrera = array_key_exists('carrera', $data) ? $data['carrera'] : null;
-
-        $this->addProvinceForm($form, $idcarrera);
+        $carrera = array_key_exists('carrera', $data) ? $data['carrera'] : null;
+        $this->addMateriaForm($form, $carrera);
     }
 
 }
