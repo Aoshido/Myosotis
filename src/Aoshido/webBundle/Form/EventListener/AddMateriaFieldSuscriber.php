@@ -32,6 +32,7 @@ class AddMateriaFieldSuscriber implements EventSubscriberInterface {
             'attr'          => array(
                 'class' => 'materia_selector',
             ),
+            'property' => 'descripcion',
             'query_builder' => function (\Doctrine\ORM\EntityRepository $repository) use ($idcarrera) {
         $qb = $repository->createQueryBuilder('m')
                 ->where('m.activo=true')
@@ -82,7 +83,7 @@ class AddMateriaFieldSuscriber implements EventSubscriberInterface {
         $data = $event->getData();
         $form = $event->getForm();
 
-        $idcarrera = array_key_exists('carrera', $data) ? $data['carrera'] : null;
+        $idcarrera = array_key_exists('materia', $data) ? $data['materia'] : null;
 
         $this->addMateriaForm($form, $idcarrera);
     }

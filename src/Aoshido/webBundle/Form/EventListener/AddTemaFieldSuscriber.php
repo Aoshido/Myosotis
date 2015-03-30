@@ -32,6 +32,7 @@ class AddTemaFieldSuscriber implements EventSubscriberInterface {
             'attr'          => array(
                 'class' => 'tema_selector',
             ),
+            'property' => 'descripcion',
             'query_builder' => function (EntityRepository $repository) use ($idmateria) {
                          $qb = $repository->createQueryBuilder('t')
                         ->where('t.activo=true')
@@ -71,7 +72,7 @@ class AddTemaFieldSuscriber implements EventSubscriberInterface {
         $data = $event->getData();
         $form = $event->getForm();
 
-        $idmateria = array_key_exists('materia', $data) ? $data['materia'] : null;
+        $idmateria = array_key_exists('temas', $data) ? $data['temas'] : null;
         $this->addTemaForm($form, $idmateria);
     }
 
