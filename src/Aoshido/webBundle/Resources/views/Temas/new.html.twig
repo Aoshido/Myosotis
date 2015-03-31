@@ -44,13 +44,31 @@
             <div class="panel-body">
                 {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
                 {{ form_errors(form)}}
+                
+                <div class="form-group">
+                    {{ form_label(form.carrera,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
+                    {{ form_errors(form.carrera) }}
+                    <div id="anchor" class="col-md-6">
+                        {{ form_widget(form.carrera,{ 'attr' : { 'class' : 'form-control' } }) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_errors(form.materia) }}
+                    {{ form_label(form.materia,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
+                    <div class="col-md-6">
+                        {{ form_widget(form.materia,{ 'attr' : { 'class' : 'form-control' } }) }}
+                    </div>
+                </div>    
+                
+                
                 <div class="form-group">
                     {{ form_label(form.descripcion,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } })}}
                     <div id="anchor" class="col-md-6">
                         {{ form_widget(form.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }}
                     </div>
                 </div>
-
+                    
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-4">
                         {{ form_widget(form.save,{ 'attr': {'class': 'btn btn-success'} }) }}
@@ -71,4 +89,28 @@
             $('[data-toggle="tooltip"]').tooltip()
         })
     </script>
+    
+    <script type="text/javascript">
+        $("select[id$='carrera']").change(function () {
+            var data = {
+                idcarrera: $(this).val()
+            };
+
+            $.ajax({
+                type: 'post',
+                url: '{{ path("preguntas_addMateria") }}',
+                data: data,
+                success: function (data) {
+                    var $materia_selector = $("select[id$='materia']");
+
+                    $materia_selector.html('<option value="">- Seleccione Materia -</option>');
+
+                    for (var i = 0, total = data.length; i < total; i++) {
+                        $materia_selector.append('<option value="' + data[i].id + '">' + data[i].descripcion + ' </option>');
+                    }
+                }
+            });
+        });
+    </script>
+    
 {% endblock %}

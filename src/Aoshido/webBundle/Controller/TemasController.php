@@ -36,6 +36,9 @@ class TemasController extends Controller {
         if ($form->isValid()) {
             $tema->setActivo(TRUE);
 
+            $materia = $form->get('materia')->getData();
+            $tema->setMateria($materia);
+            
             $em = $this->getDoctrine()->getManager();
             $em->persist($tema);
             $em->flush();
