@@ -30,6 +30,10 @@ temas_edit:
     path:     /temas/edit/{idTema}
     defaults: { _controller: AoshidowebBundle:Temas:edit }    
 
+temas_disable:
+    path:     /temas/disable/{idTema}
+    defaults: { _controller: AoshidowebBundle:Temas:disable }    
+
 abms_carreras:
     path:     /carreras
     defaults: { _controller: AoshidowebBundle:Carreras:new }    

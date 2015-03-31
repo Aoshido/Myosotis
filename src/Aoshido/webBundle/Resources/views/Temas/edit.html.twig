@@ -22,12 +22,12 @@
                         </td>
                         <td class="col-md-1">
                             <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                                <button type="button" class="btn btn-success" aria-label="Left Align" onclick="location.href = '#{# url('preguntas_EDIT',{ 'id': pregunta.id})#}';">
+                                <button type="button" class="btn btn-success" aria-label="Left Align" onclick="location.href = '{{url('temas_edit',{ 'idTema': tema.id})}}';">
                                     <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-                                </button>    
-                                <button type="button" class="btn btn-danger" aria-label="Left Align" onclick="location.href = '#{# url('preguntas_DELETE',{ 'id': pregunta.id})#}';">
+                                </button>
+                                <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Eliminar"  onclick=" location.href = '{{ url('temas_disable',{ 'idTema': tema.id})}}';">
                                     <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                                </button>    
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -39,7 +39,7 @@
 
         </div>
         <div class="panel panel-info">
-            <div class="panel-heading">Agregar Temas</div>
+            <div class="panel-heading">Editar Temas</div>
 
             <div class="panel-body">
                 {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
@@ -84,10 +84,20 @@
 
 {% block javascripts %} 
     {{ parent() }}
+     <script type="text/javascript">
+        $(".btn-danger").popConfirm({
+            title: "Borrar Pregunta",
+            content: "¿Seguro que desea borrar el Tema? \n Tambien se borraran todas sus preguntas asociadas",
+            placement: "right",
+            yesBtn: "Si",
+            noBtn: "No"
+        });
+    </script>
+
     <script type="text/javascript">
         $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
+            $('[data-toggle="tooltip"]').tooltip();
+        });
     </script>
     
     <script type="text/javascript">

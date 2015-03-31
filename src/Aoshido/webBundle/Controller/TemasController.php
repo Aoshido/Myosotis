@@ -99,4 +99,28 @@ class TemasController extends Controller {
                     'preguntasTemas' => $preguntasTemas,
         ));
     }
+    
+    public function disableAction($idTema) {
+
+        $em = $this->getDoctrine()->getManager();
+        
+        $tema = $this->getDoctrine()
+                ->getRepository('AoshidowebBundle:Tema')
+                ->find($idTema);
+        
+        $preguntas = $tema->getPreguntas();
+        
+        foreach ($preguntas as $pregunta){
+            $pregunta->setActivo(false);
+            $em->persist($pregunta);
+        }
+        
+        $tema->setActivo(false);
+
+        $em->persist($tema);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('abms_temas'));
+    }
+    
 }
