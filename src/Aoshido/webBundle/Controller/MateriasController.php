@@ -49,5 +49,49 @@ class MateriasController extends Controller {
                     'temasMaterias' => $temasMaterias,
         ));
     }
+    
+    public function editAction(Request $request,$idMateria) {
 
+        //Display a list of all Materias
+        $materias = $this->getDoctrine()
+                ->getRepository('AoshidowebBundle:Materia')
+                ->findBy(array('activo' => TRUE));
+
+        $temasMaterias = array();
+        foreach ($materias as $materia) {
+            $temasMaterias[$materia->getId()] = count($materia->getTemas());
+        }
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($materias, $this->getRequest()->query->get('page', 1), 10);
+        $pagination->setPageRange(6);
+
+        $cantidad = count($materias);
+
+        $materia = $this->getDoctrine()
+                ->getRepository('AoshidowebBundle:Materia')
+                ->find($idMateria);
+        
+        $form = $this->createForm(new MateriaType(), $materia);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $materia->setActivo(TRUE);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($materia);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('abms_materias'));
+        }
+
+        return $this->render('AoshidowebBundle:Materias:edit.html.twig', array(
+                    'form' => $form->createView(),
+                    'paginas' => $pagination,
+                    'cantidad' => $cantidad,
+                    'temasMaterias' => $temasMaterias,
+        ));
+    }
+    
 }

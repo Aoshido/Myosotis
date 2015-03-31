@@ -41,6 +41,10 @@ abms_carreras:
 abms_materias:
     path:     /materias
     defaults: { _controller: AoshidowebBundle:Materias:new }    
+
+materias_edit:
+    path:     /materias/edit/{idMateria}
+    defaults: { _controller: AoshidowebBundle:Materias:edit }    
     
 respuestas_new:
     path:     /respuestas/{idPregunta}
