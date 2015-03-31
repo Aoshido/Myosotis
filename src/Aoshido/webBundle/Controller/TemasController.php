@@ -111,10 +111,14 @@ class TemasController extends Controller {
         $preguntas = $tema->getPreguntas();
         
         foreach ($preguntas as $pregunta){
-            $pregunta->setActivo(false);
-            $em->persist($pregunta);
+            $temas = $pregunta->getTemasActivos();
+
+            //Si este es el ultimo tema activo de esta pregunta, se vá
+            if(count($temas) == 1){
+                $pregunta->setActivo(false);
+                $em->persist($pregunta);
+            }
         }
-        
         $tema->setActivo(false);
 
         $em->persist($tema);
