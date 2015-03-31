@@ -8,7 +8,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Doctrine\ORM\EntityRepository;
 
-class AddMateriaFieldSuscriber implements EventSubscriberInterface {
+class AddMateriaInTemasFieldSuscriber implements EventSubscriberInterface {
 
     private $propertyPathToTema;
 
@@ -62,11 +62,7 @@ class AddMateriaFieldSuscriber implements EventSubscriberInterface {
 
         $accessor = PropertyAccess::getPropertyAccessor();
 
-        $temas = $accessor->getValue($data, $this->propertyPathToTema);
-        //Elijo el primer tema de todos los que puede tener ya que todos 
-        //pertenecen a la misma materia
-        $tema = $temas[0];
-        $materia = ($tema) ? $tema->getMateria() : null;
+        $materia = $accessor->getValue($data, $this->propertyPathToTema);
 
         //Una materia puede pertenecer a varias carreras, elijo la primera
         if ($materia == null) {
@@ -83,9 +79,12 @@ class AddMateriaFieldSuscriber implements EventSubscriberInterface {
         $data = $event->getData();
         $form = $event->getForm();
 
-        $idcarrera = array_key_exists('materia', $data) ? $data['materia'] : null;
+        $carreras = array_key_exists('carrera', $data) ? $data['carrera'] : null;
+        $idcarrera = $carreras[0];
+        
+        $materia = $form->get('materia');
 
-        $this->addMateriaForm($form, $idcarrera);
+        $this->addMateriaForm($form, $idcarrera,$materia);
     }
 
 }

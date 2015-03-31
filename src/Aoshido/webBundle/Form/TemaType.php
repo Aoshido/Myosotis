@@ -6,16 +6,16 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-use Aoshido\webBundle\Form\EventListener\AddMateriaFieldSuscriber;
-use Aoshido\webBundle\Form\EventListener\AddCarreraFieldSuscriber;
+use Aoshido\webBundle\Form\EventListener\AddMateriaInTemasFieldSuscriber;
+use Aoshido\webBundle\Form\EventListener\AddCarreraInTemasFieldSuscriber;
 
 class TemaType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $propertyPathToMateria = 'materia';
         
-        $builder->addEventSubscriber(new AddMateriaFieldSuscriber($propertyPathToMateria));
-        $builder->addEventSubscriber(new AddCarreraFieldSuscriber($propertyPathToMateria));
+        $builder->addEventSubscriber(new AddMateriaInTemasFieldSuscriber($propertyPathToMateria));
+        $builder->addEventSubscriber(new AddCarreraInTemasFieldSuscriber($propertyPathToMateria));
         
         $builder->add('descripcion', 'text', array(
             'label' => 'Tema:',

@@ -25,6 +25,10 @@ preguntas_edit:
 abms_temas:
     path:     /temas
     defaults: { _controller: AoshidowebBundle:Temas:new }    
+    
+temas_edit:
+    path:     /temas/edit/{idTema}
+    defaults: { _controller: AoshidowebBundle:Temas:edit }    
 
 abms_carreras:
     path:     /carreras
