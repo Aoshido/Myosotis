@@ -71,6 +71,12 @@ class PreguntasController extends Controller {
         
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            
+            $temas = $form->get('temas')->getData();
+            /*foreach ($temas as $tema) {*/
+            $temas->setActivo(TRUE);
+            $pregunta->addTema($temas);
+            
             $em->persist($pregunta);
             $em->flush();
 
