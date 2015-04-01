@@ -92,15 +92,7 @@ class PreguntasController extends Controller {
 
     public function disableAction($idPregunta) {
 
-        $pregunta = $this->getDoctrine()
-                ->getRepository('AoshidowebBundle:Pregunta')
-                ->find($idPregunta);
-
-        $pregunta->setActivo(false);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($pregunta);
-        $em->flush();
+        $this->get('service_disabler')->disablePregunta($idPregunta);
 
         return $this->redirect($this->generateUrl('abms_preguntas'));
     }
