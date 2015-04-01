@@ -49,8 +49,8 @@ class MateriasController extends Controller {
                     'temasMaterias' => $temasMaterias,
         ));
     }
-    
-    public function editAction(Request $request,$idMateria) {
+
+    public function editAction(Request $request, $idMateria) {
 
         //Display a list of all Materias
         $materias = $this->getDoctrine()
@@ -71,7 +71,7 @@ class MateriasController extends Controller {
         $materia = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Materia')
                 ->find($idMateria);
-        
+
         $form = $this->createForm(new MateriaType(), $materia);
 
         $form->handleRequest($request);
@@ -93,5 +93,12 @@ class MateriasController extends Controller {
                     'temasMaterias' => $temasMaterias,
         ));
     }
-    
+
+    public function disableAction($idMateria) {
+        
+        $this->get('service_disabler')->disableMateria($idMateria);
+
+        return $this->redirect($this->generateUrl('abms_materias'));
+    }
+
 }

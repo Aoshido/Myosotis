@@ -45,6 +45,10 @@ abms_materias:
 materias_edit:
     path:     /materias/edit/{idMateria}
     defaults: { _controller: AoshidowebBundle:Materias:edit }    
+
+materias_disable:
+    path:     /materias/disable/{idMateria}
+    defaults: { _controller: AoshidowebBundle:Materias:disable }    
     
 respuestas_new:
     path:     /respuestas/{idPregunta}

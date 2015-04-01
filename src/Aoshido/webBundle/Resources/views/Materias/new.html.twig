@@ -27,7 +27,7 @@
                                 <button type="button" class="btn btn-success" aria-label="Left Align" onclick="location.href = '{{ url('materias_edit',{ 'idMateria': materia.id})}}';">
                                     <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                                 </button>    
-                                <button type="button" class="btn btn-danger" aria-label="Left Align" onclick="location.href = '#{# url('preguntas_DELETE',{ 'id': pregunta.id})#}';">
+                                <button type="button" class="btn btn-danger" aria-label="Left Align" onclick="location.href = '{{ url('materias_disable',{ 'idMateria': materia.id})}}';">
                                     <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                                 </button>    
                             </div>
