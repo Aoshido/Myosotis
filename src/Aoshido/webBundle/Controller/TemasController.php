@@ -102,27 +102,7 @@ class TemasController extends Controller {
     
     public function disableAction($idTema) {
 
-        $em = $this->getDoctrine()->getManager();
-        
-        $tema = $this->getDoctrine()
-                ->getRepository('AoshidowebBundle:Tema')
-                ->find($idTema);
-        
-        $preguntas = $tema->getPreguntas();
-        
-        foreach ($preguntas as $pregunta){
-            $temas = $pregunta->getTemasActivos();
-
-            //Si este es el ultimo tema activo de esta pregunta, se vá
-            if(count($temas) == 1){
-                $pregunta->setActivo(false);
-                $em->persist($pregunta);
-            }
-        }
-        $tema->setActivo(false);
-
-        $em->persist($tema);
-        $em->flush();
+        $this->get('service_disabler')->disableTema($idTema);
 
         return $this->redirect($this->generateUrl('abms_temas'));
     }
