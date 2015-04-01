@@ -197,4 +197,21 @@ class Materia {
     {
         return $this->carreras;
     }
+    
+    /**
+     * Get Carreras Activos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCarrerasActivas() {
+        $carrerasActivos = new ArrayCollection();
+        
+        foreach ($this->carreras as $carrera){
+            if ($carrera->getActivo()){
+                $carrerasActivos->add($carrera);
+            }
+        }
+        return $carrerasActivos;
+    }
+    
 }

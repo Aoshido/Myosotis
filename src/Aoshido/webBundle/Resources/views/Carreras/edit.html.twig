@@ -51,7 +51,7 @@
                                 <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Editar"  onclick=" location.href = '{{ url('materias_edit',{ 'idMateria': materia.id})}}';">
                                     <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                                 </button>
-                                <button type="button" class="btn btn-warning" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Desvincular"  onclick=" location.href = '{{ url('materias_disable',{ 'idMateria': materia.id})}}';">
+                                <button type="button" class="btn btn-warning" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Desvincular"  onclick=" location.href = '{{ url('carreras_desvincular_materia',{ 'idCarrera': carrera.id , 'idMateria': materia.id } )}}';">
                                     <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                                 </button>    
                             </div>

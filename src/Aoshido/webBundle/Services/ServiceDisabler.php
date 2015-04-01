@@ -69,4 +69,34 @@ class ServiceDisabler {
         return TRUE;
     }
 
+    public function desvincularMateria($idCarrera,$idMateria) {
+
+        $em = $this->entityManager;
+
+        $materia = $em->getRepository('AoshidowebBundle:Materia')
+                ->find($idMateria);
+
+        $carrera = $em->getRepository('AoshidowebBundle:Carrera')
+                ->find($idCarrera);
+
+        print_r(count($carrera->getMaterias()));
+        
+        $carrera->removeMateria($materia);
+        
+        /*
+        //Si la materia no queda vinculada a nignuna carrera, se va
+        if (count($materia->getCarrerasActivas()) == 0){
+            $this->disableMateria($idMateria);
+        }
+        */
+        $em->persist($materia);
+        $em->persist($carrera);
+        $em->flush();
+
+        print_r(count($carrera->getMaterias()));
+        die();
+        
+        return TRUE;
+    }
+    
 }

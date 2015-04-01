@@ -89,4 +89,11 @@ class CarrerasController extends Controller {
         ));
     }
     
+    public function desvincularAction($idCarrera,$idMateria) {
+        
+        $this->get('service_disabler')->desvincularMateria($idCarrera,$idMateria);
+
+        return $this->redirect($this->generateUrl('abms_carreras'));
+    }
+    
 }
