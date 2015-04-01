@@ -3,44 +3,9 @@
 {% block abms_contenido %} 
     {% form_theme form 'AoshidowebBundle:Themes:carrera-field-prototype.html.twig' %}
     <div class="container col-md-12">
+        
         <div class="panel panel-primary">
-            <div class="panel-heading text-right">Carreras Disponibles: {{ cantidad }}</div>
-
-            <table class="table table-condensed">
-
-                {% for carrera in paginas %}
-                    <tr>
-                        <td class="col-md-6"> 
-                            <span class="badge progress-bar-info" data-toggle="tooltip" data-placement="left" title="Cantidad de Materias">
-                                {% if carrera.id in materiasxcarrera|keys %}
-                                    {{materiasxcarrera[carrera.id]}}
-                                {% else %}
-                                    0
-                                {% endif %}
-                            </span>
-                            &nbsp;{{ carrera.descripcion }}
-                        </td>
-
-                        <td class="col-md-1">
-                            <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                                <button type="button" class="btn btn-success" aria-label="Left Align" onclick="location.href = '{{ url('carreras_edit',{ 'idCarrera': carrera.id})}}';">
-                                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-                                </button>    
-                                <button type="button" class="btn btn-danger" aria-label="Left Align" onclick="location.href = '#{# url('preguntas_DELETE',{ 'id': pregunta.id})#}';">
-                                    <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                                </button>    
-                            </div>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
-            <div class="col-md-offset-4 navigation">
-                {{ knp_pagination_render(paginas) }}
-            </div>
-
-        </div>
-        <div class="panel panel-primary">
-            <div class="panel-heading">Agregar Carreras</div>
+            <div class="panel-heading">Editar Carrera: {{carrera.descripcion}}</div>
 
             <div class="panel-body">
                 {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
@@ -67,6 +32,39 @@
                 </div>
             </div>
         </div>
+        
+        
+        
+        <div class="panel panel-primary">
+            <div class="panel-heading text-right">Materias Disponibles: {{ cantidad }}</div>
+
+            <table class="table table-condensed">
+
+                {% for materia in paginas %}
+                    <tr>
+                        <td class="col-md-6">
+                            {{ materia.descripcion }}
+                        </td>
+                        <td class="col-md-1">{{ materia.aniocarrera }}</td>
+                        <td class="col-md-1">
+                            <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Editar"  onclick=" location.href = '{{ url('materias_edit',{ 'idMateria': materia.id})}}';">
+                                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                                </button>
+                                <button type="button" class="btn btn-warning" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Desvincular"  onclick=" location.href = '{{ url('materias_disable',{ 'idMateria': materia.id})}}';">
+                                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                </button>    
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <div class="col-md-offset-4 navigation">
+                {{ knp_pagination_render(paginas) }}
+            </div>
+
+        </div>
+        
     </div>
 </div>
 {% endblock %}
@@ -79,6 +77,16 @@
         })
     </script>
 
+    <script type="text/javascript">
+        $(".btn-warning").popConfirm({
+            title: "Borrar Pregunta",
+            content: "¿Seguro que desea desvincular la materia? Si no posee otra carrera asociada se eliminara! ",
+            placement: "right",
+            yesBtn: "Si",
+            noBtn: "No"
+        });
+    </script>
+    
     <script>
         var $collectionHolder;
 

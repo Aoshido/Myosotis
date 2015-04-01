@@ -53,4 +53,40 @@ class CarrerasController extends Controller {
         ));
     }
 
+    public function editAction(Request $request,$idCarrera) {
+        $carrera = $this->getDoctrine()
+                ->getRepository('AoshidowebBundle:Carrera')
+                ->find($idCarrera);
+        
+        $materias = $carrera->getMaterias();
+        
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($materias, $this->getRequest()->query->get('page', 1), 10);
+        $pagination->setPageRange(6);
+
+        $cantidad = count($materias);
+
+        $form = $this->createForm(new CarreraType(), $carrera);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $carrera->setActivo(TRUE);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($carrera);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('abms_carreras'));
+        }
+
+        return $this->render('AoshidowebBundle:Carreras:edit.html.twig', array(
+                    'form' => $form->createView(),
+                    'materias' => $materias,
+                    'paginas' => $pagination,
+                    'cantidad' => $cantidad,
+                    'carrera' => $carrera,
+        ));
+    }
+    
 }
