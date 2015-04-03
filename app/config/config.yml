@@ -82,3 +82,9 @@ knp_paginator:
     template:
         pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
+
+# Fos User bundle
+fos_user:
+    db_driver: orm 
+    firewall_name: main
+    user_class: Aoshido\userBundle\Entity\User
