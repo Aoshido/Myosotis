@@ -22,7 +22,7 @@
     <body background="{% image '@AoshidowebBundle/img/background.jpg' %} {{ asset_url }} {% endimage %}">
         {% block body %}
             <div id="wrap">
-                {% include 'AoshidowebBundle::navbar.html.twig' %}
+                {% include 'AoshidowebBundle::navbar2.html.twig' %}
                 <div class="container">
                     {% block content%}
 
@@ -41,9 +41,18 @@
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
             {% javascripts '../app/Resources/public/jquery.popconfirm.js' %}
-                <script src="{{ asset_url }}"></script>
+            <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
-            
+
+            <script>
+                $(document).ready(function () {
+                    //Handles menu drop down
+                    $('.dropdown-menu').find('form').click(function (e) {
+                        e.stopPropagation();
+                    });
+                });
+            </script>
+
             <script>
                 function htmlbodyHeightUpdate() {
                     var height3 = $(window).height();
