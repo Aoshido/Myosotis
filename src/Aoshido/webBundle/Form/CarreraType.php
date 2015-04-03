@@ -15,6 +15,7 @@ class CarreraType extends AbstractType {
 
         $builder->add('materias', 'collection', array(
             'type' => new MateriaType(),
+            'mapped' => true,
             'allow_add' => true,
             'allow_delete' => true,
             'by_reference' => false,

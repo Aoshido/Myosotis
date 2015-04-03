@@ -4,6 +4,7 @@ namespace Aoshido\webBundle\Controller;
 
 use Aoshido\webBundle\Entity\Carrera;
 use Aoshido\webBundle\Form\CarreraType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -53,27 +54,41 @@ class CarrerasController extends Controller {
         ));
     }
 
-    public function editAction(Request $request,$idCarrera) {
+    public function editAction(Request $request, $idCarrera) {
+        $em = $this->getDoctrine()->getManager();
+
         $carrera = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Carrera')
                 ->find($idCarrera);
-        
+
         $materias = $carrera->getMaterias();
-        
+
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($materias, $this->getRequest()->query->get('page', 1), 10);
         $pagination->setPageRange(6);
 
         $cantidad = count($materias);
 
+        $materiasOriginales = new ArrayCollection();
+
+        // Create an ArrayCollection of the current Materias objects in the database
+        foreach ($carrera->getMaterias() as $materia_original) {
+            $materiasOriginales->add($materia_original);
+        }
+
         $form = $this->createForm(new CarreraType(), $carrera);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $carrera->setActivo(TRUE);
+            foreach ($materiasOriginales as $materia_original) {
+                if (false === $carrera->getMaterias()->contains($materia_original)) {
+                    // A la MATERIA le saco la carrera
+                    $materia_original->getCarreras()->removeElement($carrera);
+                    $em->persist($materia_original);
+                }
+            }
 
-            $em = $this->getDoctrine()->getManager();
             $em->persist($carrera);
             $em->flush();
 
@@ -88,12 +103,12 @@ class CarrerasController extends Controller {
                     'carrera' => $carrera,
         ));
     }
-    
-    public function desvincularAction($idCarrera,$idMateria) {
-        
-        $this->get('service_disabler')->desvincularMateria($idCarrera,$idMateria);
+
+    public function desvincularAction($idCarrera, $idMateria) {
+
+        $this->get('service_disabler')->desvincularMateria($idCarrera, $idMateria);
 
         return $this->redirect($this->generateUrl('abms_carreras'));
     }
-    
+
 }
