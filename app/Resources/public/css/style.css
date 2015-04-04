@@ -151,7 +151,7 @@ body {
   font-style: italic;
   height: 30px;
   background-color: #000000;
-  border-radius: 10%;
+  border-radius: 0%;
 }
 
 .list-group.panel > .list-group-item {
