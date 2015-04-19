@@ -19,6 +19,8 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new Aoshido\webBundle\AoshidowebBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
+            new Aoshido\userBundle\AoshidouserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
