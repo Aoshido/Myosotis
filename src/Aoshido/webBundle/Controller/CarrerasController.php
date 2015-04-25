@@ -74,6 +74,16 @@ class CarrerasController extends Controller {
         // Create an ArrayCollection of the current Materias objects in the database
         foreach ($carrera->getMaterias() as $materia_original) {
             $materiasOriginales->add($materia_original);
+            
+            print_r($materia_original->getCarreras()[0]->getDescripcion());
+            //dump($materia_original);
+            
+            //Aca si no "Traigo" las carreras de la materia quedan
+            // Lazy inicializadas, entonces dps cuando abajo las trato
+            // de volver a agregar, quedan con la lista de carreras vacias
+            // si yo aca hago por ejemplo el print_R se inicializa la lsita de
+            // carreras de la materia, pero no se si qeuda abajo 25/04/2015
+            //die();
         }
 
         $form = $this->createForm(new CarreraType(), $carrera);
@@ -83,12 +93,16 @@ class CarrerasController extends Controller {
         if ($form->isValid()) {
             foreach ($materiasOriginales as $materia_original) {
                 if (false === $carrera->getMaterias()->contains($materia_original)) {
-                    // A la MATERIA le saco la carrera
-                    $materia_original->getCarreras()->removeElement($carrera);
-                    $em->persist($materia_original);
+                    $carrera->removeMateria($materia_original);
                 }
-            }
 
+                $materia_original->addCarrera($carrera);
+
+                $em->persist($materia_original);
+            }
+            //dump($materia_original);
+            //dump($carrera);
+            //die();
             $em->persist($carrera);
             $em->flush();
 

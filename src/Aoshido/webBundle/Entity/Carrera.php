@@ -118,6 +118,7 @@ class Carrera {
      */
     public function removeMateria(\Aoshido\webBundle\Entity\Materia $materias)
     {
+        $materias->removeCarrera($this);
         $this->materias->removeElement($materias);
     }
 

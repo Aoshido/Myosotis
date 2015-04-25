@@ -75,7 +75,8 @@ class MateriasController extends Controller {
         $form = $this->createForm(new MateriaType(), $materia);
 
         $form->handleRequest($request);
-
+        //dump($materia);
+        //die();
         if ($form->isValid()) {
             $materia->setActivo(TRUE);
 
