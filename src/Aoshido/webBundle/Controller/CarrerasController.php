@@ -60,10 +60,7 @@ class CarrerasController extends Controller {
         $carrera = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Carrera')
                 ->find($idCarrera);
-        
-        $carrera_original = $this->getDoctrine()
-                ->getRepository('AoshidowebBundle:Carrera')
-                ->find($idCarrera);
+
         $materias = $carrera->getMaterias();
 
         $paginator = $this->get('knp_paginator');
@@ -75,40 +72,24 @@ class CarrerasController extends Controller {
         $materiasOriginales = new ArrayCollection();
 
         // Create an ArrayCollection of the current Materias objects in the database
-        foreach ($carrera_original->getMaterias() as $materia_original) {
+        foreach ($carrera->getMaterias() as $materia_original) {
             $materiasOriginales->add($materia_original);
-
-            //print_r($materia_original->getCarreras()[0]->getDescripcion());
-            //dump($materia_original);
-            //Aca si no "Traigo" las carreras de la materia quedan
-            // Lazy inicializadas, entonces dps cuando abajo las trato
-            // de volver a agregar, quedan con la lista de carreras vacias
-            // si yo aca hago por ejemplo el print_R se inicializa la lsita de
-            // carreras de la materia, pero no se si qeuda abajo 25/04/2015
-            //die();
-            dump($materiasOriginales);
         }
-        dump($materiasOriginales);
-        $form = $this->createForm(new CarreraType(), $carrera);
-
+        
+        //Utilizo PATCH porque POST pone en null los campos no explicitamente inicializados
+        //En este caso Carrera->getMaterias->getCarreras
+        $form = $this->createForm(new CarreraType(), $carrera , array('method' => 'PATCH'));
         $form->handleRequest($request);
-        dump($materiasOriginales);
+        
         if ($form->isValid()) {
-            //Aca este comando tira 503
-            dump($materiasOriginales);
-            //echo $materiasOriginales[0]->getCarreras()[0]->getDescripcion();
-            die();
             foreach ($materiasOriginales as $materia_original) {
                 if (false === $carrera->getMaterias()->contains($materia_original)) {
                     $carrera->removeMateria($materia_original);
                 } else {
-                    $materia_original->addCarrera($carrera);
+                    //$materia_original->addCarrera($carrera);
                 }
                 $em->persist($materia_original);
             }
-            //dump($materia_original);
-            //dump($carrera);
-            //die();
             $em->persist($carrera);
             $em->flush();
 
