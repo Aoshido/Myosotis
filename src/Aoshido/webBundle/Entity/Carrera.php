@@ -37,7 +37,7 @@ class Carrera {
     private $activo;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Materia", mappedBy="carreras", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Materia", mappedBy="carreras", cascade={"persist"} , fetch="EAGER")
      * */
     private $materias;
 

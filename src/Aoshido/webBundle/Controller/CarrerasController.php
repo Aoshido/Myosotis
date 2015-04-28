@@ -60,7 +60,10 @@ class CarrerasController extends Controller {
         $carrera = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Carrera')
                 ->find($idCarrera);
-
+        
+        $carrera_original = $this->getDoctrine()
+                ->getRepository('AoshidowebBundle:Carrera')
+                ->find($idCarrera);
         $materias = $carrera->getMaterias();
 
         $paginator = $this->get('knp_paginator');
@@ -72,10 +75,10 @@ class CarrerasController extends Controller {
         $materiasOriginales = new ArrayCollection();
 
         // Create an ArrayCollection of the current Materias objects in the database
-        foreach ($carrera->getMaterias() as $materia_original) {
+        foreach ($carrera_original->getMaterias() as $materia_original) {
             $materiasOriginales->add($materia_original);
 
-            print_r($materia_original->getCarreras()[0]->getDescripcion());
+            //print_r($materia_original->getCarreras()[0]->getDescripcion());
             //dump($materia_original);
             //Aca si no "Traigo" las carreras de la materia quedan
             // Lazy inicializadas, entonces dps cuando abajo las trato
@@ -83,16 +86,17 @@ class CarrerasController extends Controller {
             // si yo aca hago por ejemplo el print_R se inicializa la lsita de
             // carreras de la materia, pero no se si qeuda abajo 25/04/2015
             //die();
+            dump($materiasOriginales);
         }
-
+        dump($materiasOriginales);
         $form = $this->createForm(new CarreraType(), $carrera);
 
         $form->handleRequest($request);
-
+        dump($materiasOriginales);
         if ($form->isValid()) {
             //Aca este comando tira 503
-            //dump($materia_original);
-            print_r($materia_original->getCarreras()[0]->getDescripcion());
+            dump($materiasOriginales);
+            //echo $materiasOriginales[0]->getCarreras()[0]->getDescripcion();
             die();
             foreach ($materiasOriginales as $materia_original) {
                 if (false === $carrera->getMaterias()->contains($materia_original)) {
