@@ -82,14 +82,14 @@ class CarrerasController extends Controller {
         $form->handleRequest($request);
         
         if ($form->isValid()) {
+            //Reviso si todavia tiene la materia original, o hay que removerla
             foreach ($materiasOriginales as $materia_original) {
                 if (false === $carrera->getMaterias()->contains($materia_original)) {
                     $carrera->removeMateria($materia_original);
-                } else {
-                    //$materia_original->addCarrera($carrera);
                 }
                 $em->persist($materia_original);
             }
+            
             $em->persist($carrera);
             $em->flush();
 

@@ -180,6 +180,7 @@ class Materia {
      * @param \Aoshido\webBundle\Entity\Carrera $carreras
      */
     public function removeCarrera(\Aoshido\webBundle\Entity\Carrera $carreras) {
+        //Si me quedo sin Carreras asociadas, me borro al chizo
         $this->carreras->removeElement($carreras);
     }
 
