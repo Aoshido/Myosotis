@@ -96,8 +96,20 @@ class MateriasController extends Controller {
     }
 
     public function disableAction($idMateria) {
+        $em = $this->getDoctrine()->getManager();
+
+        $materia = $this->getDoctrine()
+                ->getRepository('AoshidowebBundle:Materia')
+                ->find($idMateria);
         
-        $this->get('service_disabler')->disableMateria($idMateria);
+        foreach ($materia->getTemas() as $tema){
+            $materia->removeTema($tema);
+            $em->persist($tema);
+        }
+        
+        $materia->setActivo(FALSE);
+        $em->persist($materia);
+        $em->flush();
 
         return $this->redirect($this->generateUrl('abms_materias'));
     }

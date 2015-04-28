@@ -131,15 +131,13 @@ class Materia {
         return $this->activo;
     }
 
-
     /**
      * Add temas
      *
      * @param \Aoshido\webBundle\Entity\Tema $temas
      * @return Materia
      */
-    public function addTema(\Aoshido\webBundle\Entity\Tema $temas)
-    {
+    public function addTema(\Aoshido\webBundle\Entity\Tema $temas) {
         $this->temas[] = $temas;
 
         return $this;
@@ -150,8 +148,8 @@ class Materia {
      *
      * @param \Aoshido\webBundle\Entity\Tema $temas
      */
-    public function removeTema(\Aoshido\webBundle\Entity\Tema $temas)
-    {
+    public function removeTema(\Aoshido\webBundle\Entity\Tema $temas) {
+        $temas->setActivo(false);
         $this->temas->removeElement($temas);
     }
 
@@ -160,8 +158,7 @@ class Materia {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getTemas()
-    {
+    public function getTemas() {
         return $this->temas;
     }
 
@@ -171,8 +168,7 @@ class Materia {
      * @param \Aoshido\webBundle\Entity\Carrera $carreras
      * @return Materia
      */
-    public function addCarrera(\Aoshido\webBundle\Entity\Carrera $carreras)
-    {
+    public function addCarrera(\Aoshido\webBundle\Entity\Carrera $carreras) {
         $this->carreras[] = $carreras;
 
         return $this;
@@ -183,8 +179,7 @@ class Materia {
      *
      * @param \Aoshido\webBundle\Entity\Carrera $carreras
      */
-    public function removeCarrera(\Aoshido\webBundle\Entity\Carrera $carreras)
-    {
+    public function removeCarrera(\Aoshido\webBundle\Entity\Carrera $carreras) {
         $this->carreras->removeElement($carreras);
     }
 
@@ -193,11 +188,10 @@ class Materia {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getCarreras()
-    {
+    public function getCarreras() {
         return $this->carreras;
     }
-    
+
     /**
      * Get Carreras Activos
      *
@@ -205,13 +199,13 @@ class Materia {
      */
     public function getCarrerasActivas() {
         $carrerasActivos = new ArrayCollection();
-        
-        foreach ($this->carreras as $carrera){
-            if ($carrera->getActivo()){
+
+        foreach ($this->carreras as $carrera) {
+            if ($carrera->getActivo()) {
                 $carrerasActivos->add($carrera);
             }
         }
         return $carrerasActivos;
     }
-    
+
 }

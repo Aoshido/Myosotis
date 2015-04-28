@@ -96,15 +96,13 @@ class Carrera {
         return $this->activo;
     }
 
-
     /**
      * Add materias
      *
      * @param \Aoshido\webBundle\Entity\Materia $materias
      * @return Carrera
      */
-    public function addMateria(\Aoshido\webBundle\Entity\Materia $materias)
-    {
+    public function addMateria(\Aoshido\webBundle\Entity\Materia $materias) {
         $materias->addCarrera($this);
         $this->materias[] = $materias;
 
@@ -116,8 +114,7 @@ class Carrera {
      *
      * @param \Aoshido\webBundle\Entity\Materia $materias
      */
-    public function removeMateria(\Aoshido\webBundle\Entity\Materia $materias)
-    {
+    public function removeMateria(\Aoshido\webBundle\Entity\Materia $materias) {
         $materias->removeCarrera($this);
         $this->materias->removeElement($materias);
     }
@@ -127,8 +124,8 @@ class Carrera {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getMaterias()
-    {
+    public function getMaterias() {
         return $this->materias;
     }
+
 }
