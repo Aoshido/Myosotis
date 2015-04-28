@@ -42,6 +42,10 @@ carreras_edit:
     path:     /carreras/edit/{idCarrera}
     defaults: { _controller: AoshidowebBundle:Carreras:edit }    
 
+carreras_disable:
+    path:     /carreras/disable/{idCarrera}
+    defaults: { _controller: AoshidowebBundle:Carreras:disable }    
+
 carreras_desvincular_materia:
     path:     /carreras/edit/{idCarrera}/desvincular/{idMateria}
     defaults: { _controller: AoshidowebBundle:Carreras:desvincular }    

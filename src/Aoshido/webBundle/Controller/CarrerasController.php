@@ -74,10 +74,9 @@ class CarrerasController extends Controller {
         // Create an ArrayCollection of the current Materias objects in the database
         foreach ($carrera->getMaterias() as $materia_original) {
             $materiasOriginales->add($materia_original);
-            
+
             print_r($materia_original->getCarreras()[0]->getDescripcion());
             //dump($materia_original);
-            
             //Aca si no "Traigo" las carreras de la materia quedan
             // Lazy inicializadas, entonces dps cuando abajo las trato
             // de volver a agregar, quedan con la lista de carreras vacias
@@ -91,13 +90,16 @@ class CarrerasController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            //Aca este comando tira 503
+            //dump($materia_original);
+            print_r($materia_original->getCarreras()[0]->getDescripcion());
+            die();
             foreach ($materiasOriginales as $materia_original) {
                 if (false === $carrera->getMaterias()->contains($materia_original)) {
                     $carrera->removeMateria($materia_original);
+                } else {
+                    $materia_original->addCarrera($carrera);
                 }
-
-                $materia_original->addCarrera($carrera);
-
                 $em->persist($materia_original);
             }
             //dump($materia_original);
@@ -122,6 +124,25 @@ class CarrerasController extends Controller {
 
         $this->get('service_disabler')->desvincularMateria($idCarrera, $idMateria);
 
+        return $this->redirect($this->generateUrl('abms_carreras'));
+    }
+
+    public function disableAction($idCarrera) {
+        $em = $this->getDoctrine()->getManager();
+
+        $carrera = $this->getDoctrine()
+                ->getRepository('AoshidowebBundle:Carrera')
+                ->find($idCarrera);
+        
+        foreach ($carrera->getMaterias() as $materia){
+            $carrera->removeMateria($materia);
+            $em->persist($materia);
+        }
+        
+        $carrera->setActivo(FALSE);
+        $em->persist($carrera);
+        $em->flush();
+        
         return $this->redirect($this->generateUrl('abms_carreras'));
     }
 
