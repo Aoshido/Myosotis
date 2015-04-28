@@ -104,6 +104,7 @@ class Carrera {
      */
     public function addMateria(\Aoshido\webBundle\Entity\Materia $materias) {
         $materias->addCarrera($this);
+        $materias->setActivo(true);
         $this->materias[] = $materias;
 
         return $this;
