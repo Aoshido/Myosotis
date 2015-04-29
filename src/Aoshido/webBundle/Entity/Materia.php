@@ -131,13 +131,6 @@ class Materia {
      */
     public function setActivo($activo) {
         $this->activo = $activo;
-        
-        if (!$activo){
-            foreach ($this->getTemas() as $tema){
-                $this->removeTema($tema);
-            }
-        }
-
         return $this;
     }
 
