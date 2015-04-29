@@ -4,6 +4,7 @@ namespace Aoshido\webBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Materia
@@ -26,6 +27,8 @@ class Materia {
      * @var string
      *
      * @ORM\Column(name="Descripcion", type="text")
+     * @Assert\NotNull(message = "La materia necesita una descripcion")
+     * @Assert\NotBlank(message = "La materia necesita una descripcion")
      */
     private $descripcion;
 
@@ -33,6 +36,12 @@ class Materia {
      * @var integer
      *
      * @ORM\Column(name="AnioCarrera", type="integer")
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 6,
+     *      minMessage = "La materia debe pertenecer al menos al {{ limit }}er año",
+     *      maxMessage = "La materia debe pertenecer como maximo {{ limit }}to año"
+     * )
      */
     private $anioCarrera;
 
@@ -51,6 +60,10 @@ class Materia {
     /**
      * @ORM\ManyToMany(targetEntity="Carrera", inversedBy="materias"  )
      * @ORM\JoinTable(name="MateriasCarreras")
+     * @Assert\Count(
+     *      min = "1",
+     *      minMessage = "La materia debe pertenecer a alguna carrera",
+     * )
      * */
     private $carreras;
 
@@ -118,6 +131,12 @@ class Materia {
      */
     public function setActivo($activo) {
         $this->activo = $activo;
+        
+        if (!$activo){
+            foreach ($this->getTemas() as $tema){
+                $this->removeTema($tema);
+            }
+        }
 
         return $this;
     }
@@ -182,6 +201,9 @@ class Materia {
     public function removeCarrera(\Aoshido\webBundle\Entity\Carrera $carreras) {
         //Si me quedo sin Carreras asociadas, me borro al chizo
         $this->carreras->removeElement($carreras);
+        if (count($this->carreras) == 0) {
+            $this->setActivo('false');
+        }
     }
 
     /**
