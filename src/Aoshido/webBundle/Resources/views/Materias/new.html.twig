@@ -25,10 +25,10 @@
                         <td class="col-md-1">{{ materia.aniocarrera }}</td>
                         <td class="col-md-1">
                             <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                                <button type="button" class="btn btn-success" aria-label="Left Align" onclick="location.href = '{{ url('materias_edit',{ 'idMateria': materia.id})}}';">
+                                <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="tooltip" data-placement="left" title="Editar"  onclick="location.href = '{{ url('materias_edit',{ 'idMateria': materia.id})}}';">
                                     <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                                 </button>    
-                                <button type="button" class="btn btn-danger" aria-label="Left Align" onclick="location.href = '{{ url('materias_disable',{ 'idMateria': materia.id})}}';">
+                                <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Eliminar" onclick="location.href = '{{ url('materias_disable',{ 'idMateria': materia.id})}}';">
                                     <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                                 </button>    
                             </div>
