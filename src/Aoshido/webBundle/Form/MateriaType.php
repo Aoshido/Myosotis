@@ -38,7 +38,6 @@ class MateriaType extends AbstractType {
         ));
 
         $builder->add('save', 'submit', array(
-            'label' => 'Agregar Materia',
             'attr' => array(
                 'class' => 'btn btn-success'
             ),

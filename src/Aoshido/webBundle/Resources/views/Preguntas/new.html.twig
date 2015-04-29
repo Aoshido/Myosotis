@@ -1,5 +1,7 @@
 {% extends 'AoshidowebBundle:Abms:index.html.twig' %}
 
+{% block title %}Preguntas{% endblock %}
+{% block section %}Preguntas{% endblock %}
 {% block abms_contenido %} 
     {% form_theme form 'AoshidowebBundle:Themes:field-prototype.html.twig' %}
     <div class="container col-md-12">
@@ -81,7 +83,7 @@
 
                 <div class="form-group">
                     <div id="anchor" class="col-md-offset-2 col-md-4">
-                        {{ form_widget(form.save,{ 'attr': {'class': 'btn btn-success' }  } ) }}
+                        {{ form_widget(form.save,{ 'label': 'Agregar Pregunta' , 'attr': {'class': 'btn btn-success'} }) }}
                     </div>
                     {{ form_row(form._token) }}
                     {{ form_end(form, {'render_rest': false}) }}
