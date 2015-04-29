@@ -49,7 +49,7 @@ class Materia {
     protected $temas;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Carrera", inversedBy="materias" ,fetch="EAGER" )
+     * @ORM\ManyToMany(targetEntity="Carrera", inversedBy="materias"  )
      * @ORM\JoinTable(name="MateriasCarreras")
      * */
     private $carreras;
