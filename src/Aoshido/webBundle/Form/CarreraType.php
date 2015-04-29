@@ -23,7 +23,6 @@ class CarreraType extends AbstractType {
 
         /*         * ********** SUBMIT *************** */
         $builder->add('save', 'submit', array(
-            //'label' => 'Agregar Carrera',
             'attr' => array(
                 'class' => 'btn btn-success'
             ),

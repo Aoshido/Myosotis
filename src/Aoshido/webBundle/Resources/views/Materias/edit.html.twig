@@ -1,7 +1,7 @@
 {% extends 'AoshidowebBundle:Abms:index.html.twig' %}
 
-{% block title %}Materias ABM{% endblock %}
-{% block section %} Abm Materias {% endblock %}
+{% block title %}Editar Materia{% endblock %}
+{% block section %}Editar Materia{% endblock %}
 {% block abms_contenido %} 
     <div class="container col-md-12">
         <div class="panel panel-primary">
@@ -73,7 +73,7 @@
 
                 <div class="form-group">
                     <div id="anchor" class="col-md-offset-5 col-md-4">
-                        {{ form_widget(form.save,{ 'attr': {'class': 'btn btn-success'} }) }}
+                        {{ form_widget(form.save,{ 'label': 'Guardar Cambios' , 'attr': {'class': 'btn btn-success'} }) }}
                     </div>
                     {{ form_row(form._token) }}
                     {{ form_end(form, {'render_rest': false}) }}

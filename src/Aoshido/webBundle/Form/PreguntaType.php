@@ -25,7 +25,6 @@ class PreguntaType extends AbstractType {
         ));
 
         $builder->add('save', 'submit', array(
-            'label' => 'Agregar Pregunta',
             'attr' => array(
                 'class' => 'btn btn-success'
             ),
