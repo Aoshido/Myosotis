@@ -23,11 +23,11 @@
                         </td>
 
                         <td class="col-md-1">
-                            <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                                <button type="button" class="btn btn-success" aria-label="Left Align" onclick="location.href = '{{ url('carreras_edit',{ 'idCarrera': carrera.id})}}';">
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="tooltip" data-placement="left" title="Editar" onclick="location.href = '{{ url('carreras_edit',{ 'idCarrera': carrera.id})}}';">
                                     <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                                 </button>    
-                                <button type="button" class="btn btn-danger" aria-label="Left Align" onclick="location.href = '{{ url('carreras_disable',{ 'idCarrera': carrera.id})}}';">
+                                <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Eliminar" onclick="location.href = '{{ url('carreras_disable',{ 'idCarrera': carrera.id})}}';">
                                     <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                                 </button>    
                             </div>
@@ -61,7 +61,7 @@
 
                 <div class="form-group">
                     <div id="anchor" class="col-md-offset-2 col-md-4">
-                        {{ form_widget(form.save,{ 'attr': {'class': 'btn btn-success'} }) }}
+                        {{ form_widget(form.save,{ 'label': 'Agregar Carrera' , 'attr': {'class': 'btn btn-success'} }) }}
                     </div>
                     {{ form_row(form._token) }}
                     {{ form_end(form, {'render_rest': false}) }}
@@ -78,6 +78,16 @@
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         })
+    </script>
+    
+    <script type="text/javascript">
+        $(".btn-danger").popConfirm({
+            title: "Borrar Carrera",
+            content: "¿Seguro que desea borrar la carrera? Se borraran todas las materias, temas y sus preguntas! ",
+            placement: "right",
+            yesBtn: "Si",
+            noBtn: "No"
+        });
     </script>
 
     <script>
