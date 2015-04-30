@@ -3,7 +3,7 @@
 {% block title %}Editar Carrera{% endblock %}
 {% block section %}Editar Carrera{% endblock %}
 {% block abms_contenido %} 
-    {% form_theme form 'AoshidowebBundle:Themes:carrera-field-prototype.html.twig' %}
+    {% form_theme form 'AoshidowebBundle:Themes:carrera-edit-field-prototype.html.twig' %}
     <div class="container col-md-12">
 
         <div class="panel panel-primary">
@@ -18,25 +18,26 @@
                         {{ form_widget(form.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }}
                     </div>
                 </div>
-                <div id="materias" data-prototype="{% filter escape %}{{ include('AoshidowebBundle:Themes:carrera-field-prototype.html.twig',{ 'form': form.materias.vars.prototype }) }}{% endfilter %}">
+                <table class="table" >
+                    <tbody id="materias" data-prototype="{% filter escape %}{{ include('AoshidowebBundle:Themes:carrera-edit-field-prototype.html.twig',{ 'form': form.materias.vars.prototype }) }}{% endfilter %}">
                     {% for materia in form.materias %}
-                        <div>
-                            <div id="temaCont" class="form-group">
+                        <tr>
+                            <td id="temaCont" >
                                 {{ form_label(materia.descripcion,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }} 
-                                <div class="col-md-6" >
-                                    {{ form_widget(materia.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }} 
-                                </div>
-                            </div>
-                            <div  class="form-group">
+                            </td>    
+                            <td>
+                                {{ form_widget(materia.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }} 
+                            </td>
+                            <td>
                                 {{ form_label(materia.aniocarrera,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }} 
-                                <div class="col-md-6">
-                                    {{ form_widget(materia.aniocarrera,{ 'attr' : { 'class' : 'form-control' } }) }} 
-                                </div>
-                            </div>
-                        </div>
+                            </td>    
+                            <td>
+                                {{ form_widget(materia.aniocarrera,{ 'attr' : { 'class' : 'form-control' } }) }} 
+                            </td>
+                        </tr>
                     {% endfor %}
-                </div>
-
+                    </tbody>    
+                </table>
                 <div class="form-group">
                     <div id="anchor" class="col-md-offset-2 col-md-4">
                         {{ form_widget(form.save,{ 'label': 'Guardar Cambios' , 'attr': {'class': 'btn btn-success'} }) }}
@@ -112,7 +113,7 @@
 
         jQuery(document).ready(function () {
             // Get the ul that holds the collection of tags
-            $collectionHolder = $('div#materias');
+            $collectionHolder = $('tbody#materias');
 
             // Get the ul that holds the collection of tags
             $addAnchor = $('div#anchor');
@@ -171,7 +172,7 @@
             $collectionHolder.data('index', index + 1);
 
             // Display the form in the page in an li, before the "Add a tag" link li
-            var $newFormLi = $('<div></div>').append(newForm);
+            var $newFormLi = $('<tr></tr>').append(newForm);
             $newLinkLi.before($newFormLi);
 
             // add a delete link to the new form
