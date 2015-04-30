@@ -58,6 +58,7 @@ class Materia {
     protected $temas;
 
     /**
+     * 
      * @ORM\ManyToMany(targetEntity="Carrera", inversedBy="materias"  )
      * @ORM\JoinTable(name="MateriasCarreras")
      * @Assert\Count(
