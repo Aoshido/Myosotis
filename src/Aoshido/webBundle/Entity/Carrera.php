@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Carrera
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Aoshido\webBundle\Entity\Carrera")
+ * @ORM\Entity(repositoryClass="Aoshido\webBundle\Entity\Carrerarepository")
  */
 class Carrera {
 
