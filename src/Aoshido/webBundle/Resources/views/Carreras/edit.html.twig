@@ -21,8 +21,8 @@
                 <table class="table" >
                     <tbody id="materias" data-prototype="{% filter escape %}{{ include('AoshidowebBundle:Themes:carrera-edit-field-prototype.html.twig',{ 'form': form.materias.vars.prototype }) }}{% endfilter %}">
                     {% for materia in form.materias %}
-                        <tr>
-                            <td id="temaCont" >
+                        <tr >
+                            <td  >
                                 {{ form_label(materia.descripcion,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }} 
                             </td>    
                             <td>
@@ -31,7 +31,7 @@
                             <td>
                                 {{ form_label(materia.aniocarrera,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }} 
                             </td>    
-                            <td>
+                            <td id="temaCont">
                                 {{ form_widget(materia.aniocarrera,{ 'attr' : { 'class' : 'form-control' } }) }} 
                             </td>
                         </tr>
@@ -119,7 +119,7 @@
             $addAnchor = $('div#anchor');
 
             // add a dselete link to all of the existing tag form li elements
-            $collectionHolder.find('div#temaCont').each(function () {
+            $collectionHolder.find('td#temaCont').each(function () {
                 addTagFormDeleteLink($(this).parent());
             });
 
@@ -140,13 +140,13 @@
         });
 
         function addTagFormDeleteLink($tagFormLi) {
-            var $removeFormA = $('<div class="col-sm-1">\n\
+            var $removeFormA = $('<td class="col-sm-1">\n\
                                     <button type="button" class="btn btn-danger ">\n\
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>\n\
                                     </button> \n\
-                                </div>');
+                                </td>');
 
-            $tagFormLi.find('div#temaCont').append($removeFormA);
+            $tagFormLi.append($removeFormA);
 
             $removeFormA.on('click', function (e) {
                 // prevent the link from creating a "#" on the URL
@@ -172,7 +172,7 @@
             $collectionHolder.data('index', index + 1);
 
             // Display the form in the page in an li, before the "Add a tag" link li
-            var $newFormLi = $('<tr></tr>').append(newForm);
+            var $newFormLi = $('<tr id="temaCont"></tr>').append(newForm);
             $newLinkLi.before($newFormLi);
 
             // add a delete link to the new form
