@@ -34,6 +34,12 @@ class AddCarreraFieldSuscriber implements EventSubscriberInterface {
             ),
             'required' => true,
             'property' => 'descripcion',
+            'query_builder' => function (EntityRepository $repository) {
+                         $qb = $repository->createQueryBuilder('c')
+                        ->where('c.activo=true')
+                        ->addOrderBy('c.Descripcion', 'ASC');
+                return $qb;
+            }
         );
 
         if ($idcarrera) {

@@ -34,15 +34,15 @@ class AddMateriaFieldSuscriber implements EventSubscriberInterface {
             ),
             'property' => 'descripcion',
             'query_builder' => function (\Doctrine\ORM\EntityRepository $repository) use ($idcarrera) {
-        $qb = $repository->createQueryBuilder('m')
-                ->where('m.activo=true')
-                ->innerJoin('m.carreras', 'c')
-                ->andWhere('c.activo=true')
-                ->andWhere('c=:idcarrera')
-                ->setParameter('idcarrera', $idcarrera)
-                ->addOrderBy('m.descripcion', 'ASC');
-        return $qb;
-    }
+            $qb = $repository->createQueryBuilder('m')
+                    ->where('m.activo=true')
+                    ->innerJoin('m.carreras', 'c')
+                    ->andWhere('c.activo=true')
+                    ->andWhere('c=:idcarrera')
+                    ->setParameter('idcarrera', $idcarrera)
+                    ->addOrderBy('m.descripcion', 'ASC');
+            return $qb;
+            }
         );
 
         if ($materia) {

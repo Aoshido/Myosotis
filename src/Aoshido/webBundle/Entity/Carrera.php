@@ -4,12 +4,13 @@ namespace Aoshido\webBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Carrera
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Aoshido\webBundle\Entity\Carrera")
  */
 class Carrera {
 
@@ -38,6 +39,7 @@ class Carrera {
 
     /**
      * @ORM\ManyToMany(targetEntity="Materia", mappedBy="carreras", cascade={"persist"} , fetch="EAGER")
+     * @Assert\Valid
      * */
     private $materias;
 
