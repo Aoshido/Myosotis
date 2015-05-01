@@ -16,6 +16,9 @@ class RespuestasController extends Controller {
                 ->getRepository('AoshidowebBundle:Respuesta')
                 ->findBy(array('activo' => TRUE , 'pregunta' => $idPregunta));
 
+        $pregunta = $this->getDoctrine()->getRepository('AoshidowebBundle:Pregunta')->find($idPregunta);
+        
+        
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($respuestas, $this->getRequest()->query->get('page', 1), 10);
         $pagination->setPageRange(6);
@@ -28,20 +31,20 @@ class RespuestasController extends Controller {
         $form->handleRequest($request);
         if ($form->isValid()) {
             $respuesta->setActivo(TRUE);
-            $pregunta = $this->getDoctrine()->getRepository('AoshidowebBundle:Pregunta')->find($idPregunta);
             $respuesta->setPregunta($pregunta);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($respuesta);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('abms_preguntas'));
+            return $this->redirect($this->generateUrl('respuestas_new' , array ('idPregunta' => $idPregunta)));
         }
 
         return $this->render('AoshidowebBundle:Respuestas:new.html.twig', array(
                     'form' => $form->createView(),
                     'paginas' => $pagination,
                     'cantidad' => $cantidad,
+                    'pregunta' => $pregunta,
         ));
     }
 
@@ -52,6 +55,7 @@ class RespuestasController extends Controller {
                 ->find($idRespuesta);
         
         $respuesta->setActivo(false);
+        $respuesta->setPregunta(null);
         
         $em = $this->getDoctrine()->getManager();
         $em->persist($respuesta);
