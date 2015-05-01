@@ -21,7 +21,7 @@ class RespuestaType extends AbstractType {
 
         $builder->add('correcta', 'choice', array(
             'label' => 'Correcta:',
-            'choices'  => array('t' => 'Verdadero', 'f' => 'Falso'),
+            'choices'  => array('1' => 'Verdadero', '0' => 'Falso'),
             'required' => true,
             'expanded' => true,
             'multiple' => false,
