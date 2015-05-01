@@ -9,12 +9,9 @@
         <div class="panel panel-primary">
             <div class="panel-heading text-right">Materias Totales: {{ cantidad }}</div>
             <div class="panel-body">
-
-
-
-                <table class="table table-condensed" >
                 {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
                 {{ form_errors(form)}}
+                <table class="table table-condensed" >
                     <tbody id="materias" data-prototype="{% filter escape %}{{ include('AoshidowebBundle:Themes:carrera-edit-field-prototype.html.twig',{ 'form': form.materias.vars.prototype }) }}{% endfilter %}">
                         <tr class="info">
                             <td>
@@ -48,11 +45,11 @@
                         <td >
                             {{ form_widget(form.save,{ 'label': 'Guardar Cambios' , 'attr': {'class': 'btn btn-success'} }) }}
 
-                            {{ form_row(form._token) }}
-                            {{ form_end(form, {'render_rest': false}) }}
                         </td>
                     </tr>
                 </table>
+                {{ form_row(form._token) }}
+                {{ form_end(form, {'render_rest': false}) }}
             </div>
         </div>
 
@@ -106,7 +103,7 @@
 
             // count the current form inputs we have (e.g. 2), use that as the new
             // index when inserting a new item (e.g. 2)
-            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+            $collectionHolder.data('index', $collectionHolder.find('td#temaCont').length);
 
             $addTagLink.on('click', function (e) {
                 // prevent the link from creating a "#" on the URL
