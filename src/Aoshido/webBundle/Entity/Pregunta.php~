@@ -11,8 +11,8 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table()
  * @ORM\Entity
  */
-class Pregunta
-{
+class Pregunta {
+
     /**
      * @var integer
      *
@@ -54,15 +54,14 @@ class Pregunta
      * @ORM\OneToMany(targetEntity="Respuesta", mappedBy="pregunta")
      */
     protected $respuestas;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="Tema", inversedBy="preguntas", cascade={"persist"})
      * @ORM\JoinTable(name="PreguntasTemas")
-     **/
+     * */
     private $temas;
-    
-    public function __construct()
-    {
+
+    public function __construct() {
         $this->temas = new ArrayCollection();
         $this->respuestas = new ArrayCollection();
     }
@@ -72,8 +71,7 @@ class Pregunta
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -83,8 +81,7 @@ class Pregunta
      * @param string $contenido
      * @return Pregunta
      */
-    public function setContenido($contenido)
-    {
+    public function setContenido($contenido) {
         $this->contenido = $contenido;
 
         return $this;
@@ -95,8 +92,7 @@ class Pregunta
      *
      * @return string 
      */
-    public function getContenido()
-    {
+    public function getContenido() {
         return $this->contenido;
     }
 
@@ -106,8 +102,7 @@ class Pregunta
      * @param integer $vecesVista
      * @return Pregunta
      */
-    public function setVecesVista($vecesVista)
-    {
+    public function setVecesVista($vecesVista) {
         $this->vecesVista = $vecesVista;
 
         return $this;
@@ -118,8 +113,7 @@ class Pregunta
      *
      * @return integer 
      */
-    public function getVecesVista()
-    {
+    public function getVecesVista() {
         return $this->vecesVista;
     }
 
@@ -129,8 +123,7 @@ class Pregunta
      * @param integer $vecesAcertada
      * @return Pregunta
      */
-    public function setVecesAcertada($vecesAcertada)
-    {
+    public function setVecesAcertada($vecesAcertada) {
         $this->vecesAcertada = $vecesAcertada;
 
         return $this;
@@ -141,8 +134,7 @@ class Pregunta
      *
      * @return integer 
      */
-    public function getVecesAcertada()
-    {
+    public function getVecesAcertada() {
         return $this->vecesAcertada;
     }
 
@@ -152,8 +144,7 @@ class Pregunta
      * @param boolean $activo
      * @return Pregunta
      */
-    public function setActivo($activo)
-    {
+    public function setActivo($activo) {
         $this->activo = $activo;
 
         return $this;
@@ -164,8 +155,7 @@ class Pregunta
      *
      * @return boolean 
      */
-    public function getActivo()
-    {
+    public function getActivo() {
         return $this->activo;
     }
 
@@ -175,8 +165,7 @@ class Pregunta
      * @param \Aoshido\webBundle\Entity\Respuesta $respuestas
      * @return Pregunta
      */
-    public function addRespuesta(\Aoshido\webBundle\Entity\Respuesta $respuestas)
-    {
+    public function addRespuesta(\Aoshido\webBundle\Entity\Respuesta $respuestas) {
         $this->respuestas[] = $respuestas;
 
         return $this;
@@ -187,8 +176,7 @@ class Pregunta
      *
      * @param \Aoshido\webBundle\Entity\Respuesta $respuestas
      */
-    public function removeRespuesta(\Aoshido\webBundle\Entity\Respuesta $respuestas)
-    {
+    public function removeRespuesta(\Aoshido\webBundle\Entity\Respuesta $respuestas) {
         $this->respuestas->removeElement($respuestas);
     }
 
@@ -197,8 +185,7 @@ class Pregunta
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getRespuestas()
-    {
+    public function getRespuestas() {
         return $this->respuestas;
     }
 
@@ -208,8 +195,7 @@ class Pregunta
      * @param \Aoshido\webBundle\Entity\Tema $temas
      * @return Pregunta
      */
-    public function addTema(\Aoshido\webBundle\Entity\Tema $temas)
-    {
+    public function addTema(\Aoshido\webBundle\Entity\Tema $temas) {
         $this->temas[] = $temas;
 
         return $this;
@@ -220,8 +206,7 @@ class Pregunta
      *
      * @param \Aoshido\webBundle\Entity\Tema $temas
      */
-    public function removeTema(\Aoshido\webBundle\Entity\Tema $temas)
-    {
+    public function removeTema(\Aoshido\webBundle\Entity\Tema $temas) {
         $this->temas->removeElement($temas);
     }
 
@@ -230,8 +215,24 @@ class Pregunta
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getTemas()
-    {
+    public function getTemas() {
         return $this->temas;
     }
+
+    /**
+     * Get temas Activos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTemasActivos() {
+        $temasActivos = new ArrayCollection();
+        
+        foreach ($this->temas as $tema){
+            if ($tema->getActivo()){
+                $temasActivos->add($tema);
+            }
+        }
+        return $temasActivos;
+    }
+
 }

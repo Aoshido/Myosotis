@@ -4,6 +4,7 @@ namespace Aoshido\webBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Materia
@@ -26,6 +27,8 @@ class Materia {
      * @var string
      *
      * @ORM\Column(name="Descripcion", type="text")
+     * @Assert\NotNull(message = "La materia necesita una descripcion")
+     * @Assert\NotBlank(message = "La materia necesita una descripcion")
      */
     private $descripcion;
 
@@ -33,6 +36,12 @@ class Materia {
      * @var integer
      *
      * @ORM\Column(name="AnioCarrera", type="integer")
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 6,
+     *      minMessage = "La materia debe pertenecer al menos al {{ limit }}er año",
+     *      maxMessage = "La materia debe pertenecer como maximo {{ limit }}to año"
+     * )
      */
     private $anioCarrera;
 
@@ -49,8 +58,13 @@ class Materia {
     protected $temas;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Carrera", inversedBy="materias")
+     * 
+     * @ORM\ManyToMany(targetEntity="Carrera", inversedBy="materias"  )
      * @ORM\JoinTable(name="MateriasCarreras")
+     * @Assert\Count(
+     *      min = "1",
+     *      minMessage = "La materia debe pertenecer a alguna carrera",
+     * )
      * */
     private $carreras;
 
@@ -118,7 +132,6 @@ class Materia {
      */
     public function setActivo($activo) {
         $this->activo = $activo;
-
         return $this;
     }
 
@@ -131,15 +144,13 @@ class Materia {
         return $this->activo;
     }
 
-
     /**
      * Add temas
      *
      * @param \Aoshido\webBundle\Entity\Tema $temas
      * @return Materia
      */
-    public function addTema(\Aoshido\webBundle\Entity\Tema $temas)
-    {
+    public function addTema(\Aoshido\webBundle\Entity\Tema $temas) {
         $this->temas[] = $temas;
 
         return $this;
@@ -150,8 +161,8 @@ class Materia {
      *
      * @param \Aoshido\webBundle\Entity\Tema $temas
      */
-    public function removeTema(\Aoshido\webBundle\Entity\Tema $temas)
-    {
+    public function removeTema(\Aoshido\webBundle\Entity\Tema $temas) {
+        $temas->setActivo(false);
         $this->temas->removeElement($temas);
     }
 
@@ -160,8 +171,7 @@ class Materia {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getTemas()
-    {
+    public function getTemas() {
         return $this->temas;
     }
 
@@ -171,8 +181,7 @@ class Materia {
      * @param \Aoshido\webBundle\Entity\Carrera $carreras
      * @return Materia
      */
-    public function addCarrera(\Aoshido\webBundle\Entity\Carrera $carreras)
-    {
+    public function addCarrera(\Aoshido\webBundle\Entity\Carrera $carreras) {
         $this->carreras[] = $carreras;
 
         return $this;
@@ -183,9 +192,12 @@ class Materia {
      *
      * @param \Aoshido\webBundle\Entity\Carrera $carreras
      */
-    public function removeCarrera(\Aoshido\webBundle\Entity\Carrera $carreras)
-    {
+    public function removeCarrera(\Aoshido\webBundle\Entity\Carrera $carreras) {
+        //Si me quedo sin Carreras asociadas, me borro al chizo
         $this->carreras->removeElement($carreras);
+        if (count($this->carreras) == 0) {
+            $this->setActivo('false');
+        }
     }
 
     /**
@@ -193,8 +205,24 @@ class Materia {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getCarreras()
-    {
+    public function getCarreras() {
         return $this->carreras;
     }
+
+    /**
+     * Get Carreras Activos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCarrerasActivas() {
+        $carrerasActivos = new ArrayCollection();
+
+        foreach ($this->carreras as $carrera) {
+            if ($carrera->getActivo()) {
+                $carrerasActivos->add($carrera);
+            }
+        }
+        return $carrerasActivos;
+    }
+
 }
