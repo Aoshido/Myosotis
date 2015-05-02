@@ -21,7 +21,7 @@ class PreguntasController extends Controller {
         $pagination->setPageRange(6);
 
         $cantidad = count($preguntas);
-
+        echo('si');
         $pregunta = new Pregunta();
         $form = $this->createForm(new PreguntaType(), $pregunta);
 
