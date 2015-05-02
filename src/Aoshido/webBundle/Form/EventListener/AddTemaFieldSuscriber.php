@@ -28,7 +28,8 @@ class AddTemaFieldSuscriber implements EventSubscriberInterface {
             'class'         => 'AoshidowebBundle:Tema',
             'empty_value'   => '- Seleccione Tema -',
             'label'         => 'Tema:',
-            'mapped'        => false,
+            'mapped'        => true,
+            'by_reference' => false,
             'attr'          => array(
                 'class' => 'tema_selector',
             ),

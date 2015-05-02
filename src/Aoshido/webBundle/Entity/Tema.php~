@@ -11,8 +11,8 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table()
  * @ORM\Entity
  */
-class Tema
-{
+class Tema {
+
     /**
      * @var integer
      *
@@ -36,29 +36,27 @@ class Tema
      */
     private $activo;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="Materia", inversedBy="temas")
      * @ORM\JoinColumn(name="IdMateria", referencedColumnName="id")
      */
     protected $materia;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="Pregunta", mappedBy="temas")
-     **/
+     * */
     private $preguntas;
-    
+
     public function __construct() {
         $this->preguntas = new ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -68,8 +66,7 @@ class Tema
      * @param string $descripcion
      * @return Tema
      */
-    public function setDescripcion($descripcion)
-    {
+    public function setDescripcion($descripcion) {
         $this->descripcion = $descripcion;
 
         return $this;
@@ -80,8 +77,7 @@ class Tema
      *
      * @return string 
      */
-    public function getDescripcion()
-    {
+    public function getDescripcion() {
         return $this->descripcion;
     }
 
@@ -91,8 +87,7 @@ class Tema
      * @param boolean $activo
      * @return Tema
      */
-    public function setActivo($activo)
-    {
+    public function setActivo($activo) {
         $this->activo = $activo;
 
         return $this;
@@ -103,8 +98,7 @@ class Tema
      *
      * @return boolean 
      */
-    public function getActivo()
-    {
+    public function getActivo() {
         return $this->activo;
     }
 
@@ -114,8 +108,7 @@ class Tema
      * @param \Aoshido\webBundle\Entity\Materia $materia
      * @return Tema
      */
-    public function setMateria(\Aoshido\webBundle\Entity\Materia $materia = null)
-    {
+    public function setMateria(\Aoshido\webBundle\Entity\Materia $materia = null) {
         $this->materia = $materia;
 
         return $this;
@@ -126,8 +119,7 @@ class Tema
      *
      * @return \Aoshido\webBundle\Entity\Materia 
      */
-    public function getMateria()
-    {
+    public function getMateria() {
         return $this->materia;
     }
 
@@ -137,8 +129,7 @@ class Tema
      * @param \Aoshido\webBundle\Entity\Pregunta $preguntas
      * @return Tema
      */
-    public function addPregunta(\Aoshido\webBundle\Entity\Pregunta $preguntas)
-    {
+    public function addPregunta(\Aoshido\webBundle\Entity\Pregunta $preguntas) {
         $this->preguntas[] = $preguntas;
 
         return $this;
@@ -149,8 +140,8 @@ class Tema
      *
      * @param \Aoshido\webBundle\Entity\Pregunta $preguntas
      */
-    public function removePregunta(\Aoshido\webBundle\Entity\Pregunta $preguntas)
-    {
+    public function removePregunta(\Aoshido\webBundle\Entity\Pregunta $preguntas) {
+        $preguntas->removeTema($this);
         $this->preguntas->removeElement($preguntas);
     }
 
@@ -159,8 +150,8 @@ class Tema
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getPreguntas()
-    {
+    public function getPreguntas() {
         return $this->preguntas;
     }
+
 }

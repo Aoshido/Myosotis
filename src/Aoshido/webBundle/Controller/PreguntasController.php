@@ -26,9 +26,6 @@ class PreguntasController extends Controller {
         $form = $this->createForm(new PreguntaType(), $pregunta);
 
         $form->handleRequest($request);
-            /*dump($pregunta);
-            dump($form);
-            die();*/
         if ($form->isValid()) {
             $pregunta->setActivo(TRUE);
             $pregunta->setVecesVista(0);
