@@ -21,22 +21,23 @@ class PreguntasController extends Controller {
         $pagination->setPageRange(6);
 
         $cantidad = count($preguntas);
-        echo('si');
         $pregunta = new Pregunta();
         $form = $this->createForm(new PreguntaType(), $pregunta);
 
         $form->handleRequest($request);
         if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
             $pregunta->setActivo(TRUE);
             $pregunta->setVecesVista(0);
             $pregunta->setVecesAcertada(0);
             
             $temas = $form->get('temas')->getData();
-            /*foreach ($temas as $tema) {*/
-            $temas->setActivo(TRUE);
-            $pregunta->addTema($temas);
+            foreach ($temas as $tema) {
+                $pregunta->addTema($tema);
+                //$temas->setActivo(TRUE);
+                $em->persist($tema);
+            }
             
-            $em = $this->getDoctrine()->getManager();
             $em->persist($pregunta);
             $em->flush();
 
@@ -65,7 +66,7 @@ class PreguntasController extends Controller {
                 ->getRepository('AoshidowebBundle:Pregunta')
                 ->find($idPregunta);
         
-        $form = $this->createForm(new PreguntaType(), $pregunta);
+        $form = $this->createForm(new PreguntaType(), $pregunta , array('method' => 'PATCH'));
         
         $form->handleRequest($request);
         
@@ -73,9 +74,16 @@ class PreguntasController extends Controller {
             $em = $this->getDoctrine()->getManager();
             
             $temas = $form->get('temas')->getData();
-            /*foreach ($temas as $tema) {*/
-            $temas->setActivo(TRUE);
-            $pregunta->addTema($temas);
+            
+            foreach ($pregunta->getTemas() as $tema) {
+                $pregunta->removeTema($tema);
+                $em->persist($tema);
+            }
+            
+            foreach ($temas as $tema) {
+                $pregunta->addTema($tema);
+                $em->persist($tema);
+            }
             
             $em->persist($pregunta);
             $em->flush();
