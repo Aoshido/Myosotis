@@ -29,10 +29,11 @@ class AddTemaFieldSuscriber implements EventSubscriberInterface {
             'empty_value'   => '- Seleccione Tema -',
             'label'         => 'Tema:',
             'mapped'        => false,
+            'multiple'      => true,
             'attr'          => array(
                 'class' => 'tema_selector',
             ),
-            'data' => $tema_seleccionado,
+            //'data' => $tema_seleccionado,
             'property' => 'descripcion',
             'query_builder' => function (EntityRepository $repository) use ($idmateria) {
                          $qb = $repository->createQueryBuilder('t')
@@ -66,7 +67,7 @@ class AddTemaFieldSuscriber implements EventSubscriberInterface {
         $tema = $temas[0];
         $materia_id = ($tema) ? $tema->getMateria()->getId() : null;
         
-        $this->addTemaForm($form, $materia_id,$tema);
+        $this->addTemaForm($form, $materia_id,$temas);
     }
 
     public function preSubmit(FormEvent $event) {
