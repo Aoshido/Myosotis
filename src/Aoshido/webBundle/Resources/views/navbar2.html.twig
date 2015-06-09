@@ -18,17 +18,21 @@
                         <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
                     </a>
                 </li>
+                {% if is_granted('ROLE_USER') %}
                 <li class="dropdown" >
                     <a data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle" href="#{#path('abms_index')#}">
                         <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> ABMs
                         <span class="caret"></span>
                     </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{path('abms_preguntas')}}"  data-parent="#MainMenu">Preguntas</a></li>
-                        <li><a href="{{path('abms_temas')}}"  data-parent="#MainMenu">Temas</a></li>
-                        <li><a href="{{path('abms_materias')}}"  data-parent="#MainMenu">Materias</a></li>
-                        <li><a href="{{path('abms_carreras')}}"  data-parent="#MainMenu">Carreras</a></li>
-                    </ul>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{path('abms_preguntas')}}"  data-parent="#MainMenu">Preguntas</a></li>
+                            <li><a href="{{path('abms_temas')}}"  data-parent="#MainMenu">Temas</a></li>
+                            <li><a href="{{path('abms_materias')}}"  data-parent="#MainMenu">Materias</a></li>
+                            <li><a href="{{path('abms_carreras')}}"  data-parent="#MainMenu">Carreras</a></li>
+                        </ul>
+                    {% else %}
+                    
+                    {% endif %}
                 </li> 
                 <li class="disabled" {% block quiz %} {% endblock %} ><a href="#">
                         <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Quiz!
@@ -40,8 +44,14 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                
-                <li><a href="{{path('fos_user_registration_register')}}">Registrate!</a></li>
+
+                {% if is_granted('ROLE_USER') %}
+                    <li><a href="{{path('fos_user_security_logout')}}">Log Out</a></li>
+                    {% else %}
+                    <li><a href="{{path('fos_user_registration_register')}}">Registrate!</a></li>
+                    {% endif %}
+
+
                 <li class="divider-vertical"></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" href="#" data-toggle="dropdown">Ingresa <strong class="caret"></strong></a>
