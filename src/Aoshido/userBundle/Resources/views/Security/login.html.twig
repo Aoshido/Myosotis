@@ -12,25 +12,25 @@
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
         <div class="form-group">
-            <label class="col-md-2 control-label" for="username">{{ 'security.login.username'|trans }}</label>
-            <div class="col-md-6">
+            <label class="col-sm-2 control-label" for="username">{{ 'security.login.username'|trans }}</label>
+            <div class="col-sm-6">
                 <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-md-2 control-label" for="password">{{ 'security.login.password'|trans }}</label>
-            <div class="col-md-6">
-                <input class="col-md-6 form-control" type="password" id="password" name="_password" required="required" />
+            <label class="col-sm-2 control-label" for="password">{{ 'security.login.password'|trans }}</label>
+            <div class="col-sm-6">
+                <input class="col-sm-6 form-control" type="password" id="password" name="_password" required="required" />
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-3">
+            <div class="col-sm-offset-2 col-sm-3">
                 <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
                 <label class="control-label"for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
             </div>
-            <div class="col-md-6">
+            <div class="col-sm-6">
                 <input class="btn btn-success" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
             </div>
         </div>

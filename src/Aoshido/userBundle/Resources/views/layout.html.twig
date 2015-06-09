@@ -1,15 +1,1 @@
-{% extends '::base.html.twig' %}
-
-{% block title %}Acme Demo Application{% endblock %}
-
-{% block content %}
-    <div class="jumbotron alpha60">
-        <div class="container-fluid">
-            <h2>{% block section %} {% endblock %}</h2>
-            <div class="col-md-offset-1 col-md-10">
-                {% block fos_user_content %}{% endblock %}
-            </div>
-        </div>
-    </div>
-
-{% endblock %}
+{% block fos_user_content %}{% endblock %}
