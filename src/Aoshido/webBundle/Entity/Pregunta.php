@@ -196,6 +196,7 @@ class Pregunta {
      * @return Pregunta
      */
     public function addTema(\Aoshido\webBundle\Entity\Tema $temas) {
+        $temas->addPregunta($this);
         $this->temas[] = $temas;
 
         return $this;

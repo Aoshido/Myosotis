@@ -27,6 +27,7 @@ class PreguntaType extends AbstractType {
         // uno despues completa la entity, pero symfony antes hace una validacion
         // Entonces hay qeu agregarle esto apra que no haga esa validacion
         // http://symfony.com/doc/current/cookbook/form/dynamic_form_modification.html#suppressing-form-validation
+       
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
             $event->stopPropagation();
         }, 900);
