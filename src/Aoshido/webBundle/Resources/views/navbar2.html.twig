@@ -57,43 +57,16 @@
                     </li>
                 </ul>
             {% else %}
-                <ul class="nav navbar-nav navbar-right">
+                            {{ render(controller('FOSUserBundle:Security:login')) }}
+                {#<ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ingresa! <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            {{ render(controller('FOSUserBundle:Security:login')) }}
                         </ul>
                     </li>
-                </ul>
+                </ul>#}
             {% endif %}
 
-
-
-
-
-
-
-            {#
-            {% if is_granted('ROLE_USER') %}
-                <li><a href="{{path('fos_user_security_logout')}}">Log Out</a></li>
-                {% else %}
-                <li><a href="{{path('fos_user_registration_register')}}">Registrate!</a></li>
-                {% endif %}
-
-            <li class="divider-vertical"></li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" href="#" data-toggle="dropdown">Ingresa <strong class="caret"></strong></a>
-                <div class="dropdown-menu login_bckg" style="padding: 15px; padding-bottom: 0px;">
-                    
-                    
-                    {{ render(controller('FOSUserBundle:Security:login')) }}
-                    
-                    {{ app.user.username }}
-
-                    
-        </div>
-        </li>
-        </ul>#}
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
