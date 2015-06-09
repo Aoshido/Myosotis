@@ -27,13 +27,13 @@ class AddTemaFieldSuscriber implements EventSubscriberInterface {
         $formOptions = array(
             'class'         => 'AoshidowebBundle:Tema',
             'empty_value'   => '- Seleccione Tema -',
-            'label'         => 'Tema:',
-            'mapped'        => false,
+            'label'         => 'Temas:',
+            'mapped'        => true,
             'multiple'      => true,
             'attr'          => array(
                 'class' => 'tema_selector',
             ),
-            //'data' => $tema_seleccionado,
+            'data' => $tema_seleccionado,
             'property' => 'descripcion',
             'query_builder' => function (EntityRepository $repository) use ($idmateria) {
                          $qb = $repository->createQueryBuilder('t')
@@ -46,14 +46,12 @@ class AddTemaFieldSuscriber implements EventSubscriberInterface {
                 return $qb;
             }
         );
-
         $form->add($this->propertyPathToTema, 'entity', $formOptions);
     }
 
     public function preSetData(FormEvent $event) {
         $data = $event->getData();
         $form = $event->getForm();
-
         if (null === $data) {
             return;
         }
@@ -66,6 +64,7 @@ class AddTemaFieldSuscriber implements EventSubscriberInterface {
         //pertenecen a la misma materia
         $tema = $temas[0];
         $materia_id = ($tema) ? $tema->getMateria()->getId() : null;
+        
         
         $this->addTemaForm($form, $materia_id,$temas);
     }

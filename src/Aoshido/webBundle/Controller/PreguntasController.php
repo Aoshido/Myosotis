@@ -25,18 +25,20 @@ class PreguntasController extends Controller {
         $form = $this->createForm(new PreguntaType(), $pregunta);
 
         $form->handleRequest($request);
+        
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $pregunta->setActivo(TRUE);
             $pregunta->setVecesVista(0);
             $pregunta->setVecesAcertada(0);
-            
-            $temas = $form->get('temas')->getData();
+            dump($pregunta);
+            dump($form);
+            die();
+            /*$temas = $form->get('temas')->getData();
             foreach ($temas as $tema) {
                 $pregunta->addTema($tema);
-                //$temas->setActivo(TRUE);
                 $em->persist($tema);
-            }
+            }*/
             
             $em->persist($pregunta);
             $em->flush();
@@ -72,8 +74,12 @@ class PreguntasController extends Controller {
         
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            
-            $temas = $form->get('temas')->getData();
+            dump($form);
+            dump($form->get('temas')->getData());
+            dump($pregunta);
+            die();
+            //$temas = $form->get('temas')->getData();
+                    
             
             foreach ($pregunta->getTemas() as $tema) {
                 $pregunta->removeTema($tema);
