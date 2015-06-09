@@ -19,11 +19,11 @@
                     </a>
                 </li>
                 {% if is_granted('ROLE_USER') %}
-                <li class="dropdown" >
-                    <a data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle" href="#{#path('abms_index')#}">
-                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> ABMs
-                        <span class="caret"></span>
-                    </a>
+                    <li class="dropdown" >
+                        <a data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle" href="#{#path('abms_index')#}">
+                            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> ABMs
+                            <span class="caret"></span>
+                        </a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{{path('abms_preguntas')}}"  data-parent="#MainMenu">Preguntas</a></li>
                             <li><a href="{{path('abms_temas')}}"  data-parent="#MainMenu">Temas</a></li>
@@ -31,7 +31,7 @@
                             <li><a href="{{path('abms_carreras')}}"  data-parent="#MainMenu">Carreras</a></li>
                         </ul>
                     {% else %}
-                    
+
                     {% endif %}
                 </li> 
                 <li class="disabled" {% block quiz %} {% endblock %} ><a href="#">
@@ -43,29 +43,57 @@
                     </a>
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
 
-                {% if is_granted('ROLE_USER') %}
-                    <li><a href="{{path('fos_user_security_logout')}}">Log Out</a></li>
-                    {% else %}
-                    <li><a href="{{path('fos_user_registration_register')}}">Registrate!</a></li>
-                    {% endif %}
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.user.username }} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path('fos_user_profile_show') }}">Perfil</a></li>
+                            <li><a href="{{ path('fos_user_change_password') }}">Cambiar contraseña</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            {% else %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ingresa! <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            {{ render(controller('FOSUserBundle:Security:login')) }}
+                        </ul>
+                    </li>
+                </ul>
+            {% endif %}
 
 
-                <li class="divider-vertical"></li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" href="#" data-toggle="dropdown">Ingresa <strong class="caret"></strong></a>
-                    <div class="dropdown-menu login_bckg" style="padding: 15px; padding-bottom: 0px;">
-                        <form method="post" action="login" accept-charset="UTF-8">
-                            <input style="margin-bottom: 15px;" type="text" placeholder="Username" id="username" name="username">
-                            <input style="margin-bottom: 15px;" type="password" placeholder="Password" id="password" name="password">
-                            <input style="float: left; margin-right: 10px;" type="checkbox" name="remember-me" id="remember-me" value="1">
-                            <label class="string optional" for="user_remember_me"> Recuerdame</label>
-                            <input style="margin-bottom: 15px;" class="btn btn-primary btn-block" type="submit" id="sign-in" value="Ingresar">
-                        </form>
-                    </div>
-                </li>
-            </ul>
+
+
+
+
+
+            {#
+            {% if is_granted('ROLE_USER') %}
+                <li><a href="{{path('fos_user_security_logout')}}">Log Out</a></li>
+                {% else %}
+                <li><a href="{{path('fos_user_registration_register')}}">Registrate!</a></li>
+                {% endif %}
+
+            <li class="divider-vertical"></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" href="#" data-toggle="dropdown">Ingresa <strong class="caret"></strong></a>
+                <div class="dropdown-menu login_bckg" style="padding: 15px; padding-bottom: 0px;">
+                    
+                    
+                    {{ render(controller('FOSUserBundle:Security:login')) }}
+                    
+                    {{ app.user.username }}
+
+                    
+        </div>
+        </li>
+        </ul>#}
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
