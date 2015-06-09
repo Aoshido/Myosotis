@@ -7,33 +7,25 @@
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <form class="form-horizontal" action="{{ path("fos_user_security_check") }}" method="post">
-
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    <form class="navbar-form form-inline pull-right" action="{{ path("fos_user_security_check") }}" method="post">
 
         <div class="form-group">
-            <label class="col-sm-2 control-label" for="username">{{ 'security.login.username'|trans }}</label>
-            <div class="col-sm-6">
-                <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
-            </div>
+            {#<label class="control-label" for="username">{{ 'security.login.username'|trans }}</label>#}
+            <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="{{ 'security.login.username'|trans }}"/>
+        </div>
+        <div class="form-group">
+            {#<label class="control-label" for="password">{{ 'security.login.password'|trans }}</label>#}
+            <input class="form-control" type="password" id="password" name="_password" required="required" placeholder="{{ 'security.login.password'|trans }}" />
+        </div>
+        <div class="form-group">
+            {#<label class="control-label"for="remember_me">{{ 'security.login.remember_me'|trans }}</label>#}
+            <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+        </div>
+        <div class="form-group">
+            <input class="btn btn-success" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
         </div>
 
-        <div class="form-group">
-            <label class="col-sm-2 control-label" for="password">{{ 'security.login.password'|trans }}</label>
-            <div class="col-sm-6">
-                <input class="col-sm-6 form-control" type="password" id="password" name="_password" required="required" />
-            </div>
-        </div>
+    </form>
 
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-3">
-                <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-                <label class="control-label"for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
-            </div>
-            <div class="col-sm-6">
-                <input class="btn btn-success" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
-            </div>
-        </div>
-    </div>
-</form>
 {% endblock fos_user_content %}
