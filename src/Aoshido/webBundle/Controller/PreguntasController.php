@@ -74,11 +74,7 @@ class PreguntasController extends Controller {
         
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            dump($form);
-            dump($form->get('temas')->getData());
-            dump($pregunta);
-            die();
-            //$temas = $form->get('temas')->getData();
+            $temas = $form->get('temas')->getData();
                     
             
             foreach ($pregunta->getTemas() as $tema) {
