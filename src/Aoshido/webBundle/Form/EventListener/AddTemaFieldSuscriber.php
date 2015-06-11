@@ -75,15 +75,7 @@ class AddTemaFieldSuscriber implements EventSubscriberInterface {
 
         $idmateria = array_key_exists('materia', $data) ? $data['materia'] : null;
         
-        $tema = $form->get('temas');
-        //print_r ($idmateria);
-        //print_r($tema->getViewData());
-        //die();
-        //$accessor    = PropertyAccess::createPropertyAccessor();
-        //$tema        = $accessor->getValue($data, $this->propertyPathToTema);
-        //$tema = $temas[0];
-        
-        $this->addTemaForm($form, $idmateria,$tema);
+        $this->addTemaForm($form, $idmateria);
     }
 
 }
