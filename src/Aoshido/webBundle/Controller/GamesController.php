@@ -2,16 +2,15 @@
 
 namespace Aoshido\webBundle\Controller;
 
-use Aoshido\webBundle\Entity\Tema;
 use Aoshido\webBundle\Entity\Pregunta;
 use Aoshido\webBundle\Form\PreguntaType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class PreguntasController extends Controller {
+class GamesController extends Controller {
 
-    public function newAction(Request $request) {
+    public function cardsAction(Request $request) {
         $preguntas = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Pregunta')
                 ->findBy(array('activo' => TRUE));
@@ -31,6 +30,12 @@ class PreguntasController extends Controller {
             $pregunta->setActivo(TRUE);
             $pregunta->setVecesVista(0);
             $pregunta->setVecesAcertada(0);
+
+            $temas = $form->get('temas')->getData();
+            foreach ($temas as $tema) {
+                $pregunta->addTema($tema);
+                $em->persist($tema);
+            }
             
             $em->persist($pregunta);
             $em->flush();
