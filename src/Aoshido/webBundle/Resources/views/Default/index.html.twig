@@ -5,8 +5,39 @@
     <div class="jumbotron alpha60">
         <h1>Utnianos!</h1>
         <p>Esta pagina nacio con la intencion de ayudar a estudiar (o quizas memorizar mejor)
-        todos esos millones y millones de verdaderos o falsos, multiples choices, conceptos y
-        demas cuestiones tan necesarias para aprobar.</p>
+            todos esos millones y millones de verdaderos o falsos, multiples choices, conceptos y
+            demas cuestiones tan necesarias para aprobar.</p>
         <h2>Modos:</h2>
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <a href="{{path('abms_preguntas')}}">
+                        <img src="{% image '@AoshidowebBundle/img/quiz.jpg' %} {{ asset_url }} {% endimage %}" alt="Quiz">
+                    </a>
+                    <div class="caption">
+                        <h3 class="text-center">Quiz Mode</h3>
+                        <p>Prepara un parcial/final de la materia que uno elija.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="{% image '@AoshidowebBundle/img/cards.jpg' %} {{ asset_url }} {% endimage %}" alt="Cards">
+                    <div class="caption">
+                        <h3 class="text-center">Cards Mode</h3>
+                        <p>Tarjetas con las respuestas para ejercitar la memoria!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="{% image '@AoshidowebBundle/img/challenge.jpg' %} {{ asset_url }} {% endimage %}" alt="Challenge">
+                    <div class="caption">
+                        <h3 class="text-center">Challenge Mode</h3>
+                        <p >Selecciona un tema y contesta preguntas hasta equivocarte!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

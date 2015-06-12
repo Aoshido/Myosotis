@@ -8,16 +8,21 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" >Aoshido</a>
+            
+                <a class="navbar-brand" href="{{path('aoshidoweb_homepage')}}">
+                    <span class="glyphicon glyphicon-leaf green" aria-hidden="true"></span>
+                     Myosotis 
+                </a>
+            
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li {% block home %} {% endblock %} ><a href="{{path('aoshidoweb_homepage')}}">
+                {#<li {% block home %} {% endblock %} ><a href="{{path('aoshidoweb_homepage')}}">
                         <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
                     </a>
-                </li>
+                </li>#}
                 {% if is_granted('ROLE_USER') %}
                     <li class="dropdown" >
                         <a data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle" href="#{#path('abms_index')#}">
@@ -35,13 +40,18 @@
                     {% endif %}
                 </li> 
                 <li class="disabled" {% block quiz %} {% endblock %} ><a href="#">
-                        <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Quiz!
+                        <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Quiz
                     </a>
                 </li>
                 <li class="disabled" {% block cards %} {% endblock %} ><a href="#">
                         <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> Cards
                     </a>
                 </li>
+                <li class="disabled" {% block challenge %} {% endblock %} ><a href="#">
+                        <span class="glyphicon glyphicon-tower" aria-hidden="true"></span> Challenge
+                    </a>
+                </li>
+                
             </ul>
 
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -57,7 +67,7 @@
                     </li>
                 </ul>
             {% else %}
-                            {{ render(controller('FOSUserBundle:Security:login')) }}
+                {{ render(controller('FOSUserBundle:Security:login')) }}
                 {#<ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ingresa! <span class="caret"></span></a>
