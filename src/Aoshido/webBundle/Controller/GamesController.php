@@ -10,7 +10,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class GamesController extends Controller {
 
-    public function cardsAction(Request $request) {
+    public function settingsAction(Request $request) {
+        /*
         $preguntas = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Pregunta')
                 ->findBy(array('activo' => TRUE));
@@ -18,10 +19,7 @@ class GamesController extends Controller {
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($preguntas, $this->getRequest()->query->get('page', 1), 10);
         $pagination->setPageRange(6);
-
-        $cantidad = count($preguntas);
-        $pregunta = new Pregunta();
-        $form = $this->createForm(new PreguntaType(), $pregunta);
+*/
 
         $form->handleRequest($request);
         
