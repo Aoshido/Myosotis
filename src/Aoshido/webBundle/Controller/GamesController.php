@@ -8,90 +8,40 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+use Aoshido\webBundle\Form\Filter\PreguntaFilterType;
+
 class GamesController extends Controller {
 
     public function settingsAction(Request $request) {
-        /*
-        $preguntas = $this->getDoctrine()
-                ->getRepository('AoshidowebBundle:Pregunta')
-                ->findBy(array('activo' => TRUE));
 
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($preguntas, $this->getRequest()->query->get('page', 1), 10);
-        $pagination->setPageRange(6);
-*/
-
-        $form->handleRequest($request);
         
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $pregunta->setActivo(TRUE);
-            $pregunta->setVecesVista(0);
-            $pregunta->setVecesAcertada(0);
-
-            $temas = $form->get('temas')->getData();
-            foreach ($temas as $tema) {
-                $pregunta->addTema($tema);
-                $em->persist($tema);
-            }
-            
-            $em->persist($pregunta);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('abms_preguntas'));
-        }
-
-        return $this->render('AoshidowebBundle:Preguntas:new.html.twig', array(
-                    'form' => $form->createView(),
-                    'paginas' => $pagination,
-                    'cantidad' => $cantidad,
-        ));
-    }
-
-    public function editAction(Request $request,$idPregunta) {
-        $preguntas = $this->getDoctrine()
-                ->getRepository('AoshidowebBundle:Pregunta')
-                ->findBy(array('activo' => TRUE));
-
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($preguntas, $this->getRequest()->query->get('page', 1), 10);
-        $pagination->setPageRange(6);
-
-        $cantidad = count($preguntas);
-
-        $pregunta = $this->getDoctrine()
-                ->getRepository('AoshidowebBundle:Pregunta')
-                ->find($idPregunta);
-        
+        $pregunta = new Pregunta();
         $form = $this->createForm(new PreguntaType(), $pregunta , array('method' => 'PATCH'));
         
         $form->handleRequest($request);
         
+        $preguntas = $this->getDoctrine()
+                ->getRepository('AoshidowebBundle:Pregunta')
+                ->findBy(array('activo' => TRUE));
+        
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $temas = $form->get('temas')->getData();
-                    
             
-            foreach ($pregunta->getTemas() as $tema) {
-                $pregunta->removeTema($tema);
-                $em->persist($tema);
+            if ($pregunta->getTemas() != ""){
+                
             }
             
-            foreach ($temas as $tema) {
-                $pregunta->addTema($tema);
-                $em->persist($tema);
-            }
             
-            $em->persist($pregunta);
-            $em->flush();
-
             return $this->redirect($this->generateUrl('abms_preguntas'));
         }
+        
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($preguntas, $this->getRequest()->query->get('page', 1), 10);
+        $pagination->setPageRange(6);
 
-        return $this->render('AoshidowebBundle:Preguntas:edit.html.twig', array(
+
+        return $this->render('AoshidowebBundle:Games:quiz.html.twig', array(
                     'form' => $form->createView(),
                     'paginas' => $pagination,
-                    'cantidad' => $cantidad,
         ));
     }
 
