@@ -8,21 +8,26 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
 
-
 class GamesController extends Controller {
 
     public function settingsAction(Request $request) {
 
         $pregunta = new Pregunta();
-        $form = $this->createForm(new PreguntaType(), $pregunta);
+        $form = $this->createForm(new PreguntaType(), $pregunta, array('method' => 'PATCH'));
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $preguntas = new ArrayCollection();
             foreach ($pregunta->getTemas() as $tema) {
-                $preguntas = $tema->getPreguntas();
+                $preguntas_temp = $tema->getPreguntas();
+                foreach ($preguntas_temp as $pregunta_temp) {
+                    if ($pregunta_temp != $pregunta && !$preguntas->contains($pregunta_temp)){
+                        $preguntas->add($pregunta_temp);
+                    }
+                }
             }
+
 
             return $this->quizAction($preguntas);
         }
@@ -44,4 +49,5 @@ class GamesController extends Controller {
                     'cantidad' => $cantidad,
         ));
     }
+
 }
