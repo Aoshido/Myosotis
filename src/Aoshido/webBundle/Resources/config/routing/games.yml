@@ -2,6 +2,10 @@ games_quiz:
     path:     /quiz
     defaults: { _controller: AoshidowebBundle:Games:quiz }
 
+games_cards:
+    path:     /cards
+    defaults: { _controller: AoshidowebBundle:Games:quiz }
+
 games_settings:
     path:     /settings
     defaults: { _controller: AoshidowebBundle:Games:settings }
