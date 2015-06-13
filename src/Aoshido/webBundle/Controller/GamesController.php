@@ -11,14 +11,25 @@ use Doctrine\Common\Collections\ArrayCollection;
 class GamesController extends Controller {
 
     public function settingsAction(Request $request) {
-
         $pregunta = new Pregunta();
-        $form = $this->createForm(new PreguntaType(), $pregunta, array('method' => 'PATCH'));
+        $form = $this->createForm(new PreguntaType(), $pregunta);
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $preguntas = new ArrayCollection();
+        return $this->render('AoshidowebBundle:Games:settings.html.twig', array(
+                    'form' => $form->createView(),
+        ));
+    }
+
+    public function quizAction(Request $request) {
+        
+        $pregunta = new Pregunta();
+        $form = $this->createForm(new PreguntaType(), $pregunta);
+
+        $form->handleRequest($request);
+        
+        $preguntas = new ArrayCollection();
+        if($form->isValid()){
             foreach ($pregunta->getTemas() as $tema) {
                 $preguntas_temp = $tema->getPreguntas();
                 foreach ($preguntas_temp as $pregunta_temp) {
@@ -27,23 +38,14 @@ class GamesController extends Controller {
                     }
                 }
             }
-
-
-            return $this->quizAction($preguntas);
         }
-
-        return $this->render('AoshidowebBundle:Games:quiz.html.twig', array(
-                    'form' => $form->createView(),
-        ));
-    }
-
-    public function quizAction($preguntas) {
+        
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($preguntas, $this->getRequest()->query->get('page', 1), 10);
         $pagination->setPageRange(6);
 
         $cantidad = count($preguntas);
-
+        
         return $this->render('AoshidowebBundle:Games:play.html.twig', array(
                     'paginas' => $pagination,
                     'cantidad' => $cantidad,
