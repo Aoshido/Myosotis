@@ -1,31 +1,34 @@
 {% extends 'AoshidowebBundle:Games:index.html.twig' %}
 
-{% block title %}CAAAAAAAAAAAAAAAAARDS! {% endblock %}
-{% block section %}CAAAAAAAAAAAAAAAAARDS! {% endblock %}
+{% block title %} Cards! {% endblock %}
+{% block section %} Cards! {% endblock %}
 {% block games_contenido %} 
     <div class="container col-md-12">
         <div class="panel panel-primary">
             <div class="panel-heading text-right">Preguntas Disponibles: {{ cantidad }}</div>
             {% if paginas|length > 0 %}
                 <table class="table table-condensed">
-                    {% for pregunta in paginas %}
-                        <tr class="row">
-                            <td class="col-sm-9">
-                                <span class="badge progress-bar-warning" data-toggle="tooltip" data-placement="left" title="Veces Vista">
-                                    {{pregunta.vecesVista}}
-                                </span>
-                                <span class="badge progress-bar-success" data-toggle="tooltip" data-placement="top" title="Veces Acertada">
-                                    {{pregunta.vecesAcertada}}
-                                </span>
-                                {{ pregunta.contenido }}
-                                {% for respuesta  in pregunta.respuestas %}
-                                <td class="col-sm-3">
-                                    {{ respuesta.contenido }}
-                                </td>
-                            {% endfor %}
+                    <tr>
+                        {% for pregunta in paginas %}
+                            <td class="col-sm-6">
+                                <div class="flip-container container-fluid  " ontouchstart="this.classList.toggle('hover');">
+                                    <div class="flipper">
+                                        <div class="front text-center alpha60">
+                                            <p>{{ pregunta.contenido }}</p>
+                                        </div>
+                                        <div class="back ">
+                                            {% for respuesta  in pregunta.respuestas %}
+                                                {{ respuesta.contenido }}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
-                        </tr>
-                    {% endfor %}
+                            {% if ((loop.index+1) % 2) %}
+                            </tr><tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
                 </table>
                 <div class="col-md-offset-4 navigation">
                     {{ knp_pagination_render(paginas) }}
