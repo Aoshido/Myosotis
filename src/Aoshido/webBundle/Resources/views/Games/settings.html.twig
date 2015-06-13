@@ -1,14 +1,44 @@
-{% extends '::base.html.twig' %}
+<div class="container col-md-12">
 
-{% block title %}Game Settings{% endblock %}
-{% block content %}
-    <div class="jumbotron alpha60">
-        <div class="container-fluid">
-            <h2>{% block section %} {% endblock %}</h2>
-            <div class="col-md-offset-1 col-md-10">
-                {% block games_contenido %}
-                {% endblock %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">Elegir Temas</div>
+
+        <div class="panel-body">
+            {{ form_start(form,{ 'attr': {'class': 'form-horizontal' , 'action': path("fos_user_security_check")} })}}
+            {{ form_errors(form)}}
+
+
+            <div class="form-group">
+                {{ form_label(form.carrera,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
+                {{ form_errors(form.carrera) }}
+                <div id="anchor" class="col-md-6">
+                    {{ form_widget(form.carrera,{ 'attr' : { 'class' : 'form-control' } }) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_errors(form.materia) }}
+                {{ form_label(form.materia,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
+                <div class="col-md-6">
+                    {{ form_widget(form.materia,{ 'attr' : { 'class' : 'form-control' } }) }}
+                </div>
+            </div>    
+
+            <div class="form-group">
+                {{ form_errors(form.temas) }}
+                {{ form_label(form.temas,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
+                <div class="col-md-6">
+                    {{ form_widget(form.temas,{ 'attr' : { 'class' : 'form-control' } }) }}
+                </div>
+            </div> 
+
+            <div class="form-group">
+                <div id="anchor" class="col-md-offset-2 col-md-4">
+                    {{ form_widget(form.save,{ 'label': 'Guardar Cambios' , 'attr': {'class': 'btn btn-success'} }) }}
+                </div>
+                {{ form_row(form._token) }}
+                {{ form_end(form, {'render_rest': false}) }}
             </div>
         </div>
     </div>
-{% endblock %}
+</div>

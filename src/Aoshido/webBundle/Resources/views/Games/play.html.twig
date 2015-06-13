@@ -1,30 +1,36 @@
-{% extends 'AoshidowebBundle:Games:settings.html.twig' %}
+{% extends 'AoshidowebBundle:Games:index.html.twig' %}
 
 {% block title %}Quiz! {% endblock %}
 {% block section %}Quiz! {% endblock %}
 {% block games_contenido %} 
+
+    {{ render(controller('AoshidowebBundle:Games:settings')) }}
+
     <div class="container col-md-12">
         <div class="panel panel-primary">
             <div class="panel-heading text-right">Preguntas Disponibles: {{ cantidad }}</div>
-
-            <table class="table table-condensed">
-                {% for pregunta in paginas %}
-                    <tr class="row">
-                        <td class="col-sm-9">
-                            <span class="badge progress-bar-warning" data-toggle="tooltip" data-placement="left" title="Veces Vista">
-                                {{pregunta.vecesVista}}
-                            </span>
-                            <span class="badge progress-bar-success" data-toggle="tooltip" data-placement="top" title="Veces Acertada">
-                                {{pregunta.vecesAcertada}}
-                            </span>
-                            {{ pregunta.contenido }}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
-            <div class="col-md-offset-4 navigation">
-                {{ knp_pagination_render(paginas) }}
-            </div>
+            {% if paginas|length > 0 %}
+                <table class="table table-condensed">
+                    {% for pregunta in paginas %}
+                        <tr class="row">
+                            <td class="col-sm-9">
+                                <span class="badge progress-bar-warning" data-toggle="tooltip" data-placement="left" title="Veces Vista">
+                                    {{pregunta.vecesVista}}
+                                </span>
+                                <span class="badge progress-bar-success" data-toggle="tooltip" data-placement="top" title="Veces Acertada">
+                                    {{pregunta.vecesAcertada}}
+                                </span>
+                                {{ pregunta.contenido }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <div class="col-md-offset-4 navigation">
+                    {{ knp_pagination_render(paginas) }}
+                </div>
+            {%else%}
+                Elija opciones!
+            {% endif %}
         </div>
     </div>
 {% endblock %}
