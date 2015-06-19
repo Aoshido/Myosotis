@@ -13,10 +13,10 @@
 
             {# http://stackoverflow.com/questions/7044631/symfony2-assetic-load-images-in-css #}
             {# http://www.craftitonline.com/2011/06/symfony2-beautify-with-assetic-and-a-template-part-ii/ #}
-            
+
             {#aca esta eactamente lo que necesito
             http://stackoverflow.com/questions/23447339/symfony-2-set-background-image-using-css#}
-            
+
             {% stylesheets '../app/Resources/public/css/*' filter='cssrewrite'%}
             <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
             {% endstylesheets %}
@@ -50,6 +50,8 @@
             <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
 
+            <script src="/ckeditor/ckeditor.js"></script>
+            
             <script>
                 $(document).ready(function () {
                     //Handles menu drop down

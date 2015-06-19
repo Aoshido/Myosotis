@@ -18,7 +18,7 @@
                             <span class="badge progress-bar-success" data-toggle="tooltip" data-placement="top" title="Veces Acertada">
                                 {{pregunta.vecesAcertada}}
                             </span>
-                            {{ pregunta.contenido }}
+                            {{ pregunta.contenido|markdown }}
                         </td>
                         <td class="col-sm-3">
                             <div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." >
@@ -52,6 +52,7 @@
                     {{ form_errors(form)}}
                     {{ form_errors(form.contenido) }}
                     {{ form_label(form.contenido,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } })}}
+
                     <div id="anchor" class="col-md-6">
                         {{ form_widget(form.contenido,{ 'attr' : { 'class' : 'form-control' } }) }}
                     </div>
@@ -105,6 +106,10 @@
             yesBtn: "Si",
             noBtn: "No"
         });
+    </script>
+
+    <script type="text/javascript">
+        CKEDITOR.replace('pregunta_contenido');
     </script>
 
     <script type="text/javascript">

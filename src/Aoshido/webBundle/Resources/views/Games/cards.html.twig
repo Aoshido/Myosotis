@@ -14,7 +14,7 @@
                                 <div class="flip-container container-fluid  " ontouchstart="this.classList.toggle('hover');">
                                     <div class="flipper">
                                         <div class="front text-center alpha60">
-                                            <p>{{ pregunta.contenido }}</p>
+                                            <p>{{ pregunta.contenido|markdown }}</p>
                                         </div>
                                         <div class="back ">
                                             {% for respuesta  in pregunta.respuestas %}
