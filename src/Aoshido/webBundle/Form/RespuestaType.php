@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class RespuestaType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add('contenido', 'text', array(
+        $builder->add('contenido', 'textarea', array(
             'label' => 'Contenido:',
             'label_attr' => array(
                 'class' => 'col-md-2 control-label'
