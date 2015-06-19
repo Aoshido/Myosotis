@@ -32,7 +32,7 @@ class PreguntaType extends AbstractType {
             $event->stopPropagation();
         }, 900);
         
-        $builder->add('contenido', 'text', array(
+        $builder->add('contenido', 'textarea', array(
             'label' => 'Pregunta:',
         ));
 
