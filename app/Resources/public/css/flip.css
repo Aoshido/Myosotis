@@ -40,7 +40,7 @@
 .front {
     z-index: 2;
     /* for firefox 31 */
-    background-image: url("/img/CARTA.jpg");
+    /*background-image: url("/img/CARTA.jpg");*/
     transform: rotateY(0deg);
 }
 
