@@ -14,7 +14,11 @@
                                 <div class="flip-container container-fluid  " ontouchstart="this.classList.toggle('hover');">
                                     <div class="flipper">
                                         <div class="front text-center alpha60">
-                                            <p>{{ pregunta.contenido|markdown }}</p>
+                                            {% if pregunta.contenido|length > 50 %}
+                                                {{ pregunta.contenido|truncate(50)|markdown }}
+                                            {%else%}
+                                                {{ (pregunta.contenido|markdown) }}
+                                            {%endif%}
                                         </div>
                                         <div class="back ">
                                             {% for respuesta  in pregunta.respuestas %}
@@ -30,9 +34,6 @@
                         {% endfor %}
                     </tr>
                 </table>
-                <div class="col-md-offset-4 navigation">
-                    {{ knp_pagination_render(paginas) }}
-                </div>
             {%else%}
                 <tr class="row">
                     <td class="">
@@ -40,6 +41,9 @@
                     </td>
                 </tr>
             {% endif %}
+            <div class="col-md-offset-4 navigation">
+                {{ knp_pagination_render(paginas) }}
+            </div>
         </div>
     </div>
     {{ render(controller('AoshidowebBundle:Games:settings')) }}
