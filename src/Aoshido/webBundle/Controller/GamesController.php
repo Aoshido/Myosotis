@@ -41,7 +41,7 @@ class GamesController extends Controller {
         }
 
         $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($preguntas, $this->getRequest()->query->get('page', 1), 10);
+        $pagination = $paginator->paginate($preguntas, $this->getRequest()->query->get('page', 1), 4);
         $pagination->setPageRange(6);
 
         $cantidad = count($preguntas);

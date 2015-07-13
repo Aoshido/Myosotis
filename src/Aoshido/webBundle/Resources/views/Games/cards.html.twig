@@ -7,15 +7,15 @@
         <div class="panel panel-primary">
             <div class="panel-heading text-right">Preguntas Disponibles: {{ cantidad }}</div>
             {% if paginas|length > 0 %}
-                <table class="table table-condensed">
+                <table class="table">
                     <tr>
                         {% for pregunta in paginas %}
                             <td class="col-sm-6">
-                                <div class="flip-container container-fluid  " ontouchstart="this.classList.toggle('hover');">
+                                <div class="flip-container container-fluid " ontouchstart="this.classList.toggle('hover');">
                                     <div class="flipper">
-                                        <div class="front text-center alpha60">
+                                        <div class="front text-center card_back alpha60">
                                             {% if pregunta.contenido|length > 50 %}
-                                                {{ pregunta.contenido|truncate(50)|markdown }}
+                                                {{ pregunta.contenido|truncate(200) }}
                                             {%else%}
                                                 {{ (pregunta.contenido|markdown) }}
                                             {%endif%}

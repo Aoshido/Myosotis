@@ -30,11 +30,11 @@
 }
 
 .card_back{
-    text-align: center;
-    background-image: url("/img/card_background3.jpg");
+    background-image: url("/images/Myosotis1.jpg");
+    background-size: 100% 100%;
     background-position-x: 0px;
     background-position-y: 0px;
-    border-radius: 5%;
+    //border-radius: 5%;
 }
 
 .card_back_text{
