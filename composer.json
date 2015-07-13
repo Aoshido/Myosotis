@@ -21,7 +21,8 @@
         "knplabs/knp-paginator-bundle": "~2.4",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "lexik/form-filter-bundle": "~3.0",
-        "knplabs/knp-markdown-bundle": "~1.3"
+        "knplabs/knp-markdown-bundle": "~1.3",
+        "dzango/twig-truncate-extension": "~1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

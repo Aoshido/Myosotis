@@ -8,3 +8,7 @@ services:
         class: Twig_Extensions_Extension_Text
         tags:
             - { name: twig.extension }
+    dzango.twig.truncate_extension:
+        class: Dzango\Twig\Extension\Truncate
+        tags:
+            - { name: twig.extension }
