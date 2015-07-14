@@ -10,48 +10,87 @@
                 <table class="table">
                     <tr>
                         {% for pregunta in paginas %}
-                            <td class="col-sm-6">
-                                <div class="flip-container container-fluid " onclick="document.querySelector('#card-{{pregunta.id}}').classList.toggle('flip-it');">
-                                    <div class="flipper" id="card-{{pregunta.id}}" >
-                                        <div class="front text-center card_back alpha60">
-                                            {% if pregunta.contenido|length > 50 %}
-                                                {{ pregunta.contenido|truncate(200) }}
-
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{pregunta.id}}">
-                                                    Ver mas
-                                                </button>
-
-                                            {%else%}
-                                                {{ (pregunta.contenido|markdown) }}
-                                            {%endif%}
-                                        </div>
-                                        <div class="back ">
-                                            {% for respuesta  in pregunta.respuestas %}
-                                                {{ respuesta.contenido }}
-                                            {% endfor %}
-                                        </div>
+                            <!-- Modal -->
+                        <div class="modal fade" id="myModal-{{pregunta.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Pregunta N°: {{pregunta.id}}
+                                        <span class="badge progress-bar-warning" data-toggle="tooltip" data-placement="left" title="Veces Vista">
+                                            {{pregunta.vecesVista}}
+                                        </span>
+                                        <span class="badge progress-bar-success" data-toggle="tooltip" data-placement="top" title="Veces Acertada">
+                                            {{pregunta.vecesAcertada}}
+                                        </span>
+                                        </h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{ (pregunta.contenido|markdown) }}
+                                        <h4> Respuestas posibles: </h4>
+                                        {% for respuesta  in pregunta.respuestas %}
+                                        {{ (respuesta.contenido|markdown) }}
+                                        {% endfor %}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                     </div>
                                 </div>
-                            </td>
-                            {% if ((loop.index+1) % 2) %}
-                            </tr><tr>
-                            {% endif %}
-                        {% endfor %}
-                    </tr>
-                </table>
-            {%else%}
-                <tr class="row">
-                    <td class="">
-                        <p class ="text-center"> ¡ Elija sus filtros ! </p>
-                    </td>
-                </tr>
-            {% endif %}
-            <div class="col-md-offset-4 navigation">
-                {{ knp_pagination_render(paginas) }}
-            </div>
-        </div>
+                            </div>
+                        </div>
+
+                        <td class="col-sm-6">
+                            <div class="flip-container container-fluid " >
+                                <div class="flipper" id="card-{{pregunta.id}}" >
+                                    <div class="front text-center card_back alpha60" onclick="document.querySelector('#card-{{pregunta.id}}').classList.toggle('flip-it');">
+                                        {% if pregunta.contenido|length > 50 %}
+                                            {{ pregunta.contenido|truncate(200) }}
+
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{pregunta.id}}">
+                                                Ver mas
+                                            </button>
+
+                                        {%else%}
+                                            {{ (pregunta.contenido|markdown) }}
+                                        {%endif%}
+                                    </div>
+                                    <div class="back " onclick="document.querySelector('#card-{{pregunta.id}}').classList.toggle('flip-it');">
+                                        {% for respuesta  in pregunta.respuestas %}
+                                            {% if respuesta.contenido|length > 50 %}
+                                            {{ respuesta.contenido|truncate(200) }}
+
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{pregunta.id}}">
+                                                Ver mas
+                                            </button>
+
+                                        {%else%}
+                                            {{ (respuesta.contenido|markdown) }}
+                                        {%endif%}
+                                            
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        {% if ((loop.index+1) % 2) %}
+                        </tr><tr>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        </table>
+    {%else%}
+        <tr class="row">
+            <td class="">
+                <p class ="text-center"> ¡ Elija sus filtros ! </p>
+            </td>
+        </tr>
+    {% endif %}
+    <div class="col-md-offset-4 navigation">
+        {{ knp_pagination_render(paginas) }}
     </div>
-    {{ render(controller('AoshidowebBundle:Games:settings')) }}
+</div>
+</div>
+{{ render(controller('AoshidowebBundle:Games:settings')) }}
 {% endblock %}
 
 {% block javascripts %} 
