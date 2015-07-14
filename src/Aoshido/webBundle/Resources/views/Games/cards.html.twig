@@ -17,19 +17,19 @@
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         <h4 class="modal-title" id="myModalLabel">Pregunta N°: {{pregunta.id}}
-                                        <span class="badge progress-bar-warning" data-toggle="tooltip" data-placement="left" title="Veces Vista">
-                                            {{pregunta.vecesVista}}
-                                        </span>
-                                        <span class="badge progress-bar-success" data-toggle="tooltip" data-placement="top" title="Veces Acertada">
-                                            {{pregunta.vecesAcertada}}
-                                        </span>
+                                            <span class="badge progress-bar-warning" data-toggle="tooltip" data-placement="left" title="Veces Vista">
+                                                {{pregunta.vecesVista}}
+                                            </span>
+                                            <span class="badge progress-bar-success" data-toggle="tooltip" data-placement="top" title="Veces Acertada">
+                                                {{pregunta.vecesAcertada}}
+                                            </span>
                                         </h4>
                                     </div>
                                     <div class="modal-body">
                                         {{ (pregunta.contenido|markdown) }}
                                         <h4> Respuestas posibles: </h4>
                                         {% for respuesta  in pregunta.respuestas %}
-                                        {{ (respuesta.contenido|markdown) }}
+                                            {{ (respuesta.contenido|markdown) }}
                                         {% endfor %}
                                     </div>
                                     <div class="modal-footer">
@@ -46,10 +46,10 @@
                                         {% if pregunta.contenido|length > 50 %}
                                             {{ pregunta.contenido|truncate(200) }}
                                             <div style="vertical-align:bottom;">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{pregunta.id}}">
-                                                Ver mas
-                                            </button>
-</div>
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{pregunta.id}}">
+                                                    Ver mas
+                                                </button>
+                                            </div>
                                         {%else%}
                                             {{ (pregunta.contenido|markdown) }}
                                         {%endif%}
@@ -57,16 +57,16 @@
                                     <div class="back " onclick="document.querySelector('#card-{{pregunta.id}}').classList.toggle('flip-it');">
                                         {% for respuesta  in pregunta.respuestas %}
                                             {% if respuesta.contenido|length > 50 %}
-                                            {{ respuesta.contenido|truncate(200) }}
+                                                {{ respuesta.contenido|truncate(200) }}
 
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{pregunta.id}}">
-                                                Ver mas
-                                            </button>
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{pregunta.id}}">
+                                                    Ver mas
+                                                </button>
 
-                                        {%else%}
-                                            {{ (respuesta.contenido|markdown) }}
-                                        {%endif%}
-                                            
+                                            {%else%}
+                                                {{ (respuesta.contenido|markdown) }}
+                                            {%endif%}
+
                                         {% endfor %}
                                     </div>
                                 </div>
