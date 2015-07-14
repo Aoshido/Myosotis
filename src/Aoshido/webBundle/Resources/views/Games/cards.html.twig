@@ -40,16 +40,16 @@
                         </div>
 
                         <td class="col-sm-6">
-                            <div class="flip-container container-fluid " >
+                            <div class="flip-container container-fluid " style="overflow:auto;">
                                 <div class="flipper" id="card-{{pregunta.id}}" >
                                     <div class="front text-center card_back alpha60" onclick="document.querySelector('#card-{{pregunta.id}}').classList.toggle('flip-it');">
                                         {% if pregunta.contenido|length > 50 %}
                                             {{ pregunta.contenido|truncate(200) }}
-
+                                            <div style="vertical-align:bottom;">
                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{pregunta.id}}">
                                                 Ver mas
                                             </button>
-
+</div>
                                         {%else%}
                                             {{ (pregunta.contenido|markdown) }}
                                         {%endif%}
