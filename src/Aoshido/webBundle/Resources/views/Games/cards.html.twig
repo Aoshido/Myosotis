@@ -58,11 +58,11 @@
                                         {% for respuesta  in pregunta.respuestas %}
                                             {% if respuesta.contenido|length > 50 %}
                                                 {{ respuesta.contenido|truncate(200) }}
-
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{pregunta.id}}">
-                                                    Ver mas
-                                                </button>
-
+                                                <div style="vertical-align:bottom;">
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{pregunta.id}}">
+                                                        Ver mas
+                                                    </button>
+                                                </div>
                                             {%else%}
                                                 {{ (respuesta.contenido|markdown) }}
                                             {%endif%}
