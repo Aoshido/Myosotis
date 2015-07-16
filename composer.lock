@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "hash": "a1375f0c9e2e87eec5ecbe0ec6f5efb1",
@@ -1248,17 +1248,17 @@
         },
         {
             "name": "lexik/form-filter-bundle",
-            "version": "v3.0.7",
+            "version": "v3.0.8",
             "target-dir": "Lexik/Bundle/FormFilterBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lexik/LexikFormFilterBundle.git",
-                "reference": "dc3fd6b79bdeb855f96488c75c0bae97a67efc52"
+                "reference": "73eacc444e6f3314a5a5209cda52a58355388b66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lexik/LexikFormFilterBundle/zipball/dc3fd6b79bdeb855f96488c75c0bae97a67efc52",
-                "reference": "dc3fd6b79bdeb855f96488c75c0bae97a67efc52",
+                "url": "https://api.github.com/repos/lexik/LexikFormFilterBundle/zipball/73eacc444e6f3314a5a5209cda52a58355388b66",
+                "reference": "73eacc444e6f3314a5a5209cda52a58355388b66",
                 "shasum": ""
             },
             "require": {
@@ -1304,7 +1304,7 @@
                 "filter",
                 "form"
             ],
-            "time": "2015-05-29 12:20:25"
+            "time": "2015-06-12 15:46:04"
         },
         {
             "name": "michelf/php-markdown",
