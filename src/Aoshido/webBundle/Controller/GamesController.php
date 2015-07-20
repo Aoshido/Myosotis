@@ -10,17 +10,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class GamesController extends Controller {
 
-/*    public function settingsAction(Request $request) {
-        $pregunta = new Pregunta();
-        $form = $this->createForm(new PreguntaType(), $pregunta);
-
-        $form->handleRequest($request);
-
-        return $this->render('AoshidowebBundle:Games:settings.html.twig', array(
-                    'form' => $form->createView(),
-        ));
-    }*/
-
     public function quizAction(Request $request) {
 
         $pregunta = new Pregunta();

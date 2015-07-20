@@ -48,6 +48,8 @@
 
             </ul>
 
+
+
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
@@ -62,6 +64,12 @@
                 </ul>
             {% else %}
                 {{ render(controller('FOSUserBundle:Security:login')) }}
+                
+                <form class="navbar-form form-inline pull-right" action="{{ path('fos_user_registration_register') }}" method="post">
+                    <div class="form-group">
+                        <input class="btn btn-info" type="submit" id="_submit" name="_submit" value="Registrate" />
+                    </div>
+                </form>
             {% endif %}
 
         </div><!-- /.navbar-collapse -->
