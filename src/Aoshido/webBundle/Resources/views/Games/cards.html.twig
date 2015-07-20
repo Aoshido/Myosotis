@@ -65,8 +65,9 @@
                                                 </div>
                                             {% endif %}
                                         </div>
-                                        <div class="back card_front" onclick="document.querySelector('#card-{{pregunta.id}}').classList.toggle('flip-it');">
+                                        <div class="back text-center card_front" onclick="document.querySelector('#card-{{pregunta.id}}').classList.toggle('flip-it');">
                                             <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
+                                                {% set vermas=false %}
                                                 {% for respuesta  in pregunta.respuestas %}
                                                     {% if respuesta.contenido|length > 100 %}
                                                         {% set vermas=true %}
@@ -74,15 +75,15 @@
                                                     {%else%}
                                                         {{ (respuesta.contenido|markdown) }}
                                                     {%endif%}
+                                                {% endfor %}
+                                            </div>
+                                            {% if vermas  %}
+                                                <div style="vertical-align:bottom;">
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{pregunta.id}}">
+                                                        Ver mas
+                                                    </button>
                                                 </div>
-                                                {% if vermas  %}
-                                                    <div style="vertical-align:bottom;">
-                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{pregunta.id}}">
-                                                            Ver mas
-                                                        </button>
-                                                    </div>
-                                                {% endif %}
-                                            {% endfor %}
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
