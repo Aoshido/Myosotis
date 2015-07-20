@@ -195,8 +195,8 @@ class GamesController extends Controller {
 
                 $filterBuilder2->setParameter('idoc', $ids);
 
-                
-                
+
+
                 $lineas = $filterBuilder2->getQuery()->getResult();
 
                 $resultadoExportar2 = array();
@@ -325,41 +325,12 @@ class GamesController extends Controller {
                 break;
         }
     }
-    
-    
+
     public function settingsAction(Request $request) {
         $pregunta = new Pregunta();
         $form = $this->createForm(new PreguntaType(), $pregunta);
 
         $form->handleRequest($request);
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
 
         return $this->render('AoshidowebBundle:Games:settings.html.twig', array(
                     'form' => $form->createView(),
@@ -369,6 +340,7 @@ class GamesController extends Controller {
     public function quizAction(Request $request) {
 
         $pregunta = new Pregunta();
+        
         $form = $this->createForm(new PreguntaType(), $pregunta);
 
         $form->handleRequest($request);
@@ -399,6 +371,7 @@ class GamesController extends Controller {
                 ));
             case '/games/cards':
                 return $this->render('AoshidowebBundle:Games:cards.html.twig', array(
+                            'form' => $form->createView(),
                             'paginas' => $pagination,
                             'cantidad' => $cantidad,
                 ));

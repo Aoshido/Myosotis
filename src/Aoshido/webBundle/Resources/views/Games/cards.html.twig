@@ -45,20 +45,20 @@
                                     <div class="front text-center card_back alpha60" onclick="document.querySelector('#card-{{pregunta.id}}').classList.toggle('flip-it');">
                                         <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
                                             {% set vermas=false %}
-                                        {% if pregunta.contenido|length > 50 %}
-                                            {% set vermas=true %}
-                                            {{ pregunta.contenido|truncate(200) }}
+                                            {% if pregunta.contenido|length > 50 %}
+                                                {% set vermas=true %}
+                                                {{ pregunta.contenido|truncate(200) }}
 
-                                        {%else%}
-                                            {{ (pregunta.contenido|markdown) }}
-                                        {%endif%}
+                                            {%else%}
+                                                {{ (pregunta.contenido|markdown) }}
+                                            {%endif%}
                                         </div>
                                         {% if vermas  %}
-                                        <div style="vertical-align:bottom;">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{pregunta.id}}">
-                                                Ver mas
-                                            </button>
-                                        </div>
+                                            <div style="vertical-align:bottom;">
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{pregunta.id}}">
+                                                    Ver mas
+                                                </button>
+                                            </div>
                                         {% endif %}
                                     </div>
                                     <div class="back " onclick="document.querySelector('#card-{{pregunta.id}}').classList.toggle('flip-it');">
@@ -97,7 +97,9 @@
     </div>
 </div>
 </div>
-{{ render(controller('AoshidowebBundle:Games:settings')) }}
+
+{% set vars = {'form': form } %}
+{% include 'AoshidowebBundle:Games:settings.html.twig' with vars %}
 {% endblock %}
 
 {% block javascripts %} 
