@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class GamesController extends Controller {
 
-    public function settingsAction(Request $request) {
+/*    public function settingsAction(Request $request) {
         $pregunta = new Pregunta();
         $form = $this->createForm(new PreguntaType(), $pregunta);
 
@@ -19,16 +19,20 @@ class GamesController extends Controller {
         return $this->render('AoshidowebBundle:Games:settings.html.twig', array(
                     'form' => $form->createView(),
         ));
-    }
+    }*/
 
     public function quizAction(Request $request) {
 
         $pregunta = new Pregunta();
-        $form = $this->createForm(new PreguntaType(), $pregunta);
+
+        $form = $this->createForm(new PreguntaType(), $pregunta, array(
+            'method' => 'GET',
+        ));
 
         $form->handleRequest($request);
 
         $preguntas = new ArrayCollection();
+
         if ($form->isValid()) {
             foreach ($pregunta->getTemas() as $tema) {
                 $preguntas_temp = $tema->getPreguntas();
@@ -45,7 +49,7 @@ class GamesController extends Controller {
         $pagination->setPageRange(6);
 
         $cantidad = count($preguntas);
-        
+
         switch ($request->getPathInfo()) {
             case '/games/quiz':
                 return $this->render('AoshidowebBundle:Games:quiz.html.twig', array(
@@ -54,6 +58,7 @@ class GamesController extends Controller {
                 ));
             case '/games/cards':
                 return $this->render('AoshidowebBundle:Games:cards.html.twig', array(
+                            'form' => $form->createView(),
                             'paginas' => $pagination,
                             'cantidad' => $cantidad,
                 ));
