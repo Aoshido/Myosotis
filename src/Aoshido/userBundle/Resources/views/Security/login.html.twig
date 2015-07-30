@@ -1,8 +1,6 @@
-{% extends "AoshidouserBundle::layout.html.twig" %}
 
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% block fos_user_content %}
 
     <form class="navbar-form form-inline pull-right" action="{{ path("fos_user_security_check") }}" method="post">
 
@@ -31,19 +29,5 @@
 
     </form>
 
-{% endblock fos_user_content %}
 
-{% block javascripts %} 
-    {{ parent() }}
-
-    <script type="text/javascript">
-        $(".btn-warning").popConfirm({
-            title: "Borrar Pregunta",
-            content: "¿Seguro que desea desvincular la materia? Si no posee otra carrera asociada se eliminara! ",
-            placement: "right",
-            yesBtn: "Si",
-            noBtn: "No"
-        });
-    </script>
-{% endblock %}
 

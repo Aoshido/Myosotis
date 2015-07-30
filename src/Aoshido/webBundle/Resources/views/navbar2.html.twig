@@ -33,12 +33,12 @@
 
                     {% endif %}
                 </li> 
-                <li class="" {% block quiz %} {% endblock %} ><a href="{{path('games_quiz')}}">
-                        <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Quiz
-                    </a>
-                </li>
                 <li class="" {% block cards %} {% endblock %} ><a href="{{path('games_cards')}}">
                         <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> Cards
+                    </a>
+                </li>
+                <li class="disabled" {% block quiz %} {% endblock %} ><a href="#{#path('games_quiz')#}">
+                        <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Quiz
                     </a>
                 </li>
                 <li class="disabled" {% block challenge %} {% endblock %} ><a href="#">
