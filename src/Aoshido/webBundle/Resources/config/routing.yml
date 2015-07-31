@@ -13,3 +13,7 @@ abms:
 games:
     resource: "@AoshidowebBundle/Resources/config/routing/games.yml"
     prefix:   /games
+    
+aoshidoweb_bugs:
+    path:     /bugs
+    defaults: { _controller: AoshidowebBundle:Bugs:index }
