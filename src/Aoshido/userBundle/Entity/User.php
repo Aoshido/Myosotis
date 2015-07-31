@@ -17,12 +17,6 @@ class User extends BaseUser {
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\OneToMany(targetEntity="Aoshido\webBundle\Entity\Bug", mappedBy="reportedUser")
-     */
-    protected $reportedBugs;
     
     
     public function __construct() {
