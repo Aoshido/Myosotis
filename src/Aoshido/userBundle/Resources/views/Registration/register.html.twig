@@ -3,7 +3,7 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
-
+<div class="jumbotron alpha60">
     <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register form-horizontal">
 
         {{ form_widget(form._token) }}
@@ -47,7 +47,7 @@
             </div>
         </div>
     </form>
-
+</div>
 
 
 
