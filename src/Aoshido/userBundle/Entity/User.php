@@ -18,6 +18,13 @@ class User extends BaseUser {
      */
     protected $id;
 
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\OneToMany(targetEntity="Aoshido\webBundle\Entity\Bug", mappedBy="reportedUser")
+     */
+    protected $reportedBugs;
+    
+    
     public function __construct() {
         parent::__construct();
         // your own logic
