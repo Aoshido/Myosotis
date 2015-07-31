@@ -31,7 +31,7 @@ class Bug {
     /**
      * @var string
      *
-     * @ORM\Column(name="respuesta", type="string", length=600)
+     * @ORM\Column(name="respuesta", type="string", length=600, nullable=true)
      */
     private $respuesta;
 
@@ -43,10 +43,59 @@ class Bug {
     private $status;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Aoshido\userBundle\Entity\User", inversedBy="reportedBugs")
+     * @ORM\ManyToOne(targetEntity="Aoshido\userBundle\Entity\User")
      * @ORM\JoinColumn(name="IdUser", referencedColumnName="id")
      */
     protected $reportedUser;
+
+    /**
+     * Set reportedUser
+     *
+     * @param \Aoshido\userBundle\Entity\User $reportedUser
+     * @return reportedUser
+     */
+    public function setReportedUser(\Aoshido\userBundle\Entity\User $reportedUser = null) {
+        $this->reportedUser = $reportedUser;
+
+        return $this;
+    }
+
+    /**
+     * Get reportedUser
+     *
+     * @return \Aoshido\userBundle\Entity\User
+     */
+    public function getReportedUser() {
+        return $this->reportedUser;
+    }
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="Activo", type="boolean")
+     */
+    private $activo;
+
+    /**
+     * Set activo
+     *
+     * @param boolean $activo
+     * @return Pregunta
+     */
+    public function setActivo($activo) {
+        $this->activo = $activo;
+
+        return $this;
+    }
+
+    /**
+     * Get activo
+     *
+     * @return boolean 
+     */
+    public function getActivo() {
+        return $this->activo;
+    }
 
     /**
      * Get id
