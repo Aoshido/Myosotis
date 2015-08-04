@@ -1,0 +1,7 @@
+users_index:
+    path:     /
+    defaults: { _controller: AoshidowebBundle:User:index }
+
+users_promote:
+    path:     /promote/{idUser}
+    defaults: { _controller: AoshidowebBundle:User:promote }
