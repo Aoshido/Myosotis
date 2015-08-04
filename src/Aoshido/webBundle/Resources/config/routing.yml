@@ -6,6 +6,10 @@ aoshidoweb_bio:
     path:     /bio
     defaults: { _controller: AoshidowebBundle:Default:bio }
     
+aoshidoweb_bugs:
+    path:     /bugs
+    defaults: { _controller: AoshidowebBundle:Bugs:index }
+    
 abms:
     resource: "@AoshidowebBundle/Resources/config/routing/abms.yml"
     prefix:   /abms
@@ -13,7 +17,3 @@ abms:
 games:
     resource: "@AoshidowebBundle/Resources/config/routing/games.yml"
     prefix:   /games
-    
-aoshidoweb_bugs:
-    path:     /bugs
-    defaults: { _controller: AoshidowebBundle:Bugs:index }

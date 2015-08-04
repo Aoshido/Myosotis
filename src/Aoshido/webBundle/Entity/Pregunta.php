@@ -56,6 +56,12 @@ class Pregunta {
     protected $respuestas;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Aoshido\userBundle\Entity\User")
+     * @ORM\JoinColumn(name="IdUser", referencedColumnName="id")
+     */
+    protected $creatorUser;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Tema", inversedBy="preguntas", cascade={"persist"})
      * @ORM\JoinTable(name="PreguntasTemas")
      * */
@@ -160,6 +166,27 @@ class Pregunta {
     }
 
     /**
+     * Set creatorUser
+     *
+     * @param \Aoshido\userBundle\Entity\User $creatorUser
+     * @return creatorUser
+     */
+    public function setCreatorUser(\Aoshido\userBundle\Entity\User $creatorUser = null) {
+        $this->creatorUser = $creatorUser;
+
+        return $this;
+    }
+
+    /**
+     * Get creatorUser
+     *
+     * @return \Aoshido\userBundle\Entity\User
+     */
+    public function getCreatorUser() {
+        return $this->creatorUser;
+    }
+
+    /**
      * Add respuestas
      *
      * @param \Aoshido\webBundle\Entity\Respuesta $respuestas
@@ -227,9 +254,9 @@ class Pregunta {
      */
     public function getTemasActivos() {
         $temasActivos = new ArrayCollection();
-        
-        foreach ($this->temas as $tema){
-            if ($tema->getActivo()){
+
+        foreach ($this->temas as $tema) {
+            if ($tema->getActivo()) {
                 $temasActivos->add($tema);
             }
         }
