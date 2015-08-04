@@ -29,6 +29,7 @@ class PreguntasController extends Controller {
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $pregunta->setActivo(TRUE);
+            $pregunta->setCreatorUser($this->getUser());
             $pregunta->setVecesVista(0);
             $pregunta->setVecesAcertada(0);
             
