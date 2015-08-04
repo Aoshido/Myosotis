@@ -3,6 +3,7 @@ security:
         FOS\UserBundle\Model\UserInterface: plaintext #sha512
 
     role_hierarchy:
+        ROLE_TEACHER:     ROLE_USER
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
@@ -26,4 +27,5 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/users/, role: ROLE_ADMIN }
         #- { path: ^/abms/, role: ROLE_ADMIN }

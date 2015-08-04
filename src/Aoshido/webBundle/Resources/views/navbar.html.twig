@@ -71,6 +71,9 @@
                         <ul class="dropdown-menu">
                             <li><a href="{{ path('fos_user_profile_show') }}">Perfil</a></li>
                             <li><a href="{{ path('fos_user_change_password') }}">Cambiar contraseña</a></li>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <li><a href="{{ path('users_index') }}">Users ABM</a></li>
+                            {% endif %}
                             <li class="divider"></li>
                             <li><a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
                         </ul>
