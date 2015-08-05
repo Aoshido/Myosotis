@@ -5,3 +5,7 @@ users_index:
 users_promote:
     path:     /promote/{idUser}
     defaults: { _controller: AoshidowebBundle:User:promote }
+    
+users_disable:
+    path:     /disable/{idUser}
+    defaults: { _controller: AoshidowebBundle:User:disable }

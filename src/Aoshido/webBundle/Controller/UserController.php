@@ -39,5 +39,17 @@ class UserController extends Controller {
         
         return $this->redirectToRoute('users_index');
     }
+    
+    public function disableAction($idUser) {
+        $user = $this->getDoctrine()
+                ->getRepository('AoshidouserBundle:User')
+                ->find($idUser);
+        
+        $userManager = $this->get('fos_user.user_manager');
+        $user->setEnabled(false);
+        $userManager->updateUser($user);
+        
+        return $this->redirectToRoute('users_index');
+    }
 
 }
