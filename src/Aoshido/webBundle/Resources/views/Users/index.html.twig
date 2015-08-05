@@ -23,7 +23,7 @@
                                             <button type="button" class="btn btn-info" aria-label="Left Align" data-toggle="tooltip" data-placement="left" title="Promote" onclick="location.href = '{{ url('users_promote',{ 'idUser': user.id}) }}';">
                                                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                             </button>
-                                            <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Desactivar"  onclick=" location.href = '{{ url('preguntas_disable',{ 'idPregunta': user.id}) }}';">
+                                            <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Banhammer"  onclick=" location.href = '{{ url('users_disable',{ 'idUser': user.id}) }}';">
                                                 <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                                             </button>    
                                         </div>
@@ -47,7 +47,7 @@
     <script type="text/javascript">
         $(".btn-danger").popConfirm({
             title: "Borrar Pregunta",
-            content: "¿Seguro que desea borrar la pregunta?",
+            content: "¿Seguro que desea deshabilitar al user?",
             placement: "right",
             yesBtn: "Si",
             noBtn: "No"
