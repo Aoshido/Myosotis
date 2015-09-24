@@ -1,7 +1,16 @@
 {% extends 'AoshidowebBundle:Abms:index.html.twig' %}
 
 {% block title %}Preguntas{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li><a href="{{url('aoshidoweb_homepage')}}">Home</a></li>
+        <li class="active">Preguntas</li>
+    </ul>
+{% endblock %}
+
 {% block section %}Preguntas{% endblock %}
+
 {% block abms_contenido %} 
     {% form_theme form 'AoshidowebBundle:Themes:field-prototype.html.twig' %}
     <div class="container col-md-12">

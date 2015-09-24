@@ -119,3 +119,12 @@ body {
 .list-group-submenu {
   margin-left:20px;
 }
+
+/***********************************************/
+
+.breadcrumb > li + li:before {
+    color: #ccc;
+    font-family: 'Glyphicons Halflings';
+    content: "\e080";
+    padding: 0 5px;
+}
