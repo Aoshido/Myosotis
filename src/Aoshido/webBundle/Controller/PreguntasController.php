@@ -2,14 +2,51 @@
 
 namespace Aoshido\webBundle\Controller;
 
-use Aoshido\webBundle\Entity\Tema;
 use Aoshido\webBundle\Entity\Pregunta;
 use Aoshido\webBundle\Form\PreguntaType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Aoshido\webBundle\Filter\PreguntasFilterType;
 
 class PreguntasController extends Controller {
+
+    public function searchAction(Request $request) {
+        $search_form = $this->get('form.factory')->create(new PreguntasFilterType());
+
+        if ($request->query->has($search_form->getName())) {
+            // manually bind values from the request
+            $search_form->submit($request->query->get($search_form->getName()));
+
+            // initialize a query builder
+            $filterBuilder = $this->get('doctrine.orm.entity_manager')
+                    ->getRepository('AoshidowebBundle:Pregunta')
+                    ->createQueryBuilder('p');
+
+            // build the query from the given form object
+            $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($search_form, $filterBuilder);
+
+            $preguntas = $filterBuilder->getQuery()->getResult();
+            dump($filterBuilder->getDql());
+            dump($preguntas);
+            die();
+        } else {
+            $preguntas = $this->getDoctrine()
+                    ->getRepository('AoshidowebBundle:Pregunta')
+                    ->findBy(array('activo' => TRUE));
+        }
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($preguntas, $this->getRequest()->query->get('page', 1), 10);
+        $pagination->setPageRange(6);
+
+        $cantidad = count($preguntas);
+
+        return $this->render('AoshidowebBundle:Preguntas:search.html.twig', array(
+                    'form' => $search_form->createView(),
+                    'paginas' => $pagination,
+                    'cantidad' => $cantidad,
+        ));
+    }
 
     public function newAction(Request $request) {
         $preguntas = $this->getDoctrine()
@@ -25,14 +62,14 @@ class PreguntasController extends Controller {
         $form = $this->createForm(new PreguntaType(), $pregunta);
 
         $form->handleRequest($request);
-        
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $pregunta->setActivo(TRUE);
             $pregunta->setCreatorUser($this->getUser());
             $pregunta->setVecesVista(0);
             $pregunta->setVecesAcertada(0);
-            
+
             $em->persist($pregunta);
             $em->flush();
 
@@ -46,7 +83,7 @@ class PreguntasController extends Controller {
         ));
     }
 
-    public function editAction(Request $request,$idPregunta) {
+    public function editAction(Request $request, $idPregunta) {
         $preguntas = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Pregunta')
                 ->findBy(array('activo' => TRUE));
@@ -60,26 +97,26 @@ class PreguntasController extends Controller {
         $pregunta = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Pregunta')
                 ->find($idPregunta);
-        
-        $form = $this->createForm(new PreguntaType(), $pregunta , array('method' => 'PATCH'));
-        
+
+        $form = $this->createForm(new PreguntaType(), $pregunta, array('method' => 'PATCH'));
+
         $form->handleRequest($request);
-        
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $temas = $form->get('temas')->getData();
-                    
-            
+
+
             foreach ($pregunta->getTemas() as $tema) {
                 $pregunta->removeTema($tema);
                 $em->persist($tema);
             }
-            
+
             foreach ($temas as $tema) {
                 $pregunta->addTema($tema);
                 $em->persist($tema);
             }
-            
+
             $em->persist($pregunta);
             $em->flush();
 
