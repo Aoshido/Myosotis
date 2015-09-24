@@ -11,21 +11,6 @@ use Aoshido\webBundle\Filter\PreguntasFilterType;
 
 class PreguntasController extends Controller {
 
-    public function searchAction(Request $request) {
-
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($preguntas, $this->getRequest()->query->get('page', 1), 10);
-        $pagination->setPageRange(6);
-
-        $cantidad = count($preguntas);
-
-        return $this->render('AoshidowebBundle:Preguntas:search.html.twig', array(
-                    'form' => $search_form->createView(),
-                    'paginas' => $pagination,
-                    'cantidad' => $cantidad,
-        ));
-    }
-
     public function newAction(Request $request) {
         $search_form = $this->get('form.factory')->create(new PreguntasFilterType());
 

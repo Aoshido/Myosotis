@@ -6,10 +6,6 @@ abms_preguntas:
     path:     /preguntas
     defaults: { _controller: AoshidowebBundle:Preguntas:new }    
     
-abms_search:
-    path:     /preguntas/search
-    defaults: { _controller: AoshidowebBundle:Preguntas:search }    
-    
 preguntas_addMateria:
     path:     /preguntas/addMaterias
     defaults: { _controller: AoshidowebBundle:Preguntas:MateriasByCarrera }
