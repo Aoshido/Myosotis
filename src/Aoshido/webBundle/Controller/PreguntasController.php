@@ -66,9 +66,27 @@ class PreguntasController extends Controller {
     }
 
     public function editAction(Request $request, $idPregunta) {
-        $preguntas = $this->getDoctrine()
-                ->getRepository('AoshidowebBundle:Pregunta')
-                ->findBy(array('activo' => TRUE));
+        $search_form = $this->get('form.factory')->create(new PreguntasFilterType());
+
+        if ($request->query->has($search_form->getName())) {
+            // manually bind values from the request
+            $search_form->submit($request->query->get($search_form->getName()));
+
+            // initialize a query builder
+            $filterBuilder = $this->get('doctrine.orm.entity_manager')
+                    ->getRepository('AoshidowebBundle:Pregunta')
+                    ->createQueryBuilder('p')
+                    ->Where('p.activo = TRUE');
+
+            // build the query from the given form object
+            $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($search_form, $filterBuilder);
+
+            $preguntas = $filterBuilder->getQuery()->getResult();
+        } else {
+            $preguntas = $this->getDoctrine()
+                    ->getRepository('AoshidowebBundle:Pregunta')
+                    ->findBy(array('activo' => TRUE));
+        }
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($preguntas, $this->getRequest()->query->get('page', 1), 10);
@@ -107,6 +125,7 @@ class PreguntasController extends Controller {
 
         return $this->render('AoshidowebBundle:Preguntas:edit.html.twig', array(
                     'form' => $form->createView(),
+                    'searchForm' => $search_form->createView(),
                     'paginas' => $pagination,
                     'cantidad' => $cantidad,
         ));
