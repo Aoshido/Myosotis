@@ -12,7 +12,7 @@ class PreguntasFilterType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('contenido', 'filter_text', array(
             'label' => 'Contenido',
-            'condition_pattern' => FilterOperands::OPERAND_SELECTOR));
+            'condition_pattern' => FilterOperands::STRING_BOTH ));
     }
 
     public function getName() {
