@@ -11,14 +11,14 @@
 
 {% block section %}
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-sm-6">
             Preguntas
         </div>
         <div class="container text-right">
             <form method="get" action="{{url('abms_preguntas')}}">
                 {{ form_errors(searchForm)}}
                 {{ form_errors(searchForm.contenido) }}
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <div id="custom-search-input">
                         <div class="input-group col-md-12">
                             {{ form_widget(searchForm.contenido,{ 'attr' : { 'class' : 'form-control input-lg' ,'placeholder' : 'Quicksearch'} }) }}
