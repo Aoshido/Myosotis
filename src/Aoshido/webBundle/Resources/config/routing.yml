@@ -1,7 +1,7 @@
 aoshidoweb_homepage:
     path:     /
     defaults: { _controller: AoshidowebBundle:Default:index }
-
+    
 aoshidoweb_bio:
     path:     /bio
     defaults: { _controller: AoshidowebBundle:Default:bio }
