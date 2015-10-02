@@ -47,15 +47,21 @@
                 {% for pregunta in paginas %}
                     <tr class="row">
                         <td class="col-sm-9">
-                            <span class="badge progress-bar-warning" data-toggle="tooltip" data-placement="left" title="Veces Vista">
-                                {{pregunta.vecesVista}}
-                            </span>
-                            <span class="badge progress-bar-success" data-toggle="tooltip" data-placement="top" title="Veces Acertada">
-                                {{pregunta.vecesAcertada}}
-                            </span>
                             <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
                                 {{ pregunta.contenido|markdown|raw|truncate(150) }}
                             </div>
+                            <span class="badge progress-bar-warning">
+                                Vista: {{pregunta.vecesVista}}
+                            </span>
+                            <span class="badge progress-bar-success">
+                                Acertada: {{pregunta.vecesAcertada}}
+                            </span>
+                            <span class="badge progress-bar-info">
+                                {{pregunta.getTemas[0].getMateria.Descripcion}}
+                            </span>
+                            <span class="badge progress-bar-danger">
+                                11/08/2015
+                            </span>
                         </td>
                         <td class="col-sm-3">
                             <div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." >
