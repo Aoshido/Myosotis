@@ -65,6 +65,10 @@ materias_disable:
 respuestas_new:
     path:     /respuestas/{idPregunta}
     defaults: { _controller: AoshidowebBundle:Respuestas:new }    
+
+respuestas_edit:
+    path:     /respuestas/{idPregunta}/edit/{idRespuesta}
+    defaults: { _controller: AoshidowebBundle:Respuestas:edit }    
     
 respuestas_disable:
     path:     /respuestas/disable/{idRespuesta}
