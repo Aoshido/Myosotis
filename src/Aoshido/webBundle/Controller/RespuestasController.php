@@ -76,7 +76,7 @@ class RespuestasController extends Controller {
                                 'idPregunta' => $idPregunta)));
         }
 
-        return $this->render('AoshidowebBundle:Respuestas:new.html.twig', array(
+        return $this->render('AoshidowebBundle:Respuestas:edit.html.twig', array(
                     'form' => $form->createView(),
                     'paginas' => $pagination,
                     'cantidad' => $cantidad,
