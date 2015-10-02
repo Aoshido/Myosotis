@@ -3,12 +3,15 @@
 namespace Aoshido\webBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        return $this->render('AoshidowebBundle:Default:index.html.twig');
+        $locale = $request->getLocale();
+        return $this->render('AoshidowebBundle:Default:index.html.twig',array(
+            'locale' => $locale));
     }
 
     public function bioAction()
