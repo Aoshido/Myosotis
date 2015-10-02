@@ -2,7 +2,7 @@ aoshidoweb_homepage:
     path:     /{_locale}
     defaults: { _controller: AoshidowebBundle:Default:index }
     requirements:
-        _locale: en|fr|de|es|jp
+        _locale: en|es|jp
     
 aoshidoweb_bio:
     path:     /bio
