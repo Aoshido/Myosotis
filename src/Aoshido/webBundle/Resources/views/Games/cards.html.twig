@@ -67,13 +67,14 @@
                                         </div>
                                         <div class="back text-center card_front" onclick="document.querySelector('#card-{{pregunta.id}}').classList.toggle('flip-it');">
                                             <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
-                                                {% set vermas=false %}
+                                                {% set vermas=true %}
                                                 {% for respuesta  in pregunta.respuestas %}
-                                                    {% if respuesta.contenido|length > 100 %}
-                                                        {% set vermas=true %}
-                                                        {{ respuesta.contenido|truncate(100) }}
-                                                    {%else%}
-                                                        {{ (respuesta.contenido|markdown) }}
+                                                    {% if respuesta.correcta %}
+                                                        {% if respuesta.contenido|length > 100 %}
+                                                            {{ respuesta.contenido|truncate(100) }}
+                                                        {%else%}
+                                                            {{ (respuesta.contenido|markdown) }}
+                                                        {%endif%}
                                                     {%endif%}
                                                 {% endfor %}
                                             </div>
