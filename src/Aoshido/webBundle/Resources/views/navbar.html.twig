@@ -33,20 +33,28 @@
 
                     {% endif %}
                 </li> 
-                <li class="" {% block cards %} {% endblock %} >
-                    <a href="{{path('games_cards')}}">
-                        <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> Cards
+                <li class="dropdown" >
+                    <a data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle">
+                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span> Games
+                        <span class="caret"></span>
                     </a>
-                </li>
-                <li class="disabled" {% block quiz %} {% endblock %} >
-                    <a href="#{#path('games_quiz')#}">
-                        <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Quiz
-                    </a>
-                </li>
-                <li class="disabled" {% block challenge %} {% endblock %} >
-                    <a href="#">
-                        <span class="glyphicon glyphicon-tower" aria-hidden="true"></span> Challenge
-                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li class="" {% block cards %} {% endblock %} >
+                            <a href="{{path('games_cards')}}">
+                                <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> Cards
+                            </a>
+                        </li>
+                        <li class="disabled" {% block quiz %} {% endblock %} >
+                            <a href="#{#path('games_quiz')#}">
+                                <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Quiz
+                            </a>
+                        </li>
+                        <li class="disabled" {% block challenge %} {% endblock %} >
+                            <a href="#">
+                                <span class="glyphicon glyphicon-tower" aria-hidden="true"></span> Challenge
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                     <li class="" {% block bugs %} {% endblock %} >
@@ -73,7 +81,7 @@
                             <li><a href="{{ path('fos_user_change_password') }}">Cambiar contraseña</a></li>
                                 {% if is_granted('ROLE_ADMIN') %}
                                 <li><a href="{{ path('users_index') }}">Users ABM</a></li>
-                            {% endif %}
+                                {% endif %}
                             <li class="divider"></li>
                             <li><a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
                         </ul>
