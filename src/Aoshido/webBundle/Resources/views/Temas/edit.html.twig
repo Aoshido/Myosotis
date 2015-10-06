@@ -1,6 +1,15 @@
 {% extends 'AoshidowebBundle:Abms:index.html.twig' %}
 
 {% block title %}Editar Tema{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li><a href="{{url('aoshidoweb_homepage')}}">Home</a></li>
+        <li><a href="{{url('abms_temas')}}">Temas</a></li>
+        <li class="active">Editar</li>
+    </ul>
+{% endblock %}
+
 {% block section %}Editar Tema{% endblock %}
 {% block abms_contenido %} 
 
