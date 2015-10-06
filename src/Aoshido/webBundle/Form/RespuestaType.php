@@ -19,12 +19,14 @@ class RespuestaType extends AbstractType {
             )
         ));
 
+        //https://github.com/symfony/symfony/issues/14712
         $builder->add('correcta', 'choice', array(
             'label' => 'Correcta:',
             'choices'  => array(TRUE => 'Verdadero', FALSE => 'Falso'),
             'required' => true,
             'expanded' => true,
             'multiple' => false,
+            'mapped'=> true,
         ));
 
         $builder->add('save', 'submit', array(

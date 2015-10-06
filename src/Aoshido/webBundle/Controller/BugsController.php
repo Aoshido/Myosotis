@@ -49,10 +49,15 @@ class BugsController extends Controller {
     }
 
     public function bugsplatAction(Request $request) {
-
         if ($request->getMethod() == 'POST') {
             $time = date('Y-m-d H:i:s');
             $comment = $request->get('comment');
+            if ($this->getUser() != null){
+                $user = $this->getUser()->getUsername();
+            } else{
+                $user = 'Anon';
+            }
+            
             $message = \Swift_Message::newInstance()
                     ->setSubject('NEW BUG')
                     ->setFrom('notifications@aoshido.com.ar')
@@ -61,19 +66,19 @@ class BugsController extends Controller {
                     $this->renderView('Emails/newBug.html.twig', array(
                         'time' => $time,
                         'comment' => $comment,
+                        'user' => $user,
                     )), 'text/html');
 
             if ($request->get('screenshot') != NULL) {
                 $screen = $request->get('screenshot');
                 $attachment = Swift_Attachment::newInstance($screen, 'screenshot.txt', 'application/txt');
-                $message->attach($attachment);
-                
+                $message->attach($attachment);   
             }
 
             $this->get('mailer')->send($message);
             return new JsonResponse(array('result' => 'success'));
         }
-        return $this->render('AoshidowebBundle:Bugs:bugsplat.html.twig');
+        return $this->redirectToRoute('aoshidoweb_homepage');
     }
 
 }

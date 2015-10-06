@@ -14,17 +14,6 @@ class DefaultController extends Controller {
     }
 
     public function bioAction() {
-        $message = \Swift_Message::newInstance()
-                ->setSubject('Hola, soy tama del Futuro!')
-                ->setFrom('notifications@aoshido.com.ar')
-                ->setTo('aoshido@gmail.com')
-                ->setBody(
-                $this->renderView(
-                        'Emails/welcome.html.twig', array('name' => 'Aca va el placeholder')
-                ), 'text/html'
-                )
-        ;
-        $this->get('mailer')->send($message);
         return $this->render('AoshidowebBundle:Default:bio.html.twig');
     }
 
