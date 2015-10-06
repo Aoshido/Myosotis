@@ -8,7 +8,7 @@ use Aoshido\webBundle\Form\BugType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
+use Swift_Attachment;
 
 class BugsController extends Controller {
 
@@ -53,9 +53,6 @@ class BugsController extends Controller {
         if ($request->getMethod() == 'POST') {
             $time = date('Y-m-d H:i:s');
             $comment = $request->get('comment');
-            $screen = $request->get('screenshot');
-            
-            
             $message = \Swift_Message::newInstance()
                     ->setSubject('NEW BUG')
                     ->setFrom('notifications@aoshido.com.ar')
@@ -64,12 +61,16 @@ class BugsController extends Controller {
                     $this->renderView('Emails/newBug.html.twig', array(
                         'time' => $time,
                         'comment' => $comment,
-                        'screen' => $screen,
-                    )), 'text/html'
-                    )
-            ;
+                    )), 'text/html');
+
+            if ($request->get('screenshot') != NULL) {
+                $screen = $request->get('screenshot');
+                $attachment = Swift_Attachment::newInstance($screen, 'screenshot.txt', 'application/txt');
+                $message->attach($attachment);
+                
+            }
+
             $this->get('mailer')->send($message);
-            
             return new JsonResponse(array('result' => 'success'));
         }
         return $this->render('AoshidowebBundle:Bugs:bugsplat.html.twig');
