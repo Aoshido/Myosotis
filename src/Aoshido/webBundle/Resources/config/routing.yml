@@ -12,6 +12,10 @@ aoshidoweb_bio:
 aoshidoweb_bugs:
     path:     /bugs
     defaults: { _controller: AoshidowebBundle:Bugs:index }
+
+aoshidoweb_bugsplat:
+    path:     /bugsplat
+    defaults: { _controller: AoshidowebBundle:Bugs:bugsplat }
     
 abms:
     resource: "@AoshidowebBundle/Resources/config/routing/abms.yml"
