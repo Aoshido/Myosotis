@@ -39,30 +39,7 @@
                     {{ knp_pagination_render(paginas) }}
                 </div>
             </div>
-            <div class="panel panel-primary">
-                <div class="panel-heading">Reportar Bugs</div>
 
-                <div class="panel-body">
-                    {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
-
-                    <div class="form-group">
-                        {{ form_errors(form)}}
-                        {{ form_errors(form.contenido) }}
-                        {{ form_label(form.contenido,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } })}}
-
-                        <div id="anchor" class="col-md-6">
-                            {{ form_widget(form.contenido,{ 'attr' : { 'class' : 'form-control' } }) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div id="anchor" class="col-md-offset-2 col-md-4">
-                            {{ form_widget(form.save,{ 'label': 'Reportar!' , 'attr': {'class': 'btn btn-success'} }) }}
-                        </div>
-                        {{ form_row(form._token) }}
-                        {{ form_end(form, {'render_rest': false}) }}
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 {% endblock %}
