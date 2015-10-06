@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  */
 class Pregunta {
 
@@ -66,6 +67,22 @@ class Pregunta {
      * @ORM\JoinTable(name="PreguntasTemas")
      * */
     private $temas;
+
+    /**
+     * @var datetime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    protected $creada;
+
+    /**
+     * Now we tell doctrine that before we persist or update we call the updatedTimestamps() function.
+     *
+     * @ORM\PrePersist
+     */
+    public function updatedTimestamps() {
+        $this->creada = new \DateTime();
+    }
 
     public function __construct() {
         $this->temas = new ArrayCollection();
@@ -263,4 +280,28 @@ class Pregunta {
         return $temasActivos;
     }
 
+
+    /**
+     * Set creada
+     *
+     * @param \DateTime $creada
+     *
+     * @return Pregunta
+     */
+    public function setCreada($creada)
+    {
+        $this->creada = $creada;
+
+        return $this;
+    }
+
+    /**
+     * Get creada
+     *
+     * @return \DateTime
+     */
+    public function getCreada()
+    {
+        return $this->creada;
+    }
 }

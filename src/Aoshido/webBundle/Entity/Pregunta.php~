@@ -56,10 +56,37 @@ class Pregunta {
     protected $respuestas;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Aoshido\userBundle\Entity\User")
+     * @ORM\JoinColumn(name="IdUser", referencedColumnName="id")
+     */
+    protected $creatorUser;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Tema", inversedBy="preguntas", cascade={"persist"})
      * @ORM\JoinTable(name="PreguntasTemas")
      * */
     private $temas;
+
+    /**
+     * @var datetime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    protected $creada;
+
+    /**
+     * Now we tell doctrine that before we persist or update we call the updatedTimestamps() function.
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updatedTimestamps() {
+        $this->setModifiedAt(new \DateTime(date('Y-m-d H:i:s')));
+
+        if ($this->getCreatedAt() == null) {
+            $this->setCreatedAt(new \DateTime(date('Y-m-d H:i:s')));
+        }
+    }
 
     public function __construct() {
         $this->temas = new ArrayCollection();
@@ -160,6 +187,27 @@ class Pregunta {
     }
 
     /**
+     * Set creatorUser
+     *
+     * @param \Aoshido\userBundle\Entity\User $creatorUser
+     * @return creatorUser
+     */
+    public function setCreatorUser(\Aoshido\userBundle\Entity\User $creatorUser = null) {
+        $this->creatorUser = $creatorUser;
+
+        return $this;
+    }
+
+    /**
+     * Get creatorUser
+     *
+     * @return \Aoshido\userBundle\Entity\User
+     */
+    public function getCreatorUser() {
+        return $this->creatorUser;
+    }
+
+    /**
      * Add respuestas
      *
      * @param \Aoshido\webBundle\Entity\Respuesta $respuestas
@@ -196,6 +244,7 @@ class Pregunta {
      * @return Pregunta
      */
     public function addTema(\Aoshido\webBundle\Entity\Tema $temas) {
+        $temas->addPregunta($this);
         $this->temas[] = $temas;
 
         return $this;
@@ -226,9 +275,9 @@ class Pregunta {
      */
     public function getTemasActivos() {
         $temasActivos = new ArrayCollection();
-        
-        foreach ($this->temas as $tema){
-            if ($tema->getActivo()){
+
+        foreach ($this->temas as $tema) {
+            if ($tema->getActivo()) {
                 $temasActivos->add($tema);
             }
         }
