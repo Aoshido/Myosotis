@@ -2,7 +2,6 @@
 
 namespace Aoshido\webBundle\Controller;
 
-use Aoshido\webBundle\Entity\Tema;
 use Aoshido\webBundle\Entity\Bug;
 use Aoshido\webBundle\Form\BugType;
 use Symfony\Component\HttpFoundation\Request;
@@ -52,12 +51,25 @@ class BugsController extends Controller {
         if ($request->getMethod() == 'POST') {
             $time = date('Y-m-d H:i:s');
             $comment = $request->get('comment');
-            if ($this->getUser() != null){
-                $user = $this->getUser()->getUsername();
-            } else{
-                $user = 'Anon';
+            
+            if ($this->getUser() != null) {
+                $user = $this->getUser();
+            } else {
+                $user = $this->getDoctrine()
+                        ->getRepository('AoshidouserBundle:User')
+                        ->find(1);
             }
             
+            $bug = new Bug();
+            $bug->setActivo(TRUE);
+            $bug->setContenido($comment);
+            $bug->setStatus('Reported');
+            $bug->setReportedUser($user);
+            
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($bug);
+            $em->flush();
+
             $message = \Swift_Message::newInstance()
                     ->setSubject('NEW BUG')
                     ->setFrom('notifications@aoshido.com.ar')
@@ -66,13 +78,13 @@ class BugsController extends Controller {
                     $this->renderView('Emails/newBug.html.twig', array(
                         'time' => $time,
                         'comment' => $comment,
-                        'user' => $user,
+                        'user' => $user->getUsername(),
                     )), 'text/html');
 
             if ($request->get('screenshot') != NULL) {
                 $screen = $request->get('screenshot');
                 $attachment = Swift_Attachment::newInstance($screen, 'screenshot.txt', 'application/txt');
-                $message->attach($attachment);   
+                $message->attach($attachment);
             }
 
             $this->get('mailer')->send($message);
