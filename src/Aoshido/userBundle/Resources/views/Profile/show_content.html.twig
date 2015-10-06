@@ -1,79 +1,55 @@
 {% trans_default_domain 'FOSUserBundle' %}
-    <div class="col-sm-offset-3 col-sm-6">
-        <div class="card hovercard">
-            <div class="card-background">
-                <img class="card-bkimg" alt="" src="{% image '@AoshidowebBundle/img/bichi.jpg' %} {{ asset_url }} {% endimage %}">
-            </div>
-            <div class="useravatar">
-                <img alt="" src="{% image '@AoshidowebBundle/img/bichi.jpg' %} {{ asset_url }} {% endimage %}">
-            </div>
-            <div class="card-info"> <span class="card-title">{{ user.username }}</span>
-
-            </div>
+<div class="col-sm-offset-2 col-sm-8">
+    <div class="card hovercard">
+        <div class="card-background">
+            <img class="card-bkimg" alt="" src="{% image '@AoshidowebBundle/img/bichi.jpg' %} {{ asset_url }} {% endimage %}">
         </div>
-        <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
-            <div class="btn-group" role="group">
-                <button type="button" id="stars" class="btn btn-primary" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                    <div class="hidden-xs">Stars</div>
-                </button>
-            </div>
-            <div class="btn-group" role="group">
-                <button type="button" id="favorites" class="btn btn-default" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                    <div class="hidden-xs">Favorites</div>
-                </button>
-            </div>
-            <div class="btn-group" role="group">
-                <button type="button" id="following" class="btn btn-default" href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                    <div class="hidden-xs">Following</div>
-                </button>
-            </div>
+        <div class="useravatar">
+            <img alt="" src="{% image '@AoshidowebBundle/img/bichi.jpg' %} {{ asset_url }} {% endimage %}">
         </div>
+        <div class="card-info"> <span class="card-title">{{ user.username }}</span>
 
-        <div class="well">
-            <div class="tab-content">
-                <div class="tab-pane fade in active" id="tab1">
-                    <h3>This is tab 1</h3>
-                </div>
-                <div class="tab-pane fade in" id="tab2">
-                    <h3>This is tab 2</h3>
-                </div>
-                <div class="tab-pane fade in" id="tab3">
-                    <h3>This is tab 3</h3>
-                </div>
-            </div>
         </div>
-
+    </div>
+    <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+        <div class="btn-group" role="group">
+            <button type="button" id="stars" class="btn btn-primary" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                <div class="hidden-xs">Datos</div>
+            </button>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" id="favorites" class="btn btn-default" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                <div class="hidden-xs">Favorites</div>
+            </button>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" id="following" class="btn btn-default" href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                <div class="hidden-xs">Bugs Reportados</div>
+            </button>
+        </div>
     </div>
 
-{#
-    <table>
-        <tr>
-            <td class="col-sm-3">
-                <img src="{% image '@AoshidowebBundle/img/bichi.jpg' %} {{ asset_url }} {% endimage %}" 
-                     alt="..." class="img-circle" width="200px" height="200px">
-            </td>
-            <td class="col-sm-9">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">/div>
-                    <table class="table table-condensed">
-                        <tr class="row">
-                            <td class="col-sm-3">{{ 'profile.show.email'|trans }}</td>
-                            <td class="col-sm-9">{{ user.email }}</td>
-                        </tr>
-                        <tr class="row">
-                            <td class="col-sm-3">{{ 'profile.show.email'|trans }}</td>
-                            <td class="col-sm-9">{{ user.email }}</td>
-                        </tr>
-                        <tr class="row">
-                            <td class="col-sm-3">{{ 'profile.show.email'|trans }}</td>
-                            <td class="col-sm-9">{{ user.email }}</td>
-                        </tr>
-                        <tr class="row">
-                            <td class="col-sm-3">{{ 'profile.show.email'|trans }}</td>
-                            <td class="col-sm-9">{{ user.email }}</td>
-                        </tr>
-                    </table>
-                </div>
-            </td>
-        </tr>
-    </table>#}
+    <div class="well">
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="tab1">
+                <table class="table table-condensed">
+                    <tr>
+                        <td> Usuario: </td>
+                        <td>{{ user.username }}</td>
+                    </tr>
+                    <tr>
+                        <td> Mail: </td>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tab-pane fade in" id="tab2">
+                <h3>To be implemented</h3>
+            </div>
+            <div class="tab-pane fade in" id="tab3">
+                <h3>To be implemented</h3>
+            </div>
+        </div>
+    </div>
+
+</div>
