@@ -3,7 +3,9 @@
 namespace Aoshido\webBundle\Controller;
 
 use Aoshido\webBundle\Entity\Pregunta;
+use Aoshido\webBundle\Entity\Examen;
 use Aoshido\webBundle\Form\PreguntaType;
+use Aoshido\webBundle\Form\ExamenType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -26,7 +28,7 @@ class GamesController extends Controller {
             foreach ($pregunta->getTemas() as $tema) {
                 $preguntas_temp = $tema->getPreguntas();
                 foreach ($preguntas_temp as $pregunta_temp) {
-                    if ($pregunta_temp != $pregunta && !$preguntas->contains($pregunta_temp)) {
+                    if ($pregunta_temp != $pregunta && !$preguntas->contains($pregunta_temp) && $pregunta_temp->getActivo()) {
                         $preguntas->add($pregunta_temp);
                     }
                 }
@@ -59,36 +61,31 @@ class GamesController extends Controller {
         $preguntas = new ArrayCollection();
 
         if ($form->isValid()) {
+            $quiz = new Examen();
+
             foreach ($pregunta->getTemas() as $tema) {
                 $preguntas_temp = $tema->getPreguntas();
                 foreach ($preguntas_temp as $pregunta_temp) {
-                    if ($pregunta_temp != $pregunta && !$preguntas->contains($pregunta_temp)) {
-                        $preguntas->add($pregunta_temp);
+                    if ($pregunta_temp != $pregunta && !$preguntas->contains($pregunta_temp) && $pregunta_temp->getActivo()) {
+                        $quiz->addPregunta($pregunta_temp);
                     }
                 }
             }
+
+            $quizForm = $this->createForm(new ExamenType(), $quiz, array(
+                'method' => 'GET',
+            ));
+
+            return $this->render('AoshidowebBundle:Games:quiz.html.twig', array(
+                        'form' => $form->createView(),
+                        'quiz' => $quizForm->createView(),
+            ));
         }
 
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($preguntas, $this->getRequest()->query->get('page', 1), 4);
-        $pagination->setPageRange(6);
-
-        $cantidad = count($preguntas);
-
-        switch ($request->getPathInfo()) {
-            case '/games/quiz':
-                return $this->render('AoshidowebBundle:Games:quiz.html.twig', array(
-                            'paginas' => $pagination,
-                            'cantidad' => $cantidad,
-                ));
-            case '/games/cards':
-                return $this->render('AoshidowebBundle:Games:cards.html.twig', array(
-                            'form' => $form->createView(),
-                            'paginas' => $pagination,
-                            'cantidad' => $cantidad,
-                ));
-        }
-        return $this->redirect($this->generateUrl('abms_preguntas'));
+        return $this->render('AoshidowebBundle:Games:quiz.html.twig', array(
+                    'form' => $form->createView(),
+                    'quiz' => NULL,
+        ));
     }
 
 }

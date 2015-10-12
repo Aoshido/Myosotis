@@ -74,6 +74,12 @@ class Pregunta {
      * @ORM\Column(type="datetime")
      */
     protected $creada;
+    
+     /**
+     * @ORM\ManyToOne(targetEntity="Examen", inversedBy="preguntas")
+     * @ORM\JoinColumn(name="IdExamen", referencedColumnName="id")
+     */
+    protected $examen;
 
     /**
      * Now we tell doctrine that before we persist or update we call the updatedTimestamps() function.
@@ -303,5 +309,29 @@ class Pregunta {
     public function getCreada()
     {
         return $this->creada;
+    }
+
+    /**
+     * Set examen
+     *
+     * @param \Aoshido\webBundle\Entity\Examen $examen
+     *
+     * @return Pregunta
+     */
+    public function setExamen(\Aoshido\webBundle\Entity\Examen $examen = null)
+    {
+        $this->examen = $examen;
+
+        return $this;
+    }
+
+    /**
+     * Get examen
+     *
+     * @return \Aoshido\webBundle\Entity\Examen
+     */
+    public function getExamen()
+    {
+        return $this->examen;
     }
 }

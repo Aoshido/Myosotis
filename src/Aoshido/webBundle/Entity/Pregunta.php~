@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  */
 class Pregunta {
 
@@ -73,19 +74,20 @@ class Pregunta {
      * @ORM\Column(type="datetime")
      */
     protected $creada;
+    
+     /**
+     * @ORM\ManyToOne(targetEntity="Examen", inversedBy="preguntas")
+     * @ORM\JoinColumn(name="IdExamen", referencedColumnName="id")
+     */
+    protected $examen;
 
     /**
      * Now we tell doctrine that before we persist or update we call the updatedTimestamps() function.
      *
      * @ORM\PrePersist
-     * @ORM\PreUpdate
      */
     public function updatedTimestamps() {
-        $this->setModifiedAt(new \DateTime(date('Y-m-d H:i:s')));
-
-        if ($this->getCreatedAt() == null) {
-            $this->setCreatedAt(new \DateTime(date('Y-m-d H:i:s')));
-        }
+        $this->creada = new \DateTime();
     }
 
     public function __construct() {
@@ -284,4 +286,28 @@ class Pregunta {
         return $temasActivos;
     }
 
+
+    /**
+     * Set creada
+     *
+     * @param \DateTime $creada
+     *
+     * @return Pregunta
+     */
+    public function setCreada($creada)
+    {
+        $this->creada = $creada;
+
+        return $this;
+    }
+
+    /**
+     * Get creada
+     *
+     * @return \DateTime
+     */
+    public function getCreada()
+    {
+        return $this->creada;
+    }
 }
