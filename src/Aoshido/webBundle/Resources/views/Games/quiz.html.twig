@@ -5,41 +5,14 @@
 {% block games_contenido %} 
     <div class="container col-md-12">
         <div class="panel panel-primary">
-            <div class="panel-heading text-right">Preguntas Disponibles: {{ cantidad }}</div>
-            {% if paginas|length > 0 %}
-                <table class="table table-condensed">
-                    {% for pregunta in paginas %}
-                        <tr class="row">
-                            <td class="col-sm-9">
-                                <span class="badge progress-bar-warning" data-toggle="tooltip" data-placement="left" title="Veces Vista">
-                                    {{pregunta.vecesVista}}
-                                </span>
-                                <span class="badge progress-bar-success" data-toggle="tooltip" data-placement="top" title="Veces Acertada">
-                                    {{pregunta.vecesAcertada}}
-                                </span>
-                                {{ pregunta.contenido }}
-                                {% for respuesta  in pregunta.respuestas %}
-                                <td class="col-sm-3">
-                                    {{ respuesta.contenido }}
-                                </td>
-                            {% endfor %}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </table>
-                <div class="col-md-offset-4 navigation">
-                    {{ knp_pagination_render(paginas) }}
-                </div>
-            {%else%}
-                <tr class="row">
-                    <td class="">
-                        <p class ="text-center"> ¡ Elija sus filtros ! </p>
-                    </td>
-                </tr>
-            {% endif %}
+            <div class="panel-heading text-right">Preguntas Disponibles: aiiiiiiiii</div>
+            {%if not(quiz == NULL)%}
+                {{form(quiz)}}
+            {%endif%}
         </div>
     </div>
-    {{ render(controller('AoshidowebBundle:Games:settings')) }}
+    {% set vars = {'form': form } %}
+    {% include 'AoshidowebBundle:Games:settings.html.twig' with vars %}
 {% endblock %}
 
 {% block javascripts %} 
