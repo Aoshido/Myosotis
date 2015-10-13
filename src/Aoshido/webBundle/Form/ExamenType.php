@@ -22,6 +22,17 @@ class ExamenType extends AbstractType {
             'allow_delete' => true,
             'by_reference' => false,
         ));
+
+        $builder->add('save', 'submit', array(
+            'label' => 'Entregar Examen',
+            'attr' => array(
+                'class' => 'btn btn-success'
+            ),
+        ));
+        
+        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+            $event->stopPropagation();
+        }, 900);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver) {

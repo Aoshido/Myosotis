@@ -6,45 +6,41 @@
     <div class="container col-md-12">
         <div class="panel panel-primary">
             <div class="panel-heading text-right">Preguntas Disponibles: aiiiiiiiii</div>
-            <div class="panel-body">
-                <div class="table table-condensed">
-                    {% if not (quizForm == null) %}
-                        {{ form_start(quizForm,{ 'attr': {'class': 'form-horizontal'} })}}
-                        {% for pregunta in quizForm.preguntas %}
-                            
-                            {{dump (form.vars.value)}}
-                            
-                            {# form.vars.value.contenido #}
-                            {# for respuesta in pregunta.respuestas %}
-                                <tr>
-                                    {{ form_widget(form.contenido,{ 'attr' : { 'class' : 'form-control' } }) }}
-                                </tr>
-                            {% endfor #}
+
+            <table class="table table-condensed">
+                {% if not (quizForm == null) %}
+                    {{ form_start(quizForm,{ 'attr': {'class': 'form-horizontal'} }) }}
+                    {% for pregunta in quizForm.preguntas %}
+                        <tr class="row">
+                            <td class="col-sm-9" colspan='2'>
+                                <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
+                                    {{ pregunta.vars.value.contenido|markdown|raw|truncate(150) }}
+                                </div>
+                                <span class="badge progress-bar-danger">
+                                    {{pregunta.vars.value.creada|date("d/m/Y")}}
+                                </span>
+                            </td>
+                        </tr>
+                        {% for respuesta in pregunta.respuestas %}
+                            <tr class="row">
+                                <td class="col-sm-9">
+                                    <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
+                                        {{ respuesta.vars.value.contenido|markdown|raw|truncate(150) }}
+                                    </div>
+                                </td>
+                                <td class="col-sm-3">{{ form_widget(respuesta.elegida) }}</td>
+                            </tr>
                         {% endfor %}
-                        {{ form_end(quizForm, {'render_rest': false}) }}
-                    {% endif %}
-                </div>
-
-                {#<div class="form-group">
-                {{ form_start(quizForm,{ 'attr': {'class': 'form-horizontal'} })}}
-                    <div id="anchor" class="col-md-6">
-                        {{ form_widget(form.contenido,{ 'attr' : { 'class' : 'form-control' } }) }}
-                    </div>
-
-                    <div class="col-md-2">
-                        {{ form_widget(form.correcta) }}
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <div id="anchor" class="col-md-offset-2 col-md-4">
-                        {{ form_widget(form.save,{ 'attr': {'class': 'btn btn-success' }  } ) }}
-                    </div>
-                    {{ form_row(form._token) }}
-                    {{ form_end(form, {'render_rest': false}) }}
-                </div>#}
-            </div>
+                    {% endfor %}
+                    <tr class="row">
+                        <td class="col-sm-12">
+                            {{ form_widget(quizForm.save,{ 'attr': {'class': 'btn btn-success' }  } ) }}
+                        </td>
+                    </tr>
+                    {{ form_row(quizForm._token) }}
+                    {{ form_end(quizForm, {'render_rest': false}) }}
+                {% endif %}
+            </table>
         </div>
     </div>
 </div>
