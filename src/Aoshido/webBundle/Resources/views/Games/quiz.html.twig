@@ -6,13 +6,45 @@
     <div class="container col-md-12">
         <div class="panel panel-primary">
             <div class="panel-heading text-right">Preguntas Disponibles: aiiiiiiiii</div>
-            {%if not(quiz == NULL)%}
-                {{form(quiz)}}
-            {%endif%}
+            <div class="panel-body">
+                <div class="table table-condensed">
+
+                    {% for pregunta in quiz.pregunta %}
+                        <tr><td>{{ pregunta.contenido|raw|markdown }}</td></tr>
+                        {% for respuesta in pregunta.respuestas %}
+                            <tr>
+                                <td>{{ respuesta.contenido|raw|markdown }}</td>
+                                <td>{{ form_widget(quizForm.pregunta) }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+
+                {#<div class="form-group">
+                {{ form_start(quizForm,{ 'attr': {'class': 'form-horizontal'} })}}
+                    <div id="anchor" class="col-md-6">
+                        {{ form_widget(form.contenido,{ 'attr' : { 'class' : 'form-control' } }) }}
+                    </div>
+
+                    <div class="col-md-2">
+                        {{ form_widget(form.correcta) }}
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div id="anchor" class="col-md-offset-2 col-md-4">
+                        {{ form_widget(form.save,{ 'attr': {'class': 'btn btn-success' }  } ) }}
+                    </div>
+                    {{ form_row(form._token) }}
+                    {{ form_end(form, {'render_rest': false}) }}
+                </div>#}
+            </div>
         </div>
     </div>
-    {% set vars = {'form': form } %}
-    {% include 'AoshidowebBundle:Games:settings.html.twig' with vars %}
+</div>
+{% set vars = {'form': form } %}
+{% include 'AoshidowebBundle:Games:settings.html.twig' with vars %}
 {% endblock %}
 
 {% block javascripts %} 
