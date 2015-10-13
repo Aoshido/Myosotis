@@ -18,7 +18,7 @@ class ExamenType extends AbstractType {
         $builder->add('preguntas', 'collection', array(
             'type' => new PreguntaQuizType(),
             'mapped' => true,
-            'allow_add' => true,
+            'allow_add' => false,
             'allow_delete' => true,
             'by_reference' => false,
         ));
