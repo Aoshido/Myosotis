@@ -8,16 +8,21 @@
             <div class="panel-heading text-right">Preguntas Disponibles: aiiiiiiiii</div>
             <div class="panel-body">
                 <div class="table table-condensed">
-
-                    {% for pregunta in quiz.pregunta %}
-                        <tr><td>{{ pregunta.contenido|raw|markdown }}</td></tr>
-                        {% for respuesta in pregunta.respuestas %}
-                            <tr>
-                                <td>{{ respuesta.contenido|raw|markdown }}</td>
-                                <td>{{ form_widget(quizForm.pregunta) }}</td>
-                            </tr>
+                    {% if not (quizForm == null) %}
+                        {{ form_start(quizForm,{ 'attr': {'class': 'form-horizontal'} })}}
+                        {% for pregunta in quizForm.preguntas %}
+                            
+                            {{dump (form.vars.value)}}
+                            
+                            {# form.vars.value.contenido #}
+                            {# for respuesta in pregunta.respuestas %}
+                                <tr>
+                                    {{ form_widget(form.contenido,{ 'attr' : { 'class' : 'form-control' } }) }}
+                                </tr>
+                            {% endfor #}
                         {% endfor %}
-                    {% endfor %}
+                        {{ form_end(quizForm, {'render_rest': false}) }}
+                    {% endif %}
                 </div>
 
                 {#<div class="form-group">

@@ -16,7 +16,7 @@ use Symfony\Component\Form\FormEvent;
 class PreguntaQuizType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add('contenido', 'textarea', array(
+        $builder->add('contenido', 'hidden', array(
             'label' => 'Pregunta:',
         ));
         

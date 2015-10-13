@@ -7,17 +7,6 @@
         <p>{{'Esta'|trans}} pagina nacio con la intencion de ayudar a estudiar (o quizas memorizar mejor)
             todos esos millones y millones de verdaderos o falsos, multiples choices, conceptos y
             demas cuestiones tan necesarias para aprobar.</p>
-        <ul class="social-buttons cf">
-            <li>
-                <a href="http://twitter.com/share" class="socialite twitter-share" data-text="Socialite.js" data-url="{{ app.request.getUri }}" data-count="vertical" rel="nofollow" target="_blank"><span class="vhidden">Share on Twitter</span></a>
-            </li>
-            <li>
-                <a href="https://plus.google.com/share?url={{ app.request.getUri }}" class="socialite googleplus-one" data-size="tall" data-href="{{ app.request.getUri }}" rel="nofollow" target="_blank"><span class="vhidden">Share on Google+</span></a>
-            </li>
-            <li>
-                <a href="http://www.facebook.com/sharer.php?u={{ app.request.getUri }}&t={{ 'myosotis'|url_encode() }}" class="socialite facebook-like" data-href="{{ app.request.getUri }}" data-send="false" data-layout="box_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank"><span class="vhidden">Share on Facebook</span></a>
-            </li>
-        </ul>
         <h2>{{'Modes'|trans}}</h2>
         <div class="row">
             <div class="col-sm-6 col-md-4">
@@ -51,19 +40,10 @@
                     <div class="caption">
                         <h3 class="text-center"><strike>Challenge Mode</strike></h3>
                         <p ><strike>Selecciona un tema y contesta preguntas hasta equivocarte!</strike></p>
-                        <p> Coming soon </p>
+                    <p> Coming soon </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-{% endblock %}
-
-{% block javascripts %} 
-    {{ parent() }}
-    <script>
-        $(document).ready(function () {
-            Socialite.load();
-        });
-    </script>
 {% endblock %}

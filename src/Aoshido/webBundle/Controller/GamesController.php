@@ -70,8 +70,8 @@ class GamesController extends Controller {
                         $quiz->addPregunta($pregunta_temp);
                     }
                 }
-            }
-
+            }   
+            
             $quizForm = $this->createForm(new ExamenType(), $quiz, array(
                 'method' => 'GET',
             ));
