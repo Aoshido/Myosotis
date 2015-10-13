@@ -21,7 +21,7 @@ class PreguntaQuizType extends AbstractType {
         ));
         
         $builder->add('respuestas', 'collection', array(
-            'type' => new RespuestaType(),
+            'type' => new RespuestaQuizType(),
             'mapped' => true,
             'allow_add' => true,
             'allow_delete' => true,

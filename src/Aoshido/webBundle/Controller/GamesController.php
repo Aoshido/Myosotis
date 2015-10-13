@@ -70,10 +70,11 @@ class GamesController extends Controller {
                         $quiz->addPregunta($pregunta_temp);
                     }
                 }
-            }   
-            
+            }
+
             $quizForm = $this->createForm(new ExamenType(), $quiz, array(
-                'method' => 'GET',
+                'method' => 'POST',
+                'action' => $this->generateUrl('games_resultados')
             ));
 
             return $this->render('AoshidowebBundle:Games:quiz.html.twig', array(
@@ -88,6 +89,25 @@ class GamesController extends Controller {
                     'quizForm' => NULL,
                     'quiz' => NULL
         ));
+    }
+
+    public function resultadosAction(Request $request) {
+
+        $quiz = new Examen();
+        $quizForm = $this->createForm(new ExamenType(), $quiz, array(
+            'method' => 'POST',
+            'action' => $this->generateUrl('games_resultados')
+        ));
+
+        $quizForm->handleRequest($request);
+        dump($quizForm);
+        die();
+        
+        if ($quizForm->isValid()) {
+            foreach ($quiz->getPreguntas() as $pregunta) {
+                echo $pregunta->getId();
+            }            
+        }
     }
 
 }
