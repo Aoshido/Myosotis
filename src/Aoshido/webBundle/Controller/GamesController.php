@@ -78,13 +78,15 @@ class GamesController extends Controller {
 
             return $this->render('AoshidowebBundle:Games:quiz.html.twig', array(
                         'form' => $form->createView(),
-                        'quiz' => $quizForm->createView(),
+                        'quizForm' => $quizForm->createView(),
+                        'quiz' => $quiz
             ));
         }
 
         return $this->render('AoshidowebBundle:Games:quiz.html.twig', array(
                     'form' => $form->createView(),
-                    'quiz' => NULL,
+                    'quizForm' => NULL,
+                    'quiz' => NULL
         ));
     }
 
