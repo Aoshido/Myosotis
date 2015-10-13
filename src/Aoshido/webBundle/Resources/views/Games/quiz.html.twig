@@ -4,13 +4,12 @@
 {% block section %}Quiz! {% endblock %}
 {% block games_contenido %} 
     <div class="container col-md-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading text-right">Preguntas Disponibles: aiiiiiiiii</div>
-
-            <table class="table table-condensed">
-                {% if not (quizForm == null) %}
-                    {{ form_start(quizForm,{ 'attr': {'class': 'form-horizontal'} }) }}
-                    {% for pregunta in quizForm.preguntas %}
+        {% if not (quizForm == null) %}
+            {{ form_start(quizForm,{ 'attr': {'class': 'form-horizontal'} }) }}
+            {% for pregunta in quizForm.preguntas %}
+                <div class="panel panel-primary">
+                    <div class="panel-heading text-right">Pregunta</div>
+                    <table class="table table-condensed">
                         <tr class="row">
                             <td class="col-sm-9" colspan='2'>
                                 <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
@@ -31,21 +30,19 @@
                                 <td class="col-sm-3">{{ form_widget(respuesta.elegida) }}</td>
                             </tr>
                         {% endfor %}
-                    {% endfor %}
-                    <tr class="row">
-                        <td class="col-sm-12">
-                            {{ form_widget(quizForm.save,{ 'attr': {'class': 'btn btn-success' }  } ) }}
-                        </td>
-                    </tr>
-                    {{ form_row(quizForm._token) }}
-                    {{ form_end(quizForm, {'render_rest': false}) }}
-                {% endif %}
-            </table>
-        </div>
+                    </table>
+                </div>
+            {% endfor %}
+            <div class="col-md-offset-4 col-md-8">
+                {{ form_widget(quizForm.save,{ 'attr': {'class': 'btn btn-success' }  } ) }}
+            </div>
+            {{ form_row(quizForm._token) }}
+            {{ form_end(quizForm, {'render_rest': false}) }}
+        {% endif %}
+
+        {% set vars = {'form': form } %}
+        {% include 'AoshidowebBundle:Games:settings.html.twig' with vars %}
     </div>
-</div>
-{% set vars = {'form': form } %}
-{% include 'AoshidowebBundle:Games:settings.html.twig' with vars %}
 {% endblock %}
 
 {% block javascripts %} 
