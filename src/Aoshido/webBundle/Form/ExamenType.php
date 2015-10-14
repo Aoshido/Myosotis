@@ -18,9 +18,10 @@ class ExamenType extends AbstractType {
         $builder->add('preguntas', 'collection', array(
             'type' => new PreguntaQuizType(),
             'mapped' => true,
-            'allow_add' => false,
+            'allow_add' => true,
             'allow_delete' => true,
             'by_reference' => false,
+            'empty_data'  => null
         ));
 
         $builder->add('save', 'submit', array(
@@ -29,7 +30,15 @@ class ExamenType extends AbstractType {
                 'class' => 'btn btn-success'
             ),
         ));
-        
+
+        $callback = function(FormEvent $event) {
+            if (null === $event->getData()) {
+                $event->setData($event->getForm()->getData());
+            }
+        };
+
+        $builder->get('preguntas')->addEventListener(FormEvents::PRE_SUBMIT, $callback);
+
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
             $event->stopPropagation();
         }, 900);
