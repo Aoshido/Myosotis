@@ -4,10 +4,8 @@ namespace Aoshido\webBundle\Controller;
 
 use Aoshido\webBundle\Entity\Pregunta;
 use Aoshido\webBundle\Entity\Examen;
-
 use Aoshido\webBundle\Form\PreguntaType;
 use Aoshido\webBundle\Form\ExamenType;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -59,7 +57,6 @@ class GamesController extends Controller {
         ));
 
         $form->handleRequest($request);
-
         $preguntas = new ArrayCollection();
 
         if ($form->isValid()) {
@@ -75,7 +72,7 @@ class GamesController extends Controller {
             }
 
             $quizForm = $this->createForm(new ExamenType(), $quiz, array(
-                'method' => 'POST',
+                'method' => 'PATCH',
                 'action' => $this->generateUrl('games_resultados')
             ));
 
@@ -86,6 +83,7 @@ class GamesController extends Controller {
             ));
         }
 
+
         return $this->render('AoshidowebBundle:Games:quiz.html.twig', array(
                     'form' => $form->createView(),
                     'quizForm' => NULL,
@@ -95,32 +93,9 @@ class GamesController extends Controller {
 
     public function resultadosAction(Request $request) {
 
-        $quiz = new Examen();
-        /*$preguntas = $this->getDoctrine()
-                    ->getRepository('AoshidowebBundle:Pregunta')
-                    ->findBy(array('activo' => TRUE));
-        
-        foreach ($preguntas as $pregunta){
-            $quiz->addPregunta($pregunta);
-        }*/
+        dump ($request);
+        die();
 
-        
-        $quizForm = $this->createForm(new ExamenType(), $quiz, array(
-            'method' => 'POST',
-            'action' => $this->generateUrl('games_resultados')
-        ));
-        
-        $quizForm->handleRequest($request);
-        
-        if ($quizForm->isValid()){
-            dump($quizForm);
-            dump($quiz);
-            die();
-        }else{
-            dump($quizForm->getErrors());
-            //die();
-        }
-        
 
         return $this->render('AoshidowebBundle:Games:results.html.twig', array(
                     'quizForm' => $quizForm->createView(),

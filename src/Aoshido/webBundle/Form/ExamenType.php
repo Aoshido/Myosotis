@@ -16,12 +16,13 @@ class ExamenType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('preguntas', 'collection', array(
+            'label' => NULL,
             'type' => new PreguntaQuizType(),
             'mapped' => true,
-            'allow_add' => true,
-            'allow_delete' => true,
+            'allow_add' => false,
+            'allow_delete' => false,
             'by_reference' => false,
-            'empty_data'  => null
+            'empty_data'  => 'not_submitted'
         ));
 
         $builder->add('save', 'submit', array(
@@ -31,12 +32,14 @@ class ExamenType extends AbstractType {
             ),
         ));
 
+        //https://gist.github.com/jakzal/3707235
+        
         $callback = function(FormEvent $event) {
             if (null === $event->getData()) {
                 $event->setData($event->getForm()->getData());
             }
         };
-
+        
         $builder->get('preguntas')->addEventListener(FormEvents::PRE_SUBMIT, $callback);
 
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
