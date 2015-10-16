@@ -93,7 +93,15 @@ class GamesController extends Controller {
 
     public function resultadosAction(Request $request) {
 
-        dump ($request);
+        $quiz = new Examen();
+        $quizForm = $this->createForm(new ExamenType(), $quiz, array(
+                'method' => 'PATCH',
+                'action' => $this->generateUrl('games_resultados')
+            ));
+        
+        $quizForm->handleRequest($request);
+        dump($request);
+        dump($quiz);
         die();
 
 
