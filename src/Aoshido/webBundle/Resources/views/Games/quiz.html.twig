@@ -26,9 +26,9 @@
                                 <td class="col-sm-9">
                                     <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
                                         {{ respuesta.vars.value.contenido|markdown|raw|truncate(150) }}
+                                        {{ form_widget(respuesta.contenido) }}
                                     </div>
                                 </td>
-                                {{ form_widget(respuesta.contenido) }}
                                 <td class="col-sm-3">{{ form_widget(respuesta.elegida) }}</td>
                             </tr>
                         {% endfor %}
