@@ -17,14 +17,15 @@ class PreguntaQuizType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('contenido', 'hidden', array(
-            'label' => 'Pregunta:',
+            'label' => NULL,
         ));
         
         $builder->add('respuestas', 'collection', array(
+            'label' => NULL,
             'type' => new RespuestaQuizType(),
             'mapped' => true,
-            'allow_add' => true,
-            'allow_delete' => true,
+            'allow_add' => false,
+            'allow_delete' => false,
             'by_reference' => false,
         ));
 
