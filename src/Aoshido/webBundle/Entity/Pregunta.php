@@ -147,6 +147,16 @@ class Pregunta {
     }
 
     /**
+     * increase vecesVista
+     *
+     * @return Pregunta
+     */
+    public function increaseVecesVista() {
+        $this->vecesVista++;
+        return $this;
+    }
+
+    /**
      * Set vecesAcertada
      *
      * @param integer $vecesAcertada
@@ -165,6 +175,16 @@ class Pregunta {
      */
     public function getVecesAcertada() {
         return $this->vecesAcertada;
+    }
+    
+    /**
+     * increase vecesAcertada
+     *
+     * @return Pregunta
+     */
+    public function increaseVecesAcertada() {
+        $this->vecesAcertada++;
+        return $this;
     }
 
     /**

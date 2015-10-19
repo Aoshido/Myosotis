@@ -105,7 +105,7 @@ class GamesController extends Controller {
                     ->getRepository('AoshidowebBundle:Pregunta')
                     ->find($pregunta['id']);
 
-            $preguntaEntity->setVecesVista($preguntaEntity->getVecesVista() + 1);
+            $preguntaEntity->increaseVecesVista();
 
             //Reviso si la respuesta que eligio es alguna de las correctas
             $correctas = 0;
@@ -132,12 +132,15 @@ class GamesController extends Controller {
                 if ($correctas == count($preguntaEntity->getRespuestasCorrectas()) && $malContestada == FALSE) {
                     $bienContestada = TRUE;
                     $preguntasCorrectas++;
-                    $preguntaEntity->setVecesAcertada($preguntaEntity->getVecesAcertada() + 1);
+                    $preguntaEntity->increaseVecesAcertada();
                 } else {
                     $malContestada = TRUE;
                 }
             }
         }
+        
+        $this->getDoctrine()->getManager()->persist($preguntaEntity);
+        $this->getDoctrine()->getManager()->flush();
         
         return $this->render('AoshidowebBundle:Games:results.html.twig', array(
                     'correctas' => $preguntasCorrectas,

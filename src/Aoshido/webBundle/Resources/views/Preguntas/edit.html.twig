@@ -44,12 +44,12 @@
                 {% for pregunta in paginas %}
                     <tr class="row">
                         <td class="col-sm-9">
-                            {#<span class="badge progress-bar-warning" data-toggle="tooltip" data-placement="left" title="Veces Vista">
+                            <span class="badge progress-bar-warning" data-toggle="tooltip" data-placement="left" title="Veces Vista">
                                 {{pregunta.vecesVista}}
                             </span>
                             <span class="badge progress-bar-success" data-toggle="tooltip" data-placement="top" title="Veces Acertada">
                                 {{pregunta.vecesAcertada}}
-                            </span>#}
+                            </span>
                             <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
                                 {{ pregunta.contenido|markdown|raw|truncate(150) }}
                             </div>
