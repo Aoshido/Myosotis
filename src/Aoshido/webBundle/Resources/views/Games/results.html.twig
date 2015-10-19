@@ -3,41 +3,9 @@
 {% block title %}Quiz! {% endblock %}
 {% block section %}Quiz! {% endblock %}
 {% block games_contenido %} 
-    <div class="container col-md-12">
-        {{ form_start(quizForm,{ 'attr': {'class': 'form-horizontal'} }) }}
-            {% for pregunta in quizForm.preguntas %}
-                <div class="panel panel-primary">
-                    <div class="panel-heading text-right">Pregunta</div>
-                    <table class="table table-condensed">
-                        <tr class="row">
-                            <td class="col-sm-9" colspan='2'>
-                                <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
-                                    {{ pregunta.vars.value.contenido|markdown|raw|truncate(150) }}
-                                </div>
-                                <span class="badge progress-bar-danger">
-                                    {{pregunta.vars.value.creada|date("d/m/Y")}}
-                                </span>
-                            </td>
-                        </tr>
-                        {% for respuesta in pregunta.respuestas %}
-                            <tr class="row">
-                                <td class="col-sm-9">
-                                    <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
-                                        {{ respuesta.vars.value.contenido|markdown|raw|truncate(150) }}
-                                    </div>
-                                </td>
-                                <td class="col-sm-3">{{ form_widget(respuesta.elegida) }}</td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-            {% endfor %}
-            <div class="col-md-offset-4 col-md-8">
-                {{ form_widget(quizForm.save,{ 'attr': {'class': 'btn btn-success' }  } ) }}
-            </div>
-            {{ form_row(quizForm._token) }}
-            {{ form_end(quizForm, {'render_rest': false}) }}
-    </div>
+    Correctas: {{correctas}}
+    Incorectas: {{total - correctas - noContestadas}}
+    No Contestadas: {{ noContestadas}}
 {% endblock %}
 
 {% block javascripts %} 

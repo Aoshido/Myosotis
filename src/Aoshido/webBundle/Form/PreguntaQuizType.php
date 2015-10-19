@@ -19,6 +19,9 @@ class PreguntaQuizType extends AbstractType {
         $builder->add('contenido', 'hidden', array(
             'label' => NULL,
         ));
+        $builder->add('id', 'hidden', array(
+            'label' => NULL,
+        ));
         
         $builder->add('respuestas', 'collection', array(
             'label' => NULL,

@@ -92,21 +92,57 @@ class GamesController extends Controller {
     }
 
     public function resultadosAction(Request $request) {
+        $preguntas = $request->get('quiz')['preguntas'];
+        $preguntasCorrectas = 0;
+        $preguntasNoContestadas = 0;
 
-        $quiz = new Examen();
-        $quizForm = $this->createForm(new ExamenType(), $quiz, array(
-                'method' => 'PATCH',
-                'action' => $this->generateUrl('games_resultados')
-            ));
+        foreach ($preguntas as $pregunta) {
+            $noContestada = FALSE;
+            $bienContestada = FALSE;
+            $malContestada = FALSE;
+
+            $preguntaEntity = $this->getDoctrine()
+                    ->getRepository('AoshidowebBundle:Pregunta')
+                    ->find($pregunta['id']);
+
+            $preguntaEntity->setVecesVista($preguntaEntity->getVecesVista() + 1);
+
+            //Reviso si la respuesta que eligio es alguna de las correctas
+            $correctas = 0;
+            foreach ($pregunta['respuestas'] as $respuesta) {
+                if (array_key_exists('elegida', $respuesta)) {
+                    $respuestaEntity = $this->getDoctrine()
+                            ->getRepository('AoshidowebBundle:Respuesta')
+                            ->find($respuesta['id']);
+
+                    if ($preguntaEntity->getRespuestasCorrectas()->contains($respuestaEntity)) {
+                        $correctas++;
+                    } else {
+                        $malContestada = TRUE;
+                    }
+                }
+            }
+
+            //Si no hay nignuna opcion correcta , ni incorrecta es pq no contesto
+            if ($correctas == 0 && $malContestada == FALSE) {
+                $noContestada = TRUE;
+                $preguntasNoContestadas++;
+            } else {
+                //Me fijo que haya elegido TODAS las respuestas correctas
+                if ($correctas == count($preguntaEntity->getRespuestasCorrectas()) && $malContestada == FALSE) {
+                    $bienContestada = TRUE;
+                    $preguntasCorrectas++;
+                    $preguntaEntity->setVecesAcertada($preguntaEntity->getVecesAcertada() + 1);
+                } else {
+                    $malContestada = TRUE;
+                }
+            }
+        }
         
-        $quizForm->handleRequest($request);
-        dump($request);
-        dump($quiz);
-        die();
-
-
         return $this->render('AoshidowebBundle:Games:results.html.twig', array(
-                    'quizForm' => $quizForm->createView(),
+                    'correctas' => $preguntasCorrectas,
+                    'noContestadas' => $preguntasNoContestadas,
+                    'total' => count($preguntas)
         ));
     }
 
