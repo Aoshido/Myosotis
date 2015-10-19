@@ -56,7 +56,7 @@ class BugsController extends Controller {
                 $user = $this->getUser();
             } else {
                 $user = $this->getDoctrine()
-                        ->getRepository('AoshidouserBundle:User')
+                        ->getRepository('AoshidoUserBundle:User')
                         ->find(1);
             }
             

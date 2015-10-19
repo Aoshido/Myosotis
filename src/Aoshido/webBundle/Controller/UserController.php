@@ -13,7 +13,7 @@ class UserController extends Controller {
     public function indexAction(Request $request) {
         //Display a list of all Users
         $users = $this->getDoctrine()
-                ->getRepository('AoshidouserBundle:User')
+                ->getRepository('AoshidoUserBundle:User')
                 ->findBy(array('enabled' => TRUE));
 
         $paginator = $this->get('knp_paginator');
@@ -30,7 +30,7 @@ class UserController extends Controller {
 
     public function promoteAction($idUser) {
         $user = $this->getDoctrine()
-                ->getRepository('AoshidouserBundle:User')
+                ->getRepository('AoshidoUserBundle:User')
                 ->find($idUser);
         
         $userManager = $this->get('fos_user.user_manager');
@@ -42,7 +42,7 @@ class UserController extends Controller {
     
     public function disableAction($idUser) {
         $user = $this->getDoctrine()
-                ->getRepository('AoshidouserBundle:User')
+                ->getRepository('AoshidoUserBundle:User')
                 ->find($idUser);
         
         $userManager = $this->get('fos_user.user_manager');

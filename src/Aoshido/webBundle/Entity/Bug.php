@@ -43,7 +43,7 @@ class Bug {
     private $status;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Aoshido\userBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Aoshido\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="IdUser", referencedColumnName="id")
      */
     protected $reportedUser;
@@ -51,10 +51,10 @@ class Bug {
     /**
      * Set reportedUser
      *
-     * @param \Aoshido\userBundle\Entity\User $reportedUser
+     * @param \Aoshido\UserBundle\Entity\User $reportedUser
      * @return reportedUser
      */
-    public function setReportedUser(\Aoshido\userBundle\Entity\User $reportedUser = null) {
+    public function setReportedUser(\Aoshido\UserBundle\Entity\User $reportedUser = null) {
         $this->reportedUser = $reportedUser;
 
         return $this;
@@ -63,7 +63,7 @@ class Bug {
     /**
      * Get reportedUser
      *
-     * @return \Aoshido\userBundle\Entity\User
+     * @return \Aoshido\UserBundle\Entity\User
      */
     public function getReportedUser() {
         return $this->reportedUser;
