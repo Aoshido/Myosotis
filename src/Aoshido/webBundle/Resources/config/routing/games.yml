@@ -9,3 +9,7 @@ games_cards:
 games_settings:
     path:     /settings
     defaults: { _controller: AoshidowebBundle:Games:settings }
+    
+games_resultados:
+    path:     /resultados
+    defaults: { _controller: AoshidowebBundle:Games:resultados }

@@ -4,42 +4,49 @@
 {% block section %}Quiz! {% endblock %}
 {% block games_contenido %} 
     <div class="container col-md-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading text-right">Preguntas Disponibles: {{ cantidad }}</div>
-            {% if paginas|length > 0 %}
-                <table class="table table-condensed">
-                    {% for pregunta in paginas %}
+        {% if not (quizForm == null) %}
+            {{ form_start(quizForm,{ 'attr': {'class': 'form-horizontal'} }) }}
+            {% for pregunta in quizForm.preguntas %}
+                <div class="panel panel-primary">
+                    <div class="panel-heading text-right">Pregunta</div>
+                    <table class="table table-condensed">
                         <tr class="row">
-                            <td class="col-sm-9">
-                                <span class="badge progress-bar-warning" data-toggle="tooltip" data-placement="left" title="Veces Vista">
-                                    {{pregunta.vecesVista}}
+                            <td class="col-sm-9" colspan='2'>
+                                <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
+                                    {{ pregunta.vars.value.contenido|markdown|raw|truncate(150) }}
+                                    {{ form_widget(pregunta.contenido) }}
+                                    {{ form_widget(pregunta.id) }}
+                                </div>
+                                <span class="badge progress-bar-danger">
+                                    {{pregunta.vars.value.creada|date("d/m/Y")}}
                                 </span>
-                                <span class="badge progress-bar-success" data-toggle="tooltip" data-placement="top" title="Veces Acertada">
-                                    {{pregunta.vecesAcertada}}
-                                </span>
-                                {{ pregunta.contenido }}
-                                {% for respuesta  in pregunta.respuestas %}
-                                <td class="col-sm-3">
-                                    {{ respuesta.contenido }}
-                                </td>
-                            {% endfor %}
                             </td>
                         </tr>
-                    {% endfor %}
-                </table>
-                <div class="col-md-offset-4 navigation">
-                    {{ knp_pagination_render(paginas) }}
+                        {% for respuesta in pregunta.respuestas %}
+                            <tr class="row">
+                                <td class="col-sm-9">
+                                    <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
+                                        {{ respuesta.vars.value.contenido|markdown|raw|truncate(150) }}
+                                        {{ form_widget(respuesta.contenido) }}
+                                        {{ form_widget(respuesta.id) }}
+                                    </div>
+                                </td>
+                                <td class="col-sm-3">{{ form_widget(respuesta.elegida) }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
                 </div>
-            {%else%}
-                <tr class="row">
-                    <td class="">
-                        <p class ="text-center"> ¡ Elija sus filtros ! </p>
-                    </td>
-                </tr>
-            {% endif %}
-        </div>
+            {% endfor %}
+            <div class="col-md-offset-4 col-md-8">
+                {{ form_widget(quizForm.save,{ 'attr': {'class': 'btn btn-success' }  } ) }}
+            </div>
+            {{ form_row(quizForm._token) }}
+            {{ form_end(quizForm, {'render_rest': false}) }}
+        {% endif %}
+
+        {% set vars = {'form': form } %}
+        {% include 'AoshidowebBundle:Games:settings.html.twig' with vars %}
     </div>
-    {{ render(controller('AoshidowebBundle:Games:settings')) }}
 {% endblock %}
 
 {% block javascripts %} 

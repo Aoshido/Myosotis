@@ -76,6 +76,12 @@ class Pregunta {
     protected $creada;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Examen", inversedBy="preguntas")
+     * @ORM\JoinColumn(name="IdExamen", referencedColumnName="id")
+     */
+    protected $examen;
+
+    /**
      * Now we tell doctrine that before we persist or update we call the updatedTimestamps() function.
      *
      * @ORM\PrePersist
@@ -141,6 +147,16 @@ class Pregunta {
     }
 
     /**
+     * increase vecesVista
+     *
+     * @return Pregunta
+     */
+    public function increaseVecesVista() {
+        $this->vecesVista++;
+        return $this;
+    }
+
+    /**
      * Set vecesAcertada
      *
      * @param integer $vecesAcertada
@@ -159,6 +175,16 @@ class Pregunta {
      */
     public function getVecesAcertada() {
         return $this->vecesAcertada;
+    }
+    
+    /**
+     * increase vecesAcertada
+     *
+     * @return Pregunta
+     */
+    public function increaseVecesAcertada() {
+        $this->vecesAcertada++;
+        return $this;
     }
 
     /**
@@ -280,7 +306,6 @@ class Pregunta {
         return $temasActivos;
     }
 
-
     /**
      * Set creada
      *
@@ -288,8 +313,7 @@ class Pregunta {
      *
      * @return Pregunta
      */
-    public function setCreada($creada)
-    {
+    public function setCreada($creada) {
         $this->creada = $creada;
 
         return $this;
@@ -300,8 +324,46 @@ class Pregunta {
      *
      * @return \DateTime
      */
-    public function getCreada()
-    {
+    public function getCreada() {
         return $this->creada;
     }
+
+    /**
+     * Set examen
+     *
+     * @param \Aoshido\webBundle\Entity\Examen $examen
+     *
+     * @return Pregunta
+     */
+    public function setExamen(\Aoshido\webBundle\Entity\Examen $examen = null) {
+        $this->examen = $examen;
+
+        return $this;
+    }
+
+    /**
+     * Get examen
+     *
+     * @return \Aoshido\webBundle\Entity\Examen
+     */
+    public function getExamen() {
+        return $this->examen;
+    }
+
+    /**
+     * getRespuestasCorectas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRespuestasCorrectas() {
+        $respuestasCorrectas = new ArrayCollection();
+
+        foreach ($this->respuestas as $respuesta) {
+            if ($respuesta->getCorrecta()) {
+                $respuestasCorrectas->add($respuesta);
+            }
+        }
+        return $respuestasCorrectas;
+    }
+
 }
