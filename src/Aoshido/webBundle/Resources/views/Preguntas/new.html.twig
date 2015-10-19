@@ -50,12 +50,12 @@
                             <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
                                 {{ pregunta.contenido|markdown|raw|truncate(150) }}
                             </div>
-                            {#<span class="badge progress-bar-warning">
+                            <span class="badge progress-bar-warning">
                                 Vista: {{pregunta.vecesVista}}
                             </span>
                             <span class="badge progress-bar-success">
                                 Acertada: {{pregunta.vecesAcertada}}
-                            </span>#}
+                            </span>
                             <span class="badge progress-bar-info">
                                 {{pregunta.getTemas[0].getMateria.Descripcion}}
                             </span>
