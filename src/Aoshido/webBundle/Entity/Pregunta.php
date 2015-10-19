@@ -74,8 +74,8 @@ class Pregunta {
      * @ORM\Column(type="datetime")
      */
     protected $creada;
-    
-     /**
+
+    /**
      * @ORM\ManyToOne(targetEntity="Examen", inversedBy="preguntas")
      * @ORM\JoinColumn(name="IdExamen", referencedColumnName="id")
      */
@@ -286,7 +286,6 @@ class Pregunta {
         return $temasActivos;
     }
 
-
     /**
      * Set creada
      *
@@ -294,8 +293,7 @@ class Pregunta {
      *
      * @return Pregunta
      */
-    public function setCreada($creada)
-    {
+    public function setCreada($creada) {
         $this->creada = $creada;
 
         return $this;
@@ -306,8 +304,7 @@ class Pregunta {
      *
      * @return \DateTime
      */
-    public function getCreada()
-    {
+    public function getCreada() {
         return $this->creada;
     }
 
@@ -318,8 +315,7 @@ class Pregunta {
      *
      * @return Pregunta
      */
-    public function setExamen(\Aoshido\webBundle\Entity\Examen $examen = null)
-    {
+    public function setExamen(\Aoshido\webBundle\Entity\Examen $examen = null) {
         $this->examen = $examen;
 
         return $this;
@@ -330,8 +326,24 @@ class Pregunta {
      *
      * @return \Aoshido\webBundle\Entity\Examen
      */
-    public function getExamen()
-    {
+    public function getExamen() {
         return $this->examen;
     }
+
+    /**
+     * getRespuestasCorectas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRespuestasCorrectas() {
+        $respuestasCorrectas = new ArrayCollection();
+
+        foreach ($this->respuestas as $respuesta) {
+            if ($respuesta->getCorrecta()) {
+                $respuestasCorrectas->add($respuesta);
+            }
+        }
+        return $respuestasCorrectas;
+    }
+
 }

@@ -12,10 +12,15 @@ class RespuestaQuizType extends AbstractType {
         $builder->add('contenido', 'hidden', array(
             'label' => NULL,
         ));
+        
+        $builder->add('id', 'hidden', array(
+            'label' => NULL,
+        ));
 
         $builder->add('elegida', 'checkbox', array(
             'required' => false,
-            'mapped' => false
+            'mapped' => false,
+            'empty_data' => '0'
         ));
     }
 
