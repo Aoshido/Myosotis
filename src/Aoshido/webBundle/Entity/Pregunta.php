@@ -57,7 +57,7 @@ class Pregunta {
     protected $respuestas;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Aoshido\userBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Aoshido\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="IdUser", referencedColumnName="id")
      */
     protected $creatorUser;
@@ -211,10 +211,10 @@ class Pregunta {
     /**
      * Set creatorUser
      *
-     * @param \Aoshido\userBundle\Entity\User $creatorUser
+     * @param \Aoshido\UserBundle\Entity\User $creatorUser
      * @return creatorUser
      */
-    public function setCreatorUser(\Aoshido\userBundle\Entity\User $creatorUser = null) {
+    public function setCreatorUser(\Aoshido\UserBundle\Entity\User $creatorUser = null) {
         $this->creatorUser = $creatorUser;
 
         return $this;
@@ -223,7 +223,7 @@ class Pregunta {
     /**
      * Get creatorUser
      *
-     * @return \Aoshido\userBundle\Entity\User
+     * @return \Aoshido\UserBundle\Entity\User
      */
     public function getCreatorUser() {
         return $this->creatorUser;

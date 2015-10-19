@@ -1,6 +1,6 @@
 <?php
 
-namespace Aoshido\userBundle\Entity;
+namespace Aoshido\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;

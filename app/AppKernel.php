@@ -20,7 +20,7 @@ class AppKernel extends Kernel
             new Aoshido\webBundle\AoshidowebBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new Aoshido\userBundle\AoshidouserBundle(),
+            new Aoshido\UserBundle\AoshidoUserBundle(),
             new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
         );
