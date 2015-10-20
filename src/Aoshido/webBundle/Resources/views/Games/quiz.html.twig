@@ -17,6 +17,15 @@
                                     {{ form_widget(pregunta.contenido) }}
                                     {{ form_widget(pregunta.id) }}
                                 </div>
+                                <span class="badge progress-bar-warning">
+                                    Vista: {{pregunta.vars.value.vecesVista}}
+                                </span>
+                                <span class="badge progress-bar-success">
+                                    Acertada: {{pregunta.vars.value.vecesAcertada}}
+                                </span>
+                                <span class="badge progress-bar-info">
+                                    {{pregunta.vars.value.getTemas[0].getMateria.Descripcion}}
+                                </span>
                                 <span class="badge progress-bar-danger">
                                     {{pregunta.vars.value.creada|date("d/m/Y")}}
                                 </span>
@@ -32,24 +41,22 @@
                                     </div>
                                 </td>
                                 <td class="col-sm-3">
-
-                                    {{ form_widget(respuesta.elegida,{ 'attr' : { 'name' : 'checkbox' }}) }}
-
+                                    {{ form_widget(respuesta.elegida,{ 'attr' : { 'data-on-text' : 'Verdadero' , 'data-off-text' : 'Falso' } }) }}
                                 </td>
                             </tr>
                         {% endfor %}
                     </table>
                 </div>
             {% endfor %}
-            <div class="col-md-offset-4 col-md-8">
+            <div class="col-sm-12 text-center">
                 {{ form_widget(quizForm.save,{ 'attr': {'class': 'btn btn-success' }  } ) }}
             </div>
             {{ form_row(quizForm._token) }}
             {{ form_end(quizForm, {'render_rest': false}) }}
+        {% else %}
+            {% set vars = {'form': form } %}
+            {% include 'AoshidowebBundle:Games:settings.html.twig' with vars %}
         {% endif %}
-
-        {% set vars = {'form': form } %}
-        {% include 'AoshidowebBundle:Games:settings.html.twig' with vars %}
     </div>
 {% endblock %}
 
