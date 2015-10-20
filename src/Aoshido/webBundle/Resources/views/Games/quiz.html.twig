@@ -31,7 +31,11 @@
                                         {{ form_widget(respuesta.id) }}
                                     </div>
                                 </td>
-                                <td class="col-sm-3">{{ form_widget(respuesta.elegida) }}</td>
+                                <td class="col-sm-3">
+
+                                    {{ form_widget(respuesta.elegida,{ 'attr' : { 'name' : 'checkbox' }}) }}
+
+                                </td>
                             </tr>
                         {% endfor %}
                     </table>
@@ -51,6 +55,10 @@
 
 {% block javascripts %} 
     {{ parent() }}
+
+    <script type="text/javascript">
+        $("[type='checkbox']").bootstrapSwitch();
+    </script>
 
     <script type="text/javascript">
         $(".btn-danger").popConfirm({

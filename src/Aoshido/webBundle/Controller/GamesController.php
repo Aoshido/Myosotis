@@ -94,6 +94,7 @@ class GamesController extends Controller {
     public function resultadosAction(Request $request) {
         $preguntas = $request->get('quiz')['preguntas'];
         $preguntasCorrectas = new ArrayCollection();
+        $preguntasIncorrectas = new ArrayCollection();
         $preguntasNoContestadas = new ArrayCollection();
 
         foreach ($preguntas as $pregunta) {
@@ -119,6 +120,7 @@ class GamesController extends Controller {
                         $correctas++;
                     } else {
                         $malContestada = TRUE;
+                        $preguntasIncorrectas->add($pregunta);
                     }
                 }
             }
@@ -142,6 +144,10 @@ class GamesController extends Controller {
         $this->getDoctrine()->getManager()->persist($preguntaEntity);
         $this->getDoctrine()->getManager()->flush();
         
+        /*
+         * Esto va a tene que redirigir a otra pagina (Show) para evitar
+         * Que le sigan dando al f5 y sigan posetando sus resultados, cual plebe
+         */
         return $this->render('AoshidowebBundle:Games:results.html.twig', array(
                     'correctas' => $preguntasCorrectas,
                     'noContestadas' => $preguntasNoContestadas,
