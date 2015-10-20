@@ -45,8 +45,7 @@ class Examen {
     }
 
     public function __construct() {
-        $this->temas = new ArrayCollection();
-        $this->respuestas = new ArrayCollection();
+        $this->preguntas = new ArrayCollection();
     }
 
     /**
