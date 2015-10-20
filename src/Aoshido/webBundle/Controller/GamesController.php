@@ -65,7 +65,7 @@ class GamesController extends Controller {
             foreach ($pregunta->getTemas() as $tema) {
                 $preguntas_temp = $tema->getPreguntas();
                 foreach ($preguntas_temp as $pregunta_temp) {
-                    if ($pregunta_temp != $pregunta && !$preguntas->contains($pregunta_temp) && $pregunta_temp->getActivo()) {
+                    if ($pregunta_temp != $pregunta && !$quiz->getPreguntas()->contains($pregunta_temp) && $pregunta_temp->getActivo()) {
                         $quiz->addPregunta($pregunta_temp);
                     }
                 }
@@ -93,8 +93,8 @@ class GamesController extends Controller {
 
     public function resultadosAction(Request $request) {
         $preguntas = $request->get('quiz')['preguntas'];
-        $preguntasCorrectas = 0;
-        $preguntasNoContestadas = 0;
+        $preguntasCorrectas = new ArrayCollection();
+        $preguntasNoContestadas = new ArrayCollection();
 
         foreach ($preguntas as $pregunta) {
             $noContestada = FALSE;
@@ -126,12 +126,12 @@ class GamesController extends Controller {
             //Si no hay nignuna opcion correcta , ni incorrecta es pq no contesto
             if ($correctas == 0 && $malContestada == FALSE) {
                 $noContestada = TRUE;
-                $preguntasNoContestadas++;
+                $preguntasNoContestadas->add($preguntaEntity);
             } else {
                 //Me fijo que haya elegido TODAS las respuestas correctas
                 if ($correctas == count($preguntaEntity->getRespuestasCorrectas()) && $malContestada == FALSE) {
                     $bienContestada = TRUE;
-                    $preguntasCorrectas++;
+                    $preguntasCorrectas->add($preguntaEntity);
                     $preguntaEntity->increaseVecesAcertada();
                 } else {
                     $malContestada = TRUE;
