@@ -3,14 +3,14 @@
 {% block title %}Let's Study!{% endblock %}
 {% block content %}
     <div class="jumbotron alpha60">
-        <h1>Utnianos!</h1>
+        <h1>Estudiantes!</h1>
         <p>{{'Esta'|trans}} pagina nacio con la intencion de ayudar a estudiar (o quizas memorizar mejor)
             todos esos millones y millones de verdaderos o falsos, multiples choices, conceptos y
             demas cuestiones tan necesarias para aprobar.</p>
 
         <h2>{{'Modes'|trans}}</h2>
         <div class="row">
-            <div class="col-sm-6 col-md-4">
+            <div class="col-md-4">
                 <div class="thumbnail">
                     <a href="{{path('games_quiz')}}">
                         <img src="{% image '@AoshidowebBundle/img/quiz.jpg' %} {{ asset_url }} {% endimage %}" alt="Quiz">
@@ -21,7 +21,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-md-4">
+            <div class="col-md-4">
                 <div class="thumbnail">
                     <a href="{{path('games_cards')}}">
                         <img src="{% image '@AoshidowebBundle/img/cards.jpg' %} {{ asset_url }} {% endimage %}" alt="Cards">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-md-4">
+            <div class="col-md-4">
                 <div class="thumbnail">
                     <a >
                         <img src="{% image '@AoshidowebBundle/img/challenge.jpg' %} {{ asset_url }} {% endimage %}" alt="Challenge">

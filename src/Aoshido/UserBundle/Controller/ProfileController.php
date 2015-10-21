@@ -42,7 +42,7 @@ class ProfileController extends Controller {
                 ->findBy(array('creatorUser' => $user, 'activo' => TRUE));
 
         $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($preguntas, $this->getRequest()->query->get('page', 1), 10);
+        $pagination = $paginator->paginate($preguntas, $this->getRequest()->query->get('page', 1), 5);
         $pagination->setPageRange(6);
 
         $bugs = $this->getDoctrine()
