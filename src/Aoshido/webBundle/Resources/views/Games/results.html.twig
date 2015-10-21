@@ -8,7 +8,7 @@
         <table class="table">
             {% for pregunta in correctas %}
                 <tr class="row">
-                    <td class="col-sm-9">
+                    <td clas="col-sm-12">        
                         <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
                             {{ pregunta.contenido|markdown|raw|truncate(150) }}
                         </div>
@@ -35,7 +35,7 @@
         <table class="table table-condensed">
             {% for pregunta in noContestadas %}
                 <tr class="row">
-                    <td class="col-sm-9">
+                    <td clas="col-sm-12">
                         <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
                             {{ pregunta.contenido|markdown|raw|truncate(150) }}
                         </div>
@@ -62,7 +62,7 @@
         <table class="table table-condensed">
             {% for pregunta in incorrectasEntity %}
                 <tr class="row">
-                    <td class="col-sm-9">
+                    <td clas="col-sm-12">        
                         <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
                             {{ pregunta.contenido|markdown|raw|truncate(150) }}
                         </div>
@@ -84,7 +84,7 @@
                     {% if preguntaElegida.id == pregunta.id %}
                         {% for respuesta in preguntaElegida.respuestas%}
                             <tr class="row">
-                                <td class="col-sm-9  {% if respuesta.elegida == '1'%} danger {%endif%}">
+                                <td class="col-sm-12  {% if respuesta.elegida == '1'%} danger {%endif%}">
                                     <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
                                         {{ respuesta.contenido|markdown|raw|truncate(150) }}
                                     </div>

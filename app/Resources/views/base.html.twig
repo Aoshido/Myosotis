@@ -10,7 +10,7 @@
 
             <!-- Optional theme -->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-            
+
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
 
             {# http://stackoverflow.com/questions/7044631/symfony2-assetic-load-images-in-css #}
@@ -35,11 +35,23 @@
                     {% block content%}
 
                     {% endblock %}
+
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- Responsive Bottom -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-4410105350629177"
+                         data-ad-slot="4081611648"
+                         data-ad-format="auto"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+
                 </div>
             </div>
             {% include 'AoshidowebBundle::footer.html.twig' %}
         {% endblock %}
-        
+
         {% include 'AoshidowebBundle:Bugs:bugsplat.html.twig' %}
         {% block javascripts %}
 
@@ -53,8 +65,8 @@
             <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
 
-            <script src = "//cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js" > </script>
-            
+            <script src = "//cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js" ></script>
+
             {% javascripts '../app/Resources/public/js/bugsplat.js' %}
             <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
@@ -62,20 +74,18 @@
             {% javascripts '../web/socialite/socialite.js' %}
             <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
-            
+
             {% javascripts '../app/Resources/public/js/bootstrap-switch.min.js' %}
             <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
-            
-            <script src="/ckeditor/ckeditor.js"></script>
-            
+
             <script>
-                $(document).ready(function () {
-                    //Handles menu drop down
-                    $('.dropdown-menu').find('form').click(function (e) {
-                        e.stopPropagation();
-                    });
-                });
+                        $(document).ready(function () {
+                            //Handles menu drop down
+                            $('.dropdown-menu').find('form').click(function (e) {
+                                e.stopPropagation();
+                            });
+                        });
             </script>
 
             <script>
