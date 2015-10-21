@@ -12,32 +12,36 @@
 {% endblock %}
 
 {% block section %}Quiz! {% endblock %}
-{% block games_contenido %} 
+{% block games_contenido %}
     <div class="panel panel-primary">
-        <div class="panel-heading text-right">Preguntas Bien Contestadas: {{ correctas.count }}</div>
-        <table class="table">
-            {% for pregunta in correctas %}
-                <tr class="row">
-                    <td clas="col-sm-12">        
-                        <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
-                            {{ pregunta.contenido|markdown|raw|truncate(150) }}
-                        </div>
-                        <span class="badge progress-bar-warning">
-                            Vista: {{pregunta.vecesVista}}
-                        </span>
-                        <span class="badge progress-bar-success">
-                            Acertada: {{pregunta.vecesAcertada}}
-                        </span>
-                        <span class="badge progress-bar-info">
-                            {{pregunta.getTemas[0].getMateria.Descripcion}}
-                        </span>
-                        <span class="badge progress-bar-danger">
-                            {{pregunta.getCreada|date("d/m/Y")}}
-                        </span>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
+        <div class="panel-heading">Preguntas Bien Contestadas: {{ correctas.count }}
+            <span class="pull-right clickable"><i class="glyphicon glyphicon-minus"></i></span>
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                {% for pregunta in correctas %}
+                    <tr class="row">
+                        <td clas="col-sm-12">        
+                            <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
+                                {{ pregunta.contenido|markdown|raw|truncate(150) }}
+                            </div>
+                            <span class="badge progress-bar-warning">
+                                Vista: {{pregunta.vecesVista}}
+                            </span>
+                            <span class="badge progress-bar-success">
+                                Acertada: {{pregunta.vecesAcertada}}
+                            </span>
+                            <span class="badge progress-bar-info">
+                                {{pregunta.getTemas[0].getMateria.Descripcion}}
+                            </span>
+                            <span class="badge progress-bar-danger">
+                                {{pregunta.getCreada|date("d/m/Y")}}
+                            </span>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
 
     <div class="panel panel-warning">
@@ -68,49 +72,85 @@
     </div>
 
     <div class="panel panel-danger">
-        <div class="panel-heading text-right ">Preguntas Incorrectas: {{ incorrectas.count }}</div>
-        <table class="table table-condensed">
-            {% for pregunta in incorrectasEntity %}
-                <tr class="row">
-                    <td clas="col-sm-12">        
-                        <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
-                            {{ pregunta.contenido|markdown|raw|truncate(150) }}
-                        </div>
-                        <span class="badge progress-bar-warning">
-                            Vista: {{pregunta.vecesVista}}
-                        </span>
-                        <span class="badge progress-bar-success">
-                            Acertada: {{pregunta.vecesAcertada}}
-                        </span>
-                        <span class="badge progress-bar-info">
-                            {{pregunta.getTemas[0].getMateria.Descripcion}}
-                        </span>
-                        <span class="badge progress-bar-danger">
-                            {{pregunta.getCreada|date("d/m/Y")}}
-                        </span>
-                    </td>
-                </tr>
-                {% for preguntaElegida in incorrectas %}
-                    {% if preguntaElegida.id == pregunta.id %}
-                        {% for respuesta in preguntaElegida.respuestas%}
-                            <tr class="row">
-                                <td class="col-sm-12  {% if respuesta.elegida == '1'%} danger {%endif%}">
-                                    <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
-                                        {{ respuesta.contenido|markdown|raw|truncate(150) }}
-                                    </div>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    {% endif %}
+        <div class="panel-heading ">Preguntas Incorrectas: {{ incorrectas.count }} 
+            <span class="pull-right clickable"><i class="glyphicon glyphicon-minus"></i></span>
+        </div>
+        <div class="panel-body">
+            <table class="table table-condensed">
+                {% for pregunta in incorrectasEntity %}
+                    <tr class="row">
+                        <td clas="col-sm-12">        
+                            <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
+                                {{ pregunta.contenido|markdown|raw|truncate(150) }}
+                            </div>
+                            <span class="badge progress-bar-warning">
+                                Vista: {{pregunta.vecesVista}}
+                            </span>
+                            <span class="badge progress-bar-success">
+                                Acertada: {{pregunta.vecesAcertada}}
+                            </span>
+                            <span class="badge progress-bar-info">
+                                {{pregunta.getTemas[0].getMateria.Descripcion}}
+                            </span>
+                            <span class="badge progress-bar-danger">
+                                {{pregunta.getCreada|date("d/m/Y")}}
+                            </span>
+                        </td>
+                    </tr>
+                    {% for preguntaElegida in incorrectas %}
+                        {% if preguntaElegida.id == pregunta.id %}
+                            {% for respuesta in preguntaElegida.respuestas%}
+                                <tr class="row">
+                                    <td class="col-sm-12  {% if respuesta.elegida == '1'%} danger {%endif%}">
+                                        <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
+                                            {{ respuesta.contenido|markdown|raw|truncate(150) }}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
-        </table>
+            </table>
+        </div>    
     </div>
 
 {% endblock %}
 
 {% block javascripts %} 
     {{ parent() }}
+
+    <script>
+        $(document).on('click', '.panel-heading span.clickable', function (e) {
+            var $this = $(this);
+            if (!$this.hasClass('panel-collapsed')) {
+                $this.parents('.panel').find('.panel-body').slideUp();
+                $this.addClass('panel-collapsed');
+                $this.find('i').removeClass('glyphicon-minus').addClass('glyphicon-plus');
+            } else {
+                $this.parents('.panel').find('.panel-body').slideDown();
+                $this.removeClass('panel-collapsed');
+                $this.find('i').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+            }
+        });
+        $(document).on('click', '.panel div.clickable', function (e) {
+            var $this = $(this);
+            if (!$this.hasClass('panel-collapsed')) {
+                $this.parents('.panel').find('.panel-body').slideUp();
+                $this.addClass('panel-collapsed');
+                $this.find('i').removeClass('glyphicon-minus').addClass('glyphicon-plus');
+            } else {
+                $this.parents('.panel').find('.panel-body').slideDown();
+                $this.removeClass('panel-collapsed');
+                $this.find('i').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+            }
+        });
+        $(document).ready(function () {
+            $('.panel-heading span.clickable').click();
+            $('.panel div.clickable').click();
+        });
+    </script>
+
 
     <script type="text/javascript">
         $(".btn-danger").popConfirm({

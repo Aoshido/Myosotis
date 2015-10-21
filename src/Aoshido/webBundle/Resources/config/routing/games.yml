@@ -13,3 +13,4 @@ games_settings:
 games_resultados:
     path:     /resultados
     defaults: { _controller: AoshidowebBundle:Games:resultados }
+    methods:  [POST, PATCH]
