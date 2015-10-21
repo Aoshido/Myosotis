@@ -1,6 +1,15 @@
 {% extends 'AoshidowebBundle:Games:index.html.twig' %}
 
 {% block title %}Quiz! {% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li><a href="{{url('aoshidoweb_homepage')}}">Home</a></li>
+        <li><a href="{{url('aoshidoweb_homepage')}}">Games</a></li>
+        <li class="active">Quiz</li>
+    </ul>
+{% endblock %}
+
 {% block section %}Quiz! {% endblock %}
 {% block games_contenido %} 
     <div class="container col-md-12">
