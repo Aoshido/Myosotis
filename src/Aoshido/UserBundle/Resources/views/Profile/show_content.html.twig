@@ -1,5 +1,5 @@
 {% trans_default_domain 'FOSUserBundle' %}
-<div class="col-sm-offset-2 col-sm-8">
+<div class="col-md-offset-2 col-md-8">
     <div class="card hovercard">
         <div class="card-background">
             <img class="card-bkimg" alt="" src="{% image '@AoshidowebBundle/img/bichi.jpg' %} {{ asset_url }} {% endimage %}">
@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <div class="well">
+    <div class="panel">
         <div class="tab-content">
             <div class="tab-pane fade in active" id="tab1">
                 <table class="table table-condensed">
@@ -51,12 +51,12 @@
                                 <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
                                     {{ pregunta.contenido|markdown|raw|truncate(150) }}
                                 </div>
-                                {#<span class="badge progress-bar-warning">
+                                <span class="badge progress-bar-warning">
                                     Vista: {{pregunta.vecesVista}}
                                 </span>
                                 <span class="badge progress-bar-success">
                                     Acertada: {{pregunta.vecesAcertada}}
-                                </span>#}
+                                </span>
                                 <span class="badge progress-bar-info">
                                     {{pregunta.getTemas[0].getMateria.Descripcion}}
                                 </span>
@@ -81,11 +81,12 @@
                         </tr>
                     {% endfor %}
                 </table>
-                <div class="col-md-offset-4 navigation">
+                <div class="col-sm-12 text-center navigation">
                     {{ knp_pagination_render(paginas) }}
                 </div>
             </div>
             <div class="tab-pane fade in" id="tab3">
+                <table class="table table-condensed">
                 {% for bug in bugs %}
                     <tr class="row">
                         <td class="col-sm-1">
@@ -103,11 +104,12 @@
                                 </span>
                             {%endif%}
                         </td>
-                        <td class="col-sm-9">    
+                        <td class="col-sm-11">    
                             {{ bug.contenido }}
                         </td>
                     </tr>
                 {% endfor %}
+                </table>
             </div>
         </div>
     </div>
