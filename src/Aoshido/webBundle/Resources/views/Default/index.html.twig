@@ -7,17 +7,7 @@
         <p>{{'Esta'|trans}} pagina nacio con la intencion de ayudar a estudiar (o quizas memorizar mejor)
             todos esos millones y millones de verdaderos o falsos, multiples choices, conceptos y
             demas cuestiones tan necesarias para aprobar.</p>
-        <ul class="social-buttons cf">
-            <li>
-                <a href="http://twitter.com/share" class="socialite twitter-share" data-text="Socialite.js" data-url="{{ app.request.getUri }}" data-count="vertical" rel="nofollow" target="_blank"><span class="vhidden">Share on Twitter</span></a>
-            </li>
-            <li>
-                <a href="https://plus.google.com/share?url={{ app.request.getUri }}" class="socialite googleplus-one" data-size="tall" data-href="{{ app.request.getUri }}" rel="nofollow" target="_blank"><span class="vhidden">Share on Google+</span></a>
-            </li>
-            <li>
-                <a href="http://www.facebook.com/sharer.php?u={{ app.request.getUri }}&t={{ 'myosotis'|url_encode() }}" class="socialite facebook-like" data-href="{{ app.request.getUri }}" data-send="false" data-layout="box_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank"><span class="vhidden">Share on Facebook</span></a>
-            </li>
-        </ul>
+
         <h2>{{'Modes'|trans}}</h2>
         <div class="row">
             <div class="col-sm-6 col-md-4">
@@ -55,11 +45,98 @@
                 </div>
             </div>
         </div>
+
+        <div id="buttonsSocial">
+            <div class="facebook buttonSocial">
+                <i class="icon-facebook"></i>
+                <div class="social-container fb">
+                    <div class="slide">
+                        <iframe 
+                            src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fmyosotis.aoshido.com.ar%2Fdocs%2Freference%2Fplugins%2Flike&amp;
+                            send=false&amp;
+                            layout=button_count&amp;
+                            width=90&amp;
+                            show_faces=false&amp;
+                            font&amp;
+                            colorscheme=light&amp;
+                            action=like&amp;
+                            height=21&amp;
+                            appId=568581339861351" 
+                            scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:81px; height:21px;" allowtransparency="true">
+                        </iframe>
+                    </div>
+                    Facebook
+                </div>
+            </div>
+            <div class="twitter buttonSocial">
+                <i class="icon-twitter"></i>
+                <div class="social-container tw">
+                    <div class="slide">
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-via="mariuCSS">
+                            Tweet </a>
+
+                    </div>
+                    Twitter
+                </div>
+            </div>
+            <div class="google buttonSocial">
+                <i class="icon-google-plus"></i>
+                <div class="social-container tw">
+                    <div class="slide">
+                        <!-- Place this tag where you want the +1 button to render. -->
+                        <div class="g-plusone" data-size="medium">
+                        </div>
+                    </div>
+                    Google+
+                </div>
+            </div>
+        </div>
+
     </div>
+
+
 {% endblock %}
 
 {% block javascripts %} 
     {{ parent() }}
+
+    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id))
+                return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+
+    <script type="text/javascript">
+        (function () {
+            var po = document.createElement('script');
+            po.type = 'text/javascript';
+            po.async = true;
+            po.src = 'https://apis.google.com/js/plusone.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(po, s);
+        }
+        )();
+    </script>
+
+    <script>
+        !function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+            if (!d.getElementById(id)) {
+                js = d.createElement(s);
+                js.id = id;
+                js.src = p + '://platform.twitter.com/widgets.js';
+                fjs.parentNode.insertBefore(js, fjs);
+            }
+        }(document, 'script', 'twitter-wjs');
+    </script>
+
     <script>
         $(document).ready(function () {
             Socialite.load();
