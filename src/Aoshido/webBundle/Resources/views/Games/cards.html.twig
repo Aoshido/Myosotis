@@ -1,6 +1,15 @@
 {% extends 'AoshidowebBundle:Games:index.html.twig' %}
 
 {% block title %} Cards! {% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li><a href="{{url('aoshidoweb_homepage')}}">Home</a></li>
+        <li><a href="{{url('aoshidoweb_homepage')}}">Games</a></li>
+        <li class="active">Cards</li>
+    </ul>
+{% endblock %}
+
 {% block section %} Cards! {% endblock %}
 {% block games_contenido %}
 
@@ -102,7 +111,7 @@
                     </td>
                 </tr>
             {% endif %}
-            <div class="col-md-offset-4 navigation">
+            <div class="col-sm-12 navigation text-center">
                 {{ knp_pagination_render(paginas) }}
             </div>
         </div>
