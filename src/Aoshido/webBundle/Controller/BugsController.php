@@ -51,7 +51,7 @@ class BugsController extends Controller {
         if ($request->getMethod() == 'POST') {
             $time = date('Y-m-d H:i:s');
             $comment = $request->get('comment');
-            
+
             if ($this->getUser() != null) {
                 $user = $this->getUser();
             } else {
@@ -59,13 +59,13 @@ class BugsController extends Controller {
                         ->getRepository('AoshidoUserBundle:User')
                         ->find(1);
             }
-            
+
             $bug = new Bug();
             $bug->setActivo(TRUE);
             $bug->setContenido($comment);
             $bug->setStatus('Reported');
             $bug->setReportedUser($user);
-            
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($bug);
             $em->flush();
@@ -82,8 +82,15 @@ class BugsController extends Controller {
                     )), 'text/html');
 
             if ($request->get('screenshot') != NULL) {
+
+
                 $screen = $request->get('screenshot');
-                $attachment = Swift_Attachment::newInstance($screen, 'screenshot.txt', 'application/txt');
+                
+                $screen = str_replace('data:image/png;base64,', '', $screen);
+                $screen = str_replace(' ', '+', $screen);
+                $data = base64_decode($screen);
+
+                $attachment = Swift_Attachment::newInstance($data, 'screenshot.png', 'image/png');
                 $message->attach($attachment);
             }
 
