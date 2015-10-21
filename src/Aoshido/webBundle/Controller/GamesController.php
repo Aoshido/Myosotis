@@ -126,7 +126,7 @@ class GamesController extends Controller {
                         $preguntasIncorrectasEntity->add($preguntaEntity);
                     }
                 } else {
-                    $respuesta['elegida'] = "0"; 
+                    $respuesta['elegida'] = "0";
                 }
             }
 
@@ -142,10 +142,14 @@ class GamesController extends Controller {
                     $preguntaEntity->increaseVecesAcertada();
                 } else {
                     $malContestada = TRUE;
+                    if (!$preguntasIncorrectas->contains($pregunta)) {
+                        $preguntasIncorrectas->add($pregunta);
+                        $preguntasIncorrectasEntity->add($preguntaEntity);
+                    }
                 }
             }
         }
-        
+
         $this->getDoctrine()->getManager()->persist($preguntaEntity);
         $this->getDoctrine()->getManager()->flush();
 
