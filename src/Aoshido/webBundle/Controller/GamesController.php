@@ -95,9 +95,10 @@ class GamesController extends Controller {
         $preguntas = $request->get('quiz')['preguntas'];
         $preguntasCorrectas = new ArrayCollection();
         $preguntasIncorrectas = new ArrayCollection();
+        $preguntasIncorrectasEntity = new ArrayCollection();
         $preguntasNoContestadas = new ArrayCollection();
 
-        foreach ($preguntas as $pregunta) {
+        foreach ($preguntas as &$pregunta) {
             $noContestada = FALSE;
             $bienContestada = FALSE;
             $malContestada = FALSE;
@@ -110,8 +111,9 @@ class GamesController extends Controller {
 
             //Reviso si la respuesta que eligio es alguna de las correctas
             $correctas = 0;
-            foreach ($pregunta['respuestas'] as $respuesta) {
+            foreach ($pregunta['respuestas'] as &$respuesta) {
                 if (array_key_exists('elegida', $respuesta)) {
+
                     $respuestaEntity = $this->getDoctrine()
                             ->getRepository('AoshidowebBundle:Respuesta')
                             ->find($respuesta['id']);
@@ -121,7 +123,10 @@ class GamesController extends Controller {
                     } else {
                         $malContestada = TRUE;
                         $preguntasIncorrectas->add($pregunta);
+                        $preguntasIncorrectasEntity->add($preguntaEntity);
                     }
+                } else {
+                    $respuesta['elegida'] = "0"; 
                 }
             }
 
@@ -143,13 +148,15 @@ class GamesController extends Controller {
         
         $this->getDoctrine()->getManager()->persist($preguntaEntity);
         $this->getDoctrine()->getManager()->flush();
-        
+
         /*
          * Esto va a tene que redirigir a otra pagina (Show) para evitar
          * Que le sigan dando al f5 y sigan posetando sus resultados, cual plebe
          */
         return $this->render('AoshidowebBundle:Games:results.html.twig', array(
                     'correctas' => $preguntasCorrectas,
+                    'incorrectas' => $preguntasIncorrectas,
+                    'incorrectasEntity' => $preguntasIncorrectasEntity,
                     'noContestadas' => $preguntasNoContestadas,
                     'total' => count($preguntas)
         ));
