@@ -1,3 +1,7 @@
+<div>
+    Bien contestdas {{correctas}}
+</div>
+
 {{ form_start(quizForm,{ 'attr': {'class': 'form-horizontal' , 'id' : 'quiz_form_ajax'} }) }}
 {% for pregunta in quizForm.preguntas %}
     <div class="panel panel-primary">
@@ -44,6 +48,7 @@
 <div class="col-sm-12 text-center">
     {{ form_widget(quizForm.save,{ 'attr': {'class': 'btn btn-success' }  } ) }}
 </div>
+<input type="hidden" value={{correctas}} name="correctas" />
 {{ form_row(quizForm._token) }}
 {{ form_end(quizForm, {'render_rest': false}) }}
 

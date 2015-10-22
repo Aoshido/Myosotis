@@ -1,6 +1,6 @@
 {% extends 'AoshidowebBundle:Games:index.html.twig' %}
 
-{% block title %} Cards! {% endblock %}
+{% block title %} Challenge! {% endblock %}
 
 {% block breadcrumbs %}
     <ul class="breadcrumb">
@@ -10,7 +10,7 @@
     </ul>
 {% endblock %}
 
-{% block section %} Cards! {% endblock %}
+{% block section %} Challenge! {% endblock %}
 {% block games_contenido %}
 
     <div class="container col-md-12" id="reemplazo">
@@ -61,6 +61,7 @@
         <div class="col-sm-12 text-center">
             {{ form_widget(quizForm.save,{ 'attr': {'class': 'btn btn-success' }  } ) }}
         </div>
+        <input type="hidden" value=0 name="correctas" />
         {{ form_row(quizForm._token) }}
         {{ form_end(quizForm, {'render_rest': false}) }}
 
