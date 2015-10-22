@@ -167,6 +167,13 @@ class GamesController extends Controller {
     }
     
     public function challengeAction(Request $request){
+        $pregunta = $this->getDoctrine()
+                    ->getRepository('AoshidowebBundle:Pregunta')
+                    ->findOneBy(array('activo' => TRUE));
+        
+        return $this->render('AoshidowebBundle:Games:challenge.html.twig', array(
+                    'pregunta' => $pregunta,
+        ));
         
     }
     

@@ -6,6 +6,11 @@ games_cards:
     path:     /cards
     defaults: { _controller: AoshidowebBundle:Games:cards }
 
+games_challenge:
+    path:     /challenge
+    defaults: { _controller: AoshidowebBundle:Games:challenge }
+
+
 games_settings:
     path:     /settings
     defaults: { _controller: AoshidowebBundle:Games:settings }
