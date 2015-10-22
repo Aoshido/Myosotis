@@ -1,66 +1,53 @@
-
-<div class="modal fade" id="myModal-{{pregunta.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Pregunta N°: {{pregunta.id}}
-                    <span class="badge progress-bar-warning" data-toggle="tooltip" data-placement="left" title="Veces Vista">
-                        {{pregunta.vecesVista}}
-                    </span>
-                    <span class="badge progress-bar-success" data-toggle="tooltip" data-placement="top" title="Veces Acertada">
-                        {{pregunta.vecesAcertada}}
-                    </span>
-                </h4>
+{{ form_start(quizForm,{ 'attr': {'class': 'form-horizontal' , 'id' : 'quiz_form'} }) }}
+        {% for pregunta in quizForm.preguntas %}
+            <div class="panel panel-primary">
+                <div class="panel-heading text-right">Pregunta</div>
+                <table class="table table-condensed">
+                    <tr class="row">
+                        <td class="col-sm-9" colspan='2'>
+                            <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
+                                {{ pregunta.vars.value.contenido|markdown|raw|truncate(150) }}
+                                {{ form_widget(pregunta.contenido) }}
+                                {{ form_widget(pregunta.id) }}
+                            </div>
+                            <span class="badge progress-bar-warning">
+                                Vista: {{pregunta.vars.value.vecesVista}}
+                            </span>
+                            <span class="badge progress-bar-success">
+                                Acertada: {{pregunta.vars.value.vecesAcertada}}
+                            </span>
+                            <span class="badge progress-bar-info">
+                                {{pregunta.vars.value.getTemas[0].getMateria.Descripcion}}
+                            </span>
+                            <span class="badge progress-bar-danger">
+                                {{pregunta.vars.value.creada|date("d/m/Y")}}
+                            </span>
+                        </td>
+                    </tr>
+                    {% for respuesta in pregunta.respuestas %}
+                        <tr class="row">
+                            <td class="col-sm-9">
+                                <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
+                                    {{ respuesta.vars.value.contenido|markdown|raw|truncate(150) }}
+                                    {{ form_widget(respuesta.contenido) }}
+                                    {{ form_widget(respuesta.id) }}
+                                </div>
+                            </td>
+                            <td class="col-sm-3">
+                                {{ form_widget(respuesta.elegida,{ 'attr' : { 'data-on-text' : 'Verdadero' , 'data-off-text' : 'Falso' } }) }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
             </div>
-            <div class="modal-body">
-                {{ (pregunta.contenido|markdown) }}
-                <h4> Respuestas posibles: </h4>
-                {% for respuesta  in pregunta.respuestas %}
-                    {{ (respuesta.contenido|markdown) }}
-                {% endfor %}
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            </div>
+        {% endfor %}
+        <div class="col-sm-12 text-center">
+            {{ form_widget(quizForm.save,{ 'attr': {'class': 'btn btn-success' }  } ) }}
         </div>
-    </div>
-</div>
+        {{ form_row(quizForm._token) }}
+        {{ form_end(quizForm, {'render_rest': false}) }}
 
 
-<div class="container col-md-12" >
-    <div class="panel panel-primary">
-        <div class="panel-heading">Pregunta:</div>
-        <div class="text-center">
-            {{ pregunta.contenido|markdown|raw }}
-        </div>
-    </div>
-    <div class="panel panel-primary">
-        <div class="panel-heading text-right">Respuestas Disponibles: {{ pregunta.respuestas.count }}</div>
-
-        <table class="table table-condensed">
-            {% for respuesta in pregunta.respuestas %}
-                <tr {% if respuesta.correcta == TRUE %} class="success" {% else %} class="danger" {% endif%}>
-                    <td class="col-sm-9">
-                        <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
-                            {{ respuesta.contenido|markdown|raw|truncate(150) }}
-                        </div>
-                    </td>
-                    <td class="col-sm-3">
-                        <div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." >
-                            <button type="button" class="btn btn-success" aria-label="Left Align" 
-                                    data-toggle="tooltip" data-placement="top" title="Editar" 
-                                    onclick="location.href = '{{ url('respuestas_edit',{'idPregunta': pregunta.id , 'idRespuesta': respuesta.id } ) }}';">
-                                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-                            </button>    
-                            <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Eliminar"  onclick=" location.href = '{{ url('respuestas_disable',{ 'idRespuesta': respuesta.id}) }}';">
-                                <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                            </button>    
-                        </div>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-    </div>
-</div>
-
+<script type="text/javascript">
+    $("[type='checkbox']").bootstrapSwitch();
+</script>

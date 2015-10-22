@@ -172,8 +172,17 @@ class GamesController extends Controller {
                 ->getRepository('AoshidowebBundle:Pregunta')
                 ->findOneBy(array('activo' => TRUE));
 
+        $quiz = new Examen();
+
+        $quiz->addPregunta($pregunta);
+
+        $quizForm = $this->createForm(new ExamenType(), $quiz, array(
+            'method' => 'POST',
+            'action' => '#'
+        ));
+
         return $this->render('AoshidowebBundle:Games:challenge.html.twig', array(
-                    'pregunta' => $pregunta,
+                    'quizForm' => $quizForm->createView(),
         ));
     }
 
@@ -181,11 +190,20 @@ class GamesController extends Controller {
         $preguntas = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Pregunta')
                 ->findBy(array('activo' => TRUE));
-        
+
         $random = rand(0, count($preguntas) - 1);
 
+        $quiz = new Examen();
+
+        $quiz->addPregunta($preguntas[$random]);
+
+        $quizForm = $this->createForm(new ExamenType(), $quiz, array(
+            'method' => 'POST',
+            'action' => '#'
+        ));
+        
         return $this->render('AoshidowebBundle:Games:pregunta.html.twig', array(
-                    'pregunta' => $preguntas[$random],
+                    'quizForm' => $quizForm->createView(),
         ));
     }
 
