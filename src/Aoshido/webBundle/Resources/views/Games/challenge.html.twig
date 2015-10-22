@@ -6,7 +6,7 @@
     <ul class="breadcrumb">
         <li><a href="{{url('aoshidoweb_homepage')}}">Home</a></li>
         <li><a href="{{url('aoshidoweb_homepage')}}">Games</a></li>
-        <li class="active">Cards</li>
+        <li class="active">Challenge</li>
     </ul>
 {% endblock %}
 
@@ -78,6 +78,12 @@
                 {% endfor %}
             </table>
         </div>
+
+        <div class="col-sm-12 text-center">
+            <form id="foo">
+                <input class="btn btn-primary" type="submit" value="Next ->" />
+            </form>
+        </div>
     </div>
 
 {% endblock %}
@@ -85,65 +91,62 @@
 {% block javascripts %} 
     {{ parent() }}
 
-    <script type="text/javascript">
-        $(".btn-danger").popConfirm({
-            title: "Borrar Pregunta",
-            content: "¿Seguro que desea borrar la pregunta?",
-            placement: "right",
-            yesBtn: "Si",
-            noBtn: "No"
-        });
-    </script>
+    <script>
+        // Variable to hold request
+        var request;
 
-    <script type="text/javascript">
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-    </script>
+        // Bind to the submit event of our form
+        $("#foo").submit(function (event) {
 
-    <script type="text/javascript">
-        $("select[id$='carrera']").change(function () {
-            var data = {
-                idcarrera: $(this).val()
-            };
+            // Abort any pending request
+            if (request) {
+                request.abort();
+            }
+            // setup some local variables
+            var $form = $(this);
 
-            $.ajax({
-                type: 'post',
-                url: '{{ path("preguntas_addMateria") }}',
-                data: data,
-                success: function (data) {
-                    var $materia_selector = $("select[id$='materia']");
+            // Let's select and cache all the fields
+            var $inputs = $form.find("input, select, button, textarea");
 
-                    $materia_selector.html('<option value="">- Seleccione Materia -</option>');
+            // Serialize the data in the form
+            var serializedData = $form.serialize();
 
-                    for (var i = 0, total = data.length; i < total; i++) {
-                        $materia_selector.append('<option value="' + data[i].id + '">' + data[i].descripcion + ' </option>');
-                    }
-                }
+            // Let's disable the inputs for the duration of the Ajax request.
+            // Note: we disable elements AFTER the form data has been serialized.
+            // Disabled form elements will not be serialized.
+            $inputs.prop("disabled", true);
+
+            // Fire off the request to /form.php
+            request = $.ajax({
+                url: "/games/challenge/newPregunta",
+                type: "post",
+                data: serializedData
             });
-        });
-    </script>
 
-    <script type="text/javascript">
-        $("select[id$='materia']").change(function () {
-            var data = {
-                idmateria: $(this).val()
-            };
-
-            $.ajax({
-                type: 'post',
-                url: '{{ path("preguntas_addTemas") }}',
-                data: data,
-                success: function (data) {
-                    var tema_selector = $("select[id$='temas']");
-
-                    tema_selector.html('<option value="">- Seleccione Tema -</option>');
-
-                    for (var i = 0, total = data.length; i < total; i++) {
-                        tema_selector.append('<option value="' + data[i].id + '">' + data[i].descripcion + ' </option>');
-                    }
-                }
+            // Callback handler that will be called on success
+            request.done(function (response, textStatus, jqXHR) {
+                // Log a message to the console
+                console.log("Hooray, it worked!");
             });
+
+            // Callback handler that will be called on failure
+            request.fail(function (jqXHR, textStatus, errorThrown) {
+                // Log the error to the console
+                console.error(
+                        "The following error occurred: " +
+                        textStatus, errorThrown
+                        );
+            });
+
+            // Callback handler that will be called regardless
+            // if the request failed or succeeded
+            request.always(function () {
+                // Reenable the inputs
+                $inputs.prop("disabled", false);
+            });
+
+            // Prevent default posting of form
+            event.preventDefault();
         });
     </script>
 {% endblock %}

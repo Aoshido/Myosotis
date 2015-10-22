@@ -9,6 +9,7 @@ use Aoshido\webBundle\Form\ExamenType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class GamesController extends Controller {
 
@@ -165,20 +166,24 @@ class GamesController extends Controller {
                     'total' => count($preguntas)
         ));
     }
-    
-    public function challengeAction(Request $request){
+
+    public function challengeAction(Request $request) {
         $pregunta = $this->getDoctrine()
-                    ->getRepository('AoshidowebBundle:Pregunta')
-                    ->findOneBy(array('activo' => TRUE));
-        
+                ->getRepository('AoshidowebBundle:Pregunta')
+                ->findOneBy(array('activo' => TRUE));
+
         return $this->render('AoshidowebBundle:Games:challenge.html.twig', array(
                     'pregunta' => $pregunta,
         ));
-        
     }
-    
-    public function newPreguntaAction(Request $request){
+
+    public function newPreguntaAction(Request $request) {
+        $pregunta = $this->getDoctrine()
+                ->getRepository('AoshidowebBundle:Pregunta')
+                ->findOneBy(array('activo' => TRUE));
         
+        
+        return new JsonResponse(array('pregunta' => $pregunta));
     }
 
 }

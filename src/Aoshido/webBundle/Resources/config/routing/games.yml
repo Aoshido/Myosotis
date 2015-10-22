@@ -10,6 +10,10 @@ games_challenge:
     path:     /challenge
     defaults: { _controller: AoshidowebBundle:Games:challenge }
 
+games_challenge_new:
+    path:     /challenge/newPregunta
+    defaults: { _controller: AoshidowebBundle:Games:newPregunta }
+
 
 games_settings:
     path:     /settings
