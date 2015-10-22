@@ -165,5 +165,13 @@ class GamesController extends Controller {
                     'total' => count($preguntas)
         ));
     }
+    
+    public function challengeAction(Request $request){
+        
+    }
+    
+    public function newPreguntaAction(Request $request){
+        
+    }
 
 }
