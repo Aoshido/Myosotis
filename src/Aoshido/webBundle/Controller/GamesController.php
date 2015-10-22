@@ -178,12 +178,15 @@ class GamesController extends Controller {
     }
 
     public function newPreguntaAction(Request $request) {
-        $pregunta = $this->getDoctrine()
+        $preguntas = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Pregunta')
-                ->findOneBy(array('activo' => TRUE));
+                ->findBy(array('activo' => TRUE));
         
-        
-        return new JsonResponse(array('pregunta' => $pregunta));
+        $random = rand(0, count($preguntas) - 1);
+
+        return $this->render('AoshidowebBundle:Games:pregunta.html.twig', array(
+                    'pregunta' => $preguntas[$random],
+        ));
     }
 
 }
