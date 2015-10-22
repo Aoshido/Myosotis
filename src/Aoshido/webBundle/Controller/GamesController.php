@@ -266,10 +266,15 @@ class GamesController extends Controller {
         ));
 
         $preguntasCorrectasCounter = $request->get('correctas') + count($preguntasCorrectas);
+        $preguntasIncorrectasCounter = $request->get('incorrectas') + count($preguntasIncorrectas);
+        $preguntasNoContestadasCounter = $request->get('nocontestadas') + count($preguntasNoContestadas);
 
         return $this->render('AoshidowebBundle:Games:pregunta.html.twig', array(
                     'quizForm' => $quizForm->createView(),
+                    'accuracy' => ($preguntasCorrectasCounter / ($preguntasIncorrectasCounter + $preguntasNoContestadasCounter + $preguntasCorrectasCounter)) * 100,
                     'correctas' => $preguntasCorrectasCounter,
+                    'incorrectas' => $preguntasIncorrectasCounter,
+                    'nocontestadas' => $preguntasNoContestadasCounter,
         ));
     }
 
