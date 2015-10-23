@@ -77,12 +77,12 @@ class GamesController extends Controller {
                 'action' => $this->generateUrl('games_resultados')
             ));
 
-            /*$quizForm->add('save', 'submit', array(
+            $quizForm->add('save', 'submit', array(
                 'label' => 'Entregar Examen',
                 'attr' => array(
                     'class' => 'btn btn-success'
                 ),
-            ));*/
+            ));
 
             return $this->render('AoshidowebBundle:Games:quiz.html.twig', array(
                         'form' => $form->createView(),
@@ -188,6 +188,13 @@ class GamesController extends Controller {
             'action' => '#'
         ));
 
+        $quizForm->add('save', 'submit', array(
+            'label' => 'Contestar',
+            'attr' => array(
+                'class' => 'btn btn-primary'
+            ),
+        ));
+
         return $this->render('AoshidowebBundle:Games:challenge.html.twig', array(
                     'quizForm' => $quizForm->createView(),
         ));
@@ -270,6 +277,13 @@ class GamesController extends Controller {
         $quizForm = $this->createForm(new ExamenType(), $quiz, array(
             'method' => 'POST',
             'action' => '#'
+        ));
+
+        $quizForm->add('save', 'submit', array(
+            'label' => 'Contestar',
+            'attr' => array(
+                'class' => 'btn btn-primary'
+            ),
         ));
 
         $preguntasCorrectasCounter = $request->get('correctas') + count($preguntasCorrectas);

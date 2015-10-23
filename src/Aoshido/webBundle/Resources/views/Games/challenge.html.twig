@@ -67,7 +67,7 @@
             </div>
         {% endfor %}
         <div class="col-sm-12 text-center">
-            {{ form_widget(quizForm.save,{ 'attr': {'class': 'btn btn-success' }  } ) }}
+            {{ form_widget(quizForm.save) }}
         </div>
         <input type="hidden" value=0 name="correctas" />
         {{ form_row(quizForm._token) }}
