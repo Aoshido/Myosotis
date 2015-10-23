@@ -128,8 +128,6 @@
                 success: function (data) {
                     var tema_selector = $("select[id$='temas']");
 
-                    tema_selector.html('<option value="">- Seleccione Tema -</option>');
-
                     for (var i = 0, total = data.length; i < total; i++) {
                         tema_selector.append('<option value="' + data[i].id + '">' + data[i].descripcion + ' </option>');
                     }

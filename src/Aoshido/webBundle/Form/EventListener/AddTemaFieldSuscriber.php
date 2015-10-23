@@ -26,7 +26,7 @@ class AddTemaFieldSuscriber implements EventSubscriberInterface {
     private function addTemaForm($form, $idmateria = null,$tema_seleccionado = null) {
         $formOptions = array(
             'class'         => 'AoshidowebBundle:Tema',
-            'empty_value'   => '- Seleccione Tema -',
+            'empty_value'   => '- Seleccione Materia Primero -',
             'label'         => 'Temas:',
             'mapped'        => true,
             'multiple'      => true,
