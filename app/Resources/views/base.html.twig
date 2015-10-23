@@ -67,6 +67,10 @@
 
             <script src = "//cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js" ></script>
 
+            {% javascripts '../app/Resources/public/js/fadethis.js' %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+
             {% javascripts '../app/Resources/public/js/bugsplat.js' %}
             <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
