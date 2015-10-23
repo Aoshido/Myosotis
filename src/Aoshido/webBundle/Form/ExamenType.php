@@ -25,12 +25,12 @@ class ExamenType extends AbstractType {
             'empty_data'  => 'not_submitted'
         ));
 
-        $builder->add('save', 'submit', array(
+        /*$builder->add('save', 'submit', array(
             'label' => 'Entregar Examen',
             'attr' => array(
                 'class' => 'btn btn-success'
             ),
-        ));
+        ));*/
 
         //https://gist.github.com/jakzal/3707235
         
