@@ -77,6 +77,13 @@ class GamesController extends Controller {
                 'action' => $this->generateUrl('games_resultados')
             ));
 
+            /*$quizForm->add('save', 'submit', array(
+                'label' => 'Entregar Examen',
+                'attr' => array(
+                    'class' => 'btn btn-success'
+                ),
+            ));*/
+
             return $this->render('AoshidowebBundle:Games:quiz.html.twig', array(
                         'form' => $form->createView(),
                         'quizForm' => $quizForm->createView(),
