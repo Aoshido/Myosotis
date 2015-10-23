@@ -78,47 +78,47 @@
     width: 160px;
     height: 100px;
 }
-
-.footer_text{
-    text-align: center;
-    vertical-align: middle;
-}
-/* Sticky footer styles
--------------------------------------------------- */
-
-html,
-body {
-    height: 100%;
-    /* The html and body elements cannot have any padding or margin. */
-}
-
-/* Wrapper for page content to push down footer */
-#wrap {
-    min-height: 100%;
-    height: auto;
-    /* Negative indent footer by its height */
-    margin: 0 auto -30px;
-    /* Pad bottom by footer height */
-    padding: 0 0 30px;
-}
-
-/* Set the fixed height of the footer here */
-#footer {
+.footer_text {
     color: white;
     font-size: 10px;
     font-style: italic;
-    height: 30px;
-    background-color: #000000;
     border-radius: 0%;
 }
 
-.list-group.panel > .list-group-item {
-    border-bottom-right-radius: 4px;
-    border-bottom-left-radius: 4px
+.social-buttons {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
 }
-.list-group-submenu {
-    margin-left:20px;
+.social-buttons li {
+    display: inline-block;
 }
+/**********************************************
+* Paneles Clickeables
+*/
+
+.clickable
+{
+    cursor: pointer;
+}
+
+.clickable .glyphicon
+{
+    background: rgba(0, 0, 0, 0.15);
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 4px
+}
+
+.panel-heading span
+{
+    margin-top: -23px;
+    font-size: 15px;
+    margin-right: -9px;
+}
+a.clickable { color: inherit; }
+a.clickable:hover { text-decoration:none; }
+
 
 /***********************************************/
 
@@ -244,35 +244,4 @@ body {
     -webkit-border-radius:0 !important;
 }
 
-.social-buttons {
-    list-style: none;
-    padding: 0;
-    margin-top: 20px;
-}
-.social-buttons li {
-    display: inline-block;
-}
-
-
 /////*************************************************/
-.clickable
-{
-    cursor: pointer;
-}
-
-.clickable .glyphicon
-{
-    background: rgba(0, 0, 0, 0.15);
-    display: inline-block;
-    padding: 6px 12px;
-    border-radius: 4px
-}
-
-.panel-heading span
-{
-    margin-top: -23px;
-    font-size: 15px;
-    margin-right: -9px;
-}
-a.clickable { color: inherit; }
-a.clickable:hover { text-decoration:none; }
