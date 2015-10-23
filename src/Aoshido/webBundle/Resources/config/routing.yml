@@ -17,6 +17,16 @@ aoshidoweb_bugsplat:
     path:     /bugsplat
     defaults: { _controller: AoshidowebBundle:Bugs:bugsplat }
     
+preguntas_addMateria:
+    path:     /preguntas/addMaterias
+    defaults: { _controller: AoshidowebBundle:Preguntas:MateriasByCarrera }
+    methods:  [POST, PATCH]
+
+preguntas_addTemas:
+    path:     /preguntas/addTemas
+    defaults: { _controller: AoshidowebBundle:Preguntas:TemasByMateria }
+    methods:  [POST, PATCH]
+    
 abms:
     resource: "@AoshidowebBundle/Resources/config/routing/abms.yml"
     prefix:   /abms

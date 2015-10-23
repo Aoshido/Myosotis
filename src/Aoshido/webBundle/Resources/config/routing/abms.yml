@@ -5,15 +5,7 @@ abms_index:
 abms_preguntas:
     path:     /preguntas
     defaults: { _controller: AoshidowebBundle:Preguntas:new }    
-    
-preguntas_addMateria:
-    path:     /preguntas/addMaterias
-    defaults: { _controller: AoshidowebBundle:Preguntas:MateriasByCarrera }
-
-preguntas_addTemas:
-    path:     /preguntas/addTemas
-    defaults: { _controller: AoshidowebBundle:Preguntas:TemasByMateria }
-    
+     
 preguntas_disable:
     path:     /preguntas/disable/{idPregunta}
     defaults: { _controller: AoshidowebBundle:Preguntas:disable }
