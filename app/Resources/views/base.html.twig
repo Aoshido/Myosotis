@@ -30,7 +30,7 @@
     <body background="{% image '@AoshidowebBundle/img/background.jpg' %} {{ asset_url }} {% endimage %}">
         {% block body %}
             {% include 'AoshidowebBundle::navbar.html.twig' %}
-            <div id="wrap">
+            <div id="wrap ">
                 <div class="container">
                     {% block content%}
 
@@ -48,11 +48,11 @@
                     </script>
 
                 </div>
+        {% include 'AoshidowebBundle:Bugs:bugsplat.html.twig' %}
             </div>
             {% include 'AoshidowebBundle::footer.html.twig' %}
         {% endblock %}
 
-        {% include 'AoshidowebBundle:Bugs:bugsplat.html.twig' %}
         {% block javascripts %}
 
             <!-- Jquery from GOOGLE CDN -->
@@ -78,9 +78,9 @@
             {% javascripts '../app/Resources/public/js/bootstrap-switch.min.js' %}
             <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
-            
+
             <script src="/ckeditor/ckeditor.js"></script>
-            
+
             <script>
                         $(document).ready(function () {
                             //Handles menu drop down

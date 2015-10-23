@@ -1,0 +1,148 @@
+{% extends 'AoshidowebBundle:Games:index.html.twig' %}
+
+{% block title %} Challenge! {% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li><a href="{{url('aoshidoweb_homepage')}}">Home</a></li>
+        <li><a href="{{url('aoshidoweb_homepage')}}">Games</a></li>
+        <li class="active">Challenge</li>
+    </ul>
+{% endblock %}
+
+{% block section %} Challenge! {% endblock %}
+{% block games_contenido %}
+
+    <div class="container col-md-12" id="reemplazo">
+
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                <span class="sr-only">0% Accuracy</span>
+            </div>
+            <span class="progress-type">Accuracy</span>
+            <span class="progress-completed">0%</span>
+        </div>
+
+        {{ form_start(quizForm,{ 'attr': {'class': 'form-horizontal' , 'id' : 'quiz_form'} }) }}
+        {% for pregunta in quizForm.preguntas %}
+            <div class="panel panel-primary">
+                <div class="panel-heading text-right">Pregunta</div>
+                <table class="table table-condensed">
+                    <tr class="row">
+                        <td class="col-sm-9" colspan='2'>
+                            <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
+                                {{ pregunta.vars.value.contenido|markdown|raw|truncate(150) }}
+                                {{ form_widget(pregunta.contenido) }}
+                                {{ form_widget(pregunta.id) }}
+                            </div>
+                            <span class="badge progress-bar-warning">
+                                Vista: {{pregunta.vars.value.vecesVista}}
+                            </span>
+                            <span class="badge progress-bar-success">
+                                Acertada: {{pregunta.vars.value.vecesAcertada}}
+                            </span>
+                            <span class="badge progress-bar-info">
+                                {{pregunta.vars.value.getTemas[0].getMateria.Descripcion}}
+                            </span>
+                            <span class="badge progress-bar-danger">
+                                {{pregunta.vars.value.creada|date("d/m/Y")}}
+                            </span>
+                        </td>
+                    </tr>
+                    {% for respuesta in pregunta.respuestas %}
+                        <tr class="row">
+                            <td class="col-sm-9">
+                                <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
+                                    {{ respuesta.vars.value.contenido|markdown|raw|truncate(150) }}
+                                    {{ form_widget(respuesta.contenido) }}
+                                    {{ form_widget(respuesta.id) }}
+                                </div>
+                            </td>
+                            <td class="col-sm-3">
+                                {{ form_widget(respuesta.elegida,{ 'attr' : { 'data-on-text' : 'Verdadero' , 'data-off-text' : 'Falso' } }) }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endfor %}
+        <div class="col-sm-12 text-center">
+            {{ form_widget(quizForm.save,{ 'attr': {'class': 'btn btn-success' }  } ) }}
+        </div>
+        <input type="hidden" value=0 name="correctas" />
+        {{ form_row(quizForm._token) }}
+        {{ form_end(quizForm, {'render_rest': false}) }}
+
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %} 
+    {{ parent() }}
+    <script>
+        // Variable to hold request
+        var request;
+
+        // Bind to the submit event of our form
+        $("#quiz_form").submit(function (event) {
+
+            // Abort any pending request
+            if (request) {
+                request.abort();
+            }
+            // setup some local variables
+            var $form = $(this);
+
+            // Let's select and cache all the fields
+            var $inputs = $form.find("input, select, button, textarea");
+
+            // Serialize the data in the form
+            var serializedData = $form.serialize();
+
+            // Let's disable the inputs for the duration of the Ajax request.
+            // Note: we disable elements AFTER the form data has been serialized.
+            // Disabled form elements will not be serialized.
+            $inputs.prop("disabled", true);
+
+            // Fire off the request to /form.php
+            request = $.ajax({
+                url: "/games/challenge/newPregunta",
+                type: "post",
+                data: serializedData
+            });
+
+            // Callback handler that will be called on success
+            request.done(function (response, textStatus, jqXHR) {
+                // Log a message to the console
+                console.log("Hooray, it worked!");
+
+                $("#reemplazo").html(response);
+            });
+
+            // Callback handler that will be called on failure
+            request.fail(function (jqXHR, textStatus, errorThrown) {
+                // Log the error to the console
+                console.error(
+                        "The following error occurred: " +
+                        textStatus, errorThrown
+                        );
+            });
+
+            // Callback handler that will be called regardless
+            // if the request failed or succeeded
+            request.always(function () {
+                // Reenable the inputs
+                $inputs.prop("disabled", false);
+            });
+
+            // Prevent default posting of form
+            event.preventDefault();
+        });
+    </script>
+
+    <script type="text/javascript">
+        $("[type='checkbox']").bootstrapSwitch();
+    </script>
+
+{% endblock %}

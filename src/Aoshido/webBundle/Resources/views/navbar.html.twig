@@ -49,8 +49,8 @@
                                 <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Quiz
                             </a>
                         </li>
-                        <li class="disabled" {% block challenge %} {% endblock %} >
-                            <a href="#">
+                        <li {% block challenge %} {% endblock %} >
+                            <a href="{{path('games_challenge')}}">
                                 <span class="glyphicon glyphicon-tower" aria-hidden="true"></span> Challenge
                             </a>
                         </li>
