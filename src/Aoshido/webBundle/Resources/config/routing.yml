@@ -9,6 +9,10 @@ aoshidoweb_bio:
     path:     /bio
     defaults: { _controller: AoshidowebBundle:Default:bio }
     
+aoshidoweb_faq:
+    path:     /faq
+    defaults: { _controller: AoshidowebBundle:Default:faq }
+    
 aoshidoweb_bugs:
     path:     /bugs
     defaults: { _controller: AoshidowebBundle:Bugs:index }
