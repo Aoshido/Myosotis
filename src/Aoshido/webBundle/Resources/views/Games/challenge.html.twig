@@ -59,7 +59,7 @@
                                 </div>
                             </td>
                             <td class="col-sm-3">
-                                {{ form_widget(respuesta.elegida,{ 'attr' : { 'data-on-text' : 'Verdadero' , 'data-off-text' : 'Falso' } }) }}
+                                {{ form_widget(respuesta.elegida,{ 'attr' : { 'data-on-text' : 'Verdadero' , 'data-off-text' : 'Falso' , 'replace' : 'yes' } }) }}
                             </td>
                         </tr>
                     {% endfor %}
@@ -142,7 +142,7 @@
     </script>
 
     <script type="text/javascript">
-        $("[type='checkbox']").bootstrapSwitch();
+        $("[replace='yes']").bootstrapSwitch();
     </script>
 
 {% endblock %}
