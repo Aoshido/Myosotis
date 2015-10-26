@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}FAQ{% endblock %}
+{% block content %}
+    <div class="jumbotron alpha60">
+        {% block breadcrumbs %}
+            <ul class="breadcrumb">
+                <li><a href="{{url('aoshidoweb_homepage')}}">Home</a></li>
+                <li>FAQ</li>
+            </ul>
+        {% endblock %}
+        <h1>FAQ</h1>
+        <h2> ¿Cómo se utiliza esto? </h2>
+        <h3> Para aprender: </h3>
+        <ul>
+            <li> Crear una pregunta</li>
+            <li> Esperar que alguien la responda</li>
+        </ul>
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe allowfullscreen="" frameborder="0"  src="//www.youtube.com/embed/gKZwBinVDbc?rel=0"></iframe>
+        </div>
+
+        <h3> Para estudiar: </h3>
+        <ul>
+            <li> Crear una pregunta </li>
+            <li> Responderla </li>
+            <li> Elegir un juego </li>
+        </ul>
+        
+        <h2> ¿Cualquiera puede dar de alta una pregunta? </h2>
+        <p> Si, siempre y cuando este registrado </p>
+        
+        <h2> ¿Cualquiera puede responder una pregunta? </h2>
+        <p> Si, sin embargo estas no se van a mostrar hasta que algun aprobador las revise</p>
+        
+        <h2> Encontre un problema ¿Como lo puedo reportar? </h2>
+        <p> Abajo a la izquierda de la pantalla tienen un icono con forma de Bug para reportar cualquier incidencia</p>
+        
+    </div>
+{% endblock %}

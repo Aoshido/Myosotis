@@ -16,5 +16,9 @@ class DefaultController extends Controller {
     public function bioAction() {
         return $this->render('AoshidowebBundle:Default:bio.html.twig');
     }
+    
+    public function faqAction() {
+        return $this->render('AoshidowebBundle:Default:faq.html.twig');
+    }
 
 }
