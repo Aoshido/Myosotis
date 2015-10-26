@@ -3,8 +3,14 @@
 {% block title %}About{% endblock %}
 {% block content %}
     <div class="jumbotron alpha60">
+        {% block breadcrumbs %}
+            <ul class="breadcrumb">
+                <li><a href="{{url('aoshidoweb_homepage')}}">Home</a></li>
+                <li>Acerca / Creditos </li>
+            </ul>
+        {% endblock %}
         <h1>Creditos</h1>
-        <div style="overflow-y:scroll; max-height: 150px">
+        <div style="overflow-y:scroll; max-height: 50px">
             <ul>
                 <li>http://www.bootply.com/jquery/fe4AfcEnKD</li>
                 <li>http://chmielot.blogspot.com.ar/2013/02/symfony2-customize-output-of-expanded.html</li>
@@ -29,7 +35,7 @@
             </ul>
         </div>
         <h1>To Do:</h1>
-        <div style="overflow-y:scroll; max-height: 150px">
+        <div style="overflow-y:scroll; max-height: 50px">
             <ul>
                 <li>http://codepen.io/mariusbalaj/pen/MaEdpx</li> <!--Adblocker-->
                 <li>http://bootsnipp.com/snippets/featured/breadcrumb-hr-horizontal-rule</li>
