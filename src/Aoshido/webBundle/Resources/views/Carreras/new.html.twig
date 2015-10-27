@@ -1,6 +1,12 @@
 {% extends 'AoshidowebBundle:Abms:index.html.twig' %}
 
 {% block title %}Carreras{% endblock %}
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li><a href="{{url('aoshidoweb_homepage')}}">Home</a></li>
+        <li class="active">Carreras</li>
+    </ul>
+{% endblock %}
 {% block section %}Carreras{% endblock %}
 {% block abms_contenido %} 
     {% form_theme form 'AoshidowebBundle:Themes:carrera-field-prototype.html.twig' %}
