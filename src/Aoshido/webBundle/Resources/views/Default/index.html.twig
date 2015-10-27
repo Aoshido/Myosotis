@@ -111,11 +111,11 @@
 {% block javascripts %} 
     {{ parent() }}
 
-    {% for label, flashes in app.session.flashbag.all %}
+    {% for label, flashes in app.session.flashbag.peekAll %}
         {% for flash in flashes %}
-            {#<div class="alert alert-{{ label }} fade in">
+            <div class="alert alert-{{ label }} fade in">
                 {{ flash }}
-            </div>#}
+            </div>
             <script>
                 alertify.log("{{flash}}","{{label}}",5000);
             </script>
