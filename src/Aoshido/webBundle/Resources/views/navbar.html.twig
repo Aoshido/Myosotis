@@ -82,11 +82,11 @@
                                 Acerca / Creditos
                             </a>
                         </li>
-                        <li {% block postmortem %} {% endblock %} >
+                        {#<li {% block postmortem %} {% endblock %} >
                             <a href="{{path('games_challenge')}}">
                                 Post Mortem
                             </a>
-                        </li>
+                        </li>#}
                     </ul>
                 </li>
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}

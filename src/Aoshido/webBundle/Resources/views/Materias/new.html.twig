@@ -1,6 +1,12 @@
 {% extends 'AoshidowebBundle:Abms:index.html.twig' %}
 
 {% block title %}Materias{% endblock %}
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li><a href="{{url('aoshidoweb_homepage')}}">Home</a></li>
+        <li class="active">Materias</li>
+    </ul>
+{% endblock %}
 {% block section %}Materias{% endblock %}
 {% block abms_contenido %} 
     <div class="container col-md-12">
