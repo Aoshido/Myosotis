@@ -10,7 +10,7 @@ class DefaultController extends Controller {
     public function indexAction(Request $request) {
         $locale = $request->getLocale();
 
-        $this->get('session')->getFlashBag()->add('warning', 'Warning, ojo e' );
+        $this->get('session')->getFlashBag()->add('error', 'Warning, ojo e' );
         $this->get('session')->getFlashBag()->add('success', 'Dale que vaa');
         $this->get('session')->getFlashBag()->add('danger', 'Danger, algo se cago');
         $this->get('session')->getFlashBag()->add('info', 'EEste de info es horrible');
