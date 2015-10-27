@@ -109,13 +109,13 @@
                                         <span class="glyphicon glyphicon-console" aria-hidden="true"></span> Users ABM
                                     </a>
                                 </li>
+                                <li class="" {% block bugs %} {% endblock %} >
+                                    <a href="{{path('aoshidoweb_bugs')}}">
+                                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>           
+                                        Bug Tracker
+                                    </a>
+                                </li>
                             {% endif %}
-                            <li class="" {% block bugs %} {% endblock %} >
-                                <a href="{{path('aoshidoweb_bugs')}}">
-                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>           
-                                    Bug Tracker
-                                </a>
-                            </li>
                             <li class="divider"></li>
                             <li><a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
                         </ul>
