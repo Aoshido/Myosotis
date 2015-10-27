@@ -4,22 +4,12 @@
 
 {% block title %}Let's Study!{% endblock %}
 {% block content %}
-
-    {% for flashMessage in app.session.flashbag.get('success') %}
-
-        {{ flashMessage }}
-
-    {% endfor %}
-
-
     <div class="jumbotron alpha60">
         <h1>Estudiantes!</h1>
         <p>{{'Esta'|trans}} pagina nacio con la intencion de ayudar a estudiar (o quizas memorizar mejor)
             todos esos millones y millones de verdaderos o falsos, multiples choices, conceptos y
             demas cuestiones tan necesarias para aprobar.</p>
-
-
-
+        
         <h2>{{'Modes'|trans}}</h2>
         <div class="row">
             <div class="col-md-4">
@@ -111,11 +101,8 @@
 {% block javascripts %} 
     {{ parent() }}
 
-    {% for label, flashes in app.session.flashbag.peekAll %}
+    {% for label, flashes in app.session.flashbag.all %}
         {% for flash in flashes %}
-            <div class="alert alert-{{ label }} fade in">
-                {{ flash }}
-            </div>
             <script>
                 alertify.log("{{flash}}","{{label}}",5000);
             </script>
