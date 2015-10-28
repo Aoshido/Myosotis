@@ -135,9 +135,9 @@ class RegistrationController extends Controller {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        $this->get('session')->getFlashBag()->add('error', 'Bienvenido' . $user->getUsername() . '!');
+        $this->get('session')->getFlashBag()->add('success', 'Bienvenido ' . $user->getUsername() . '!');
 
-        return $this->render('AoshidowebBundle:Default:index.html.twig');
+        return (new RedirectResponse($this->generateUrl('aoshidoweb_homepage')));
 
         /* return $this->render('FOSUserBundle:Registration:confirmed.html.twig', array(
           'user' => $user,
