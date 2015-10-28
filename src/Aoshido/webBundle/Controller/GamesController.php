@@ -175,28 +175,51 @@ class GamesController extends Controller {
     }
 
     public function challengeAction(Request $request) {
-        $pregunta = $this->getDoctrine()
-                ->getRepository('AoshidowebBundle:Pregunta')
-                ->findOneBy(array('activo' => TRUE));
 
-        $quiz = new Examen();
+        $pregunta = new Pregunta();
 
-        $quiz->addPregunta($pregunta);
-
-        $quizForm = $this->createForm(new ExamenType(), $quiz, array(
-            'method' => 'POST',
-            'action' => '#'
+        $form = $this->createForm(new PreguntaType(), $pregunta, array(
+            'method' => 'GET',
         ));
 
-        $quizForm->add('save', 'submit', array(
-            'label' => 'Contestar',
-            'attr' => array(
-                'class' => 'btn btn-primary'
-            ),
-        ));
+        $form->handleRequest($request);
+
+        $preguntas = new ArrayCollection();
+
+        if ($form->isValid()) {
+            foreach ($pregunta->getTemas() as $tema) {
+                $preguntas_temp = $tema->getPreguntas();
+                foreach ($preguntas_temp as $pregunta_temp) {
+                    if ($pregunta_temp != $pregunta && !$preguntas->contains($pregunta_temp) && $pregunta_temp->getActivo()) {
+                        $preguntas->add($pregunta_temp);
+                    }
+                }
+            }
+            $random = rand(0, count($preguntas) - 1);
+
+            $quiz = new Examen();
+
+            $quiz->addPregunta($preguntas[$random]);
+
+            $quizForm = $this->createForm(new ExamenType(), $quiz, array(
+                'method' => 'POST',
+                'action' => '#'
+            ));
+
+            $quizForm->add('save', 'submit', array(
+                'label' => 'Contestar',
+                'attr' => array(
+                    'class' => 'btn btn-primary'
+                ),
+            ));
+        }else{
+            $quizForm = NULL;
+        }
+
 
         return $this->render('AoshidowebBundle:Games:challenge.html.twig', array(
-                    'quizForm' => $quizForm->createView(),
+                    'quizForm' => $quizForm == NULL ? NULL : $quizForm->createView(),
+                    'form' => $form->createView()
         ));
     }
 

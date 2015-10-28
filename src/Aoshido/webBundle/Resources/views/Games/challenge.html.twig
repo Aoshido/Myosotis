@@ -13,68 +13,71 @@
 {% block section %} Challenge! {% endblock %}
 {% block games_contenido %}
 
-    <div class="container col-md-12" id="reemplazo">
+    {%if quizForm != NULL%}
+        <div class="container col-md-12" id="reemplazo">
 
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-                <span class="sr-only">0% Accuracy</span>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                    <span class="sr-only">0% Accuracy</span>
+                </div>
+                <span class="progress-type">Accuracy</span>
+                <span class="progress-completed">0%</span>
             </div>
-            <span class="progress-type">Accuracy</span>
-            <span class="progress-completed">0%</span>
-        </div>
 
-        {{ form_start(quizForm,{ 'attr': {'class': 'form-horizontal' , 'id' : 'quiz_form'} }) }}
-        {% for pregunta in quizForm.preguntas %}
-            <div class="panel panel-primary">
-                <div class="panel-heading text-right">Pregunta</div>
-                <table class="table table-condensed">
-                    <tr class="row">
-                        <td class="col-sm-9" colspan='2'>
-                            <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
-                                {{ pregunta.vars.value.contenido|markdown|raw|truncate(150) }}
-                                {{ form_widget(pregunta.contenido) }}
-                                {{ form_widget(pregunta.id) }}
-                            </div>
-                            <span class="badge progress-bar-warning">
-                                Vista: {{pregunta.vars.value.vecesVista}}
-                            </span>
-                            <span class="badge progress-bar-success">
-                                Acertada: {{pregunta.vars.value.vecesAcertada}}
-                            </span>
-                            <span class="badge progress-bar-info">
-                                {{pregunta.vars.value.getTemas[0].getMateria.Descripcion}}
-                            </span>
-                            <span class="badge progress-bar-danger">
-                                {{pregunta.vars.value.creada|date("d/m/Y")}}
-                            </span>
-                        </td>
-                    </tr>
-                    {% for respuesta in pregunta.respuestas %}
+            {{ form_start(quizForm,{ 'attr': {'class': 'form-horizontal' , 'id' : 'quiz_form'} }) }}
+            {% for pregunta in quizForm.preguntas %}
+                <div class="panel panel-primary">
+                    <div class="panel-heading text-right">Pregunta</div>
+                    <table class="table table-condensed">
                         <tr class="row">
-                            <td class="col-sm-9">
+                            <td class="col-sm-9" colspan='2'>
                                 <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
-                                    {{ respuesta.vars.value.contenido|markdown|raw|truncate(150) }}
-                                    {{ form_widget(respuesta.contenido) }}
-                                    {{ form_widget(respuesta.id) }}
+                                    {{ pregunta.vars.value.contenido|markdown|raw|truncate(150) }}
+                                    {{ form_widget(pregunta.contenido) }}
+                                    {{ form_widget(pregunta.id) }}
                                 </div>
-                            </td>
-                            <td class="col-sm-3">
-                                {{ form_widget(respuesta.elegida,{ 'attr' : { 'data-on-text' : 'Verdadero' , 'data-off-text' : 'Falso' , 'replace' : 'yes' } }) }}
+                                <span class="badge progress-bar-warning">
+                                    Vista: {{pregunta.vars.value.vecesVista}}
+                                </span>
+                                <span class="badge progress-bar-success">
+                                    Acertada: {{pregunta.vars.value.vecesAcertada}}
+                                </span>
+                                <span class="badge progress-bar-info">
+                                    {{pregunta.vars.value.getTemas[0].getMateria.Descripcion}}
+                                </span>
+                                <span class="badge progress-bar-danger">
+                                    {{pregunta.vars.value.creada|date("d/m/Y")}}
+                                </span>
                             </td>
                         </tr>
-                    {% endfor %}
-                </table>
+                        {% for respuesta in pregunta.respuestas %}
+                            <tr class="row">
+                                <td class="col-sm-9">
+                                    <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
+                                        {{ respuesta.vars.value.contenido|markdown|raw|truncate(150) }}
+                                        {{ form_widget(respuesta.contenido) }}
+                                        {{ form_widget(respuesta.id) }}
+                                    </div>
+                                </td>
+                                <td class="col-sm-3">
+                                    {{ form_widget(respuesta.elegida,{ 'attr' : { 'data-on-text' : 'Verdadero' , 'data-off-text' : 'Falso' , 'replace' : 'yes' } }) }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% endfor %}
+            <div class="col-sm-12 text-center">
+                {{ form_widget(quizForm.save) }}
             </div>
-        {% endfor %}
-        <div class="col-sm-12 text-center">
-            {{ form_widget(quizForm.save) }}
+            <input type="hidden" value=0 name="correctas" />
+            {{ form_row(quizForm._token) }}
+            {{ form_end(quizForm, {'render_rest': false}) }}
         </div>
-        <input type="hidden" value=0 name="correctas" />
-        {{ form_row(quizForm._token) }}
-        {{ form_end(quizForm, {'render_rest': false}) }}
-
-
-    </div>
+    {% else %}
+        {% set vars = {'form': form } %}
+        {% include 'AoshidowebBundle:Games:settings.html.twig' with vars %}
+    {% endif %}
 
 {% endblock %}
 
@@ -143,6 +146,52 @@
 
     <script type="text/javascript">
         $("[replace='yes']").bootstrapSwitch();
+    </script>
+    
+    <script type="text/javascript">
+        $("select[id$='carrera']").change(function () {
+            var data = {
+                idcarrera: $(this).val()
+            };
+
+            $.ajax({
+                type: 'post',
+                url: '{{ path("preguntas_addMateria") }}',
+                data: data,
+                success: function (data) {
+                    var $materia_selector = $("select[id$='materia']");
+
+                    $materia_selector.html('<option value="">- Seleccione Materia -</option>');
+
+                    for (var i = 0, total = data.length; i < total; i++) {
+                        $materia_selector.append('<option value="' + data[i].id + '">' + data[i].descripcion + ' </option>');
+                    }
+                }
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $("select[id$='materia']").change(function () {
+            var data = {
+                idmateria: $(this).val()
+            };
+
+            $.ajax({
+                type: 'post',
+                url: '{{ path("preguntas_addTemas") }}',
+                data: data,
+                success: function (data) {
+                    var tema_selector = $("select[id$='temas']");
+
+                    //tema_selector.html('<option value="">- Seleccione Tema -</option>');
+
+                    for (var i = 0, total = data.length; i < total; i++) {
+                        tema_selector.append('<option value="' + data[i].id + '">' + data[i].descripcion + ' </option>');
+                    }
+                }
+            });
+        });
     </script>
 
 {% endblock %}
