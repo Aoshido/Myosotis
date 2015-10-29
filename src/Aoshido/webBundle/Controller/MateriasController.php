@@ -25,8 +25,6 @@ class MateriasController extends Controller {
         $pagination = $paginator->paginate($materias, $this->getRequest()->query->get('page', 1), 10);
         $pagination->setPageRange(6);
 
-        $cantidad = count($materias);
-
         $materia = new Materia();
         $form = $this->createForm(new MateriaType(), $materia);
 
@@ -45,7 +43,6 @@ class MateriasController extends Controller {
         return $this->render('AoshidowebBundle:Materias:new.html.twig', array(
                     'form' => $form->createView(),
                     'paginas' => $pagination,
-                    'cantidad' => $cantidad,
                     'temasMaterias' => $temasMaterias,
         ));
     }

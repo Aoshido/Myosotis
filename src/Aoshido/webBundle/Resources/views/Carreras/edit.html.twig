@@ -15,7 +15,7 @@
 
         <div class="panel panel-primary">
             <div class="panel-heading text-right">Materias Totales: {{ cantidad }}</div>
-            <div class="panel-body">
+            
                 {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
                 {{ form_errors(form)}}
                 <table class="table table-condensed" >
@@ -49,15 +49,14 @@
                 </table>
                 <table class="table" >
                     <tr id="anchor_add_button">
-                        <td >
+                        <td class="text-center">
                             {{ form_widget(form.save,{ 'label': 'Guardar Cambios' , 'attr': {'class': 'btn btn-success'} }) }}
-
                         </td>
                     </tr>
                 </table>
                 {{ form_row(form._token) }}
                 {{ form_end(form, {'render_rest': false}) }}
-            </div>
+            
         </div>
 
     </div>
