@@ -29,7 +29,7 @@
                             &nbsp;{{ carrera.descripcion }}
                         </td>
 
-                        <td class="col-md-1">
+                        <td class="col-md-1 text-right">
                             <div class="btn-group btn-group-sm" role="group">
                                 <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="tooltip" data-placement="left" title="Editar" onclick="location.href = '{{ url('carreras_edit',{ 'idCarrera': carrera.id})}}';">
                                     <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
@@ -66,8 +66,8 @@
                     {% endfor %}                    
                 </div>
 
-                <div class="form-group">
-                    <div id="anchor" class="col-md-offset-2 col-md-4">
+                <div class="form-group text-center">
+                    <div id="anchor" >
                         {{ form_widget(form.save,{ 'label': 'Agregar Carrera' , 'attr': {'class': 'btn btn-success'} }) }}
                     </div>
                     {{ form_row(form._token) }}
