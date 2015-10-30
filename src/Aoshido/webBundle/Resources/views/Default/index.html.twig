@@ -9,7 +9,7 @@
         <p>{{'Esta'|trans}} pagina nacio con la intencion de ayudar a estudiar (o quizas memorizar mejor)
             todos esos millones y millones de verdaderos o falsos, multiples choices, conceptos y
             demas cuestiones tan necesarias para aprobar.</p>
-        
+
         <h2>{{'Modes'|trans}}</h2>
         <div class="row">
             <div class="col-md-4">
@@ -45,52 +45,56 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div id="buttonsSocial">
-            <div class="facebook buttonSocial">
-                <i class="icon-facebook"></i>
-                <div class="social-container fb">
-                    <div class="slide">
-                        <iframe 
-                            src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fmyosotis.aoshido.com.ar%2Fdocs%2Freference%2Fplugins%2Flike&amp;
-                            send=false&amp;
-                            layout=button_count&amp;
-                            width=90&amp;
-                            show_faces=false&amp;
-                            font&amp;
-                            colorscheme=light&amp;
-                            action=like&amp;
-                            height=21&amp;
-                            appId=568581339861351" 
-                            scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:81px; height:21px;" allowtransparency="true">
-                        </iframe>
-                    </div>
-                    Facebook
-                </div>
-            </div>
-            <div class="twitter buttonSocial">
-                <i class="icon-twitter"></i>
-                <div class="social-container tw">
-                    <div class="slide">
-                        <a href="https://twitter.com/share" class="twitter-share-button" data-via="mariuCSS">
-                            Tweet </a>
-
-                    </div>
-                    Twitter
-                </div>
-            </div>
-            <div class="google buttonSocial">
-                <i class="icon-google-plus"></i>
-                <div class="social-container tw">
-                    <div class="slide">
-                        <!-- Place this tag where you want the +1 button to render. -->
-                        <div class="g-plusone" data-size="medium">
+            <div class="col-sm-12">
+                <div id="buttonsSocial">
+                    
+                    <div class="facebook buttonSocial col-sm-4">
+                        <i class="icon-facebook"></i>
+                        <div class="social-container fb">
+                            <div class="slide">
+                                <iframe 
+                                    src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fmyosotis.aoshido.com.ar%2Fdocs%2Freference%2Fplugins%2Flike&amp;
+                                    send=false&amp;
+                                    layout=button_count&amp;
+                                    width=90&amp;
+                                    show_faces=false&amp;
+                                    font&amp;
+                                    colorscheme=light&amp;
+                                    action=like&amp;
+                                    height=21&amp;
+                                    appId=568581339861351" 
+                                    scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:81px; height:21px;" allowtransparency="true">
+                                </iframe>
+                            </div>
+                            Facebook
                         </div>
                     </div>
-                    Google+
+                    <div class="twitter buttonSocial col-sm-4">
+                        <i class="icon-twitter"></i>
+                        <div class="social-container tw">
+                            <div class="slide">
+                                <a href="https://twitter.com/share" class="twitter-share-button" data-via="mariuCSS">
+                                    Tweet </a>
+
+                            </div>
+                            Twitter
+                        </div>
+                    </div>
+                    <div class="google buttonSocial col-sm-4">
+                        <i class="icon-google-plus"></i>
+                        <div class="social-container tw">
+                            <div class="slide">
+                                <!-- Place this tag where you want the +1 button to render. -->
+                                <div class="g-plusone" data-size="medium">
+                                </div>
+                            </div>
+                            Google+
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
 
     </div>
@@ -104,7 +108,7 @@
     {% for label, flashes in app.session.flashbag.all %}
         {% for flash in flashes %}
             <script>
-                alertify.log("{{flash}}","{{label}}",5000);
+                alertify.log("{{flash}}", "{{label}}", 5000);
             </script>
         {% endfor %}
     {% endfor %}
