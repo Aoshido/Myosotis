@@ -1,6 +1,6 @@
 aoshidoweb_homepage:
-    path:     /{new_user}
-    defaults: { _controller: AoshidowebBundle:Default:index , new_user: FALSE }
+    path:     /
+    defaults: { _controller: AoshidowebBundle:Default:index}
     #path:     /{_locale}
     #requirements:
     #    _locale: en|es|jp
