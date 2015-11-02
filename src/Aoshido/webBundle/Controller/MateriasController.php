@@ -14,21 +14,23 @@ class MateriasController extends Controller {
         //Display a list of all Materias
         $materias = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Materia')
-                ->findBy(array('activo' => TRUE));
+                ->createQueryBuilder('m')
+                ->where('m.activo = TRUE')
+                ->getQuery();
 
         $temasMaterias = array();
         foreach ($materias as $materia) {
             $temasMaterias[$materia->getId()] = count($materia->getTemas());
         }
 
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($materias, $this->getRequest()->query->get('page', 1), 10);
-        $pagination->setPageRange(6);
-
         $materia = new Materia();
         $form = $this->createForm(new MateriaType(), $materia);
 
         $form->handleRequest($request);
+        
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($materias, $this->getRequest()->query->get('page', 1), 10);
+        $pagination->setPageRange(6);
 
         if ($form->isValid()) {
             $materia->setActivo(TRUE);

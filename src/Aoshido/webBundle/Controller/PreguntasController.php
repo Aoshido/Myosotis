@@ -41,6 +41,13 @@ class PreguntasController extends Controller {
         $cantidad = count($preguntas);
         $pregunta = new Pregunta();
         $form = $this->createForm(new PreguntaType(), $pregunta);
+        
+        $form->add('save', 'submit', array(
+            'label' => 'Agregar Pregunta',
+            'attr' => array(
+                'class' => 'btn btn-success'
+            ),
+        ));
 
         $form->handleRequest($request);
 
@@ -54,6 +61,7 @@ class PreguntasController extends Controller {
             $em->persist($pregunta);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->add('success', 'Pregunta agregada !');
             return $this->redirect($this->generateUrl('abms_preguntas'));
         }
 
@@ -61,7 +69,6 @@ class PreguntasController extends Controller {
                     'form' => $form->createView(),
                     'searchForm' => $search_form->createView(),
                     'paginas' => $pagination,
-                    'cantidad' => $cantidad,
         ));
     }
 
@@ -99,6 +106,13 @@ class PreguntasController extends Controller {
                 ->find($idPregunta);
 
         $form = $this->createForm(new PreguntaType(), $pregunta, array('method' => 'PATCH'));
+        
+        $form->add('save', 'submit', array(
+            'label' => 'Guardar Cambios',
+            'attr' => array(
+                'class' => 'btn btn-success'
+            ),
+        ));
 
         $form->handleRequest($request);
 
@@ -120,6 +134,7 @@ class PreguntasController extends Controller {
             $em->persist($pregunta);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->add('success', 'Pregunta editada !');
             return $this->redirect($this->generateUrl('abms_preguntas'));
         }
 
@@ -127,7 +142,6 @@ class PreguntasController extends Controller {
                     'form' => $form->createView(),
                     'searchForm' => $search_form->createView(),
                     'paginas' => $pagination,
-                    'cantidad' => $cantidad,
         ));
     }
 

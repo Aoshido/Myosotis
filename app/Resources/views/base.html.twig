@@ -81,6 +81,8 @@
             {% javascripts '../app/Resources/public/js/alertify.min.js' %}
             <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
+            
+            {% include 'AoshidowebBundle::flash.html.twig' %}
 
             <script src="/ckeditor/ckeditor.js"></script>
 
