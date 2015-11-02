@@ -40,12 +40,9 @@ class GamesController extends Controller {
         $pagination = $paginator->paginate($preguntas, $this->getRequest()->query->get('page', 1), 4);
         $pagination->setPageRange(6);
 
-        $cantidad = count($preguntas);
-
         return $this->render('AoshidowebBundle:Games:cards.html.twig', array(
                     'form' => $form->createView(),
                     'paginas' => $pagination,
-                    'cantidad' => $cantidad,
         ));
     }
 
