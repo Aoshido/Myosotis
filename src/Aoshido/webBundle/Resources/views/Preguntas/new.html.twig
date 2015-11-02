@@ -37,6 +37,66 @@
 {% endblock %}
 
 {% block abms_contenido %} 
+
+    {% for pregunta in paginas %}
+        <!-- Modal -->
+        <div class="modal fade" id="myModal-{{pregunta.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Pregunta N°: {{pregunta.id}}
+                            <span class="badge progress-bar-warning" data-toggle="tooltip" data-placement="left" title="Veces Vista">
+                                {{pregunta.vecesVista}}
+                            </span>
+                            <span class="badge progress-bar-success" data-toggle="tooltip" data-placement="top" title="Veces Acertada">
+                                {{pregunta.vecesAcertada}}
+                            </span>
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        {{ (pregunta.contenido|markdown) }}
+                        <h4> Respuestas posibles: </h4>
+                        {% for respuesta  in pregunta.respuestas %}
+                            {{ (respuesta.contenido|markdown) }}
+                        {% endfor %}
+                    </div>
+                    <div class="modal-footer">
+                        <div class="text-left"> 
+                            <span class="badge progress-bar-warning">
+                                Vista: {{pregunta.vecesVista}}
+                            </span>
+                            <span class="badge progress-bar-success">
+                                Acertada: {{pregunta.vecesAcertada}}
+                            </span>
+                            <span class="badge progress-bar-info">
+                                {{pregunta.getTemas[0].getMateria.Descripcion}}
+                            </span>
+                            <span class="badge progress-bar-danger">
+                                {{pregunta.getCreada|date("d/m/Y")}}
+                            </span>
+                        </div>
+
+                        <div class="btn-group btn-group-sm " role="group" aria-label="..." >
+                            <button type="button" class="btn btn-info" aria-label="Left Align" data-toggle="tooltip" data-placement="left" title="Responder" onclick="location.href = '{{ url('respuestas_new',{ 'idPregunta': pregunta.id}) }}';">
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Editar" onclick="location.href = '{{ url('preguntas_edit',{ 'idPregunta': pregunta.id}) }}';">
+                                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                            </button>    
+                            <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Eliminar"  onclick=" location.href = '{{ url('preguntas_disable',{ 'idPregunta': pregunta.id}) }}';">
+                                <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                            </button>    
+                        </div>
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {%endfor%}
+
+
     {% form_theme form 'AoshidowebBundle:Themes:field-prototype.html.twig' %}
     <div class="container col-sm-12">
         <div class="panel panel-primary">
@@ -45,7 +105,7 @@
             <table class="table table-condensed">
                 {% for pregunta in paginas %}
                     <tr class="row">
-                        <td class="col-sm-8">
+                        <td class="col-sm-12 clickable" data-toggle="modal" data-target="#myModal-{{pregunta.id}}">
                             <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
                                 {{ pregunta.contenido|markdown|raw|truncate(150) }}
                             </div>
@@ -62,29 +122,15 @@
                                 {{pregunta.getCreada|date("d/m/Y")}}
                             </span>
                         </td>
-                        <td class="col-sm-4">
-                            <div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." >
-                                <button type="button" class="btn btn-info" aria-label="Left Align" data-toggle="tooltip" data-placement="left" title="Responder" onclick="location.href = '{{ url('respuestas_new',{ 'idPregunta': pregunta.id}) }}';">
-                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                </button>
-                                <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Editar" onclick="location.href = '{{ url('preguntas_edit',{ 'idPregunta': pregunta.id}) }}';">
-                                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-                                </button>    
-                                <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Eliminar"  onclick=" location.href = '{{ url('preguntas_disable',{ 'idPregunta': pregunta.id}) }}';">
-                                    <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                                </button>    
-                            </div>
-
-                        </td>
                     </tr>
                 {% endfor %}
             </table>
         </div>
-            
+
         <div class="text-center navigation">
             {{ knp_pagination_render(paginas) }}
         </div>
-        
+
         <div class="panel panel-primary">
             <div class="panel-heading">Agregar preguntas</div>
             <div class="panel-body">
