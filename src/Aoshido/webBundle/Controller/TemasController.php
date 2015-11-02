@@ -30,6 +30,14 @@ class TemasController extends Controller {
         $tema = new Tema();
         $form = $this->createForm(new TemaType(), $tema);
 
+        $form->add('save', 'submit', array(
+            'label' => 'Agregar Tema',
+            'attr' => array(
+                'class' => 'btn btn-success'
+            ),
+        ));
+
+
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -37,7 +45,7 @@ class TemasController extends Controller {
 
             $materia = $form->get('materia')->getData();
             $tema->setMateria($materia);
-            
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($tema);
             $em->flush();
@@ -48,12 +56,11 @@ class TemasController extends Controller {
         return $this->render('AoshidowebBundle:Temas:new.html.twig', array(
                     'form' => $form->createView(),
                     'paginas' => $pagination,
-                    'cantidad' => $cantidad,
                     'preguntasTemas' => $preguntasTemas,
         ));
     }
-    
-    public function editAction(Request $request,$idTema) {
+
+    public function editAction(Request $request, $idTema) {
 
         //Display a list of all Temas activos
         $temas = $this->getDoctrine()
@@ -74,8 +81,15 @@ class TemasController extends Controller {
         $tema = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Tema')
                 ->find($idTema);
-        
+
         $form = $this->createForm(new TemaType(), $tema);
+        
+        $form->add('save', 'submit', array(
+            'label' => 'Guardar Cambios',
+            'attr' => array(
+                'class' => 'btn btn-success'
+            ),
+        ));
 
         $form->handleRequest($request);
 
@@ -84,7 +98,7 @@ class TemasController extends Controller {
 
             $materia = $form->get('materia')->getData();
             $tema->setMateria($materia);
-            
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($tema);
             $em->flush();
@@ -95,16 +109,15 @@ class TemasController extends Controller {
         return $this->render('AoshidowebBundle:Temas:edit.html.twig', array(
                     'form' => $form->createView(),
                     'paginas' => $pagination,
-                    'cantidad' => $cantidad,
                     'preguntasTemas' => $preguntasTemas,
         ));
     }
-    
+
     public function disableAction($idTema) {
 
         $this->get('service_disabler')->disableTema($idTema);
 
         return $this->redirect($this->generateUrl('abms_temas'));
     }
-    
+
 }

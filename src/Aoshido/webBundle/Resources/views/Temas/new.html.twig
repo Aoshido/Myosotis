@@ -14,7 +14,7 @@
 
     <div class="container col-md-12">
         <div class="panel panel-primary">
-            <div class="panel-heading text-right">Temas Disponibles: {{ cantidad }}</div>
+            <div class="panel-heading text-right">Temas Disponibles: {{ paginas.getTotalItemCount }}</div>
 
             <table class="table table-condensed">
 
@@ -48,44 +48,11 @@
             </div>
 
         </div>
-        <div class="panel panel-info">
+        <div class="panel panel-primary">
             <div class="panel-heading">Agregar Temas</div>
 
             <div class="panel-body">
-                {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
-                {{ form_errors(form)}}
-                
-                <div class="form-group">
-                    {{ form_label(form.carrera,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
-                    {{ form_errors(form.carrera) }}
-                    <div id="anchor" class="col-md-6">
-                        {{ form_widget(form.carrera,{ 'attr' : { 'class' : 'form-control' } }) }}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {{ form_errors(form.materia) }}
-                    {{ form_label(form.materia,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
-                    <div class="col-md-6">
-                        {{ form_widget(form.materia,{ 'attr' : { 'class' : 'form-control' } }) }}
-                    </div>
-                </div>    
-                
-                
-                <div class="form-group">
-                    {{ form_label(form.descripcion,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } })}}
-                    <div id="anchor" class="col-md-6">
-                        {{ form_widget(form.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }}
-                    </div>
-                </div>
-                    
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-4">
-                        {{ form_widget(form.save,{ 'attr': {'class': 'btn btn-success'} }) }}
-                    </div>
-                    {{ form_row(form._token) }}
-                    {{ form_end(form, {'render_rest': false}) }}
-                </div>
+                {% include 'AoshidowebBundle:Temas:form.html.twig' %}
             </div>
         </div>
     </div>
@@ -94,7 +61,7 @@
 
 {% block javascripts %} 
     {{ parent() }}
-     <script type="text/javascript">
+    <script type="text/javascript">
         $(".btn-danger").popConfirm({
             title: "Borrar Pregunta",
             content: "¿Seguro que desea borrar el Tema? \n Tambien se borraran todas sus preguntas asociadas",
@@ -109,7 +76,7 @@
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
-    
+
     <script type="text/javascript">
         $("select[id$='carrera']").change(function () {
             var data = {
@@ -132,5 +99,5 @@
             });
         });
     </script>
-    
+
 {% endblock %}

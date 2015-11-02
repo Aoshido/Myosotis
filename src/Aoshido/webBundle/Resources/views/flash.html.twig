@@ -1,0 +1,7 @@
+{% for label, flashes in app.session.flashbag.all %}
+    {% for flash in flashes %}
+        <script>
+                alertify.log("{{flash}}", "{{label}}", 5000);
+        </script>
+    {% endfor %}
+{% endfor %}

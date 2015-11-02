@@ -10,7 +10,7 @@
 {% block section %}Carreras{% endblock %}
 {% block abms_contenido %} 
     {% form_theme form 'AoshidowebBundle:Themes:carrera-field-prototype.html.twig' %}
-    <div class="container col-md-12">
+    <div class="container col-sm-12">
         <div class="panel panel-primary">
             <div class="panel-heading text-right">Carreras Disponibles: {{ cantidad }}</div>
 
@@ -18,7 +18,7 @@
 
                 {% for carrera in paginas %}
                     <tr>
-                        <td class="col-md-6"> 
+                        <td class="col-sm-6"> 
                             <span class="badge progress-bar-info" data-toggle="tooltip" data-placement="left" title="Cantidad de Materias">
                                 {% if carrera.id in materiasxcarrera|keys %}
                                     {{materiasxcarrera[carrera.id]}}
@@ -29,7 +29,7 @@
                             &nbsp;{{ carrera.descripcion }}
                         </td>
 
-                        <td class="col-md-1 text-right">
+                        <td class="col-sm-1 text-right">
                             <div class="btn-group btn-group-sm" role="group">
                                 <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="tooltip" data-placement="left" title="Editar" onclick="location.href = '{{ url('carreras_edit',{ 'idCarrera': carrera.id})}}';">
                                     <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
@@ -42,7 +42,7 @@
                     </tr>
                 {% endfor %}
             </table>
-            <div class="col-md-offset-4 navigation">
+            <div class="col-sm-offset-4 navigation">
                 {{ knp_pagination_render(paginas) }}
             </div>
 
@@ -54,8 +54,8 @@
                 {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
                 {{ form_errors(form)}}
                 <div class="form-group">
-                    {{ form_label(form.descripcion,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } })}}
-                    <div id="anchor" class="col-md-6">
+                    {{ form_label(form.descripcion,null,{ 'label_attr' : { 'class' : 'col-sm-2 control-label' } })}}
+                    <div id="anchor" class="col-sm-6">
                         {{ form_widget(form.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }}
                     </div>
                 </div>
@@ -106,7 +106,7 @@
                                 Materia\n\
                             </button>');
 
-        var $newLinkLi = $('<div class="col-md-offset-8"></div>').append($addTagLink);
+        var $newLinkLi = $('<div class="col-sm-offset-8"></div>').append($addTagLink);
 
         jQuery(document).ready(function () {
             // Get the ul that holds the collection of tags

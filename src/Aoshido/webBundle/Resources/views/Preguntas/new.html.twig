@@ -38,15 +38,14 @@
 
 {% block abms_contenido %} 
     {% form_theme form 'AoshidowebBundle:Themes:field-prototype.html.twig' %}
-    <div class="container col-md-12">
+    <div class="container col-sm-12">
         <div class="panel panel-primary">
-            <div class="panel-heading text-right">Preguntas Disponibles: {{ cantidad }}</div>
-
+            <div class="panel-heading text-right">Preguntas Disponibles: {{ paginas.getTotalItemCount }}</div>
 
             <table class="table table-condensed">
                 {% for pregunta in paginas %}
                     <tr class="row">
-                        <td class="col-sm-9">
+                        <td class="col-sm-8">
                             <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
                                 {{ pregunta.contenido|markdown|raw|truncate(150) }}
                             </div>
@@ -63,7 +62,7 @@
                                 {{pregunta.getCreada|date("d/m/Y")}}
                             </span>
                         </td>
-                        <td class="col-sm-3">
+                        <td class="col-sm-4">
                             <div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." >
                                 <button type="button" class="btn btn-info" aria-label="Left Align" data-toggle="tooltip" data-placement="left" title="Responder" onclick="location.href = '{{ url('respuestas_new',{ 'idPregunta': pregunta.id}) }}';">
                                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
@@ -80,58 +79,16 @@
                     </tr>
                 {% endfor %}
             </table>
-            <div class="col-md-offset-4 navigation">
-                {{ knp_pagination_render(paginas) }}
-            </div>
-
         </div>
+            
+        <div class="text-center navigation">
+            {{ knp_pagination_render(paginas) }}
+        </div>
+        
         <div class="panel panel-primary">
             <div class="panel-heading">Agregar preguntas</div>
-
             <div class="panel-body">
-                {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
-
-                <div class="form-group">
-                    {{ form_errors(form)}}
-                    {{ form_errors(form.contenido) }}
-                    {{ form_label(form.contenido,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } })}}
-
-                    <div id="anchor" class="col-md-6">
-                        {{ form_widget(form.contenido,{ 'attr' : { 'class' : 'form-control' } }) }}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {{ form_label(form.carrera,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
-                    {{ form_errors(form.carrera) }}
-                    <div id="anchor" class="col-md-6">
-                        {{ form_widget(form.carrera,{ 'attr' : { 'class' : 'form-control' } }) }}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {{ form_errors(form.materia) }}
-                    {{ form_label(form.materia,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
-                    <div class="col-md-6">
-                        {{ form_widget(form.materia,{ 'attr' : { 'class' : 'form-control' } }) }}
-                    </div>
-                </div>    
-
-                <div class="form-group">
-                    {{ form_errors(form.temas) }}
-                    {{ form_label(form.temas,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
-                    <div class="col-md-6">
-                        {{ form_widget(form.temas,{ 'attr' : { 'class' : 'form-control' } }) }}
-                    </div>
-                </div>    
-
-                <div class="form-group">
-                    <div id="anchor" class="col-md-offset-2 col-md-4">
-                        {{ form_widget(form.save,{ 'label': 'Agregar Pregunta' , 'attr': {'class': 'btn btn-success'} }) }}
-                    </div>
-                    {{ form_row(form._token) }}
-                    {{ form_end(form, {'render_rest': false}) }}
-                </div>
+                {% include 'AoshidowebBundle:Preguntas:form.html.twig' %}
             </div>
         </div>
     </div>

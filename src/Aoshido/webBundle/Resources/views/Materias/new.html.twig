@@ -9,18 +9,18 @@
 {% endblock %}
 {% block section %}Materias{% endblock %}
 {% block abms_contenido %} 
-    <div class="container col-md-12">
+    <div class="container col-sm-12">
         <div class="panel panel-primary">
             <div class="panel-heading text-right">Materias Disponibles: {{ paginas.getTotalItemCount }}</div>
 
             <table class="table table-condensed">
-                <th class="info {% if paginas.isSorted('materia.descripcion') %}sorted{% endif %}">{{ knp_pagination_sortable(paginas, 'Descripcion', 'materia.descripcion') }} </th>
-                <th class="info {% if paginas.isSorted('materia.aniocarrera') %}sorted{% endif %}">{{ knp_pagination_sortable(paginas, 'Año', 'materia.aniocarrera') }}</th>
+                <th class="info {% if paginas.isSorted('materia.descripcion') %}sorted{% endif %}">{{ knp_pagination_sortable(paginas, 'Descripcion', 'm.descripcion') }} </th>
+                <th class="info text-center {% if paginas.isSorted('materia.aniocarrera') %}sorted{% endif %}">{{ knp_pagination_sortable(paginas, 'Año', 'm.anioCarrera') }}</th>
                 <th class="info text-right"> Acciones </th>
                 
                 {% for materia in paginas %}
                     <tr>
-                        <td class="col-md-6">
+                        <td class="col-sm-9">
                             <span class="badge progress-bar-info" data-toggle="tooltip" data-placement="left" title="Cantidad de Temas">
                                 {% if materia.id in temasMaterias|keys %}
                                     {{temasMaterias[materia.id]}}
@@ -30,8 +30,8 @@
                             </span>
                             {{ materia.descripcion }}
                         </td>
-                        <td class="col-md-1">{{ materia.aniocarrera }}</td>
-                        <td class="col-md-1 text-right">
+                        <td class="col-sm-1 text-center">{{ materia.aniocarrera }}</td>
+                        <td class="col-sm-2 text-right">
                             <div class="btn-group btn-group-sm" role="group" aria-label="...">
                                 <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="tooltip" data-placement="left" title="Editar"  onclick="location.href = '{{ url('materias_edit',{ 'idMateria': materia.id})}}';">
                                     <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
@@ -44,7 +44,7 @@
                     </tr>
                 {% endfor %}
             </table>
-            <div class="col-md-offset-4 navigation">
+            <div class="navigation text-center">
                 {{ knp_pagination_render(paginas) }}
             </div>
 
@@ -55,29 +55,27 @@
             <div class="panel-body">
                 {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
                 {{ form_errors(form)}}
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <div class="form-group">
-                        {{ form_label(form.descripcion,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } })}}
-                        <div id="anchor" class="col-md-10">
+                        {{ form_label(form.descripcion,null,{ 'label_attr' : { 'class' : 'col-sm-3 control-label' } })}}
+                        <div id="anchor" class="col-sm-9">
                             {{ form_widget(form.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }}
                         </div>
                     </div>
                     <div class="form-group">
-                        {{ form_label(form.aniocarrera,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } })}}
-                        <div id="anchor" class="col-md-10">
+                        {{ form_label(form.aniocarrera,null,{ 'label_attr' : { 'class' : 'col-sm-3 control-label' } })}}
+                        <div id="anchor" class="col-sm-9">
                             {{ form_widget(form.aniocarrera,{ 'attr' : { 'class' : 'form-control' } }) }}
                         </div>
                     </div>
                     {{ form_errors(form.carreras) }}
                 </div>
 
-                <div class="col-md-6">
-
+                <div class="col-sm-6">
                     {{ form_label(form.carreras) }}
                     <div class="panel-body">
                         {{ form_widget(form.carreras,{ 'attr' : { 'class' : 'form-control' } }) }}
                     </div>
-
                 </div>
                 <div class="form-group text-center">
                     <div id="anchor" >

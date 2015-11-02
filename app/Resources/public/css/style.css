@@ -121,7 +121,7 @@ a.clickable:hover { text-decoration:none; }
 
 
 /***********************************************/
-
+/* Quick Search bar */
 .breadcrumb > li + li:before {
     color: #ccc;
     font-family: 'Glyphicons Halflings';
