@@ -9,31 +9,31 @@
 
 
             <div class="form-group">
-                {{ form_label(form.carrera,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
+                {{ form_label(form.carrera,null,{ 'label_attr' : { 'class' : 'col-sm-2 control-label' } }) }}
                 {{ form_errors(form.carrera) }}
-                <div id="anchor" class="col-md-6">
+                <div id="anchor" class="col-sm-10">
                     {{ form_widget(form.carrera,{ 'attr' : { 'class' : 'form-control' } }) }}
                 </div>
             </div>
 
             <div class="form-group">
                 {{ form_errors(form.materia) }}
-                {{ form_label(form.materia,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
-                <div class="col-md-6">
+                {{ form_label(form.materia,null,{ 'label_attr' : { 'class' : 'col-sm-2 control-label' } }) }}
+                <div class="col-sm-10">
                     {{ form_widget(form.materia,{ 'attr' : { 'class' : 'form-control' } }) }}
                 </div>
             </div>    
 
             <div class="form-group">
                 {{ form_errors(form.temas) }}
-                {{ form_label(form.temas,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }}
-                <div class="col-md-6">
+                {{ form_label(form.temas,null,{ 'label_attr' : { 'class' : 'col-sm-2 control-label' } }) }}
+                <div class="col-sm-10">
                     {{ form_widget(form.temas,{ 'attr' : { 'class' : 'form-control' } }) }}
                 </div>
             </div> 
 
-            <div class="form-group">
-                <div id="anchor" class="col-md-offset-2 col-md-4">
+            <div class="form-group text-center">
+                <div id="anchor" class="col-sm-12">
                     {{ form_widget(form.save,{ 'label': 'Guardar Cambios' , 'attr': {'class': 'btn btn-success'} }) }}
                 </div>
                 {{ form_row(form._token) }}

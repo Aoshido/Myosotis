@@ -46,7 +46,7 @@
 
     <div class="container col-md-12">
         <div class="panel panel-primary">
-            <div class="panel-heading text-right">Preguntas Disponibles: {{ cantidad }}</div>
+            <div class="panel-heading text-right">Preguntas Disponibles: {{ paginas.getTotalItemCount }}</div>
             {% if paginas|length > 0 %}
                 <table class="table">
                     <tr>
