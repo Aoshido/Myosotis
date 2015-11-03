@@ -104,18 +104,27 @@
                             <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
                                 {{ pregunta.contenido|markdown|raw|truncate(150) }}
                             </div>
-                            <span class="badge progress-bar-warning">
-                                Vista: {{pregunta.vecesVista}}
-                            </span>
-                            <span class="badge progress-bar-success">
-                                Acertada: {{pregunta.vecesAcertada}}
-                            </span>
-                            <span class="badge progress-bar-info">
-                                {{pregunta.getTemas[0].getMateria.Descripcion}}
-                            </span>
-                            <span class="badge progress-bar-danger">
-                                {{pregunta.getCreada|date("d/m/Y")}}
-                            </span>
+
+                            <div class="col-xs-8" >
+                                <div class="progress">
+                                    <div class="progress-bar 
+                                         progress-bar-{%if pregunta.getDificultad >= 70 %}danger{%else%}{%if pregunta.getDificultad >= 50 %}warning{%else%}success{%endif%}{%endif%}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{pregunta.getDificultad|number_format(0, '.', ',')}}%;">
+                                        <span class="sr-only">{{pregunta.getDificultad|number_format(0, '.', ',')}}% Dificultad</span>
+                                    </div>
+                                    <span class="progress-type">Dificultad</span>
+                                    <span class="progress-completed">{{pregunta.getDificultad|number_format(2, '.', ',')}}%</span>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-4">
+                                <span class="badge progress-bar-info">
+                                    {{pregunta.getTemas[0].getMateria.Descripcion}}
+                                </span>
+                                <span class="badge progress-bar-danger">
+                                    {{pregunta.getCreada|date("d/m/Y")}}
+                                </span>
+                            </div>
                         </td>
                     </tr>
                 {% endfor %}

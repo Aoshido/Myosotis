@@ -365,5 +365,23 @@ class Pregunta {
         }
         return $respuestasCorrectas;
     }
+    
+    /**
+     * getDificultad
+     *
+     * @return float
+     */
+    public function getDificultad() {
+        if ($this->vecesVista > 0){
+            $dificultad = 100 - ($this->vecesAcertada > 0 ? ($this->vecesAcertada / $this->vecesVista) * 100 : 0);
+        }
+        else {
+            $dificultad = 0;
+        }
+
+
+        return $dificultad;
+    }
+    
 
 }
