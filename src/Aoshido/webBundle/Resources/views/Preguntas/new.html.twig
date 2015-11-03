@@ -126,12 +126,8 @@
             {{ knp_pagination_render(paginas) }}
         </div>
 
-        <div class="panel panel-primary">
-            <div class="panel-heading">Agregar preguntas</div>
-            <div class="panel-body">
-                {% include 'AoshidowebBundle:Preguntas:form.html.twig' %}
-            </div>
-        </div>
+        {% include 'AoshidowebBundle:Preguntas:form.html.twig' %}
+
     </div>
 {% endblock %}
 
