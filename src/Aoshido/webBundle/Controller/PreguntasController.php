@@ -138,7 +138,7 @@ class PreguntasController extends Controller {
             return $this->redirect($this->generateUrl('abms_preguntas'));
         }
 
-        return $this->render('AoshidowebBundle:Preguntas:edit.html.twig', array(
+        return $this->render('AoshidowebBundle:Preguntas:new.html.twig', array(
                     'form' => $form->createView(),
                     'searchForm' => $search_form->createView(),
                     'paginas' => $pagination,
