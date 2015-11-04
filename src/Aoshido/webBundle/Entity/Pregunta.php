@@ -373,7 +373,7 @@ class Pregunta {
      */
     public function getDificultad() {
         if ($this->vecesVista > 0){
-            $dificultad = 100 - ($this->vecesAcertada > 0 ? ($this->vecesAcertada / $this->vecesVista) * 100 : 0);
+            $dificultad = 101 - ($this->vecesAcertada > 0 ? ($this->vecesAcertada / $this->vecesVista) * 100 : 1);
         }
         else {
             $dificultad = 0;

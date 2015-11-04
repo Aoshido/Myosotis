@@ -26,15 +26,62 @@
             <li> Responderla </li>
             <li> Elegir un juego </li>
         </ul>
-        
+
         <h2> ¿Cualquiera puede dar de alta una pregunta? </h2>
         <p> Si, siempre y cuando este registrado </p>
-        
+
         <h2> ¿Cualquiera puede responder una pregunta? </h2>
         <p> Si, sin embargo estas no se van a mostrar hasta que algun aprobador las revise</p>
-        
+
         <h2> Encontre un problema ¿Como lo puedo reportar? </h2>
         <p> Abajo a la izquierda de la pantalla tienen un icono con forma de Bug para reportar cualquier incidencia</p>
+
+        <h2> ¿Que es la dificultad? ¿Como se calcula?</h2>
+        <p> La dificultad es un parametro que tienen las preguntas, indica que cantidad de usuarios se equivocaron
+            al responderla. Se calcula en base a las veces que se vio una pregunta, respecto a las veces que se contesto 
+            correctamente.</p>
+        <p> Segun que tanto les haya costado, varia la dificultad, siendo 100 la mas dificl y 1 la mas facil. (0 significa
+            que la pregunta todavia no fue contestada o vista).</p>
+        <p> Se dividen luego en 3 categorias:</p>
         
+        <p>Preguntas faciles: de 0 a 50 </p>
+        <p>(Nombre y apellido)</p>
+
+        <div class="col-xs-12 text-left" style="padding-right: 0px; padding-left: 5px;">
+            <div class="progress">
+                <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:30%;">
+                    <span class="sr-only">30% Dificultad</span>
+                </div>
+                <span class="progress-type">Dificultad</span>
+                <span class="progress-completed">30%</span>
+            </div>
+        </div>
+        
+        <p>Preguntas regulares: de 50 a 80 </p>
+        <p>("Si estudiaron tendrian que saberla")</p>
+
+        <div class="col-xs-12 text-left" style="padding-right: 0px; padding-left: 5px;">
+            <div class="progress">
+                <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:75%;">
+                    <span class="sr-only">75% Dificultad</span>
+                </div>
+                <span class="progress-type">Dificultad</span>
+                <span class="progress-completed">75%</span>
+            </div>
+        </div>
+        
+        <p>Preguntas dificiles: de 80 a 100 </p>
+        <p>(Por que me toco esta pregunta)</p>
+
+        <div class="col-xs-12 text-left" style="padding-right: 0px; padding-left: 5px;">
+            <div class="progress">
+                <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:99%;">
+                    <span class="sr-only">99% Dificultad</span>
+                </div>
+                <span class="progress-type">Dificultad</span>
+                <span class="progress-completed">99%</span>
+            </div>
+        </div>
+
     </div>
 {% endblock %}
