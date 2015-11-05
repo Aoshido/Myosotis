@@ -22,10 +22,8 @@ class TemasController extends Controller {
         }
 
         $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($temas, $this->getRequest()->query->get('page', 1), 10);
+        $pagination = $paginator->paginate($temas, $this->getRequest()->query->get('page', 1), 5);
         $pagination->setPageRange(6);
-
-        $cantidad = count($temas);
 
         $tema = new Tema();
         $form = $this->createForm(new TemaType(), $tema);
@@ -73,10 +71,8 @@ class TemasController extends Controller {
         }
 
         $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($temas, $this->getRequest()->query->get('page', 1), 10);
+        $pagination = $paginator->paginate($temas, $this->getRequest()->query->get('page', 1), 5);
         $pagination->setPageRange(6);
-
-        $cantidad = count($temas);
 
         $tema = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Tema')

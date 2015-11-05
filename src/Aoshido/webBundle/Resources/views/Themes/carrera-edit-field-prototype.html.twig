@@ -1,13 +1,13 @@
 
-    <td >
-        {{ form_label(form.descripcion,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }} 
+    <td class="">
+        {{ form_label(form.descripcion,null,{ 'label_attr' : { 'class' : ' control-label' } }) }} 
     </td>    
-    <td>
+    <td class="col-sm-4">
         {{ form_widget(form.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }} 
     </td>
-    <td>
-        {{ form_label(form.aniocarrera,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }} 
+    <td class="col-sm-1">
+        {{ form_label(form.aniocarrera,null,{ 'label_attr' : { 'class' : 'control-label' } }) }} 
     </td>    
-    <td id="temaCont">
+    <td class="col-sm-4" id="temaCont">
         {{ form_widget(form.aniocarrera,{ 'attr' : { 'class' : 'form-control' } }) }} 
     </td>
