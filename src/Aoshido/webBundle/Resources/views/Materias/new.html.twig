@@ -48,13 +48,9 @@
         <div class="navigation text-center">
             {{ knp_pagination_render(paginas) }}
         </div>
-        <div class="panel panel-primary">
-            <div class="panel-heading">Agregar Materias</div>
 
-            <div class="panel-body">
-                {% include 'AoshidowebBundle:Materias:form.html.twig' %}
-            </div>
-        </div>
+        {% include 'AoshidowebBundle:Materias:form.html.twig' %}
+
     </div>
 </div>
 {% endblock %}

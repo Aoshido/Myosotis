@@ -29,7 +29,7 @@ class MateriasController extends Controller {
         $form->handleRequest($request);
         
         $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($materias, $this->getRequest()->query->get('page', 1), 10);
+        $pagination = $paginator->paginate($materias, $this->getRequest()->query->get('page', 1), 5);
         $pagination->setPageRange(6);
 
         if ($form->isValid()) {
@@ -62,7 +62,7 @@ class MateriasController extends Controller {
         }
 
         $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($materias, $this->getRequest()->query->get('page', 1), 10);
+        $pagination = $paginator->paginate($materias, $this->getRequest()->query->get('page', 1), 5);
         $pagination->setPageRange(6);
 
         $cantidad = count($materias);
@@ -86,7 +86,7 @@ class MateriasController extends Controller {
             return $this->redirect($this->generateUrl('abms_materias'));
         }
 
-        return $this->render('AoshidowebBundle:Materias:edit.html.twig', array(
+        return $this->render('AoshidowebBundle:Materias:new.html.twig', array(
                     'form' => $form->createView(),
                     'paginas' => $pagination,
                     'cantidad' => $cantidad,
