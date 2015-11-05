@@ -26,7 +26,7 @@ class AddMateriaInTemasFieldSuscriber implements EventSubscriberInterface {
     private function addMateriaForm($form, $idcarrera, $materia = null) {
         $formOptions = array(
             'class'         => 'AoshidowebBundle:Materia',
-            'empty_value'   => '- Seleccione Materia -',
+            'empty_value'   => '- Seleccione Carrera Primero -',
             'label'         => 'Materia:',
             'mapped'        => false,
             'attr'          => array(

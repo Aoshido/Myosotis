@@ -48,32 +48,49 @@
 
         </div>
         <div class="panel panel-primary">
-            <div class="panel-heading">Agregar Carreras</div>
-
-            <div class="panel-body">
+            <div class="panel-heading">Agregar Carrera:</div>
+            
                 {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
                 {{ form_errors(form)}}
-                <div class="form-group">
-                    {{ form_label(form.descripcion,null,{ 'label_attr' : { 'class' : 'col-sm-2 control-label' } })}}
-                    <div id="anchor" class="col-sm-6">
-                        {{ form_widget(form.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }}
-                    </div>
-                </div>
+                <table class="table table-condensed" >
+                    <tbody id="materias" data-prototype="{% filter escape %}{{ include('AoshidowebBundle:Themes:carrera-edit-field-prototype.html.twig',{ 'form': form.materias.vars.prototype }) }}{% endfilter %}">
+                        <tr class="info">
+                            <td>
+                                {{ form_label(form.descripcion,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } })}}
+                            </td>
+                            <td colspan="4">
+                                {{ form_widget(form.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }}
+                            </td>
+                        </tr>
+                        {% for materia in form.materias %}
+                            <tr >
+                                <td  >
+                                    {{ form_label(materia.descripcion,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }} 
+                                </td>    
+                                <td>
+                                    {{ form_widget(materia.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }} 
+                                </td>
+                                <td>
+                                    {{ form_label(materia.aniocarrera,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }} 
+                                </td>    
+                                <td id="temaCont">
+                                    {{ form_widget(materia.aniocarrera,{ 'attr' : { 'class' : 'form-control' } }) }} 
+                                </td>
+                            </tr>
+                        {% endfor %}
 
-                <div id="temas" data-prototype="{% filter escape %}{{ include('AoshidowebBundle:Themes:carrera-field-prototype.html.twig', { 'form': form.materias.vars.prototype }) }}{% endfilter %}">
-                    {% for tema in form.materias %}
-
-                    {% endfor %}                    
-                </div>
-
-                <div class="form-group text-center">
-                    <div id="anchor" >
-                        {{ form_widget(form.save,{ 'label': 'Agregar Carrera' , 'attr': {'class': 'btn btn-success'} }) }}
-                    </div>
-                    {{ form_row(form._token) }}
-                    {{ form_end(form, {'render_rest': false}) }}
-                </div>
-            </div>
+                    </tbody>    
+                </table>
+                <table class="table" >
+                    <tr id="anchor_add_button">
+                        <td class="text-center">
+                            {{ form_widget(form.save,{ 'label': 'Guardar Cambios' , 'attr': {'class': 'btn btn-success'} }) }}
+                        </td>
+                    </tr>
+                </table>
+                {{ form_row(form._token) }}
+                {{ form_end(form, {'render_rest': false}) }}
+            
         </div>
     </div>
 </div>
@@ -106,44 +123,44 @@
                                 Materia\n\
                             </button>');
 
-        var $newLinkLi = $('<div class="col-sm-offset-8"></div>').append($addTagLink);
+        var $newLinkLi = $('<td class="col-md-2"></td>').append($addTagLink);
 
         jQuery(document).ready(function () {
-            // Get the ul that holds the collection of tags
-            $collectionHolder = $('div#temas');
+            // Elemento que va a obtener la coleccion de materias
+            $collectionHolder = $('tbody#materias');
 
-            // Get the ul that holds the collection of tags
-            $addAnchor = $('div#anchor');
+            // Elemento donde va a ir el boton de "Agregar Materia"
+            $addAnchor = $('tr#anchor_add_button');
 
-            // add a delete link to all of the existing tag form li elements
-            $collectionHolder.find('div#temaCont').each(function () {
-                addTagFormDeleteLink($(this));
+            // add a dselete link to all of the existing tag form li elements
+            $collectionHolder.find('td#temaCont').each(function () {
+                addTagFormDeleteLink($(this).parent());
             });
 
             // add the "add a tag" anchor and li to the tags ul
-            $collectionHolder.append($newLinkLi);
+            $addAnchor.append($newLinkLi);
 
             // count the current form inputs we have (e.g. 2), use that as the new
             // index when inserting a new item (e.g. 2)
-            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+            $collectionHolder.data('index', $collectionHolder.find('td#temaCont').length);
 
             $addTagLink.on('click', function (e) {
                 // prevent the link from creating a "#" on the URL
                 e.preventDefault();
 
                 // add a new tag form (see next code block)
-                addTagForm($collectionHolder, $newLinkLi);
+                addTagForm($collectionHolder);
             });
         });
 
         function addTagFormDeleteLink($tagFormLi) {
-            var $removeFormA = $('<div class="col-sm-1">\n\
-                                    <button type="button" class="btn btn-danger ">\n\
-                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>\n\
+            var $removeFormA = $('<td class="col-sm-1">\n\
+                                    <button type="button" class="btn btn-warning ">\n\
+                                        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>\n\
                                     </button> \n\
-                                </div>');
+                                </td>');
 
-            $tagFormLi.find('div#temaCont').append($removeFormA);
+            $tagFormLi.append($removeFormA);
 
             $removeFormA.on('click', function (e) {
                 // prevent the link from creating a "#" on the URL
@@ -154,7 +171,7 @@
             });
         }
 
-        function addTagForm($collectionHolder, $newLinkLi) {
+        function addTagForm($collectionHolder) {
             // Get the data-prototype explained earlier
             var prototype = $collectionHolder.data('prototype');
 
@@ -169,8 +186,8 @@
             $collectionHolder.data('index', index + 1);
 
             // Display the form in the page in an li, before the "Add a tag" link li
-            var $newFormLi = $('<div></div>').append(newForm);
-            $newLinkLi.before($newFormLi);
+            var $newFormLi = $('<tr id="temaCont"></tr>').append(newForm);
+            $collectionHolder.append($newFormLi);
 
             // add a delete link to the new form
             addTagFormDeleteLink($newFormLi);

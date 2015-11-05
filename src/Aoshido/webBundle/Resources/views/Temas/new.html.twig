@@ -20,8 +20,8 @@
 
                 {% for tema in paginas %}
                     <tr>
-                        <td class="col-md-6">
-                            <span class="badge progress-bar-info" data-toggle="tooltip" data-placement="left" title="Cantidad de Preguntas">
+                        <td class="col-sm-10">
+                            <span class="badge progress-bar-info" data-toggle="tooltip" data-placement="top" title="Cantidad de Preguntas">
                                 {% if tema.id in preguntasTemas|keys %}
                                     {{preguntasTemas[tema.id]}}
                                 {% else %}
@@ -30,12 +30,12 @@
                             </span>
                             {{ tema.descripcion }}
                         </td>
-                        <td class="col-md-1">
+                        <td class="col-sm-2 text-right">
                             <div class="btn-group btn-group-sm pull-right" role="group" aria-label="...">
-                                <button type="button" class="btn btn-success " aria-label="Left Align" data-toggle="tooltip" data-placement="left" title="Editar" onclick="location.href = '{{url('temas_edit',{ 'idTema': tema.id})}}';">
+                                <button type="button" class="btn btn-success " aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Editar" onclick="location.href = '{{url('temas_edit',{ 'idTema': tema.id})}}';">
                                     <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                                 </button>
-                                <button type="button" class="btn btn-danger " aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Eliminar"  onclick=" location.href = '{{ url('temas_disable',{ 'idTema': tema.id})}}';">
+                                <button type="button" class="btn btn-danger " aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Eliminar"  onclick=" location.href = '{{ url('temas_disable',{ 'idTema': tema.id})}}';">
                                     <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                                 </button>
                             </div>
@@ -43,10 +43,9 @@
                     </tr>
                 {% endfor %}
             </table>
-            <div class="col-md-offset-4 navigation">
-                {{ knp_pagination_render(paginas) }}
-            </div>
-
+        </div>
+        <div class="navigation text-center">
+            {{ knp_pagination_render(paginas) }}
         </div>
         <div class="panel panel-primary">
             <div class="panel-heading">Agregar Temas</div>
@@ -65,7 +64,7 @@
         $(".btn-danger").popConfirm({
             title: "Borrar Pregunta",
             content: "¿Seguro que desea borrar el Tema? \n Tambien se borraran todas sus preguntas asociadas",
-            placement: "right",
+            placement: "left",
             yesBtn: "Si",
             noBtn: "No"
         });

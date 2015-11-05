@@ -14,13 +14,13 @@
             <div class="panel-heading text-right">Materias Disponibles: {{ paginas.getTotalItemCount }}</div>
 
             <table class="table table-condensed">
-                <th class="info {% if paginas.isSorted('materia.descripcion') %}sorted{% endif %}">{{ knp_pagination_sortable(paginas, 'Descripcion', 'm.descripcion') }} </th>
-                <th class="info text-center {% if paginas.isSorted('materia.aniocarrera') %}sorted{% endif %}">{{ knp_pagination_sortable(paginas, 'Año', 'm.anioCarrera') }}</th>
-                <th class="info text-right"> Acciones </th>
-                
+                <th class="col-sm-8 info {% if paginas.isSorted('materia.descripcion') %}sorted{% endif %}">{{ knp_pagination_sortable(paginas, 'Descripcion', 'm.descripcion') }} </th>
+                <th class="col-sm-1 info text-center {% if paginas.isSorted('materia.aniocarrera') %}sorted{% endif %}">{{ knp_pagination_sortable(paginas, 'Año', 'm.anioCarrera') }}</th>
+                <th class="col-sm-3 info text-right"> Acciones </th>
+
                 {% for materia in paginas %}
                     <tr>
-                        <td class="col-sm-9">
+                        <td class="col-sm-8">
                             <span class="badge progress-bar-info" data-toggle="tooltip" data-placement="left" title="Cantidad de Temas">
                                 {% if materia.id in temasMaterias|keys %}
                                     {{temasMaterias[materia.id]}}
@@ -31,8 +31,8 @@
                             {{ materia.descripcion }}
                         </td>
                         <td class="col-sm-1 text-center">{{ materia.aniocarrera }}</td>
-                        <td class="col-sm-2 text-right">
-                            <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                        <td class="col-sm-3 text-right">
+                            <div class="btn-group btn-group-xs" role="group" aria-label="...">
                                 <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="tooltip" data-placement="left" title="Editar"  onclick="location.href = '{{ url('materias_edit',{ 'idMateria': materia.id})}}';">
                                     <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                                 </button>    
@@ -44,10 +44,9 @@
                     </tr>
                 {% endfor %}
             </table>
-            <div class="navigation text-center">
-                {{ knp_pagination_render(paginas) }}
-            </div>
-
+        </div>
+        <div class="navigation text-center">
+            {{ knp_pagination_render(paginas) }}
         </div>
         <div class="panel panel-primary">
             <div class="panel-heading">Agregar Materias</div>
@@ -67,7 +66,7 @@
             $('[data-toggle="tooltip"]').tooltip()
         })
     </script>
-    
+
     <script type="text/javascript">
         $(".btn-danger").popConfirm({
             title: "Borrar Pregunta",
@@ -77,5 +76,5 @@
             noBtn: "No"
         });
     </script>
-    
+
 {% endblock %}
