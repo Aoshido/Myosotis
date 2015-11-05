@@ -137,6 +137,18 @@ class RegistrationController extends Controller {
 
         $this->get('session')->getFlashBag()->add('success', 'Bienvenido ' . $user->getUsername() . '!');
 
+        $message = \Swift_Message::newInstance()
+                ->setSubject('NEW USER')
+                ->setFrom(array('notifications@aoshido.com.ar' => 'Myosotis'))
+                ->setTo('aoshido@gmail.com')
+                ->setBody(
+                $this->renderView('Emails/newUser.html.twig', array(
+                    'user' => $user,
+                )), 'text/html');
+
+        $this->get('mailer')->send($message);
+
+
         return (new RedirectResponse($this->generateUrl('aoshidoweb_homepage')));
 
         /* return $this->render('FOSUserBundle:Registration:confirmed.html.twig', array(

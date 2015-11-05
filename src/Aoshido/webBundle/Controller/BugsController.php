@@ -72,7 +72,7 @@ class BugsController extends Controller {
 
             $message = \Swift_Message::newInstance()
                     ->setSubject('NEW BUG')
-                    ->setFrom('notifications@aoshido.com.ar')
+                    ->setFrom(array('notifications@aoshido.com.ar' => 'Myosotis'))
                     ->setTo('aoshido@gmail.com')
                     ->setBody(
                     $this->renderView('Emails/newBug.html.twig', array(
