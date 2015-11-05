@@ -2,41 +2,35 @@
 
 {% block title %}Users ABM{% endblock %}
 {% block content %}
-    <div class="jumbotron alpha60">
-        <div class="container-fluid">
-            <div class="col-md-offset-1 col-md-10">
-                <div class="container col-md-12">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading text-right">Usuarios Disponibles: {{ cantidad }}</div>
+    <div class="jumbotron alpha60 container-fluid">
+        <div class="panel panel-primary">
+            <div class="panel-heading text-right">Usuarios Disponibles: {{ cantidad }}</div>
 
-                        <table class="table table-condensed">
-                            {% for user in paginas %}
-                                <tr class="row">
-                                    <td class="col-sm-2">
-                                        {{user.username}}
-                                    </td>
-                                    <td class="col-sm-7">
-                                        {{user.email}}
-                                    </td>
-                                    <td class="col-sm-3">
-                                        <div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." >
-                                            <button type="button" class="btn btn-info" aria-label="Left Align" data-toggle="tooltip" data-placement="left" title="Promote" onclick="location.href = '{{ url('users_promote',{ 'idUser': user.id}) }}';">
-                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                            </button>
-                                            <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Banhammer"  onclick=" location.href = '{{ url('users_disable',{ 'idUser': user.id}) }}';">
-                                                <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                                            </button>    
-                                        </div>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </table>
-                    </div>
-                    <div class="text-center navigation">
-                        {{ knp_pagination_render(paginas) }}
-                    </div>
-                </div>
-            </div>
+            <table class="table table-condensed">
+                {% for user in paginas %}
+                    <tr class="row">
+                        <td class="col-xs-2">
+                            {{user.username}}
+                        </td>
+                        <td class="col-xs-7">
+                            {{user.email}}
+                        </td>
+                        <td class="col-xs-3">
+                            <div class="btn-group btn-group-xs pull-right" role="group" aria-label="..." >
+                                <button type="button" class="btn btn-info" aria-label="Left Align" data-toggle="tooltip" data-placement="left" title="Promote" onclick="location.href = '{{ url('users_promote',{ 'idUser': user.id}) }}';">
+                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                </button>
+                                <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Banhammer"  onclick=" location.href = '{{ url('users_disable',{ 'idUser': user.id}) }}';">
+                                    <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                                </button>    
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="text-center navigation">
+            {{ knp_pagination_render(paginas) }}
         </div>
     </div>
 {% endblock %}

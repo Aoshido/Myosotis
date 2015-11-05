@@ -1,15 +1,15 @@
 @import "//netdna.bootstrapcdn.com/font-awesome/3.0/css/font-awesome.css";
 
 #buttonsSocial {
-  max-width: 365px;
+  max-width: 315px;
   overflow: hidden;
-  margin: 70px auto 0;
+  margin: 30px auto 0;
 }
 
 .buttonSocial {
   float: left;
-  margin-right: 10px;
-  width: 110px;
+  margin-right: 5px;
+  width: 100px;
 
   border: 1px solid #cbcbcb;
   border-radius: 3px;

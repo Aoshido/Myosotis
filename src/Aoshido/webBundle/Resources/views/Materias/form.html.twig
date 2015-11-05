@@ -1,31 +1,38 @@
-{{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
-{{ form_errors(form)}}
-<div class="col-sm-6">
-    <div class="form-group">
-        {{ form_label(form.descripcion,null,{ 'label_attr' : { 'class' : 'col-sm-3 control-label' } })}}
-        <div id="anchor" class="col-sm-9">
-            {{ form_widget(form.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.aniocarrera,null,{ 'label_attr' : { 'class' : 'col-sm-3 control-label' } })}}
-        <div id="anchor" class="col-sm-9">
-            {{ form_widget(form.aniocarrera,{ 'attr' : { 'class' : 'form-control' } }) }}
-        </div>
-    </div>
-    {{ form_errors(form.carreras) }}
-</div>
+<div class="panel panel-primary">
+    <div class="panel-heading">{% if form.vars.method == 'PATCH'%} Editar {%else%} Agregar {%endif%} Temas</div>
 
-<div class="col-sm-6">
-    {{ form_label(form.carreras) }}
     <div class="panel-body">
-        {{ form_widget(form.carreras,{ 'attr' : { 'class' : 'form-control' } }) }}
+        {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
+        {{ form_errors(form)}}
+        <div class="col-sm-6">
+            <div class="form-group">
+                {{ form_label(form.descripcion,null,{ 'label_attr' : { 'class' : 'col-sm-3 control-label' } })}}
+                <div id="anchor" class="col-sm-9">
+                    {{ form_widget(form.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.aniocarrera,null,{ 'label_attr' : { 'class' : 'col-sm-3 control-label' } })}}
+                <div id="anchor" class="col-sm-9">
+                    {{ form_widget(form.aniocarrera,{ 'attr' : { 'class' : 'form-control' } }) }}
+                </div>
+            </div>
+            {{ form_errors(form.carreras) }}
+        </div>
+
+        <div class="col-sm-6">
+            {{ form_label(form.carreras) }}
+            <div class="panel-body">
+                {{ form_widget(form.carreras,{ 'attr' : { 'class' : 'form-control' } }) }}
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <div id="anchor" >
+                {{ form_widget(form.save,{ 'label': 'Agregar Materia' , 'attr': {'class': 'btn btn-success'} }) }}
+            </div>
+            {{ form_row(form._token) }}
+            {{ form_end(form, {'render_rest': false}) }}
+        </div>
+
     </div>
-</div>
-<div class="form-group text-center">
-    <div id="anchor" >
-        {{ form_widget(form.save,{ 'label': 'Agregar Materia' , 'attr': {'class': 'btn btn-success'} }) }}
-    </div>
-    {{ form_row(form._token) }}
-    {{ form_end(form, {'render_rest': false}) }}
 </div>
