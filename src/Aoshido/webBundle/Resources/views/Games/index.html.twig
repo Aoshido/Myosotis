@@ -8,12 +8,11 @@
                 <li><a href="{{url('aoshidoweb_homepage')}}">Home</a></li>
             </ul>
         {% endblock %}
-        <div class="container-fluid">
-            <h2>{% block section %} {% endblock %}</h2>
-            <div class="col-md-offset-1 col-md-10">
-                {% block games_contenido %}
-                {% endblock %}
-            </div>
-        </div>
+
+        <h2>{% block section %} {% endblock %}</h2>
+
+        {% block games_contenido %}
+        {% endblock %}
+
     </div>
 {% endblock %}
