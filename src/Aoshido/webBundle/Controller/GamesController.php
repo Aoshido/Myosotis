@@ -116,6 +116,7 @@ class GamesController extends Controller {
 
             //Reviso si la respuesta que eligio es alguna de las correctas
             $correctas = 0;
+
             foreach ($pregunta['respuestas'] as &$respuesta) {
                 if (array_key_exists('elegida', $respuesta)) {
 
