@@ -14,12 +14,9 @@ class TemasController extends Controller {
         //Display a list of all Temas activos
         $temas = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Tema')
-                ->findBy(array('activo' => TRUE));
-
-        $preguntasTemas = array();
-        foreach ($temas as $c_tema) {                                           //C= Counter
-            $preguntasTemas[$c_tema->getId()] = count($c_tema->getPreguntas());
-        }
+                ->createQueryBuilder('t')
+                ->where('t.activo = TRUE')
+                ->getQuery();
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($temas, $this->getRequest()->query->get('page', 1), 5);
@@ -35,8 +32,8 @@ class TemasController extends Controller {
             ),
         ));
 
-
         $form->handleRequest($request);
+
 
         if ($form->isValid()) {
             $tema->setActivo(TRUE);
@@ -54,7 +51,6 @@ class TemasController extends Controller {
         return $this->render('AoshidowebBundle:Temas:new.html.twig', array(
                     'form' => $form->createView(),
                     'paginas' => $pagination,
-                    'preguntasTemas' => $preguntasTemas,
         ));
     }
 
@@ -65,11 +61,6 @@ class TemasController extends Controller {
                 ->getRepository('AoshidowebBundle:Tema')
                 ->findBy(array('activo' => TRUE));
 
-        $preguntasTemas = array();
-        foreach ($temas as $c_tema) {                                           //C= Counter
-            $preguntasTemas[$c_tema->getId()] = count($c_tema->getPreguntas());
-        }
-
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($temas, $this->getRequest()->query->get('page', 1), 5);
         $pagination->setPageRange(6);
@@ -78,7 +69,7 @@ class TemasController extends Controller {
                 ->getRepository('AoshidowebBundle:Tema')
                 ->find($idTema);
 
-        $form = $this->createForm(new TemaType(), $tema);
+        $form = $this->createForm(new TemaType(), $tema, array('method' => 'PATCH'));
         
         $form->add('save', 'submit', array(
             'label' => 'Guardar Cambios',
@@ -102,10 +93,9 @@ class TemasController extends Controller {
             return $this->redirect($this->generateUrl('abms_temas'));
         }
 
-        return $this->render('AoshidowebBundle:Temas:edit.html.twig', array(
+        return $this->render('AoshidowebBundle:Temas:new.html.twig', array(
                     'form' => $form->createView(),
                     'paginas' => $pagination,
-                    'preguntasTemas' => $preguntasTemas,
         ));
     }
 

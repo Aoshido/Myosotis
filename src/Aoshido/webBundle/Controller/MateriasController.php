@@ -17,15 +17,16 @@ class MateriasController extends Controller {
                 ->createQueryBuilder('m')
                 ->where('m.activo = TRUE')
                 ->getQuery();
+        
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($materias, $this->getRequest()->query->get('page', 1), 5);
+        $pagination->setPageRange(6);
 
         $materia = new Materia();
         $form = $this->createForm(new MateriaType(), $materia);
 
         $form->handleRequest($request);
         
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($materias, $this->getRequest()->query->get('page', 1), 5);
-        $pagination->setPageRange(6);
 
         if ($form->isValid()) {
             $materia->setActivo(TRUE);
@@ -60,11 +61,10 @@ class MateriasController extends Controller {
                 ->getRepository('AoshidowebBundle:Materia')
                 ->find($idMateria);
 
-        $form = $this->createForm(new MateriaType(), $materia);
+        $form = $this->createForm(new MateriaType(), $materia, array('method' => 'PATCH'));
 
         $form->handleRequest($request);
-        //dump($materia);
-        //die();
+
         if ($form->isValid()) {
             $materia->setActivo(TRUE);
 
