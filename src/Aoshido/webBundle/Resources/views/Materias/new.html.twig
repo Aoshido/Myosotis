@@ -9,46 +9,44 @@
 {% endblock %}
 {% block section %}Materias{% endblock %}
 {% block abms_contenido %} 
-    <div class="container col-sm-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading text-right">Materias Disponibles: {{ paginas.getTotalItemCount }}</div>
 
-            <table class="table table-condensed">
-                <th class="col-sm-8 info {% if paginas.isSorted('m.descripcion') %}sorted{% endif %}">{{ knp_pagination_sortable(paginas, 'Descripcion', 'm.descripcion') }} </th>
-                <th class="col-sm-1 info text-center {% if paginas.isSorted('m.anioCarrera') %}sorted{% endif %}">{{ knp_pagination_sortable(paginas, 'Año', 'm.anioCarrera') }}</th>
-                <th class="col-sm-3 info text-right"> Opciones </th>
+    <div class="panel panel-primary">
+        <div class="panel-heading text-right">Materias Disponibles: {{ paginas.getTotalItemCount }}</div>
 
-                {% for materia in paginas %}
-                    <tr>
-                        <td class="col-sm-8">
-                            <span class="badge progress-bar-info" data-toggle="tooltip" data-placement="left" title="Cantidad de Temas">
-                                {{materia.getTemas.count}}
-                            </span>
-                            {{ materia.descripcion }}
-                        </td>
-                        <td class="col-sm-1 text-center">{{ materia.aniocarrera }}</td>
-                        <td class="col-sm-3 text-right">
-                            <div class="btn-group btn-group-xs" role="group" aria-label="...">
-                                <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="tooltip" data-placement="left" title="Editar"  onclick="location.href = '{{ url('materias_edit',{ 'idMateria': materia.id})}}';">
-                                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-                                </button>    
-                                <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Eliminar" onclick="location.href = '{{ url('materias_disable',{ 'idMateria': materia.id})}}';">
-                                    <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                                </button>    
-                            </div>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
-        </div>
-        <div class="navigation text-center">
-            {{ knp_pagination_render(paginas) }}
-        </div>
+        <table class="table table-condensed">
+            <th class="col-sm-8 info {% if paginas.isSorted('m.descripcion') %}sorted{% endif %}">{{ knp_pagination_sortable(paginas, 'Descripcion', 'm.descripcion') }} </th>
+            <th class="col-sm-1 info text-center {% if paginas.isSorted('m.anioCarrera') %}sorted{% endif %}">{{ knp_pagination_sortable(paginas, 'Año', 'm.anioCarrera') }}</th>
+            <th class="col-sm-3 info text-right"> Opciones </th>
 
-        {% include 'AoshidowebBundle:Materias:form.html.twig' %}
-
+            {% for materia in paginas %}
+                <tr>
+                    <td class="col-sm-8">
+                        <span class="badge progress-bar-info" data-toggle="tooltip" data-placement="left" title="Cantidad de Temas">
+                            {{materia.getTemas.count}}
+                        </span>
+                        {{ materia.descripcion }}
+                    </td>
+                    <td class="col-sm-1 text-center">{{ materia.aniocarrera }}</td>
+                    <td class="col-sm-3 text-right">
+                        <div class="btn-group btn-group-xs" role="group" aria-label="...">
+                            <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="tooltip" data-placement="left" title="Editar"  onclick="location.href = '{{ url('materias_edit',{ 'idMateria': materia.id})}}';">
+                                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                            </button>    
+                            <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Eliminar" onclick="location.href = '{{ url('materias_disable',{ 'idMateria': materia.id})}}';">
+                                <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                            </button>    
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
     </div>
-</div>
+    <div class="navigation text-center">
+        {{ knp_pagination_render(paginas) }}
+    </div>
+
+    {% include 'AoshidowebBundle:Materias:form.html.twig' %}
+
 {% endblock %}
 
 {% block javascripts %} 
