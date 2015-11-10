@@ -11,51 +11,42 @@
 
 {% block section %}Temas{% endblock %}
 {% block abms_contenido %} 
+    <div class="panel panel-primary">
+        <div class="panel-heading text-right">Temas Disponibles: {{ paginas.getTotalItemCount }}</div>
 
-    <div class="container col-md-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading text-right">Temas Disponibles: {{ paginas.getTotalItemCount }}</div>
-
-            <table class="table table-condensed">
-
+        <table class="table table-condensed">
+            <th class="col-sm-8 info {% if paginas.isSorted('t.descripcion') %}sorted{% endif %}">{{ knp_pagination_sortable(paginas, 'Descripcion', 't.descripcion') }} </th>
+            <th class="col-sm-1 info text-center {% if paginas.isSorted('t.Materias.descripcion') %}sorted{% endif %}">{{ knp_pagination_sortable(paginas, 'Materia', 't.Materias.descripcion') }}</th>
+            <th class="col-sm-3 info text-right"> Opciones </th>
                 {% for tema in paginas %}
-                    <tr>
-                        <td class="col-sm-10">
-                            <span class="badge progress-bar-info" data-toggle="tooltip" data-placement="top" title="Cantidad de Preguntas">
-                                {% if tema.id in preguntasTemas|keys %}
-                                    {{preguntasTemas[tema.id]}}
-                                {% else %}
-                                    0
-                                {% endif %}
-                            </span>
-                            {{ tema.descripcion }}
-                        </td>
-                        <td class="col-sm-2 text-right">
-                            <div class="btn-group btn-group-xs pull-right" role="group" aria-label="...">
-                                <button type="button" class="btn btn-success " aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Editar" onclick="location.href = '{{url('temas_edit',{ 'idTema': tema.id})}}';">
-                                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-                                </button>
-                                <button type="button" class="btn btn-danger " aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Eliminar"  onclick=" location.href = '{{ url('temas_disable',{ 'idTema': tema.id})}}';">
-                                    <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
-        </div>
-        <div class="navigation text-center">
-            {{ knp_pagination_render(paginas) }}
-        </div>
-        <div class="panel panel-primary">
-            <div class="panel-heading">Agregar Temas</div>
-
-            <div class="panel-body">
-                {% include 'AoshidowebBundle:Temas:form.html.twig' %}
-            </div>
-        </div>
+                <tr>
+                    <td class="col-sm-8">
+                        <span class="badge progress-bar-info" data-toggle="tooltip" data-placement="top" title="Cantidad de Preguntas">
+                            {{tema.getPreguntas.count}}
+                        </span>
+                        {{ tema.descripcion }}
+                    </td>
+                    <td class="col-sm-1 text-center">{{tema.getMateria.getDescripcion}}</td>
+                    <td class="col-sm-3 text-right">
+                        <div class="btn-group btn-group-xs pull-right" role="group" aria-label="...">
+                            <button type="button" class="btn btn-success " aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Editar" onclick="location.href = '{{url('temas_edit',{ 'idTema': tema.id})}}';">
+                                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-danger " aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Eliminar"  onclick=" location.href = '{{ url('temas_disable',{ 'idTema': tema.id})}}';">
+                                <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
     </div>
-</div>
+    <div class="navigation text-center">
+        {{ knp_pagination_render(paginas) }}
+    </div>
+
+    {% include 'AoshidowebBundle:Temas:form.html.twig' %}
+
 {% endblock %}
 
 {% block javascripts %} 
