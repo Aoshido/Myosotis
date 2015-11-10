@@ -293,7 +293,7 @@ class GamesController extends Controller {
         $this->getDoctrine()->getManager()->persist($preguntaEntity);
         $this->getDoctrine()->getManager()->flush();
 
-
+        //TODO: Que traiga las preguntas de los temas elegidos nada mas.
         $preguntasNuevas = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Pregunta')
                 ->findBy(array('activo' => TRUE));

@@ -24,10 +24,10 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{path('abms_preguntas')}}"  data-parent="#MainMenu">Preguntas</a></li>
-                            <li><a href="{{path('abms_temas')}}"  data-parent="#MainMenu">Temas</a></li>
-                            <li><a href="{{path('abms_materias')}}"  data-parent="#MainMenu">Materias</a></li>
-                            <li><a href="{{path('abms_carreras')}}"  data-parent="#MainMenu">Carreras</a></li>
+                            <li><a href="{{path('abms_preguntas')}}"  data-parent="#MainMenu"><i class="fa fa-comments"></i> Preguntas</a></li>
+                            <li><a href="{{path('abms_temas')}}"  data-parent="#MainMenu"><i class="fa fa-reorder"></i> Temas</a></li>
+                            <li><a href="{{path('abms_materias')}}"  data-parent="#MainMenu"><i class="fa fa-book"></i> Materias</a></li>
+                            <li><a href="{{path('abms_carreras')}}"  data-parent="#MainMenu"><i class="fa fa-institution"></i> Carreras</a></li>
                         </ul>
                     {% else %}
 
@@ -74,12 +74,12 @@
                     <ul class="dropdown-menu" role="menu">
                         <li class="" {% block faq %} {% endblock %} >
                             <a href="{{path('aoshidoweb_faq')}}">
-                                F.A.Q.
+                                <i class="fa fa-question"></i> F.A.Q.
                             </a>
                         </li>
                         <li {% block about %} {% endblock %} >
                             <a href="{{path('aoshidoweb_bio')}}">
-                                Acerca / Creditos
+                                <i class="fa fa-heartbeat"></i> Acerca / Creditos
                             </a>
                         </li>
                         {#<li {% block postmortem %} {% endblock %} >
