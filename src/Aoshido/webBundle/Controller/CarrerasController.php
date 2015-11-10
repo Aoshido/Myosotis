@@ -14,18 +14,13 @@ class CarrerasController extends Controller {
         //Display a list of all Carreras
         $carreras = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Carrera')
-                ->findBy(array('activo' => TRUE));
-
-        $materiascarrera = array();
-        foreach ($carreras as $carrera) {
-            $materiascarrera[$carrera->getId()] = count($carrera->getMaterias());
-        }
+                ->createQueryBuilder('c')
+                ->where('c.activo = TRUE')
+                ->getQuery();
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($carreras, $this->getRequest()->query->get('page', 1), 10);
         $pagination->setPageRange(6);
-
-        $cantidad = count($carreras);
 
         $carrera = new Carrera();
         $form = $this->createForm(new CarreraType(), $carrera);
@@ -48,9 +43,7 @@ class CarrerasController extends Controller {
 
         return $this->render('AoshidowebBundle:Carreras:new.html.twig', array(
                     'form' => $form->createView(),
-                    'materiasxcarrera' => $materiascarrera,
                     'paginas' => $pagination,
-                    'cantidad' => $cantidad,
         ));
     }
 
@@ -66,8 +59,6 @@ class CarrerasController extends Controller {
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($materias, $this->getRequest()->query->get('page', 1), 10);
         $pagination->setPageRange(6);
-
-        $cantidad = count($materias);
 
         $materiasOriginales = new ArrayCollection();
 
@@ -100,7 +91,6 @@ class CarrerasController extends Controller {
                     'form' => $form->createView(),
                     'materias' => $materias,
                     'paginas' => $pagination,
-                    'cantidad' => $cantidad,
                     'carrera' => $carrera,
         ));
     }

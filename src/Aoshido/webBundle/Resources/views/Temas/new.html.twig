@@ -26,7 +26,7 @@
                         </span>
                         {{ tema.descripcion }}
                     </td>
-                    <td class="col-sm-1 text-center">{{tema.getMateria.getDescripcion}}</td>
+                    <td class="col-sm-1 text-center">{{tema.getMateria.getDescripcion|truncate(10,false,"...")}}</td>
                     <td class="col-sm-3 text-right">
                         <div class="btn-group btn-group-xs pull-right" role="group" aria-label="...">
                             <button type="button" class="btn btn-success " aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Editar" onclick="location.href = '{{url('temas_edit',{ 'idTema': tema.id})}}';">
