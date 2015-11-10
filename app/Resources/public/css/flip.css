@@ -18,8 +18,8 @@
     border-radius: 5px;
     //min-width: 200px;
     min-height: 200px;
-    max-height: 400px;
-    max-width: 400px;
+    //max-height: 400px;
+    //max-width: 400px;
 }
 
 /* flip speed goes here */

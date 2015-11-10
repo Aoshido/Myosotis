@@ -49,9 +49,6 @@
         </div>
     </div>
 
-
-
-
     <div class="panel panel-warning">
         <div class="panel-heading clickable">
             <h3 class="panel-title">
@@ -171,66 +168,10 @@
         });
     </script>
 
-
-    <script type="text/javascript">
-        $(".btn-danger").popConfirm({
-            title: "Borrar Pregunta",
-            content: "¿Seguro que desea borrar la pregunta?",
-            placement: "right",
-            yesBtn: "Si",
-            noBtn: "No"
-        });
-    </script>
-
     <script type="text/javascript">
         $(function () {
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
 
-    <script type="text/javascript">
-        $("select[id$='carrera']").change(function () {
-            var data = {
-                idcarrera: $(this).val()
-            };
-
-            $.ajax({
-                type: 'post',
-                url: '{{ path("preguntas_addMateria") }}',
-                data: data,
-                success: function (data) {
-                    var $materia_selector = $("select[id$='materia']");
-
-                    $materia_selector.html('<option value="">- Seleccione Materia -</option>');
-
-                    for (var i = 0, total = data.length; i < total; i++) {
-                        $materia_selector.append('<option value="' + data[i].id + '">' + data[i].descripcion + ' </option>');
-                    }
-                }
-            });
-        });
-    </script>
-
-    <script type="text/javascript">
-        $("select[id$='materia']").change(function () {
-            var data = {
-                idmateria: $(this).val()
-            };
-
-            $.ajax({
-                type: 'post',
-                url: '{{ path("preguntas_addTemas") }}',
-                data: data,
-                success: function (data) {
-                    var tema_selector = $("select[id$='temas']");
-
-                    tema_selector.html('<option value="">- Seleccione Tema -</option>');
-
-                    for (var i = 0, total = data.length; i < total; i++) {
-                        tema_selector.append('<option value="' + data[i].id + '">' + data[i].descripcion + ' </option>');
-                    }
-                }
-            });
-        });
-    </script>
 {% endblock %}
