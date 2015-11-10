@@ -20,7 +20,7 @@
                     <div class="panel-heading text-right">Pregunta</div>
                     <table class="table table-condensed">
                         <tr class="row">
-                            <td class="col-sm-9" colspan='2'>
+                            <td class="col-sm-12" colspan='2'>
                                 <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
                                     {{ pregunta.vars.value.contenido|markdown|raw|truncate(150) }}
                                     {{ form_widget(pregunta.contenido) }}
@@ -41,7 +41,7 @@
                             </td>
                         </tr>
                         {% for respuesta in pregunta.respuestas %}
-                            <tr class="row">
+                            <tr class="row ">
                                 <td class="col-sm-9">
                                     <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
                                         {{ respuesta.vars.value.contenido|markdown|raw|truncate(150) }}
@@ -49,8 +49,8 @@
                                         {{ form_widget(respuesta.id) }}
                                     </div>
                                 </td>
-                                <td class="col-sm-3">
-                                    {{ form_widget(respuesta.elegida,{ 'attr' : { 'data-on-text' : 'Verdadero' , 'data-off-text' : 'Falso', 'replace' : 'yes'  } }) }}
+                                <td class="col-sm-3 text-right">
+                                    {{ form_widget(respuesta.elegida,{ 'attr' : { 'data-on-text' : 'V' , 'data-off-text' : 'F', 'replace' : 'yes' , 'data-size' : 'small'  } }) }}
                                 </td>
                             </tr>
                         {% endfor %}
