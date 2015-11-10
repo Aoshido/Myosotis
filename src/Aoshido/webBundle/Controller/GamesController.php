@@ -63,7 +63,10 @@ class GamesController extends Controller {
             foreach ($pregunta->getTemas() as $tema) {
                 $preguntas_temp = $tema->getPreguntas();
                 foreach ($preguntas_temp as $pregunta_temp) {
-                    if ($pregunta_temp != $pregunta && !$quiz->getPreguntas()->contains($pregunta_temp) && $pregunta_temp->getActivo()) {
+                    if ($pregunta_temp != $pregunta
+                            && !$quiz->getPreguntas()->contains($pregunta_temp) 
+                            && $pregunta_temp->getActivo()
+                            && count($pregunta_temp->getRespuestas()) > 0) {
                         $quiz->addPregunta($pregunta_temp);
                     }
                 }
@@ -102,7 +105,10 @@ class GamesController extends Controller {
         $preguntasIncorrectas = new ArrayCollection();
         $preguntasIncorrectasEntity = new ArrayCollection();
         $preguntasNoContestadas = new ArrayCollection();
-
+        
+        /*dump ($preguntas);
+        die();*/
+        
         foreach ($preguntas as &$pregunta) {
             $noContestada = FALSE;
             $bienContestada = FALSE;
@@ -188,7 +194,10 @@ class GamesController extends Controller {
             foreach ($pregunta->getTemas() as $tema) {
                 $preguntas_temp = $tema->getPreguntas();
                 foreach ($preguntas_temp as $pregunta_temp) {
-                    if ($pregunta_temp != $pregunta && !$preguntas->contains($pregunta_temp) && $pregunta_temp->getActivo()) {
+                    if ($pregunta_temp != $pregunta 
+                            && !$preguntas->contains($pregunta_temp) 
+                            && $pregunta_temp->getActivo() 
+                            && count($pregunta_temp->getRespuestas()) > 0) {
                         $preguntas->add($pregunta_temp);
                     }
                 }
@@ -284,7 +293,7 @@ class GamesController extends Controller {
         $this->getDoctrine()->getManager()->persist($preguntaEntity);
         $this->getDoctrine()->getManager()->flush();
 
-
+        //TODO: Que traiga las preguntas de los temas elegidos nada mas.
         $preguntasNuevas = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Pregunta')
                 ->findBy(array('activo' => TRUE));
