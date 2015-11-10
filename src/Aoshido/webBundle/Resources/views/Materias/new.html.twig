@@ -14,19 +14,15 @@
             <div class="panel-heading text-right">Materias Disponibles: {{ paginas.getTotalItemCount }}</div>
 
             <table class="table table-condensed">
-                <th class="col-sm-8 info {% if paginas.isSorted('materia.descripcion') %}sorted{% endif %}">{{ knp_pagination_sortable(paginas, 'Descripcion', 'm.descripcion') }} </th>
-                <th class="col-sm-1 info text-center {% if paginas.isSorted('materia.aniocarrera') %}sorted{% endif %}">{{ knp_pagination_sortable(paginas, 'Año', 'm.anioCarrera') }}</th>
-                <th class="col-sm-3 info text-right"> Acciones </th>
+                <th class="col-sm-8 info {% if paginas.isSorted('m.descripcion') %}sorted{% endif %}">{{ knp_pagination_sortable(paginas, 'Descripcion', 'm.descripcion') }} </th>
+                <th class="col-sm-1 info text-center {% if paginas.isSorted('m.anioCarrera') %}sorted{% endif %}">{{ knp_pagination_sortable(paginas, 'Año', 'm.anioCarrera') }}</th>
+                <th class="col-sm-3 info text-right"> Opciones </th>
 
                 {% for materia in paginas %}
                     <tr>
                         <td class="col-sm-8">
                             <span class="badge progress-bar-info" data-toggle="tooltip" data-placement="left" title="Cantidad de Temas">
-                                {% if materia.id in temasMaterias|keys %}
-                                    {{temasMaterias[materia.id]}}
-                                {% else %}
-                                    0
-                                {% endif %}
+                                {{materia.getTemas.count}}
                             </span>
                             {{ materia.descripcion }}
                         </td>

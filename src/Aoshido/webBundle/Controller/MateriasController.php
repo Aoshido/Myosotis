@@ -18,11 +18,6 @@ class MateriasController extends Controller {
                 ->where('m.activo = TRUE')
                 ->getQuery();
 
-        $temasMaterias = array();
-        foreach ($materias as $materia) {
-            $temasMaterias[$materia->getId()] = count($materia->getTemas());
-        }
-
         $materia = new Materia();
         $form = $this->createForm(new MateriaType(), $materia);
 
@@ -45,7 +40,6 @@ class MateriasController extends Controller {
         return $this->render('AoshidowebBundle:Materias:new.html.twig', array(
                     'form' => $form->createView(),
                     'paginas' => $pagination,
-                    'temasMaterias' => $temasMaterias,
         ));
     }
 
@@ -54,19 +48,14 @@ class MateriasController extends Controller {
         //Display a list of all Materias
         $materias = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Materia')
-                ->findBy(array('activo' => TRUE));
-
-        $temasMaterias = array();
-        foreach ($materias as $materia) {
-            $temasMaterias[$materia->getId()] = count($materia->getTemas());
-        }
+                ->createQueryBuilder('m')
+                ->where('m.activo = TRUE')
+                ->getQuery();
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($materias, $this->getRequest()->query->get('page', 1), 5);
         $pagination->setPageRange(6);
-
-        $cantidad = count($materias);
-
+        
         $materia = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Materia')
                 ->find($idMateria);
@@ -89,8 +78,6 @@ class MateriasController extends Controller {
         return $this->render('AoshidowebBundle:Materias:new.html.twig', array(
                     'form' => $form->createView(),
                     'paginas' => $pagination,
-                    'cantidad' => $cantidad,
-                    'temasMaterias' => $temasMaterias,
         ));
     }
 
