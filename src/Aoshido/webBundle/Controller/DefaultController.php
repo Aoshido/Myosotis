@@ -21,5 +21,16 @@ class DefaultController extends Controller {
     public function faqAction() {
         return $this->render('AoshidowebBundle:Default:faq.html.twig');
     }
+    
+    public function cacheClearAction() {
+        $result = [];
+        exec('rm -r ../app/cache/*' , $result);
+        
+        foreach ($result as $resultado){
+            $this->get('session')->getFlashBag()->add('success', 'Cache Cleared: ' . $resultado);
+        }
+        
+        return $this->redirect('myosotis.aoshido.com.ar');
+    }
 
 }
