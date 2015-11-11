@@ -41,8 +41,8 @@
                             {{ form_widget(respuesta.id) }}
                         </div>
                     </td>
-                    <td class="col-sm-3">
-                        {{ form_widget(respuesta.elegida,{ 'attr' : { 'data-on-text' : 'Verdadero' , 'data-off-text' : 'Falso' } }) }}
+                    <td class="col-sm-3 text-right">
+                        {{ form_widget(respuesta.elegida,{ 'attr' : { 'data-on-text' : 'V' , 'data-off-text' : 'F', 'replace' : 'yes' , 'data-size' : 'small'  } }) }}
                     </td>
                 </tr>
             {% endfor %}

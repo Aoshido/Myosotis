@@ -28,12 +28,18 @@ class GamesController extends Controller {
         if ($form->isValid()) {
             foreach ($pregunta->getTemas() as $tema) {
                 $preguntas_temp = $tema->getPreguntas();
-                foreach ($preguntas_temp as $pregunta_temp) {
-                    if ($pregunta_temp != $pregunta && !$preguntas->contains($pregunta_temp) && $pregunta_temp->getActivo()) {
-                        $preguntas->add($pregunta_temp);
+                if (count($preguntas_temp) > 0) {
+                    foreach ($preguntas_temp as $pregunta_temp) {
+                        if ($pregunta_temp != $pregunta && !$preguntas->contains($pregunta_temp) && $pregunta_temp->getActivo()) {
+                            $preguntas->add($pregunta_temp);
+                        }
                     }
                 }
             }
+        }
+
+        if (count($preguntas) == 0) {
+            $this->get('session')->getFlashBag()->add('error', 'Oops! Parece que no hay preguntas de esos temas');
         }
 
         $paginator = $this->get('knp_paginator');
@@ -55,21 +61,31 @@ class GamesController extends Controller {
         ));
 
         $form->handleRequest($request);
-        $preguntas = new ArrayCollection();
 
         if ($form->isValid()) {
             $quiz = new Examen();
 
             foreach ($pregunta->getTemas() as $tema) {
                 $preguntas_temp = $tema->getPreguntas();
-                foreach ($preguntas_temp as $pregunta_temp) {
+                if (count($preguntas_temp) > 0) {
+                    foreach ($preguntas_temp as $pregunta_temp) {
                     if ($pregunta_temp != $pregunta
                             && !$quiz->getPreguntas()->contains($pregunta_temp) 
                             && $pregunta_temp->getActivo()
                             && count($pregunta_temp->getRespuestas()) > 0) {
-                        $quiz->addPregunta($pregunta_temp);
+                            $quiz->addPregunta($pregunta_temp);
+                        }
                     }
                 }
+            }
+
+            if (count($quiz->getPreguntas()) == 0) {
+                $this->get('session')->getFlashBag()->add('error', 'Oops! Parece que no hay preguntas de esos temas');
+                return $this->render('AoshidowebBundle:Games:quiz.html.twig', array(
+                            'form' => $form->createView(),
+                            'quizForm' => NULL,
+                            'quiz' => NULL
+                ));
             }
 
             $quizForm = $this->createForm(new ExamenType(), $quiz, array(
@@ -105,7 +121,7 @@ class GamesController extends Controller {
         $preguntasIncorrectas = new ArrayCollection();
         $preguntasIncorrectasEntity = new ArrayCollection();
         $preguntasNoContestadas = new ArrayCollection();
-        
+
         foreach ($preguntas as &$pregunta) {
             $noContestada = FALSE;
             $bienContestada = FALSE;
@@ -166,6 +182,12 @@ class GamesController extends Controller {
          * Esto va a tene que redirigir a otra pagina (Show) para evitar
          * Que le sigan dando al f5 y sigan posetando sus resultados, cual plebe
          */
+
+        /* $session = $request->getSession();
+          $session->set('correctas' ,$preguntasCorrectas);
+
+          return $this->redirectToRoute('games_resultados_show'); */
+
         return $this->render('AoshidowebBundle:Games:results.html.twig', array(
                     'correctas' => $preguntasCorrectas,
                     'incorrectas' => $preguntasIncorrectas,
@@ -173,6 +195,14 @@ class GamesController extends Controller {
                     'noContestadas' => $preguntasNoContestadas,
                     'total' => count($preguntas)
         ));
+    }
+
+    public function showAction(Request $request) {
+        /* $session = $request->getSession();
+          dump($session->get('correctas')[0]->getTemas());
+          die(); */
+
+        return $this->render('AoshidowebBundle:Games:results.html.twig', $parameters);
     }
 
     public function challengeAction(Request $request) {
@@ -186,6 +216,7 @@ class GamesController extends Controller {
         $form->handleRequest($request);
 
         $preguntas = new ArrayCollection();
+        $quizForm = NULL;
 
         if ($form->isValid()) {
             foreach ($pregunta->getTemas() as $tema) {
@@ -199,6 +230,15 @@ class GamesController extends Controller {
                     }
                 }
             }
+
+            if (count($preguntas) == 0) {
+                $this->get('session')->getFlashBag()->add('error', 'Oops! Parece que no hay preguntas de esos temas');
+                return $this->render('AoshidowebBundle:Games:challenge.html.twig', array(
+                            'quizForm' => $quizForm == NULL ? NULL : $quizForm->createView(),
+                            'form' => $form->createView()
+                ));
+            }
+
             $random = rand(0, count($preguntas) - 1);
 
             $quiz = new Examen();
@@ -216,10 +256,7 @@ class GamesController extends Controller {
                     'class' => 'btn btn-primary'
                 ),
             ));
-        }else{
-            $quizForm = NULL;
         }
-
 
         return $this->render('AoshidowebBundle:Games:challenge.html.twig', array(
                     'quizForm' => $quizForm == NULL ? NULL : $quizForm->createView(),

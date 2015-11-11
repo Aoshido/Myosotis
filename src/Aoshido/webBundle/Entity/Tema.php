@@ -89,6 +89,12 @@ class Tema {
      */
     public function setActivo($activo) {
         $this->activo = $activo;
+        
+        if (!$activo) {
+            foreach ($this->preguntas as $pregunta) {
+                $pregunta->removeTema($this);
+            }
+        }
 
         return $this;
     }

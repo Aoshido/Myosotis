@@ -37,7 +37,7 @@
                                 Acertada: {{pregunta.vecesAcertada}}
                             </span>
                             <span class="badge progress-bar-info">
-                                {{pregunta.getTemas[0].getMateria.Descripcion}}
+                                {#pregunta.getTemas[0].getMateria.Descripcion#}
                             </span>
                             <span class="badge progress-bar-danger">
                                 {{pregunta.getCreada|date("d/m/Y")}}
