@@ -14,7 +14,6 @@ games_challenge_new:
     path:     /challenge/newPregunta
     defaults: { _controller: AoshidowebBundle:Games:newPregunta }
 
-
 games_settings:
     path:     /settings
     defaults: { _controller: AoshidowebBundle:Games:settings }
@@ -23,3 +22,8 @@ games_resultados:
     path:     /resultados
     defaults: { _controller: AoshidowebBundle:Games:resultados }
     methods:  [POST, PATCH]
+    
+games_resultados_show:
+    path:     /show
+    defaults: { _controller: AoshidowebBundle:Games:show }
+

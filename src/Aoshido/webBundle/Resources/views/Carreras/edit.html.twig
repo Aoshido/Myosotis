@@ -14,7 +14,7 @@
     <div class="container col-md-12">
 
         <div class="panel panel-primary">
-            <div class="panel-heading text-right">Materias Totales: {{ cantidad }}</div>
+            <div class="panel-heading text-right">Materias Totales: {{ form.materias.count }}</div>
             
                 {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
                 {{ form_errors(form)}}

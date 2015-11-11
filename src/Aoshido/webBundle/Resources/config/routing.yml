@@ -1,3 +1,7 @@
+admin_cache:
+    path:     /admin/cache
+    defaults: { _controller: AoshidowebBundle:Default:cacheClear }
+
 aoshidoweb_homepage:
     path:     /
     defaults: { _controller: AoshidowebBundle:Default:index}
@@ -12,10 +16,6 @@ aoshidoweb_bio:
 aoshidoweb_faq:
     path:     /faq
     defaults: { _controller: AoshidowebBundle:Default:faq }
-    
-aoshidoweb_cache:
-    path:     /cache
-    defaults: { _controller: AoshidowebBundle:Default:cacheClear }
     
 aoshidoweb_bugs:
     path:     /bugs

@@ -21,35 +21,35 @@ class Pregunta {
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="Contenido", type="text")
      */
-    private $contenido;
+    protected $contenido;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="VecesVista", type="integer")
      */
-    private $vecesVista;
+    protected $vecesVista;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="VecesAcertada", type="integer")
      */
-    private $vecesAcertada;
+    protected $vecesAcertada;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="Activo", type="boolean")
      */
-    private $activo;
+    protected $activo;
 
     /**
      * @ORM\OneToMany(targetEntity="Respuesta", mappedBy="pregunta")
@@ -66,7 +66,7 @@ class Pregunta {
      * @ORM\ManyToMany(targetEntity="Tema", inversedBy="preguntas", cascade={"persist"})
      * @ORM\JoinTable(name="PreguntasTemas")
      * */
-    private $temas;
+    protected $temas;
 
     /**
      * @var datetime
@@ -176,7 +176,7 @@ class Pregunta {
     public function getVecesAcertada() {
         return $this->vecesAcertada;
     }
-    
+
     /**
      * increase vecesAcertada
      *
@@ -279,6 +279,9 @@ class Pregunta {
      */
     public function removeTema(\Aoshido\webBundle\Entity\Tema $temas) {
         $this->temas->removeElement($temas);
+        if (count($this->temas) == 0) {
+            $this->setActivo('false');
+        }
     }
 
     /**
@@ -365,23 +368,21 @@ class Pregunta {
         }
         return $respuestasCorrectas;
     }
-    
+
     /**
      * getDificultad
      *
      * @return float
      */
     public function getDificultad() {
-        if ($this->vecesVista > 0){
+        if ($this->vecesVista > 0) {
             $dificultad = 101 - ($this->vecesAcertada > 0 ? ($this->vecesAcertada / $this->vecesVista) * 100 : 1);
-        }
-        else {
+        } else {
             $dificultad = 0;
         }
 
 
         return $dificultad;
     }
-    
 
 }
