@@ -9,9 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  */
-class Respuesta
-{
+class Respuesta {
+
     /**
      * @var integer
      *
@@ -42,20 +43,42 @@ class Respuesta
      */
     private $activo;
 
-    
-     /**
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="Aceptada", type="boolean", options={"default" = FALSE})
+     */
+    private $aceptada;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Pregunta", inversedBy="respuestas")
      * @ORM\JoinColumn(name="IdPregunta", referencedColumnName="id")
      */
     protected $pregunta;
 
     /**
+     * @var datetime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    protected $creada;
+
+    /**
+     * Now we tell doctrine that before we persist or update we call the updatedTimestamps() function.
+     *
+     * @ORM\PrePersist
+     */
+    public function setDefaults() {
+        $this->aceptada = false;
+        $this->creada = new \DateTime();
+    }
+
+    /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -65,8 +88,7 @@ class Respuesta
      * @param string $contenido
      * @return Respuesta
      */
-    public function setContenido($contenido)
-    {
+    public function setContenido($contenido) {
         $this->contenido = $contenido;
 
         return $this;
@@ -77,8 +99,7 @@ class Respuesta
      *
      * @return string 
      */
-    public function getContenido()
-    {
+    public function getContenido() {
         return $this->contenido;
     }
 
@@ -88,8 +109,7 @@ class Respuesta
      * @param boolean $correcta
      * @return Respuesta
      */
-    public function setCorrecta($correcta)
-    {
+    public function setCorrecta($correcta) {
         $this->correcta = $correcta;
 
         return $this;
@@ -100,8 +120,7 @@ class Respuesta
      *
      * @return boolean 
      */
-    public function getCorrecta()
-    {
+    public function getCorrecta() {
         return $this->correcta;
     }
 
@@ -111,8 +130,7 @@ class Respuesta
      * @param boolean $activo
      * @return Respuesta
      */
-    public function setActivo($activo)
-    {
+    public function setActivo($activo) {
         $this->activo = $activo;
 
         return $this;
@@ -123,9 +141,27 @@ class Respuesta
      *
      * @return boolean 
      */
-    public function getActivo()
-    {
+    public function getActivo() {
         return $this->activo;
+    }
+
+    /**
+     * Get aceptada
+     *
+     * @return boolean 
+     */
+    public function getAceptada() {
+        return $this->aceptada;
+    }
+
+    /**
+     * Set aceptada
+     *
+     * @param boolean $aceptada
+     * @return Respuesta
+     */
+    public function setAceptada($aceptada) {
+        $this->aceptada = $aceptada;
     }
 
     /**
@@ -134,8 +170,7 @@ class Respuesta
      * @param \Aoshido\webBundle\Entity\Pregunta $pregunta
      * @return Respuesta
      */
-    public function setPregunta(\Aoshido\webBundle\Entity\Pregunta $pregunta = null)
-    {
+    public function setPregunta(\Aoshido\webBundle\Entity\Pregunta $pregunta = null) {
         $this->pregunta = $pregunta;
 
         return $this;
@@ -146,8 +181,30 @@ class Respuesta
      *
      * @return \Aoshido\webBundle\Entity\Pregunta 
      */
-    public function getPregunta()
-    {
+    public function getPregunta() {
         return $this->pregunta;
     }
+    
+        /**
+     * Set creada
+     *
+     * @param \DateTime $creada
+     *
+     * @return Respuesta
+     */
+    public function setCreada($creada) {
+        $this->creada = $creada;
+
+        return $this;
+    }
+
+    /**
+     * Get creada
+     *
+     * @return \DateTime
+     */
+    public function getCreada() {
+        return $this->creada;
+    }
+
 }
