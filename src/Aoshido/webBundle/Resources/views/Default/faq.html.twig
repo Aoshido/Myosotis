@@ -15,6 +15,17 @@
                 ¿Como se utiliza esto?
             {% endblock %}
             {% block content %}
+                <p> El objetivo general de esta pagina es que se agreguen preguntas que fueron apareciendo en
+                    parciales o finales junto con sus respuestas. De esta manera, cuando hay que memorizar muchos
+                    verdaderos o falsos, o multiples choices, quedan todos compilados en un mismo lugar y se hace
+                    mas facil (y divertido).
+                    Esta pagina esta dividida en 2 grandes secciones, el menú principal (Que permite crear Carreras,
+                    Materias, Temas, Preguntas y Respuestas) y la seccion de Juegos. 
+                    El primer uso de la pagina seria que uno de de alta una pregunta con su respuesta, y después estudie
+                    con alguno de los juegos disponibles.
+                    Otro uso posible de la misma es, una vez creada la pregunta si no se tiene una respuesta, publicarla
+                    en alguna red social/foro/etc para que otra persona la pueda responder.
+                </p>
                 <h3> Para aprender: </h3>
                 <ul>
                     <li> Crear una pregunta</li>
@@ -52,14 +63,14 @@
             {% endblock %}
         {% endembed %}
 
-        {% embed 'AoshidowebBundle:Default:_faqPanel.html.twig' with {'numero': '4'} %}
+        {# embed 'AoshidowebBundle:Default:_faqPanel.html.twig' with {'numero': '4'} %}
             {% block title %}
                 ¿Cualquiera puede responder una pregunta? 
             {% endblock %}
             {% block content %}
                 <p> Si, sin embargo estas no se van a mostrar hasta que algun aprobador las revise</p>
             {% endblock %}
-        {% endembed %}
+        {% endembed #}
 
         {% embed 'AoshidowebBundle:Default:_faqPanel.html.twig' with {'numero': '5'} %}
             {% block title %}
