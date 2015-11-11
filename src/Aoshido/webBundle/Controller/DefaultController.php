@@ -30,7 +30,7 @@ class DefaultController extends Controller {
             $this->get('session')->getFlashBag()->add('success', 'Cache Cleared: ' . $resultado);
         }
         
-        return $this->redirect('myosotis.aoshido.com.ar');
+        return $this->redirect('//');
     }
 
 }
