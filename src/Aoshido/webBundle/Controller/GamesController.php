@@ -106,9 +106,6 @@ class GamesController extends Controller {
         $preguntasIncorrectasEntity = new ArrayCollection();
         $preguntasNoContestadas = new ArrayCollection();
         
-        /*dump ($preguntas);
-        die();*/
-        
         foreach ($preguntas as &$pregunta) {
             $noContestada = FALSE;
             $bienContestada = FALSE;

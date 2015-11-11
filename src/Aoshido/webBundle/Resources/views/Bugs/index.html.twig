@@ -3,43 +3,39 @@
 {% block title %}Let's Study!{% endblock %}
 {% block content %}
     <div class="jumbotron alpha60">
-        <div class="container-fluid">
+        <div class="panel panel-primary">
+            <div class="panel-heading text-right">Bugs Reportados: {{ cantidad }}</div>
 
-            <div class="panel panel-primary">
-                <div class="panel-heading text-right">Bugs Reportados: {{ cantidad }}</div>
-
-                <table class="table table-condensed">
-                    {% for bug in paginas %}
-                        <tr class="row">
-                            <td class="col-sm-1">
-                                {% if bug.status == 'Reported'%}
-                                    <span class="badge progress-bar-warning" data-toggle="tooltip" data-placement="left" title="Estado">
-                                        {{bug.status}}
-                                    </span>
-                                {%elseif bug.status == 'Fixed'%}
-                                    <span class="badge progress-bar-success" data-toggle="tooltip" data-placement="left" title="Estado">
-                                        {{bug.status}}
-                                    </span>
-                                {%elseif bug.status == 'Won\'t Fix'%}
-                                    <span class="badge progress-bar-info" data-toggle="tooltip" data-placement="left" title="Estado">
-                                        {{bug.status}}
-                                    </span>
-                                {%endif%}
-                            </td>
-                            <td class="col-sm-2">
-                                {{bug.reportedUser.username}}
-                            </td>
-                            <td class="col-sm-9">    
-                                {{ bug.contenido }}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </table>
-                <div class="col-md-offset-4 navigation">
-                    {{ knp_pagination_render(paginas) }}
-                </div>
-            </div>
-
+            <table class="table table-condensed">
+                {% for bug in paginas %}
+                    <tr class="row">
+                        <td class="col-sm-1">
+                            {% if bug.status == 'Reported'%}
+                                <span class="badge progress-bar-warning" data-toggle="tooltip" data-placement="left" title="Estado">
+                                    {{bug.status}}
+                                </span>
+                            {%elseif bug.status == 'Fixed'%}
+                                <span class="badge progress-bar-success" data-toggle="tooltip" data-placement="left" title="Estado">
+                                    {{bug.status}}
+                                </span>
+                            {%elseif bug.status == 'Won\'t Fix'%}
+                                <span class="badge progress-bar-info" data-toggle="tooltip" data-placement="left" title="Estado">
+                                    {{bug.status}}
+                                </span>
+                            {%endif%}
+                        </td>
+                        <td class="col-sm-2">
+                            {{bug.reportedUser.username}}
+                        </td>
+                        <td class="col-sm-9">    
+                            {{ bug.contenido }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="navigation text-center">
+            {{ knp_pagination_render(paginas) }}
         </div>
     </div>
 {% endblock %}
