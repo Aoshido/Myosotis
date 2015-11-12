@@ -12,7 +12,7 @@
 {% block section %}Respuestas{% endblock %}
 
 {% block abms_contenido %} 
-    <div class="container col-md-12">
+    <div class="container col-sm-12">
         <div class="panel panel-primary">
             <div class="panel-heading">Pregunta:</div>
             <div class="text-center">
@@ -20,25 +20,19 @@
             </div>
         </div>
         <div class="panel panel-primary">
-            <div class="panel-heading text-right">Respuestas Disponibles: {{ cantidad }}</div>
+            <div class="panel-heading text-right">Respuestas Disponibles: {{ pregunta.respuestas.count }}</div>
 
             <table class="table table-condensed">
                 {% for respuesta in paginas %}
                     <tr {% if respuesta.correcta == TRUE %} class="success" {% else %} class="danger" {% endif%}>
                         <td class="col-sm-9">
-                            
+
                             <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
 
                                 {{ respuesta.contenido|markdown|raw|truncate(150)}}
                             </div>
                         </td>
                         <td class="col-sm-3 text-right">
-                            {%if not respuesta.aceptada%}
-                                <span class="fa-stack fa-lg" data-toggle="tooltip" data-placement="bottom" title="Respuesta No Aceptada">
-                                    <i class="fa fa-square fa-stack-2x"></i>
-                                    <i class="fa fa-exclamation-triangle fa-stack-1x" style="color: yellow"></i>
-                                </span>
-                            {%endif%}
                             <div class="btn-group btn-group-sm" role="group" aria-label="..." >
                                 <button type="button" class="btn btn-success" aria-label="Left Align" 
                                         data-toggle="tooltip" data-placement="top" title="Editar" 
@@ -49,44 +43,16 @@
                                     <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                                 </button>    
                             </div>
-                            
+
                         </td>
                     </tr>
                 {% endfor %}
             </table>
-            <div class="col-md-offset-4 navigation">
-                {{ knp_pagination_render(paginas) }}
-            </div>
-
         </div>
-        <div class="panel panel-primary">
-            <div class="panel-heading">Agregar Respuesta</div>
-            <div class="panel-body">
-                {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
-
-                <div class="form-group">
-                    {{ form_errors(form)}}
-                    {{ form_errors(form.contenido) }}
-                    {{ form_label(form.contenido,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } })}}
-                    <div id="anchor" class="col-md-6">
-                        {{ form_widget(form.contenido,{ 'attr' : { 'class' : 'form-control' } }) }}
-                    </div>
-
-                    <div class="col-md-2">
-                        {{ form_widget(form.correcta) }}
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <div id="anchor" class="col-md-offset-2 col-md-4">
-                        {{ form_widget(form.save,{ 'attr': {'class': 'btn btn-success' }  } ) }}
-                    </div>
-                    {{ form_row(form._token) }}
-                    {{ form_end(form, {'render_rest': false}) }}
-                </div>
-            </div>
+        <div class="text-center navigation">
+            {{ knp_pagination_render(paginas) }}
         </div>
+        {% include 'AoshidowebBundle:Respuestas:form.html.twig' %}
     </div>
 {% endblock %}
 
@@ -105,6 +71,10 @@
 
     <script type="text/javascript">
         CKEDITOR.replace('respuesta_contenido');
+    </script>
+
+    <script type="text/javascript">
+        $("[replace='yes']").bootstrapSwitch();
     </script>
 
     <script type="text/javascript">

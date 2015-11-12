@@ -29,12 +29,6 @@ class RespuestaType extends AbstractType {
             'mapped'=> true,
         ));
 
-        $builder->add('save', 'submit', array(
-            'label' => 'Agregar Respuesta',
-            'attr' => array(
-                'class' => 'btn btn-success'
-            ),
-        ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver) {

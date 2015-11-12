@@ -27,6 +27,13 @@ class RespuestasController extends Controller {
         $respuesta = new Respuesta();
         $form = $this->createForm(new RespuestaType(), $respuesta);
 
+        $form->add('save', 'submit', array(
+            'label' => 'Agregar Respuesta',
+            'attr' => array(
+                'class' => 'btn btn-success'
+            ),
+        ));
+
         $form->handleRequest($request);
         if ($form->isValid()) {
             $respuesta->setActivo(TRUE);
@@ -63,9 +70,17 @@ class RespuestasController extends Controller {
         $respuesta = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Respuesta')
                 ->find($idRespuesta);
-        
-        $form = $this->createForm(new RespuestaType(), $respuesta, array('method' => 'PATCH'));
 
+        $form = $this->createForm(new RespuestaType(), $respuesta, array('method' => 'PATCH'));
+        
+        $form->add('save', 'submit', array(
+            'label' => 'Guardar Cambios',
+            'attr' => array(
+                'class' => 'btn btn-success'
+            ),
+        ));
+        
+        
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -76,7 +91,7 @@ class RespuestasController extends Controller {
                                 'idPregunta' => $idPregunta)));
         }
 
-        return $this->render('AoshidowebBundle:Respuestas:edit.html.twig', array(
+        return $this->render('AoshidowebBundle:Respuestas:new.html.twig', array(
                     'form' => $form->createView(),
                     'paginas' => $pagination,
                     'cantidad' => $cantidad,
