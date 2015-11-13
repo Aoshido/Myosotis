@@ -36,11 +36,11 @@ class GamesController extends Controller {
                     }
                 }
             }
+            if (count($preguntas) == 0) {
+                $this->get('session')->getFlashBag()->add('error', 'Oops! Parece que no hay preguntas de esos temas');
+            }
         }
 
-        if (count($preguntas) == 0) {
-            $this->get('session')->getFlashBag()->add('error', 'Oops! Parece que no hay preguntas de esos temas');
-        }
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($preguntas, $this->getRequest()->query->get('page', 1), 4);

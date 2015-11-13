@@ -17,7 +17,7 @@
             <table class="table table-condensed">
                 <th class="col-sm-9 info {% if paginas.isSorted('c.Descripcion') %}sorted{% endif %}">{{ knp_pagination_sortable(paginas, 'Descripcion', 'c.Descripcion') }} </th>
                 <th class="col-sm-3 info text-right"> Opciones </th>
-                {% for carrera in paginas %}
+                    {% for carrera in paginas %}
                     <tr>
                         <td class="col-sm-9"> 
                             <span class="badge progress-bar-info" data-toggle="tooltip" data-placement="left" title="Cantidad de Materias">
@@ -27,7 +27,7 @@
                         </td>
 
                         <td class="col-sm-1 text-right">
-                            <div class="btn-group btn-group-sm" role="group">
+                            <div class="btn-group btn-group-xs" role="group">
                                 <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="tooltip" data-placement="left" title="Editar" onclick="location.href = '{{ url('carreras_edit',{ 'idCarrera': carrera.id})}}';">
                                     <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                                 </button>    
@@ -39,7 +39,7 @@
                     </tr>
                 {% endfor %}
             </table>
-            <div class="col-sm-offset-4 navigation">
+            <div class="text-center navigation">
                 {{ knp_pagination_render(paginas) }}
             </div>
 
@@ -53,27 +53,27 @@
                 <tbody id="materias" data-prototype="{% filter escape %}{{ include('AoshidowebBundle:Themes:carrera-edit-field-prototype.html.twig',{ 'form': form.materias.vars.prototype }) }}{% endfilter %}">
                     <tr class="info">
                         <td>
-                            {{ form_label(form.descripcion,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } })}}
+                            {{ form_label(form.descripcion,null,{ 'label_attr' : { 'class' : 'col-sm-2 control-label' } })}}
                         </td>
-                        <td colspan="4">
+                        <td class="col-sm-10" colspan="4">
                             {{ form_widget(form.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }}
                         </td>
                     </tr>
                     {% for materia in form.materias %}
-                        <tr >
-                            <td  >
-                                {{ form_label(materia.descripcion,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }} 
+                        {#<tr >
+                            <td class="text-left" >
+                                {{ form_label(materia.descripcion,null,{ 'label_attr' : { 'class' : 'col-sm-2 control-label' } }) }} 
                             </td>    
-                            <td>
+                            <td class="col-sm-4">
                                 {{ form_widget(materia.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }} 
                             </td>
-                            <td>
-                                {{ form_label(materia.aniocarrera,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }} 
+                            <td class="text-left">
+                                {{ form_label(materia.aniocarrera,null,{ 'label_attr' : { 'class' : 'col-sm-2 control-label' } }) }} 
                             </td>    
-                            <td id="temaCont">
+                            <td class="col-sm-4" id="temaCont">
                                 {{ form_widget(materia.aniocarrera,{ 'attr' : { 'class' : 'form-control' } }) }} 
                             </td>
-                        </tr>
+                        </tr>#}
                     {% endfor %}
 
                 </tbody>    
@@ -120,7 +120,7 @@
                                 Materia\n\
                             </button>');
 
-        var $newLinkLi = $('<td class="col-md-2"></td>').append($addTagLink);
+        var $newLinkLi = $('<td class="col-sm-2"></td>').append($addTagLink);
 
         jQuery(document).ready(function () {
             // Elemento que va a obtener la coleccion de materias
