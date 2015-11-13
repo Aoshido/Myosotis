@@ -14,14 +14,8 @@
 
         <div class="form-group">
             {{ form_label(form.correcta,null,{ 'label_attr' : { 'class' : 'col-sm-2 control-label' } })}}
-            <div class="col-sm-10 btn-group " data-toggle="buttons">
-                {% for key,choice in form.correcta.vars.choices %}
-                    <label class="btn btn-primary {% if choice.value == form.correcta.vars.value %}active{% endif %}">
-                        <input type="radio" id="{{ form.correcta.vars.id }}_{{ key }}" {% if choice.value == form.correcta.vars.value %}checked{% endif %}
-                               autocomplete="off" name="{{ form.correcta.vars.full_name }}" value="{{ choice.value }}">
-                        {{ choice.label }}
-                    </label>
-                {% endfor %}
+            <div class="col-sm-10 btn-group " >
+                {{form_widget(form.correcta)}}
             </div>
         </div>
 
