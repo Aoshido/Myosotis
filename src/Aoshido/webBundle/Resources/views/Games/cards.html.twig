@@ -55,7 +55,7 @@
                                 <div class="flip-container " >
                                     <div class="flipper" id="card-{{pregunta.id}}" >
                                         <div class="front text-center card_back alpha60" onclick="document.querySelector('#card-{{pregunta.id}}').classList.toggle('flip-it');">
-                                            <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
+                                            <div style="height:150px;overflow:hidden; text-overflow:ellipsis;">
                                                 {% set vermas=false %}
                                                 {% if pregunta.contenido|length > 100 %}
                                                     {% set vermas=true %}

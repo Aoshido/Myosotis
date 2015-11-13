@@ -116,7 +116,7 @@ class PreguntasController extends Controller {
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $temas = $form->get('temas')->getData();
-
+            $pregunta->setActivo(TRUE);
 
             foreach ($pregunta->getTemas() as $tema) {
                 $pregunta->removeTema($tema);

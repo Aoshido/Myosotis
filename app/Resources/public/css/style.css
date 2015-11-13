@@ -13,6 +13,10 @@
     color: dodgerblue;
 }
 
+p{
+    word-wrap: break-word;
+}
+
 .login_bckg{
     background-color: rgb(50, 50, 50);
     color: rgb(175,175,175);

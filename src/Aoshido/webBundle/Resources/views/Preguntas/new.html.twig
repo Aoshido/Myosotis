@@ -47,7 +47,7 @@
                 {% for pregunta in paginas %}
                     <tr class="row">
                         <td class="col-sm-12 clickable" data-toggle="modal" data-target="#myModal-{{pregunta.id}}">
-                            <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
+                            <div style="height:150px;overflow:hidden; text-overflow:ellipsis;">
                                 {{ pregunta.contenido|markdown|raw|truncate(150) }}
                             </div>
 
