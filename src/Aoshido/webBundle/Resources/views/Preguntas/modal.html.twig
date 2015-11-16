@@ -8,7 +8,7 @@
                 <h4 class="modal-title" id="myModalLabel">Pregunta N°: {{pregunta.id}}</h4>
             </div>
 
-            <div class="modal-body">
+            <div class="modal-body" style="overflow:auto; ">
                 {{ (pregunta.contenido|markdown) }}
                 <h4> Respuestas posibles: </h4>
                 {% if pregunta.respuestas.count != 0 %}
