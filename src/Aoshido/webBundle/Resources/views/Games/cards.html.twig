@@ -111,10 +111,9 @@
             {% endif %}
         
     </div>
-    <div class="col-sm-12 navigation text-center">
+    <div class="navigation text-center">
         {{ knp_pagination_render(paginas) }}
     </div>
-
 
     {% set vars = {'form': form } %}
     {% include 'AoshidowebBundle:Games:settings.html.twig' with vars %}

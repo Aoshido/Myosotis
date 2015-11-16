@@ -116,8 +116,7 @@ class PreguntasController extends Controller {
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $temas = $form->get('temas')->getData();
-            $pregunta->setActivo(TRUE);
-
+            
             foreach ($pregunta->getTemas() as $tema) {
                 $pregunta->removeTema($tema);
                 $em->persist($tema);
@@ -127,9 +126,7 @@ class PreguntasController extends Controller {
                 $pregunta->addTema($tema);
                 $em->persist($tema);
             }
-
-            $em->persist($pregunta);
-            $em->flush();
+            $pregunta->setActivo(TRUE);
 
             $this->get('session')->getFlashBag()->add('success', 'Pregunta editada !');
             return $this->redirect($this->generateUrl('abms_preguntas'));

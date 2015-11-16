@@ -69,10 +69,7 @@ class GamesController extends Controller {
                 $preguntas_temp = $tema->getPreguntas();
                 if (count($preguntas_temp) > 0) {
                     foreach ($preguntas_temp as $pregunta_temp) {
-                    if ($pregunta_temp != $pregunta
-                            && !$quiz->getPreguntas()->contains($pregunta_temp) 
-                            && $pregunta_temp->getActivo()
-                            && count($pregunta_temp->getRespuestas()) > 0) {
+                        if ($pregunta_temp != $pregunta && !$quiz->getPreguntas()->contains($pregunta_temp) && $pregunta_temp->getActivo() && count($pregunta_temp->getRespuestas()) > 0) {
                             $quiz->addPregunta($pregunta_temp);
                         }
                     }
@@ -208,6 +205,7 @@ class GamesController extends Controller {
     public function challengeAction(Request $request) {
 
         $pregunta = new Pregunta();
+        $temasIds = array();
 
         $form = $this->createForm(new PreguntaType(), $pregunta, array(
             'method' => 'GET',
@@ -221,11 +219,10 @@ class GamesController extends Controller {
         if ($form->isValid()) {
             foreach ($pregunta->getTemas() as $tema) {
                 $preguntas_temp = $tema->getPreguntas();
+                $temasIds[] = $tema->getId();
+
                 foreach ($preguntas_temp as $pregunta_temp) {
-                    if ($pregunta_temp != $pregunta 
-                            && !$preguntas->contains($pregunta_temp) 
-                            && $pregunta_temp->getActivo() 
-                            && count($pregunta_temp->getRespuestas()) > 0) {
+                    if ($pregunta_temp != $pregunta && !$preguntas->contains($pregunta_temp) && $pregunta_temp->getActivo() && count($pregunta_temp->getRespuestas()) > 0) {
                         $preguntas->add($pregunta_temp);
                     }
                 }
@@ -256,6 +253,10 @@ class GamesController extends Controller {
                     'class' => 'btn btn-primary'
                 ),
             ));
+
+            $session = $request->getSession();
+
+            $session->set('temas', $temasIds);
         }
 
         return $this->render('AoshidowebBundle:Games:challenge.html.twig', array(
@@ -274,8 +275,8 @@ class GamesController extends Controller {
 
         foreach ($preguntas as &$pregunta) {
             $noContestada = FALSE;
-            $bienContestada = FALSE;
             $malContestada = FALSE;
+            $bienContestada = FALSE;
 
             $preguntaEntity = $this->getDoctrine()
                     ->getRepository('AoshidowebBundle:Pregunta')
@@ -327,10 +328,19 @@ class GamesController extends Controller {
         $this->getDoctrine()->getManager()->persist($preguntaEntity);
         $this->getDoctrine()->getManager()->flush();
 
-        //TODO: Que traiga las preguntas de los temas elegidos nada mas.
+        $session = $request->getSession();
+        $temasIds = $session->get('temas');
+
         $preguntasNuevas = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Pregunta')
-                ->findBy(array('activo' => TRUE));
+                ->createQueryBuilder('p')
+                ->innerJoin('p.respuestas','r' )
+                ->innerJoin('p.temas','t' )
+                ->where('p.activo = TRUE')
+                ->andWhere('r.activo = TRUE')
+                ->andWhere('t.id IN (:ids)')
+                ->setParameter('ids', $temasIds)
+                ->getQuery()->getResult();
 
         $random = rand(0, count($preguntasNuevas) - 1);
 

@@ -12,7 +12,7 @@
         <div class="panel-heading text-right">Pregunta</div>
         <table class="table table-condensed">
             <tr class="row">
-                <td class="col-sm-9" colspan='2'>
+                <td class="col-sm-12">
                     <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
                         {{ pregunta.vars.value.contenido|markdown|raw|truncate(150) }}
                         {{ form_widget(pregunta.contenido) }}

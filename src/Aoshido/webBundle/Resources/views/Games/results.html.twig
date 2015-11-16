@@ -15,14 +15,13 @@
 {% block games_contenido %}
 
     <div class="panel panel-primary">
-        <div class="panel-heading clickable">
-            <h3 class="panel-title">
+        <div class="panel-heading" role="tab" id="heading1">
+            <h3 class="panel-title clickable"role="button" 
+                data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false" aria-controls="collapse1">
                 Preguntas Bien Contestadas: {{ correctas.count }}
             </h3>
-
-            <span class="pull-right clickable"><i class="glyphicon glyphicon-minus"></i></span>
         </div>
-        <div class="panel-body">
+        <div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading1">
             <table class="table">
                 {% for pregunta in correctas %}
                     <tr class="row">
@@ -37,7 +36,7 @@
                                 Acertada: {{pregunta.vecesAcertada}}
                             </span>
                             <span class="badge progress-bar-info">
-                                {#pregunta.getTemas[0].getMateria.Descripcion#}
+                                {{pregunta.getTemas[0].getMateria.Descripcion}}
                             </span>
                             <span class="badge progress-bar-danger">
                                 {{pregunta.getCreada|date("d/m/Y")}}
@@ -50,14 +49,13 @@
     </div>
 
     <div class="panel panel-warning">
-        <div class="panel-heading clickable">
-            <h3 class="panel-title">
+        <div class="panel-heading" role="tab" id="heading2">
+            <h3 class="panel-title clickable" role="button" 
+                data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
                 Preguntas No Contestadas: {{ noContestadas.count }}
             </h3>
-
-            <span class="pull-right clickable"><i class="glyphicon glyphicon-minus"></i></span>
         </div>
-        <div class="panel-body">
+        <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
             <table class="table table-condensed">
                 {% for pregunta in noContestadas %}
                     <tr class="row">
@@ -85,18 +83,18 @@
     </div>
 
     <div class="panel panel-danger">
-        <div class="panel-heading clickable">
-            <h3 class="panel-title">
+        <div class="panel-heading" role="tab" id="heading3">
+            <h3 class="panel-title clickable" role="button" 
+                data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
                 Preguntas Incorrectas: {{ incorrectas.count }} 
             </h3>
-            
-            <span class="pull-right clickable"><i class="glyphicon glyphicon-minus"></i></span>
+
         </div>
-        <div class="panel-body">
+        <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
             <table class="table table-condensed">
                 {% for pregunta in incorrectasEntity %}
                     <tr class="row">
-                        <td clas="col-sm-12">        
+                        <td class="col-sm-12">        
                             <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
                                 {{ pregunta.contenido|markdown|raw|truncate(150) }}
                             </div>
@@ -118,7 +116,7 @@
                         {% if preguntaElegida.id == pregunta.id %}
                             {% for respuesta in preguntaElegida.respuestas%}
                                 <tr class="row">
-                                    <td class="col-sm-12  {% if respuesta.elegida == '1'%} danger {%endif%}">
+                                    <td class="col-sm-12{% if respuesta.elegida == '1'%} danger {%endif%}">
                                         <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
                                             {{ respuesta.contenido|markdown|raw|truncate(150) }}
                                         </div>
@@ -136,37 +134,6 @@
 
 {% block javascripts %} 
     {{ parent() }}
-
-    <script>
-        $(document).on('click', '.panel-heading span.clickable', function (e) {
-            var $this = $(this);
-            if (!$this.hasClass('panel-collapsed')) {
-                $this.parents('.panel').find('.panel-body').slideUp();
-                $this.addClass('panel-collapsed');
-                $this.find('i').removeClass('glyphicon-minus').addClass('glyphicon-plus');
-            } else {
-                $this.parents('.panel').find('.panel-body').slideDown();
-                $this.removeClass('panel-collapsed');
-                $this.find('i').removeClass('glyphicon-plus').addClass('glyphicon-minus');
-            }
-        });
-        $(document).on('click', '.panel div.clickable', function (e) {
-            var $this = $(this);
-            if (!$this.hasClass('panel-collapsed')) {
-                $this.parents('.panel').find('.panel-body').slideUp();
-                $this.addClass('panel-collapsed');
-                $this.find('i').removeClass('glyphicon-minus').addClass('glyphicon-plus');
-            } else {
-                $this.parents('.panel').find('.panel-body').slideDown();
-                $this.removeClass('panel-collapsed');
-                $this.find('i').removeClass('glyphicon-plus').addClass('glyphicon-minus');
-            }
-        });
-        $(document).ready(function () {
-            $('.panel-heading span.clickable').click();
-            $('.panel div.clickable').click();
-        });
-    </script>
 
     <script type="text/javascript">
         $(function () {
