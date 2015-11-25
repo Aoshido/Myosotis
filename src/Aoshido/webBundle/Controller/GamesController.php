@@ -144,8 +144,10 @@ class GamesController extends Controller {
                         $correctas++;
                     } else {
                         $malContestada = TRUE;
-                        $preguntasIncorrectas->add($pregunta);
-                        $preguntasIncorrectasEntity->add($preguntaEntity);
+                        if (!$preguntasIncorrectas->contains($pregunta)) {
+                            $preguntasIncorrectas->add($pregunta);
+                            $preguntasIncorrectasEntity->add($preguntaEntity);
+                        }
                     }
                 } else {
                     $respuesta['elegida'] = "0";
@@ -297,8 +299,10 @@ class GamesController extends Controller {
                         $correctas++;
                     } else {
                         $malContestada = TRUE;
-                        $preguntasIncorrectas->add($pregunta);
-                        $preguntasIncorrectasEntity->add($preguntaEntity);
+                        if (!$preguntasIncorrectas->contains($pregunta)) {
+                            $preguntasIncorrectas->add($pregunta);
+                            $preguntasIncorrectasEntity->add($preguntaEntity);
+                        }
                     }
                 } else {
                     $respuesta['elegida'] = "0";
@@ -332,15 +336,15 @@ class GamesController extends Controller {
         $temasIds = $session->get('temas');
 
         $preguntasNuevas = $this->getDoctrine()
-                ->getRepository('AoshidowebBundle:Pregunta')
-                ->createQueryBuilder('p')
-                ->innerJoin('p.respuestas','r' )
-                ->innerJoin('p.temas','t' )
-                ->where('p.activo = TRUE')
-                ->andWhere('r.activo = TRUE')
-                ->andWhere('t.id IN (:ids)')
-                ->setParameter('ids', $temasIds)
-                ->getQuery()->getResult();
+                        ->getRepository('AoshidowebBundle:Pregunta')
+                        ->createQueryBuilder('p')
+                        ->innerJoin('p.respuestas', 'r')
+                        ->innerJoin('p.temas', 't')
+                        ->where('p.activo = TRUE')
+                        ->andWhere('r.activo = TRUE')
+                        ->andWhere('t.id IN (:ids)')
+                        ->setParameter('ids', $temasIds)
+                        ->getQuery()->getResult();
 
         $random = rand(0, count($preguntasNuevas) - 1);
 
