@@ -115,8 +115,14 @@
                     {% for preguntaElegida in incorrectas %}
                         {% if preguntaElegida.id == pregunta.id %}
                             {% for respuesta in preguntaElegida.respuestas%}
+                                {%set correctaClass = FALSE %}
+                                {% for correcta in pregunta.getRespuestasCorrectas %}
+                                    {%if correcta.id == respuesta.id%}
+                                        {%set correctaClass = TRUE %}
+                                    {%endif%}
+                                {%endfor%}
                                 <tr class="row">
-                                    <td class="col-sm-12{% if respuesta.elegida == '1'%} danger {%endif%}">
+                                    <td class="col-sm-12{% if respuesta.elegida == '1'%} danger {%endif%} {% if correctaClass %} success {%endif%}">
                                         <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
                                             {{ respuesta.contenido|markdown|raw|truncate(150) }}
                                         </div>

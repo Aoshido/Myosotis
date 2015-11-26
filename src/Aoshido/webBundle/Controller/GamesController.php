@@ -114,85 +114,15 @@ class GamesController extends Controller {
 
     public function resultadosAction(Request $request) {
         $preguntas = $request->get('quiz')['preguntas'];
-        $preguntasCorrectas = new ArrayCollection();
-        $preguntasIncorrectas = new ArrayCollection();
-        $preguntasIncorrectasEntity = new ArrayCollection();
-        $preguntasNoContestadas = new ArrayCollection();
 
-        foreach ($preguntas as &$pregunta) {
-            $noContestada = FALSE;
-            $bienContestada = FALSE;
-            $malContestada = FALSE;
-
-            $preguntaEntity = $this->getDoctrine()
-                    ->getRepository('AoshidowebBundle:Pregunta')
-                    ->find($pregunta['id']);
-
-            $preguntaEntity->increaseVecesVista();
-
-            //Reviso si la respuesta que eligio es alguna de las correctas
-            $correctas = 0;
-
-            foreach ($pregunta['respuestas'] as &$respuesta) {
-                if (array_key_exists('elegida', $respuesta)) {
-
-                    $respuestaEntity = $this->getDoctrine()
-                            ->getRepository('AoshidowebBundle:Respuesta')
-                            ->find($respuesta['id']);
-
-                    if ($preguntaEntity->getRespuestasCorrectas()->contains($respuestaEntity)) {
-                        $correctas++;
-                    } else {
-                        $malContestada = TRUE;
-                        if (!$preguntasIncorrectas->contains($pregunta)) {
-                            $preguntasIncorrectas->add($pregunta);
-                            $preguntasIncorrectasEntity->add($preguntaEntity);
-                        }
-                    }
-                } else {
-                    $respuesta['elegida'] = "0";
-                }
-            }
-
-            //Si no hay nignuna opcion correcta , ni incorrecta es pq no contesto
-            if ($correctas == 0 && $malContestada == FALSE) {
-                $noContestada = TRUE;
-                $preguntasNoContestadas->add($preguntaEntity);
-            } else {
-                //Me fijo que haya elegido TODAS las respuestas correctas
-                if ($correctas == count($preguntaEntity->getRespuestasCorrectas()) && $malContestada == FALSE) {
-                    $bienContestada = TRUE;
-                    $preguntasCorrectas->add($preguntaEntity);
-                    $preguntaEntity->increaseVecesAcertada();
-                } else {
-                    $malContestada = TRUE;
-                    if (!$preguntasIncorrectas->contains($pregunta)) {
-                        $preguntasIncorrectas->add($pregunta);
-                        $preguntasIncorrectasEntity->add($preguntaEntity);
-                    }
-                }
-            }
-        }
-
-        $this->getDoctrine()->getManager()->persist($preguntaEntity);
-        $this->getDoctrine()->getManager()->flush();
-
-        /*
-         * Esto va a tene que redirigir a otra pagina (Show) para evitar
-         * Que le sigan dando al f5 y sigan posetando sus resultados, cual plebe
-         */
-
-        /* $session = $request->getSession();
-          $session->set('correctas' ,$preguntasCorrectas);
-
-          return $this->redirectToRoute('games_resultados_show'); */
+        $resultados = $this->corregirPreguntas($preguntas);
 
         return $this->render('AoshidowebBundle:Games:results.html.twig', array(
-                    'correctas' => $preguntasCorrectas,
-                    'incorrectas' => $preguntasIncorrectas,
-                    'incorrectasEntity' => $preguntasIncorrectasEntity,
-                    'noContestadas' => $preguntasNoContestadas,
-                    'total' => count($preguntas)
+                    'correctas' => $resultados['correctas'],
+                    'incorrectas' => $resultados['incorrectas'],
+                    'incorrectasEntity' => $resultados['incorrectasEntity'],
+                    'noContestadas' => $resultados['noContestadas'],
+                    'total' => $resultados['total']
         ));
     }
 
@@ -375,6 +305,82 @@ class GamesController extends Controller {
                     'incorrectas' => $preguntasIncorrectasCounter,
                     'nocontestadas' => $preguntasNoContestadasCounter,
         ));
+    }
+
+    public function corregirPreguntas(array $preguntas) {
+
+        $preguntasCorrectas = new ArrayCollection();
+        $preguntasIncorrectas = new ArrayCollection();
+        $preguntasIncorrectasEntity = new ArrayCollection();
+        $preguntasNoContestadas = new ArrayCollection();
+        
+        foreach ($preguntas as &$pregunta) {
+            $noContestada = FALSE;
+            $bienContestada = FALSE;
+            $malContestada = FALSE;
+
+            $preguntaEntity = $this->getDoctrine()
+                    ->getRepository('AoshidowebBundle:Pregunta')
+                    ->find($pregunta['id']);
+
+            $preguntaEntity->increaseVecesVista();
+
+            //Reviso si la respuesta que eligio es alguna de las correctas
+            $correctas = 0;
+
+            foreach ($pregunta['respuestas'] as &$respuesta) {
+                if (array_key_exists('elegida', $respuesta)) {
+
+                    $respuestaEntity = $this->getDoctrine()
+                            ->getRepository('AoshidowebBundle:Respuesta')
+                            ->find($respuesta['id']);
+
+                    if ($preguntaEntity->getRespuestasCorrectas()->contains($respuestaEntity)) {
+                        $correctas++;
+                    } else {
+                        $malContestada = TRUE;
+                        if (!$preguntasIncorrectas->contains($pregunta)) {
+                            
+                            $preguntasIncorrectas->add($pregunta);
+                            $preguntasIncorrectasEntity->add($preguntaEntity);
+                        }
+                    }
+                } else {
+                    $respuesta['elegida'] = "0";
+                }
+            }
+
+            //Si no hay nignuna opcion correcta , ni incorrecta es pq no contesto
+            if ($correctas == 0 && $malContestada == FALSE) {
+                $noContestada = TRUE;
+                $preguntasNoContestadas->add($preguntaEntity);
+            } else {
+                //Me fijo que haya elegido TODAS las respuestas correctas
+                if ($correctas == count($preguntaEntity->getRespuestasCorrectas()) && $malContestada == FALSE) {
+                    $bienContestada = TRUE;
+                    $preguntasCorrectas->add($preguntaEntity);
+                    $preguntaEntity->increaseVecesAcertada();
+                } else {
+                    $malContestada = TRUE;
+                    if (!$preguntasIncorrectas->contains($pregunta)) {
+                        $preguntasIncorrectas->add($pregunta);
+                        $preguntasIncorrectasEntity->add($preguntaEntity);
+                    }
+                }
+            }
+            $this->getDoctrine()->getManager()->persist($preguntaEntity);
+        }
+        $this->getDoctrine()->getManager()->flush();
+
+        $resultados = new ArrayCollection();
+
+        $resultados['correctas'] = $preguntasCorrectas;
+        $resultados['incorrectas'] = $preguntasIncorrectas;
+        $resultados['incorrectasEntity'] = $preguntasIncorrectasEntity;
+        $resultados['noContestadas'] = $preguntasNoContestadas;
+        $resultados['total'] = count($preguntas);
+
+        return ($resultados);
     }
 
 }
