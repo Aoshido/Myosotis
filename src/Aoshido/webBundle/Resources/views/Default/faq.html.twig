@@ -65,14 +65,14 @@
                 {% endblock %}
             {% endembed %}
 
-            {# embed 'AoshidowebBundle:Default:_faqPanel.html.twig' with {'numero': '4'} %}
+            {% embed 'AoshidowebBundle:Default:_faqPanel.html.twig' with {'numero': '4'} %}
                 {% block title %}
-                    ¿Cualquiera puede responder una pregunta? 
+                    ¿Cuando esta bien contestada una pregunta? 
                 {% endblock %}
                 {% block content %}
-                    <p> Si, sin embargo estas no se van a mostrar hasta que algun aprobador las revise</p>
+                    <p> Cuando se eligieron <b>todas</b> sus respuestas correctas y <b>ninguna</b> otra respuesta</p>
                 {% endblock %}
-            {% endembed #}
+            {% endembed %}
 
             {% embed 'AoshidowebBundle:Default:_faqPanel.html.twig' with {'numero': '5'} %}
                 {% block title %}
