@@ -5,12 +5,12 @@
 {% block breadcrumbs %}
     <ul class="breadcrumb">
         <li><a href="{{url('aoshidoweb_homepage')}}">Home</a></li>
-        <li><a href="{{url('aoshidoweb_homepage')}}">Games</a></li>
-        <li class="active">Quiz</li>
+        <li><a href="{{url('aoshidoweb_homepage')}}">Juegos</a></li>
+        <li class="active">Examen</li>
     </ul>
 {% endblock %}
 
-{% block section %}Quiz! {% endblock %}
+{% block section %}Examen! {% endblock %}
 {% block games_contenido %} 
     <div class="container col-md-12">
         {% if not (quizForm == null) %}
