@@ -14,18 +14,18 @@
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             {% embed 'AoshidowebBundle:Default:_faqPanel.html.twig' with {'numero': '1'} %}
                 {% block title %}
-                    ¿Como se utiliza esto?
+                    ¿Cómo se utiliza esto?
                 {% endblock %}
                 {% block content %}
-                    <p> El objetivo general de esta pagina es que se agreguen preguntas que fueron apareciendo en
+                    <p> El objetivo general de esta página es que se agreguen preguntas que fueron apareciendo en
                         parciales o finales junto con sus respuestas. De esta manera, cuando hay que memorizar muchos
-                        verdaderos o falsos, o multiples choices, quedan todos compilados en un mismo lugar y se hace
-                        mas facil (y divertido).
-                        Esta pagina esta dividida en 2 grandes secciones, el menú principal (Que permite crear Carreras,
-                        Materias, Temas, Preguntas y Respuestas) y la seccion de Juegos. 
-                        El primer uso de la pagina seria que uno de de alta una pregunta con su respuesta, y después estudie
+                        verdaderos o falsos, o múltiples choices, quedan todos compilados en un mismo lugar y se hace
+                        más fácil (y divertido).
+                        Esta página esta dividida en 2 grandes secciones, el menú principal (Que permite crear Carreras,
+                        Materias, Temas, Preguntas y Respuestas) y la sección de Juegos. 
+                        El primer uso de la pagina seriía que uno cree una pregunta con su respuesta, y después estudie
                         con alguno de los juegos disponibles.
-                        Otro uso posible de la misma es, una vez creada la pregunta si no se tiene una respuesta, publicarla
+                        Otro uso posible de la misma es, una vez creada la pregunta, si no se tiene una respuesta, publicarla
                         en alguna red social/foro/etc para que otra persona la pueda responder.
                     </p>
                     <h3> Para aprender: </h3>
@@ -49,10 +49,10 @@
 
             {% embed 'AoshidowebBundle:Default:_faqPanel.html.twig' with {'numero': '2'} %}
                 {% block title %}
-                    No encuentro el menu para dar de alta preguntas!
+                    No encuentro el menú para dar de alta preguntas!
                 {% endblock %}
                 {% block content %}
-                    <p>Solo los usuarios registrados pueden ver los menus para modificar preguntas, temas etc.</p>
+                    <p>Solo los usuarios registrados pueden ver los menús para modificar preguntas, temas etc.</p>
                 {% endblock %}
             {% endembed %}
 
@@ -67,7 +67,7 @@
 
             {% embed 'AoshidowebBundle:Default:_faqPanel.html.twig' with {'numero': '4'} %}
                 {% block title %}
-                    ¿Cuando esta bien contestada una pregunta? 
+                    ¿Cuándo está bien contestada una pregunta? 
                 {% endblock %}
                 {% block content %}
                     <p> Cuando se eligieron <b>todas</b> sus respuestas correctas y <b>ninguna</b> otra respuesta</p>
@@ -76,19 +76,22 @@
 
             {% embed 'AoshidowebBundle:Default:_faqPanel.html.twig' with {'numero': '5'} %}
                 {% block title %}
-                    ¿Cualquiera puede responder una pregunta? 
+                    ¿Cualquiera puede responder una pregunta? ¿Cómo sabemos si lo que dice es cierto?
                 {% endblock %}
                 {% block content %}
-                    <p> Si, sin embargo estas no se van a mostrar hasta que algun aprobador las revise</p>
+                    <p> Si, cualquiera puede dar de alta una pregunta.
+                    No hay forma de corroborar la información, confiamos en que los usuarios no van a responder por responder y se favorece fuertemente
+                    la inclusión de <b>fuentes</b>.
+                    Las respuestas también se pueden editar y borrar, y están sujetas a moderación</p>
                 {% endblock %}
             {% endembed %}
 
             {% embed 'AoshidowebBundle:Default:_faqPanel.html.twig' with {'numero': '6'} %}
                 {% block title %}
-                    Encontre un problema ¿Como lo puedo reportar? 
+                    Encontre un problema ¿Cómo lo puedo reportar? 
                 {% endblock %}
                 {% block content %}
-                    <p> Abajo a la izquierda de la pantalla tienen un icono con forma de Bug para reportar cualquier incidencia</p>
+                    <p> Abajo a la izquierda de la pantalla tienen un ícono con forma de Bug para reportar cualquier incidencia</p>
                 {% endblock %}
             {% endembed %} 
 
@@ -113,17 +116,17 @@
 
             {% embed 'AoshidowebBundle:Default:_faqPanel.html.twig' with {'numero': '8'} %}
                 {% block title %}
-                    ¿Que es la dificultad? ¿Como se calcula?
+                    ¿Qué es la dificultad? ¿Cómo se calcula?
                 {% endblock %}
                 {% block content %}
-                    <p> La dificultad es un parametro que tienen las preguntas, indica que cantidad de usuarios se equivocaron
-                        al responderla. Se calcula en base a las veces que se vio una pregunta, respecto a las veces que se contesto 
+                    <p> La díficultad es un parámetro que tienen las preguntas, indica que cantidad de usuarios se equivocaron
+                        al responderla. Se calcula en base a las veces que se vió una pregunta, respecto a las veces que se contestó 
                         correctamente.</p>
-                    <p> Segun que tanto les haya costado, varia la dificultad, siendo 100 la mas dificil y 1 la mas facil. (0 significa
-                        que la pregunta todavia no fue contestada o vista).</p>
+                    <p> Según que tanto les haya costado, varía la dificultad, siendo 100 la mas difícil y 1 la mas fácil. (0 significa
+                        que la pregunta todavía no fue contestada o vista).</p>
                     <p> Se dividen luego en 3 categorias:</p>
 
-                    <h3>Preguntas faciles: de 0 a 50 
+                    <h3>Preguntas fáciles: de 0 a 50 
                         <small><br><i>"Nombre y apellido"</i></small>
                     </h3>
 
@@ -138,7 +141,7 @@
                     </div>
 
                     <h3>Preguntas regulares: de 50 a 80
-                        <small><br><i>"Si estudiaron tendrian que saberla"</i></small>
+                        <small><br><i>"Si estudiaron tendrían que saberla"</i></small>
                     </h3>
 
                     <div class="col-xs-12 text-left" style="padding-right: 0px; padding-left: 5px;">
@@ -151,8 +154,8 @@
                         </div>
                     </div>
 
-                    <h3>Preguntas dificiles: de 80 a 100
-                        <small><br><i>"¿Que hice para merecer esto?"</i></small>
+                    <h3>Preguntas difíciles: de 80 a 100
+                        <small><br><i>"¿Qué hice para merecer esto?"</i></small>
                     </h3>
 
                     <div class="col-xs-12 text-left" style="padding-right: 0px; padding-left: 5px;">
