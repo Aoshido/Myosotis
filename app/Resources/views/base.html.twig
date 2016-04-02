@@ -2,6 +2,22 @@
 <html>
     <head>
         <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1" />
+
+        <!-- Facebook meta -->
+        <meta property="og:title" content="Myosotis" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="http://myosotis.aoshido.com.ar" />
+        <meta property="og:image" content="http://kurtnoble.com/labs/rrssb/media/facebook-share.jpg" />
+        <meta property="og:description" content="Lets grind some assignments!"/>
+
+        <!-- Twitter meta -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@Aoshido">
+        <meta name="twitter:creator" content="@Aoshido">
+        <meta name="twitter:title" content="Myosotis">
+        <meta name="twitter:description" content="Lets grind some assignments!">
+        <meta name="twitter:image" content="http://kurtnoble.com/labs/rrssb/media/rrssb-preview.png">
+
         <title>{% block title %}Myosotis{% endblock %}</title>
         {% block stylesheets %}
 
@@ -82,6 +98,10 @@
             <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
 
+            {% javascripts '../app/Resources/public/js/rrssb.min.js' %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+
             {% include 'AoshidowebBundle::flash.html.twig' %}
 
             <script src="/ckeditor/ckeditor.js"></script>
@@ -121,6 +141,28 @@
                         htmlbodyHeightUpdate();
                     });
                 });
+            </script>
+
+            <!-- Facebook SDK -->
+            <script>
+                window.fbAsyncInit = function () {
+                    FB.init({
+                        appId: '628225720661887',
+                        xfbml: true,
+                        version: 'v2.5'
+                    });
+                };
+
+                (function (d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) {
+                        return;
+                    }
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = "//connect.facebook.net/en_US/sdk.js";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));
             </script>
 
         {% endblock %}
