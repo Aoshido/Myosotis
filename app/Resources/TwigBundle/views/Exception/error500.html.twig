@@ -1,0 +1,21 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Game Settings{% endblock %}
+{% block content %}
+    <div class="jumbotron alpha60">
+        <h1>500</h1>
+        <h2>Error interno</h2>
+
+        <p>
+            Wow! Estos son los errores que me gustan (?)
+            Pasó algo de nuestro lado que claramente no deberia estar pasando, 
+            por favor envianos la siguiente informacion para que podamos solucionarlo:
+        </p>
+        
+        <p>
+            {{status_code}}
+            {{status_text}}
+        </p>
+        
+    </div>
+{% endblock %}
