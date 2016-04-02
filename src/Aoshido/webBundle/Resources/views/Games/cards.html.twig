@@ -17,7 +17,7 @@
         <!-- Modal -->
         <div class="modal fade" id="myModal-{{pregunta.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
-                <div class="modal-content">
+                <div class="modal-content ">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">Pregunta N°: {{pregunta.id}}
@@ -29,7 +29,7 @@
                             </span>
                         </h4>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="overflow-x: auto; text-overflow:ellipsis;">
                         {{ (pregunta.contenido|markdown) }}
                         <h4> Respuestas posibles: </h4>
                         {% for respuesta  in pregunta.respuestas %}
