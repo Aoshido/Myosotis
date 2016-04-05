@@ -5,7 +5,7 @@
 {% block title %}Let's Study!{% endblock %}
 {% block content %}
     <div class="jumbotron alpha60">
-        <h1>Estudiantes!</h1>
+        <h1 id="test">Estudiantes!</h1>
         <p>{{'Esta'|trans}} página nació con la intención de ayudar a estudiar (o quizás memorizar mejor)
             todos esos millones y millones de verdaderos o falsos, múltiples choices, conceptos y
             demás cuestiones tan necesarias para aprobar.</p>
@@ -67,6 +67,10 @@
         {% endfor %}
     {% endfor %}
 
+    <script>
+        $('#test').html="asdf";
+    </script>
+    
     <div id="fb-root"></div>
     <script>(function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];

@@ -1,0 +1,25 @@
+<script type="text/javascript">
+    $("select[id$='materia']").change(function () {
+        var data = {
+            idmateria: $(this).val()
+        };
+
+        $("select[id$='temas']").parent().append('<span class=\"loading pull-right\"><i class=\"fa fa-refresh fa-spin\"></i></span>');
+
+        $.ajax({
+            type: 'post',
+            url: '{{ path("preguntas_addTemas") }}',
+            data: data,
+            success: function (data) {
+                var tema_selector = $("select[id$='temas']");
+
+                tema_selector.html('');
+
+                for (var i = 0, total = data.length; i < total; i++) {
+                    tema_selector.append('<option value="' + data[i].id + '">' + data[i].descripcion + ' </option>');
+                }
+                $("select[id$='temas']").parent().find('.loading').hide();
+            }
+        });
+    });
+</script>

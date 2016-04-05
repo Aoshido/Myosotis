@@ -156,4 +156,9 @@ class RegistrationController extends Controller {
           )); */
     }
 
+    protected function setFlash($action, $value) {
+        $value = 'Bienvenido gil';
+        $this->container->get('session')->setFlash($action, $value);
+    }
+
 }

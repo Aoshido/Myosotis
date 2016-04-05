@@ -1,0 +1,25 @@
+<script type="text/javascript">
+    $("select[id$='carrera']").change(function () {
+        var data = {
+            idcarrera: $(this).val()
+        };
+
+        $("select[id$='materia']").parent().append('<span class=\"loading pull-right\"><i class=\"fa fa-refresh fa-spin\"></i></span>');
+
+        $.ajax({
+            type: 'post',
+            url: '{{ path("preguntas_addMateria") }}',
+            data: data,
+            success: function (data) {
+                var $materia_selector = $("select[id$='materia']");
+
+                $materia_selector.html('<option value="">- Seleccione Materia -</option>');
+
+                for (var i = 0, total = data.length; i < total; i++) {
+                    $materia_selector.append('<option value="' + data[i].id + '">' + data[i].descripcion + ' </option>');
+                }
+                $("select[id$='materia']").parent().find('.loading').hide();
+            }
+        });
+    });
+</script>
