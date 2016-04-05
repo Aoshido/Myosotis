@@ -12,7 +12,7 @@
 
 {% block section %}Examen! {% endblock %}
 {% block games_contenido %} 
-    <div class="container col-md-12">
+    <div class="container-fluid col-md-12">
         {% if not (quizForm == null) %}
             {{ form_start(quizForm,{ 'attr': {'class': 'form-horizontal'} }) }}
             {% for pregunta in quizForm.preguntas %}
@@ -92,47 +92,6 @@
         });
     </script>
 
-    <script type="text/javascript">
-        $("select[id$='carrera']").change(function () {
-            var data = {
-                idcarrera: $(this).val()
-            };
-
-            $.ajax({
-                type: 'post',
-                url: '{{ path("preguntas_addMateria") }}',
-                data: data,
-                success: function (data) {
-                    var $materia_selector = $("select[id$='materia']");
-
-                    $materia_selector.html('<option value="">- Seleccione Materia -</option>');
-
-                    for (var i = 0, total = data.length; i < total; i++) {
-                        $materia_selector.append('<option value="' + data[i].id + '">' + data[i].descripcion + ' </option>');
-                    }
-                }
-            });
-        });
-    </script>
-
-    <script type="text/javascript">
-        $("select[id$='materia']").change(function () {
-            var data = {
-                idmateria: $(this).val()
-            };
-
-            $.ajax({
-                type: 'post',
-                url: '{{ path("preguntas_addTemas") }}',
-                data: data,
-                success: function (data) {
-                    var tema_selector = $("select[id$='temas']");
-
-                    for (var i = 0, total = data.length; i < total; i++) {
-                        tema_selector.append('<option value="' + data[i].id + '">' + data[i].descripcion + ' </option>');
-                    }
-                }
-            });
-        });
-    </script>
+    {% include 'AoshidowebBundle:Games:materias_refresher.html.twig' %}
+    {% include 'AoshidowebBundle:Games:temas_refresher.html.twig' %}
 {% endblock %}
