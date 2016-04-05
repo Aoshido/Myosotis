@@ -26,7 +26,7 @@
                         </span>
                         {{ tema.descripcion }}
                     </td>
-                    <td class="col-sm-1 text-center">{{tema.getMateria.getDescripcion|truncate(10,false,"...")}}</td>
+                    <td class="col-sm-1 text-center">{{tema.getMateria.getDescripcion}}</td>
                     <td class="col-sm-3 text-right">
                         <div class="btn-group btn-group-xs pull-right" role="group" aria-label="...">
                             <button type="button" class="btn btn-success " aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Editar" onclick="location.href = '{{url('temas_edit',{ 'idTema': tema.id})}}';">
@@ -67,27 +67,6 @@
         });
     </script>
 
-    <script type="text/javascript">
-        $("select[id$='carrera']").change(function () {
-            var data = {
-                idcarrera: $(this).val()
-            };
-
-            $.ajax({
-                type: 'post',
-                url: '{{ path("preguntas_addMateria") }}',
-                data: data,
-                success: function (data) {
-                    var $materia_selector = $("select[id$='materia']");
-
-                    $materia_selector.html('<option value="">- Seleccione Materia -</option>');
-
-                    for (var i = 0, total = data.length; i < total; i++) {
-                        $materia_selector.append('<option value="' + data[i].id + '">' + data[i].descripcion + ' </option>');
-                    }
-                }
-            });
-        });
-    </script>
+    {% include 'AoshidowebBundle:Games:materias_refresher.html.twig' %}
 
 {% endblock %}
