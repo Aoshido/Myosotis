@@ -142,7 +142,7 @@ class PreguntasController extends Controller {
     public function disableAction($idPregunta) {
 
         $this->get('service_disabler')->disablePregunta($idPregunta);
-
+        $this->get('session')->getFlashBag()->add('success', 'Pregunta eliminada !');
         return $this->redirect($this->generateUrl('abms_preguntas'));
     }
 

@@ -24,6 +24,13 @@ class MateriasController extends Controller {
 
         $materia = new Materia();
         $form = $this->createForm(new MateriaType(), $materia);
+        
+        $form->add('save', 'submit', array(
+            'label' => 'Agregar Materia',
+            'attr' => array(
+                'class' => 'btn btn-success'
+            ),
+        ));
 
         $form->handleRequest($request);
         
@@ -62,6 +69,13 @@ class MateriasController extends Controller {
                 ->find($idMateria);
 
         $form = $this->createForm(new MateriaType(), $materia, array('method' => 'PATCH'));
+        
+        $form->add('save', 'submit', array(
+            'label' => 'Guardar Cambios',
+            'attr' => array(
+                'class' => 'btn btn-success'
+            ),
+        ));
 
         $form->handleRequest($request);
 
