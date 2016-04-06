@@ -43,6 +43,7 @@ class RespuestasController extends Controller {
             $em->persist($respuesta);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->add('success', 'Respuesta agregada !');
             return $this->redirect($this->generateUrl('respuestas_new', array('idPregunta' => $idPregunta)));
         }
 
@@ -87,6 +88,7 @@ class RespuestasController extends Controller {
             $em->persist($respuesta);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->add('success', 'Respuesta editada !');
             return $this->redirect($this->generateUrl('respuestas_new', array(
                                 'idPregunta' => $idPregunta)));
         }
@@ -113,6 +115,7 @@ class RespuestasController extends Controller {
         $em->persist($respuesta);
         $em->flush();
 
+        $this->get('session')->getFlashBag()->add('success', 'Respuesta eliminada !');
         return $this->redirect($this->generateUrl('respuestas_new', array(
                             'idPregunta' => $idPregunta)));
     }

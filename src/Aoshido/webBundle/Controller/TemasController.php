@@ -45,6 +45,7 @@ class TemasController extends Controller {
             $em->persist($tema);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->add('success', 'Tema agregado !');
             return $this->redirect($this->generateUrl('abms_temas'));
         }
 
@@ -90,6 +91,7 @@ class TemasController extends Controller {
             $em->persist($tema);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->add('success', 'Tema editado !');
             return $this->redirect($this->generateUrl('abms_temas'));
         }
 
@@ -102,7 +104,8 @@ class TemasController extends Controller {
     public function disableAction($idTema) {
 
         $this->get('service_disabler')->disableTema($idTema);
-
+        
+        $this->get('session')->getFlashBag()->add('success', 'Tema eliminado !');
         return $this->redirect($this->generateUrl('abms_temas'));
     }
 

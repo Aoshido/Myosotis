@@ -56,7 +56,7 @@
                         </li>
                     </ul>
                 </li>
-                {% if app.user and not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                {% if not app.user %}
                     <li class="" {% block registration %} {% endblock %} ><a href="{{ path('fos_user_registration_register') }}">
                             <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Registrate!
                         </a>

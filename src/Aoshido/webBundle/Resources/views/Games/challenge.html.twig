@@ -157,9 +157,14 @@
         $("[replace='yes']").bootstrapSwitch();
     </script>
 
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 
     {% include 'AoshidowebBundle:Games:materias_refresher.html.twig' %}
     {% include 'AoshidowebBundle:Games:temas_refresher.html.twig' %}
-    
+
 
 {% endblock %}
