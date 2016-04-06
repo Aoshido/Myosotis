@@ -42,6 +42,7 @@ class MateriasController extends Controller {
             $em->persist($materia);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->add('success', 'Materia agregado !');
             return $this->redirect($this->generateUrl('abms_materias'));
         }
 
@@ -86,6 +87,7 @@ class MateriasController extends Controller {
             $em->persist($materia);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->add('success', 'Materia editada !');
             return $this->redirect($this->generateUrl('abms_materias'));
         }
 
@@ -111,6 +113,7 @@ class MateriasController extends Controller {
         $em->persist($materia);
         $em->flush();
 
+        $this->get('session')->getFlashBag()->add('success', 'Materia eliminada !');
         return $this->redirect($this->generateUrl('abms_materias'));
     }
 

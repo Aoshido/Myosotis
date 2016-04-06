@@ -38,6 +38,7 @@ class GamesController extends Controller {
             }
             if (count($preguntas) == 0) {
                 $this->get('session')->getFlashBag()->add('error', 'Oops! Parece que no hay preguntas de esos temas');
+                return $this->redirectToRoute('games_cards');
             }
         }
 
@@ -78,11 +79,7 @@ class GamesController extends Controller {
 
             if (count($quiz->getPreguntas()) == 0) {
                 $this->get('session')->getFlashBag()->add('error', 'Oops! Parece que no hay preguntas de esos temas');
-                return $this->render('AoshidowebBundle:Games:quiz.html.twig', array(
-                            'form' => $form->createView(),
-                            'quizForm' => NULL,
-                            'quiz' => NULL
-                ));
+                return $this->redirectToRoute('games_quiz');
             }
 
             $quizForm = $this->createForm(new ExamenType(), $quiz, array(
@@ -162,10 +159,7 @@ class GamesController extends Controller {
 
             if (count($preguntas) == 0) {
                 $this->get('session')->getFlashBag()->add('error', 'Oops! Parece que no hay preguntas de esos temas');
-                return $this->render('AoshidowebBundle:Games:challenge.html.twig', array(
-                            'quizForm' => $quizForm == NULL ? NULL : $quizForm->createView(),
-                            'form' => $form->createView()
-                ));
+                return $this->redirectToRoute('games_challenge');
             }
 
             $random = rand(0, count($preguntas) - 1);

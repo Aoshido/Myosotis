@@ -37,7 +37,8 @@ class CarrerasController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($carrera);
             $em->flush();
-
+            
+            $this->get('session')->getFlashBag()->add('success', 'Carrera creada !');
             return $this->redirect($this->generateUrl('abms_carreras'));
         }
 
@@ -84,6 +85,7 @@ class CarrerasController extends Controller {
             $em->persist($carrera);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->add('success', 'Carrera editada !');
             return $this->redirect($this->generateUrl('abms_carreras'));
         }
 
@@ -118,6 +120,7 @@ class CarrerasController extends Controller {
         $em->persist($carrera);
         $em->flush();
         
+        $this->get('session')->getFlashBag()->add('success', 'Carrera eliminada !');
         return $this->redirect($this->generateUrl('abms_carreras'));
     }
 
