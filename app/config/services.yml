@@ -12,3 +12,9 @@ services:
         class: Dzango\Twig\Extension\Truncate
         tags:
             - { name: twig.extension }
+
+    fos_user.listener.flash:
+        class: Aoshido\UserBundle\EventListener\FlashListener
+        arguments: [@session,@translator]
+        tags:
+            - { name: kernel.event_subscriber }       
