@@ -101,9 +101,24 @@ class ProfileController extends Controller {
 
             return $response;
         }
+        
+        $preguntas = $this->getDoctrine()
+                ->getRepository('AoshidowebBundle:Pregunta')
+                ->findBy(array('creatorUser' => $user, 'activo' => TRUE));
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($preguntas, $this->getRequest()->query->get('page', 1), 5);
+        $pagination->setPageRange(6);
+
+        $bugs = $this->getDoctrine()
+                ->getRepository('AoshidowebBundle:Bug')
+                ->findBy(array('reportedUser' => $user));
 
         return $this->render('FOSUserBundle:Profile:edit.html.twig', array(
-                    'form' => $form->createView()
+                    'form' => $form->createView(),
+                    'user' => $user,
+                    'bugs' => $bugs,
+                    'paginas' => $pagination,
         ));
     }
 
