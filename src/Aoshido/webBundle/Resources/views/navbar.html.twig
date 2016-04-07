@@ -82,6 +82,13 @@
                                 <i class="fa fa-heartbeat"></i> Acerca / Creditos
                             </a>
                         </li>
+                        {% if not app.user %}
+                            <li {% block reset %} {% endblock %} >
+                                <a href="{{path('fos_user_resetting_request')}}">
+                                    <i class="fa fa-refresh"></i> Resetear Password
+                                </a>
+                            </li>
+                        {% endif %}
                         {#<li {% block postmortem %} {% endblock %} >
                             <a href="{{path('games_challenge')}}">
                                 Post Mortem
