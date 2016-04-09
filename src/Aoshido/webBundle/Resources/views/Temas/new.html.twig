@@ -11,6 +11,9 @@
 
 {% block section %}Temas{% endblock %}
 {% block abms_contenido %} 
+    
+    {% include 'AoshidowebBundle:Temas:form.html.twig' %}
+    
     <div class="panel panel-primary">
         <div class="panel-heading text-right">Temas Disponibles: {{ paginas.getTotalItemCount }}</div>
 
@@ -32,9 +35,11 @@
                             <button type="button" class="btn btn-success " aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Editar" onclick="location.href = '{{url('temas_edit',{ 'idTema': tema.id})}}';">
                                 <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                             </button>
-                            <button type="button" class="btn btn-danger " aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Eliminar"  onclick=" location.href = '{{ url('temas_disable',{ 'idTema': tema.id})}}';">
-                                <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                            </button>
+                            {% if is_granted("ROLE_TEACHER") %}
+                                <button type="button" class="btn btn-danger " aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Eliminar"  onclick=" location.href = '{{ url('temas_disable',{ 'idTema': tema.id})}}';">
+                                    <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                                </button>
+                            {% endif %}
                         </div>
                     </td>
                 </tr>
@@ -45,7 +50,7 @@
         {{ knp_pagination_render(paginas) }}
     </div>
 
-    {% include 'AoshidowebBundle:Temas:form.html.twig' %}
+    
 
 {% endblock %}
 
