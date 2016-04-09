@@ -31,9 +31,11 @@
                                 <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="tooltip" data-placement="left" title="Editar" onclick="location.href = '{{ url('carreras_edit',{ 'idCarrera': carrera.id})}}';">
                                     <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                                 </button>    
-                                <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Eliminar" onclick="location.href = '{{ url('carreras_disable',{ 'idCarrera': carrera.id})}}';">
-                                    <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                                </button>    
+                                {% if is_granted("ROLE_TEACHER") %}
+                                    <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Eliminar" onclick="location.href = '{{ url('carreras_disable',{ 'idCarrera': carrera.id})}}';">
+                                        <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                                    </button>    
+                                {% endif %}
                             </div>
                         </td>
                     </tr>

@@ -9,6 +9,8 @@
 {% endblock %}
 {% block section %}Materias{% endblock %}
 {% block abms_contenido %} 
+    
+    {% include 'AoshidowebBundle:Materias:form.html.twig' %}
 
     <div class="panel panel-primary">
         <div class="panel-heading text-right">Materias Disponibles: {{ paginas.getTotalItemCount }}</div>
@@ -31,10 +33,12 @@
                         <div class="btn-group btn-group-xs" role="group" aria-label="...">
                             <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="tooltip" data-placement="left" title="Editar"  onclick="location.href = '{{ url('materias_edit',{ 'idMateria': materia.id})}}';">
                                 <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-                            </button>    
-                            <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Eliminar" onclick="location.href = '{{ url('materias_disable',{ 'idMateria': materia.id})}}';">
-                                <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                            </button>    
+                            </button>
+                            {% if is_granted("ROLE_TEACHER") %}
+                                <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Eliminar" onclick="location.href = '{{ url('materias_disable',{ 'idMateria': materia.id})}}';">
+                                    <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                                </button>    
+                            {% endif %}
                         </div>
                     </td>
                 </tr>
@@ -44,9 +48,6 @@
     <div class="navigation text-center">
         {{ knp_pagination_render(paginas) }}
     </div>
-
-    {% include 'AoshidowebBundle:Materias:form.html.twig' %}
-
 {% endblock %}
 
 {% block javascripts %} 
