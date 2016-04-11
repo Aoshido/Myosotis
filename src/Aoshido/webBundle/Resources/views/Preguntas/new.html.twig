@@ -15,7 +15,7 @@
             Preguntas
         </div>
         <div class="col-sm-1">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-3">Filtros</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-search">Filtros</button>
         </div>
 
         <div class="col-sm-5">
@@ -80,6 +80,7 @@
     {% for pregunta in paginas %}
         {% include 'AoshidowebBundle:Preguntas:modal.html.twig' %}
     {%endfor%}
+        {% include 'AoshidowebBundle:Preguntas:form_filter.html.twig' %}
 
 {% endblock %}
 

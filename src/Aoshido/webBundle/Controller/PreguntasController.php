@@ -8,39 +8,26 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Aoshido\webBundle\Filter\PreguntasFilterType;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class PreguntasController extends Controller {
 
     public function newAction(Request $request) {
-        $search_form = $this->get('form.factory')->create(new PreguntasFilterType());
+        $pregunta = new Pregunta();
 
-        if ($request->query->has($search_form->getName())) {
-            // manually bind values from the request
-            $search_form->submit($request->query->get($search_form->getName()));
+        $quicksearch_form = $this->get('form.factory')->create(new PreguntasFilterType());
+        $fullsearch_form = $this->createForm(new PreguntaType(), $pregunta, array(
+            'method' => 'GET',
+        ));
 
-            // initialize a query builder
-            $filterBuilder = $this->get('doctrine.orm.entity_manager')
-                    ->getRepository('AoshidowebBundle:Pregunta')
-                    ->createQueryBuilder('p')
-                    ->Where('p.activo = TRUE');
-
-            // build the query from the given form object
-            $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($search_form, $filterBuilder);
-
-            $preguntas = $filterBuilder->getQuery()->getResult();
-        } else {
-            $preguntas = $this->getDoctrine()
-                    ->getRepository('AoshidowebBundle:Pregunta')
-                    ->findBy(array('activo' => TRUE));
-        }
+        $preguntas = $this->getPreguntasFiltered($request, $quicksearch_form, $fullsearch_form,$pregunta);
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($preguntas, $this->getRequest()->query->get('page', 1), 5);
         $pagination->setPageRange(6);
 
-        $pregunta = new Pregunta();
         $form = $this->createForm(new PreguntaType(), $pregunta);
-        
+
         $form->add('save', 'submit', array(
             'label' => 'Agregar Pregunta',
             'attr' => array(
@@ -66,7 +53,8 @@ class PreguntasController extends Controller {
 
         return $this->render('AoshidowebBundle:Preguntas:new.html.twig', array(
                     'form' => $form->createView(),
-                    'searchForm' => $search_form->createView(),
+                    'searchForm' => $quicksearch_form->createView(),
+                    'fullSearchForm' => $fullsearch_form->createView(),
                     'paginas' => $pagination,
         ));
     }
@@ -103,7 +91,7 @@ class PreguntasController extends Controller {
                 ->find($idPregunta);
 
         $form = $this->createForm(new PreguntaType(), $pregunta, array('method' => 'PATCH'));
-        
+
         $form->add('save', 'submit', array(
             'label' => 'Guardar Cambios',
             'attr' => array(
@@ -116,7 +104,7 @@ class PreguntasController extends Controller {
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $temas = $form->get('temas')->getData();
-            
+
             foreach ($pregunta->getTemas() as $tema) {
                 $pregunta->removeTema($tema);
                 $em->persist($tema);
@@ -178,6 +166,51 @@ class PreguntasController extends Controller {
         $temas = $qb->getQuery()->getArrayResult();
 
         return new JsonResponse($temas);
+    }
+
+    public function getPreguntasFiltered(Request $request, $quicksearch_form, $fullsearch_form,$pregunta) {
+
+        if ($request->query->has($quicksearch_form->getName())) {
+            // manually bind values from the request
+            $quicksearch_form->submit($request->query->get($quicksearch_form->getName()));
+
+            // initialize a query builder
+            $filterBuilder = $this->get('doctrine.orm.entity_manager')
+                    ->getRepository('AoshidowebBundle:Pregunta')
+                    ->createQueryBuilder('p')
+                    ->Where('p.activo = TRUE');
+
+            // build the query from the given form object
+            $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($quicksearch_form, $filterBuilder);
+
+            $preguntas = $filterBuilder->getQuery()->getResult();
+        } else if ($request->query->has($fullsearch_form->getName())) {
+            $preguntas = new ArrayCollection();
+            
+            $fullsearch_form->handleRequest($request);
+
+            if ($fullsearch_form->isValid()) {
+                foreach ($pregunta->getTemas() as $tema) {
+                    $preguntas_temp = $tema->getPreguntas();
+                    if (count($preguntas_temp) > 0) {
+                        foreach ($preguntas_temp as $pregunta_temp) {
+                            if ($pregunta_temp != $pregunta && !$preguntas->contains($pregunta_temp) && $pregunta_temp->getActivo()) {
+                                $preguntas->add($pregunta_temp);
+                            }
+                        }
+                    }
+                }
+                if (count($preguntas) == 0) {
+                    $this->get('session')->getFlashBag()->add('error', 'Oops! Parece que no hay preguntas de esos temas');
+                    /*return $this->redirectToRoute('games_cards');*/
+                }
+            }
+        } else {
+            $preguntas = $this->getDoctrine()
+                    ->getRepository('AoshidowebBundle:Pregunta')
+                    ->findBy(array('activo' => TRUE));
+        }
+        return $preguntas;
     }
 
 }
