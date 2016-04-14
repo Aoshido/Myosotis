@@ -46,11 +46,14 @@
             </div>
 
         </div>
+        {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
+        {% if form_errors(form) %}
+            <div class="alert alert-danger" role="alert">{{ form_errors(form)}}</div>
+        {% endif %}
         <div class="panel panel-primary">
             <div class="panel-heading">Agregar Carrera:</div>
 
-            {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
-            {{ form_errors(form)}}
+
             <table class="table table-condensed" >
                 <tbody id="materias" data-prototype="{% filter escape %}{{ include('AoshidowebBundle:Themes:carrera-edit-field-prototype.html.twig',{ 'form': form.materias.vars.prototype }) }}{% endfilter %}">
                     <tr class="info">
@@ -87,10 +90,10 @@
                     </td>
                 </tr>
             </table>
-            {{ form_row(form._token) }}
-            {{ form_end(form, {'render_rest': false}) }}
 
         </div>
+        {{ form_row(form._token) }}
+        {{ form_end(form, {'render_rest': false}) }}
     </div>
 </div>
 {% endblock %}
