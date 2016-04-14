@@ -8,9 +8,12 @@
 
         </h3>
     </div>
-    <div id="collapse1" class="panel-body panel-collapse collapse {% if form.vars.method == 'PATCH'%}in{%endif%}" role="tabpanel" aria-labelledby="heading1">
+    <div id="collapse1" class="panel-body panel-collapse collapse {% if form.vars.method == 'PATCH' or form.vars.submitted == TRUE%}in{%endif%}" role="tabpanel" aria-labelledby="heading1">
         {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
-        {{ form_errors(form)}}
+        
+        {% if form_errors(form) %}
+            <div class="alert alert-danger" role="alert">{{ form_errors(form)}}</div>
+        {% endif %}
         <div class="col-sm-6">
             <div class="form-group">
                 {{ form_label(form.descripcion,null,{ 'label_attr' : { 'class' : 'col-sm-3 control-label' } })}}
