@@ -42,7 +42,7 @@ class MateriasController extends Controller {
             $em->persist($materia);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success', 'Materia agregado !');
+            $this->get('session')->getFlashBag()->add('success', 'Materia agregada !');
             return $this->redirect($this->generateUrl('abms_materias'));
         }
 
