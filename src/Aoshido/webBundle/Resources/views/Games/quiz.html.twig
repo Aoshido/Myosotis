@@ -16,45 +16,38 @@
         {% if not (quizForm == null) %}
             {{ form_start(quizForm,{ 'attr': {'class': 'form-horizontal'} }) }}
             {% for pregunta in quizForm.preguntas %}
+
                 <div class="panel panel-primary">
-                    <div class="panel-heading text-right">Pregunta</div>
-                    <table class="table table-condensed">
-                        <tr class="row">
-                            <td class="col-sm-12" colspan='2'>
-                                <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
-                                    {{ pregunta.vars.value.contenido|markdown|raw|truncate(150) }}
-                                    {{ form_widget(pregunta.contenido) }}
-                                    {{ form_widget(pregunta.id) }}
-                                </div>
-                                <span class="badge progress-bar-warning">
-                                    Vista: {{pregunta.vars.value.vecesVista}}
-                                </span>
-                                <span class="badge progress-bar-success">
-                                    Acertada: {{pregunta.vars.value.vecesAcertada}}
-                                </span>
-                                <span class="badge progress-bar-info">
-                                    {{pregunta.vars.value.getTemas[0].getMateria.Descripcion}}
-                                </span>
-                                <span class="badge progress-bar-danger">
-                                    {{pregunta.vars.value.creada|date("d/m/Y")}}
-                                </span>
-                            </td>
-                        </tr>
+                    <div class="panel-heading">Pregunta</div>
+                    <div class="panel-body">
+                        <blockquote>
+                            <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
+                                {{ pregunta.vars.value.contenido|markdown|raw|truncate(150) }}
+                                {{ form_widget(pregunta.contenido) }}
+                                {{ form_widget(pregunta.id) }}
+                            </div>
+                        </blockquote>
+
                         {% for respuesta in pregunta.respuestas %}
-                            <tr class="row ">
-                                <td class="col-sm-9">
-                                    <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
+                            <ul class="row ">
+                                <li>
+                                    <div class="col-xs-1">
+                                        {{ form_widget(respuesta.elegida,{ 'attr' : { 'data-on-text' : 'V' , 'data-off-text' : 'F', 'replace' : 'yes' , 'data-size' : 'small'  } }) }}
+                                    </div>
+                                    <div style="overflow:hidden; text-overflow-multiline:ellipsis;">
                                         {{ respuesta.vars.value.contenido|markdown|raw|truncate(150) }}
                                         {{ form_widget(respuesta.contenido) }}
                                         {{ form_widget(respuesta.id) }}
                                     </div>
-                                </td>
-                                <td class="col-sm-3 text-right">
-                                    {{ form_widget(respuesta.elegida,{ 'attr' : { 'data-on-text' : 'V' , 'data-off-text' : 'F', 'replace' : 'yes' , 'data-size' : 'small'  } }) }}
-                                </td>
-                            </tr>
+                                </li>
+                            </ul>
                         {% endfor %}
-                    </table>
+                    </div>
+
+                    <div class="panel-footer text-right">
+                        <span class="badge">Dificultad: {{pregunta.vars.value.getDificultad|number_format(0, '.', ',')}}%</span>
+                        <span class="badge">Creada:{{pregunta.vars.value.creada|date("d/m/Y")}}</span>
+                    </div>
                 </div>
             {% endfor %}
             <div class="col-sm-12 text-center">
