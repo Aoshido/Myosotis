@@ -11,8 +11,20 @@
     </ul>
 {% endblock %}
 
-{% block section %}Quiz! {% endblock %}
+{% block section %}Resultados {% endblock %}
 {% block games_contenido %}
+
+    <div class="container">
+        
+        <div class="c100 p{{((correctas.count/(correctas.count+noContestadas.count+incorrectas.count)*100))|round(0,'common') }} big">
+            <span>{{ ((correctas.count/(correctas.count+noContestadas.count+incorrectas.count)*100))|round(0,'common') }}%</span>
+            <div class="slice">
+                <div class="bar"></div>
+                <div class="fill"></div>
+            </div>
+        </div>
+        
+    </div>
 
     <div class="panel panel-primary">
         <div class="panel-heading" role="tab" id="heading1">
@@ -135,7 +147,7 @@
             </table>
         </div>    
     </div>
-            
+
     <div class="col-sm-12 text-center">
         <a href="{{path('games_quiz')}}"><button type="button" class="btn btn-primary">Volver</button></a>
     </div>
