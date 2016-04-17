@@ -1,7 +1,14 @@
 <div class="panel panel-primary">
-    <div class="panel-heading">{% if form.vars.method == 'PATCH'%} Editar {%else%} Agregar {%endif%} Temas</div>
+    <div class="panel-heading clickable" role="tab"  id="heading1">
+        <h3 class="panel-title "role="button" 
+            data-toggle="collapse" data-parent="#accordion" 
+            href="#collapse1" aria-expanded="false" aria-controls="collapse1">
+            <i class="glyphicon glyphicon-plus"></i>
+            {% if form.vars.method == 'PATCH'%} Editar {%else%} Agregar {%endif%} Temas
+        </h3>
+    </div>
+    <div id="collapse1" class="panel-body panel-collapse collapse {% if form.vars.method == 'PATCH'%}in{%endif%}" role="tabpanel" aria-labelledby="heading1">
 
-    <div class="panel-body">
         {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
         {{ form_errors(form)}}
 

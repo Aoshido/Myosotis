@@ -53,6 +53,10 @@
             {{ knp_pagination_render(paginas) }}
         </div>
         {% include 'AoshidowebBundle:Respuestas:form.html.twig' %}
+        
+        <div class="col-sm-12 text-center">
+            <a href="{{path('abms_preguntas')}}"><button type="button" class="btn btn-primary">Volver</button></a>
+        </div>
     </div>
 {% endblock %}
 

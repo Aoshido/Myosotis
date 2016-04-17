@@ -5,10 +5,9 @@
             href="#collapse1" aria-expanded="false" aria-controls="collapse1">
             <i class="glyphicon glyphicon-plus"></i>
             {% if form.vars.method == 'PATCH'%} Editar {%else%} Agregar {%endif%} Preguntas
-            
         </h3>
     </div>
-    <div id="collapse1" class="panel-body panel-collapse collapse" role="tabpanel" aria-labelledby="heading1">
+    <div id="collapse1" class="panel-body panel-collapse collapse {% if form.vars.method == 'PATCH'%}in{%endif%}" role="tabpanel" aria-labelledby="heading1">
         {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
 
         <div class="form-group">

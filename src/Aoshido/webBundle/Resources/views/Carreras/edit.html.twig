@@ -15,48 +15,50 @@
 
         <div class="panel panel-primary">
             <div class="panel-heading text-right">Materias Totales: {{ form.materias.count }}</div>
-            
-                {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
-                {{ form_errors(form)}}
-                <table class="table table-condensed" >
-                    <tbody id="materias" data-prototype="{% filter escape %}{{ include('AoshidowebBundle:Themes:carrera-edit-field-prototype.html.twig',{ 'form': form.materias.vars.prototype }) }}{% endfilter %}">
-                        <tr class="info">
-                            <td>
-                                {{ form_label(form.descripcion,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } })}}
-                            </td>
-                            <td colspan="4">
-                                {{ form_widget(form.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }}
-                            </td>
-                        </tr>
-                        {% for materia in form.materias %}
-                            <tr >
-                                <td  >
-                                    {{ form_label(materia.descripcion,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }} 
-                                </td>    
-                                <td>
-                                    {{ form_widget(materia.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }} 
-                                </td>
-                                <td>
-                                    {{ form_label(materia.aniocarrera,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }} 
-                                </td>    
-                                <td id="temaCont">
-                                    {{ form_widget(materia.aniocarrera,{ 'attr' : { 'class' : 'form-control' } }) }} 
-                                </td>
-                            </tr>
-                        {% endfor %}
 
-                    </tbody>    
-                </table>
-                <table class="table" >
-                    <tr id="anchor_add_button">
-                        <td class="text-center">
-                            {{ form_widget(form.save,{ 'label': 'Guardar Cambios' , 'attr': {'class': 'btn btn-success'} }) }}
+            {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
+            {% if form_errors(form) %}
+                <div class="alert alert-danger" role="alert">{{ form_errors(form)}}</div>
+            {% endif %}
+            <table class="table table-condensed" >
+                <tbody id="materias" data-prototype="{% filter escape %}{{ include('AoshidowebBundle:Themes:carrera-edit-field-prototype.html.twig',{ 'form': form.materias.vars.prototype }) }}{% endfilter %}">
+                    <tr class="info">
+                        <td>
+                            {{ form_label(form.descripcion,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } })}}
+                        </td>
+                        <td colspan="4">
+                            {{ form_widget(form.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }}
                         </td>
                     </tr>
-                </table>
-                {{ form_row(form._token) }}
-                {{ form_end(form, {'render_rest': false}) }}
-            
+                    {% for materia in form.materias %}
+                        <tr >
+                            <td  >
+                                {{ form_label(materia.descripcion,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }} 
+                            </td>    
+                            <td>
+                                {{ form_widget(materia.descripcion,{ 'attr' : { 'class' : 'form-control' } }) }} 
+                            </td>
+                            <td>
+                                {{ form_label(materia.aniocarrera,null,{ 'label_attr' : { 'class' : 'col-md-2 control-label' } }) }} 
+                            </td>    
+                            <td id="temaCont">
+                                {{ form_widget(materia.aniocarrera,{ 'attr' : { 'class' : 'form-control' } }) }} 
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>    
+            </table>
+            <table class="table" >
+                <tr id="anchor_add_button">
+                    <td class="text-center">
+                        {{ form_widget(form.save,{ 'label': 'Guardar Cambios' , 'attr': {'class': 'btn btn-success'} }) }}
+                    </td>
+                </tr>
+            </table>
+            {{ form_row(form._token) }}
+            {{ form_end(form, {'render_rest': false}) }}
+
         </div>
 
     </div>

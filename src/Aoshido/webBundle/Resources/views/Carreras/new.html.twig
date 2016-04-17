@@ -31,9 +31,11 @@
                                 <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="tooltip" data-placement="left" title="Editar" onclick="location.href = '{{ url('carreras_edit',{ 'idCarrera': carrera.id})}}';">
                                     <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                                 </button>    
-                                <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Eliminar" onclick="location.href = '{{ url('carreras_disable',{ 'idCarrera': carrera.id})}}';">
-                                    <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                                </button>    
+                                {% if is_granted("ROLE_TEACHER") %}
+                                    <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="tooltip" data-placement="right" title="Eliminar" onclick="location.href = '{{ url('carreras_disable',{ 'idCarrera': carrera.id})}}';">
+                                        <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                                    </button>    
+                                {% endif %}
                             </div>
                         </td>
                     </tr>
@@ -44,11 +46,14 @@
             </div>
 
         </div>
+        {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
+        {% if form_errors(form) %}
+            <div class="alert alert-danger" role="alert">{{ form_errors(form)}}</div>
+        {% endif %}
         <div class="panel panel-primary">
             <div class="panel-heading">Agregar Carrera:</div>
 
-            {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
-            {{ form_errors(form)}}
+
             <table class="table table-condensed" >
                 <tbody id="materias" data-prototype="{% filter escape %}{{ include('AoshidowebBundle:Themes:carrera-edit-field-prototype.html.twig',{ 'form': form.materias.vars.prototype }) }}{% endfilter %}">
                     <tr class="info">
@@ -85,10 +90,10 @@
                     </td>
                 </tr>
             </table>
-            {{ form_row(form._token) }}
-            {{ form_end(form, {'render_rest': false}) }}
 
         </div>
+        {{ form_row(form._token) }}
+        {{ form_end(form, {'render_rest': false}) }}
     </div>
 </div>
 {% endblock %}

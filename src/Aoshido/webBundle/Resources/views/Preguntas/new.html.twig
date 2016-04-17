@@ -14,24 +14,12 @@
         <div class="col-sm-6">
             Preguntas
         </div>
-        <div class="container text-right">
-            <form method="get" action="{{url('abms_preguntas')}}">
-                {{ form_errors(searchForm)}}
-                {{ form_errors(searchForm.contenido) }}
-                <div class="col-sm-6">
-                    <div id="custom-search-input">
-                        <div class="input-group col-md-12">
-                            {{ form_widget(searchForm.contenido,{ 'attr' : { 'class' : 'form-control input-lg' ,'placeholder' : 'Quicksearch'} }) }}
-                            <span class="input-group-btn">
-                                <button class="btn btn-info btn-lg" type="submit">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                {{ form_rest(searchForm)}}
-            </form>
+        <div class="col-sm-1">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-search">Filtros</button>
+        </div>
+
+        <div class="col-sm-5">
+            {% include 'AoshidowebBundle:Preguntas:quicksearch.html.twig' %}        
         </div>
     </div>
 {% endblock %}
@@ -40,12 +28,13 @@
 
     {% include 'AoshidowebBundle:Preguntas:form.html.twig' %}
 
-    {% form_theme form 'AoshidowebBundle:Themes:field-prototype.html.twig' %}
-
     <div class="panel panel-primary">
         <div class="panel-heading text-right">Preguntas Disponibles: {{ paginas.getTotalItemCount }}</div>
 
         <table class="table table-condensed">
+            <tr class="row">
+                <th class="col-sm-12 info text-left"> Filtros </th>
+            </tr>
             {% for pregunta in paginas %}
                 <tr class="row">
                     <td class="col-sm-12 clickable" data-toggle="modal" data-target="#myModal-{{pregunta.id}}">
@@ -75,7 +64,6 @@
                                             {{pregunta.getCreada|date("d/m/Y")}}
                                         </span>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -92,6 +80,7 @@
     {% for pregunta in paginas %}
         {% include 'AoshidowebBundle:Preguntas:modal.html.twig' %}
     {%endfor%}
+        {% include 'AoshidowebBundle:Preguntas:form_filter.html.twig' %}
 
 {% endblock %}
 
