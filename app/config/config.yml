@@ -91,3 +91,12 @@ fos_user:
     db_driver: orm 
     firewall_name: main
     user_class: Aoshido\UserBundle\Entity\User
+    
+# Sonata Admin Bundle
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        # enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts: [admin]
+        # ...
