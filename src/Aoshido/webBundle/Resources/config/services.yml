@@ -5,3 +5,21 @@ services:
     service_disabler:
         class:        Aoshido\webBundle\Services\ServiceDisabler
         arguments:    [@doctrine.orm.default_entity_manager]
+        
+    admin.pregunta:
+        class: Aoshido\webBundle\Admin\PreguntaAdmin
+        arguments: [~, Aoshido\webBundle\Entity\Pregunta, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Preguntas }
+            
+    admin.bug:
+        class: Aoshido\webBundle\Admin\bugAdmin
+        arguments: [~, Aoshido\webBundle\Entity\Bug, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Bugs }
+            
+    admin.user:
+        class: Aoshido\webBundle\Admin\userAdmin
+        arguments: [~, Aoshido\UserBundle\Entity\User, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Users }
