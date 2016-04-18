@@ -103,6 +103,8 @@ sonata_block:
                 contexts: [admin]
             sonata.block.service.rss:
                 contexts: [admin]
+            sonata.block.service.last_questions: 
+                contexts: [admin]
         # ...
         
 sonata_admin:
@@ -113,17 +115,5 @@ sonata_admin:
                 type: sonata.admin.block.admin_list
             -
                 position: right
-                type: sonata.block.service.text
+                type: sonata.block.service.last_questions
                 settings:
-                    content: >
-                        <h2>Welcome to the Sonata Admin</h2>
-                        <p>This is a <code>sonata.block.service.text</code> from the Block
-                        Bundle, you can create and add new block in these area by configuring
-                        the <code>sonata_admin</code> section.</p> <br /> For instance, here
-                        a RSS feed parser (<code>sonata.block.service.rss</code>):
-            -
-                position: right
-                type: sonata.block.service.rss
-                settings:
-                    title: Sonata Project's Feeds
-                    url: http://sonata-project.org/blog/archive.rss

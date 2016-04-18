@@ -23,3 +23,11 @@ services:
         arguments: [~, Aoshido\UserBundle\Entity\User, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Users }
+            
+    sonata.block.service.last_questions:
+        class: Aoshido\adminBundle\Block\LastQuestionsBlock
+        arguments:
+            - sonata.block.service.rss
+            - "@templating"
+        tags:
+            - { name: sonata.block }
