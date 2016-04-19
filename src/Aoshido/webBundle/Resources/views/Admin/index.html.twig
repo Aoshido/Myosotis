@@ -1,0 +1,15 @@
+{% extends 'AvanzuAdminThemeBundle:layout:base-layout.html.twig' %}
+
+{% block javascripts %}
+    <!-- Jquery from GOOGLE CDN -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    {% javascripts '../app/Resources/public/js/jquery.popconfirm.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    
+{% endblock javascripts %}
