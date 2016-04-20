@@ -31,3 +31,8 @@ services:
             - "@templating"
         tags:
             - { name: sonata.block }
+            
+    data_collector.memory_collector:
+        class: Aoshido\webBundle\DataCollector\MemoryDataCollector  
+        tags:
+            - { name: data_collector, template: "AoshidowebBundle:DataCollector:MemoryDataCollector", id: "memory_collector" }
