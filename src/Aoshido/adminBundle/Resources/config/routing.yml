@@ -1,0 +1,3 @@
+aoshidoadmin_homepage:
+    path:     /
+    defaults: { _controller: AoshidoadminBundle:Dashboard:index }

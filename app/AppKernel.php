@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Aoshido\UserBundle\AoshidoUserBundle(),
             new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
+            new Aoshido\adminBundle\AoshidoadminBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

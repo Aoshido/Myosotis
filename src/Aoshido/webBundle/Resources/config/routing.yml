@@ -1,9 +1,9 @@
 admin_cache:
-    path:     /admin/cache
+    path:     /admin2/cache
     defaults: { _controller: AoshidowebBundle:Default:cacheClear }
 
 admin_error:
-    path:     /admin/throwFive
+    path:     /admin2/throwFive
     defaults: { _controller: AoshidowebBundle:Default:throwFive }
 
 aoshidoweb_homepage:
