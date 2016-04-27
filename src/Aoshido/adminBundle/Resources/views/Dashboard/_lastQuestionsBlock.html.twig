@@ -1,0 +1,33 @@
+<div class="col-sm-6">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Ultimas 10 preguntas
+        </div>
+        <table class="table table-condensed table-responsive table-hover">
+            <tr class="info">
+                <th >ID</th>
+                <th>Materia</th>
+                <th>Usuario creador</th>
+                <th>Veces vista</th>
+                <th>Veces Acertada</th>
+                <th>Estado</th>
+            </tr>
+            {% for pregunta in paginas %}
+                <tr >
+                    <td>{{pregunta.id}}</td>
+                    <td>{{pregunta.temas[0].materia.descripcion}}</td>
+                    <td>{{pregunta.creatorUser.username}}</td>
+                    <td>{{pregunta.vecesVista}}</td>
+                    <td>{{pregunta.vecesAcertada}}</td>
+                    <td>
+                        {% if (pregunta.activo) %}
+                            <span style="font-size:16px;" class="glyphicon glyphicon-ok"></span>
+                        {% else %}
+                            <span style="font-size:16px;" class="glyphicon glyphicon-remove"></span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
