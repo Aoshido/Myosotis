@@ -10,12 +10,16 @@ class DashboardController extends Controller {
         return $this->render('AoshidoadminBundle:Dashboard:index.html.twig');
     }
 
+    public function getMaxMemoryAction() {
+        return $this->render('AoshidoadminBundle:Dashboard:test.html.twig', array('memory' => memory_get_usage()));
+    }
+
     public function lastQuestionsAction() {
         $filterBuilder = $this->get('doctrine.orm.entity_manager')
                 ->getRepository('AoshidowebBundle:Pregunta')
                 ->createQueryBuilder('p')
                 //->where('p.activo = TRUE')
-                ->orderBy('p.creada','DESC');
+                ->orderBy('p.creada', 'DESC');
 
         $preguntas = $filterBuilder->getQuery()->getResult();
 
@@ -27,13 +31,13 @@ class DashboardController extends Controller {
                     'paginas' => $pagination,
         ));
     }
-    
+
     public function lastUsersAction() {
         $filterBuilder = $this->get('doctrine.orm.entity_manager')
                 ->getRepository('AoshidoUserBundle:User')
                 ->createQueryBuilder('u')
                 //->where('p.activo = TRUE')
-                ->orderBy('u.id','DESC');
+                ->orderBy('u.id', 'DESC');
 
         $preguntas = $filterBuilder->getQuery()->getResult();
 
@@ -45,13 +49,13 @@ class DashboardController extends Controller {
                     'paginas' => $pagination,
         ));
     }
-    
+
     public function lastBugsAction() {
         $filterBuilder = $this->get('doctrine.orm.entity_manager')
                 ->getRepository('AoshidowebBundle:Bug')
                 ->createQueryBuilder('b')
                 //->where('p.activo = TRUE')
-                ->orderBy('b.id','DESC');
+                ->orderBy('b.id', 'DESC');
 
         $preguntas = $filterBuilder->getQuery()->getResult();
 
@@ -61,6 +65,19 @@ class DashboardController extends Controller {
 
         return $this->render('AoshidoadminBundle:Dashboard:_lastBugsBlock.html.twig', array(
                     'paginas' => $pagination,
+        ));
+    }
+
+    public function questionDistributionAction() {
+        $filterBuilder = $this->get('doctrine.orm.entity_manager')
+                ->getRepository('AoshidowebBundle:Materia')
+                ->createQueryBuilder('m')
+                ->where('m.activo = TRUE');
+
+        $materias = $filterBuilder->getQuery()->getResult();
+
+        return $this->render('AoshidoadminBundle:Dashboard:_questionDistributionBlock.html.twig', array(
+                    'materias' => $materias,
         ));
     }
 

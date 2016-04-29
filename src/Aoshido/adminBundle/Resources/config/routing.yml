@@ -1,3 +1,7 @@
 aoshidoadmin_homepage:
     path:     /
     defaults: { _controller: AoshidoadminBundle:Dashboard:index }
+    
+aoshidoadmin_get_memory:
+    path:     /getMaxMemory
+    defaults: { _controller: AoshidoadminBundle:Dashboard:getMaxMemory }
