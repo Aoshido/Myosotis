@@ -5,3 +5,11 @@ aoshidoadmin_homepage:
 aoshidoadmin_get_memory:
     path:     /getMaxMemory
     defaults: { _controller: AoshidoadminBundle:Dashboard:getMaxMemory }
+    
+aoshidoadmin_users:
+    path:     /users
+    defaults: { _controller: AoshidoadminBundle:Dashboard:users }
+
+aoshidoadmin_bugs:
+    path:     /bugs
+    defaults: { _controller: AoshidoadminBundle:Dashboard:bugs }
