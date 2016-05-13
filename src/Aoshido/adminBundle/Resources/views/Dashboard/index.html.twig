@@ -11,14 +11,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Myosotis</a>
+                <a class="navbar-brand" href="{{path('aoshidoweb_homepage')}}">Myosotis</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Dashboard<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
-                    <li ><a href="#">Usuarios<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
-                    <li ><a href="#">Bugs<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-fire"></span></a></li>
+                    <li class="{% block dashboard %}{% endblock %}"><a href="{{path('aoshidoadmin_homepage')}}">Dashboard<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
+                    <li class="{% block users %}{% endblock %}"><a href="{{path('aoshidoadmin_users')}}">Usuarios<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
+                    <li class="{% block bugs %}{% endblock %}"><a href="{{path('aoshidoadmin_bugs')}}">Bugs<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-fire"></span></a></li>
                 </ul>
             </div>
         </div>
@@ -328,7 +328,7 @@
                         grid: {show: false, hoverable: true}});
 
                     // pie
-                    $.plot("#p1", [12, 78, 90], {series: {pie: {show: true}}, grid: {hoverable: true}});
+                    $.plot("#p1", [{# for preguntas in preguntasPorMateria %}{{preguntas}},{% endfor #}], {series: {pie: {show: true}}, grid: {hoverable: true}});
                     $.plot("#p2", [33, 66, 8], {series: {pie: {show: true}}, grid: {hoverable: true}});
                     $.plot("#p3", [19, 34, 77], {series: {pie: {show: true}}, grid: {hoverable: true}});
 
@@ -338,28 +338,48 @@
                     // be fetched from a server
                     var data = [], totalPoints = 100;
                     function getRandomData() {
+                        // Variable to hold request
+                        var request;
+                        var return_response = [];
 
-                        if (data.length > 0)
-                            data = data.slice(1);
+                        // Fire off the request to /form.php
+                        request = $.ajax({
+                            url: "/admin/getMaxMemory",
+                            type: "get",
+                            async: false
+                        });
 
-                        // do a random walk
-                        while (data.length < totalPoints) {
-                            /*$.get("https://www.random.org/integers/?num=1&min=1&max=100&col=1&base=10&format=plain&rnd=new", {}, function (results) {
-                                data.push(results);
-                            });*/
-                            data.push(data.length);
-                        }
+                        // Asincronico :S
+                        // Callback handler that will be called on success
+                        request.done(function (response, textStatus, jqXHR) {
+                            // Log a message to the console
+                            console.log("Hooray, it worked!");
+                            res = [];
 
-                        // zip the generated y values with the x values
-                        var res = [];
-                        for (var i = 0; i < data.length; ++i) {
-                            res.push([i, data[i]]);
-                        }
+                            for (var i = 0; i < response.length; ++i) {
+                                res.push([i, response[i]]);
+                            }
+                            return_response =res;
+                            return res;
+                        });
+
+                        console.log("Return response FUERA FUNCION:");
+                        console.log(return_response);
+
+                        // Callback handler that will be called on failure
+                        request.fail(function (jqXHR, textStatus, errorThrown) {
+                            // Log the error to the console
+                            console.error(
+                                    "The following error occurred: " +
+                                    textStatus, errorThrown
+                                    );
+                        });
+
                         return res;
                     }
 
                     // setup control widget
-                    var updateInterval = 1000;
+                    var updateInterval = 2000;
                     $("#updateInterval").val(updateInterval).change(function () {
                         var v = $(this).val();
                         if (v && !isNaN(+v)) {
