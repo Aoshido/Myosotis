@@ -9,32 +9,39 @@ class DashboardController extends Controller {
 
     public function indexAction() {
         $filterBuilder = $this->get('doctrine.orm.entity_manager')
-                ->getRepository('AoshidowebBundle:Materia')
-                ->createQueryBuilder('m')
-                ->where('m.activo = TRUE');
+                ->getRepository('AoshidowebBundle:Carrera')
+                ->createQueryBuilder('c')
+                ->where('c.activo = TRUE');
 
-        $materias = $filterBuilder->getQuery()->getResult();
-
-        foreach ($materias as $materia) {
+        $carreras = $filterBuilder->getQuery()->getResult();
+        $total = 0;
+        foreach ($carreras as $carrera) {
             $preguntas = 0;
-            foreach ($materia->getTemas() as $tema) {
-                $preguntas += sizeof($tema->getPreguntas());
+            foreach ($carrera->getMaterias() as $materia) {
+                foreach ($materia->getTemas() as $tema) {
+                    $preguntas += ($tema->getPreguntasActivas()->count());
+                }
             }
-            $preguntasPorMateria[$materia->getDescripcion()] = $preguntas;
+            $total += $preguntas;
+            $preguntasPorCarrera[] = array($carrera->getDescripcion(), $preguntas);
         }
 
-        return $this->render('AoshidoadminBundle:Dashboard:index.html.twig', array('preguntasPorMateria' => $preguntasPorMateria));
+        return $this->render('AoshidoadminBundle:Dashboard:index.html.twig', array(
+                    'preguntasPorCarrera' => $preguntasPorCarrera,
+                    'preguntasTotales' => $total
+        ));
     }
 
     public function getMaxMemoryAction() {
         $i = 0;
         while ($i < 100) {
-            //$memoryArray[] = (memory_get_usage() / 1024);
-            $memoryArray[] = rand(0, 100);
+            //$memoryArray[] = array(date_format(new \DateTime('now'),'H:i:s'),(memory_get_usage() / 1024));
+            $memoryArray[] = (memory_get_usage() / 1024);
+            //$memoryArray[] = rand(0, 100);
             $i++;
         }
         // create a JSON-response with a 200 status code
-        $response = new Response(json_encode($memoryArray),Response::HTTP_OK);
+        $response = new Response(json_encode($memoryArray), Response::HTTP_OK);
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
