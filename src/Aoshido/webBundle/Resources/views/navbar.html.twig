@@ -122,6 +122,13 @@
                                         Bug Tracker
                                     </a>
                                 </li>
+                                <li class="" {% block admin %} {% endblock %} >
+                                    <a href="{{path('aoshidoadmin_homepage')}}">
+                                        <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>           
+                                        Admin
+                                    </a>
+                                </li>
+                                
                             {% endif %}
                             <li class="divider"></li>
                             <li><a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>

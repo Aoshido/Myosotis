@@ -159,5 +159,20 @@ class Tema {
     public function getPreguntas() {
         return $this->preguntas;
     }
+    
+    /**
+     * Get preguntasActivas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPreguntasActivas() {
+        $preguntasActivas = new ArrayCollection();
+        foreach ($this->getPreguntas() as $pregunta){
+            if ($pregunta->getActivo()){
+                $preguntasActivas->add($pregunta);
+            }
+        }
+        return $preguntasActivas;
+    }
 
 }
