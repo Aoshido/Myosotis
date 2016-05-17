@@ -1,14 +1,14 @@
 # This file is a "template" of what your parameters.yml file should look like
 parameters:
-    database_driver:   pdo_sqlite
-    database_host:     
-    database_port:     
-    database_name:     
+    database_driver:   pdo_mysql
+    database_host:     aoshido.com.ar
+    database_port:     3306
+    database_name:     aoshidoc_prod
     database_user:     
     database_password: ~
     database_memory: false
     # You should uncomment this if you want use pdo_sqlite
-    database_path: "%kernel.root_dir%/aosymf.db"
+    #database_path: "%kernel.root_dir%/aosymf.db"
 
     mailer_transport:  smtp
     mailer_host:       aoshido.com.ar
