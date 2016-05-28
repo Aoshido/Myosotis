@@ -8,5 +8,5 @@ class_name: AcceptanceTester
 modules:
     enabled:
         - PhpBrowser:
-            url: http://aosymf.dev
+            url: http://myosotis.dev
         - \Helper\Acceptance
