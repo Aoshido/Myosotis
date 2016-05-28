@@ -3,6 +3,7 @@
 namespace Aoshido\webBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Respuesta
@@ -24,14 +25,15 @@ class Respuesta {
 
     /**
      * @var string
-     *
+     * @Assert\NotNull(message = "El contenido no puede estar vacio")
+     * @Assert\NotBlank(message = "El contenido no puede estar vacio")
      * @ORM\Column(name="Contenido", type="text")
      */
     private $contenido;
 
     /**
      * @var boolean
-     *
+     * @Assert\NotBlank(message = "La respuesta debe ser verdadera o falsa")
      * @ORM\Column(name="Correcta", type="boolean")
      */
     private $correcta;
@@ -184,8 +186,8 @@ class Respuesta {
     public function getPregunta() {
         return $this->pregunta;
     }
-    
-        /**
+
+    /**
      * Set creada
      *
      * @param \DateTime $creada

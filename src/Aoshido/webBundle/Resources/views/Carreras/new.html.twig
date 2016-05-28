@@ -46,7 +46,7 @@
             </div>
 
         </div>
-        {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
+        {{ form_start(form,{ 'attr': {'class': 'form-horizontal', 'id': 'carrera_form'} })}}
         {% if form_errors(form) %}
             <div class="alert alert-danger" role="alert">{{ form_errors(form)}}</div>
         {% endif %}

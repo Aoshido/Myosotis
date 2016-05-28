@@ -3,6 +3,7 @@
 namespace Aoshido\webBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Bug
@@ -23,7 +24,8 @@ class Bug {
 
     /**
      * @var string
-     *
+     * @Assert\NotNull(message = "La descripcion no puede estar vacia")
+     * @Assert\NotBlank(message = "La descripcion no puede estar vacia")
      * @ORM\Column(name="contenido", type="string", length=600)
      */
     private $contenido;

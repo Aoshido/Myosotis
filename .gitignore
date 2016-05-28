@@ -16,3 +16,5 @@
 /nbproject
 aosymf.zip
 dandelion.yml
+
+tests/_output/*
