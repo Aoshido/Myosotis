@@ -15,9 +15,9 @@ extensions:
 modules:
     config:
         Db:
-            dsn: 'mysql:host=aoshido.com.ar;dbname=aoshidoc_prod'
-            user: 'aoshidoc_dbUser'
-            password: 'Myoshido777'
+            dsn: 'mysql:host=localhost;dbname=aoshidoc_test'
+            user: 'root'
+            password: 'Aoshido'
             dump: /MyosotisTestDump20160528.sql
 coverage:
     enabled: true

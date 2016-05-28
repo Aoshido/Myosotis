@@ -13,4 +13,4 @@ modules:
             populate: false
             cleanup: true
         - PhpBrowser:
-            url: http://aosymf.dev
+            url: http://myosotis.dev
