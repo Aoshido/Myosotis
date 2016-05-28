@@ -4,6 +4,7 @@ namespace Aoshido\webBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Pregunta
@@ -25,7 +26,8 @@ class Pregunta {
 
     /**
      * @var string
-     *
+     * @Assert\NotNull(message = "El contenido no puede estar vacio")
+     * @Assert\NotBlank(message = "El contenido no puede estar vacio")
      * @ORM\Column(name="Contenido", type="text")
      */
     protected $contenido;

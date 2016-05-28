@@ -1,8 +1,6 @@
-
 {% trans_default_domain 'FOSUserBundle' %}
 
-
-    <form class="navbar-form form-inline pull-right" action="{{ path("fos_user_security_check") }}" method="post">
+    <form id="login_form" class="navbar-form form-inline pull-right" action="{{ path("fos_user_security_check") }}" method="post">
 
         {% if error %}
             <div class="form-group alert alert-danger" style="padding-top: 6px; padding-bottom: 6px;">

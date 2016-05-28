@@ -16,11 +16,11 @@ class PreguntasControllerTest extends WebTestCase {
         $client->request('GET', '/admin/users');
         $this->assertEquals(Response::HTTP_FOUND, $client->getResponse()->getStatusCode());
 
-        $client->request('GET', '/urlerrada');
-        $this->assertEquals(Response::HTTP_NOT_FOUND, $client->getResponse()->getStatusCode());
-        
         $client->request('GET', '/games/challenge');
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+         
+       $client->request('GET', '/urlerrada');
+        $this->assertEquals(Response::HTTP_NOT_FOUND, $client->getResponse()->getStatusCode());
     }
 
     public function testIndex() {
