@@ -220,7 +220,7 @@ class PreguntasController extends Controller {
                     ->getRepository('AoshidowebBundle:Pregunta')
                     ->findBy(array('activo' => TRUE));
             
-            dump($preguntas);
+            //dump($preguntas);
         }
         return $preguntas;
     }

@@ -1,6 +1,6 @@
 <?php
 
-class CarreraCest {
+class MateriaCest {
 
     public function _before(FunctionalTester $I) {
         
@@ -10,42 +10,47 @@ class CarreraCest {
         
     }
 
-    public function DarAltaCarreraUnica(FunctionalTester $I) {
-        $I->wantTo('Create 2 Carreras with the same name');
+    public function DarAltaMateriaUnica(FunctionalTester $I) {
+        $I->wantTo('Create 2 Materias with the same name');
         $I = $this->executeLogin($I);
-        $I->amOnPage('/abms/carreras');
-        $I->seeInCurrentUrl('/abms/carreras');
+        $I->amOnPage('/abms/materias');
+        $I->seeInCurrentUrl('/abms/materias');
 
         $I->submitForm(
-                'form#carrera_form', [
-            'carrera[descripcion]' => 'testUnico',
+                'form#materia_form', [
+            'materia[descripcion]' => 'testUnico',
+            'materia[aniocarrera]' => '1',
+            'materia[careraras][]' => '[1]',
                 ]
         );
-        $I->see("Carrera Creada");
-        
+        $I->see("Materia Creada");
+
         $I->submitForm(
-                'form#carrera_form', [
-            'carrera[descripcion]' => 'testUnico',
+                'form#materia_form', [
+            'materia[descripcion]' => 'testUnico',
+            'materia[aniocarrera]' => '1',
+            'materia[careraras][]' => '[1]',
                 ]
         );
-        $I->see("Ya existe una carrera con ese nombre");
+        $I->see("Ya existe una materia con ese nombre");
     }
 
     public function LlenarMalFormulario(FunctionalTester $I) {
         $I->wantTo('Fill a bad creation form');
         $I = $this->executeLogin($I);
-        $I->amOnPage('/abms/carreras');
-        $I->seeInCurrentUrl('/abms/carreras');
+        $I->amOnPage('/abms/materias');
+        $I->seeInCurrentUrl('/abms/materias');
 
         $I->submitForm(
-                'form#carrera_form', [
-            'carrera[descripcion]' => '',
+                'form#materia_form', [
+            'materia[descripcion]' => '',
                 ]
         );
         $I->see("La descripcion no puede estar vacia");
 
         $I->submitForm(
-                'form#carrera_form', [
+                'form#materia_form', [
+            'materia[descripcion]' => '',
                 ]
         );
         $I->see("La descripcion no puede estar vacia");
