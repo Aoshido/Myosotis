@@ -34,7 +34,6 @@ class MateriasController extends Controller {
 
         $form->handleRequest($request);
         
-
         if ($form->isValid()) {
             $materia->setActivo(TRUE);
 
@@ -44,6 +43,8 @@ class MateriasController extends Controller {
 
             $this->get('session')->getFlashBag()->add('success', 'Materia agregada !');
             return $this->redirect($this->generateUrl('abms_materias'));
+        }else{
+            //die($form->getErrorsAsString());
         }
 
         return $this->render('AoshidowebBundle:Materias:new.html.twig', array(
