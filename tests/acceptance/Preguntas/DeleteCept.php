@@ -9,6 +9,7 @@ $I->amOnPage('/abms/preguntas');
 $I->see('Preguntas');
 
 $I->click(['xpath' => '//div[@style=\'height:150px;overflow:hidden; text-overflow:ellipsis;\']']);
+$I->wait(1);
 $I->see('Respuestas posibles:');
 $I->click(['xpath' => '//button[@data-original-title=\'Eliminar\']']);
 $I->see('¿Seguro que desea borrar la Pregunta?');
