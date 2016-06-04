@@ -67,4 +67,13 @@ class AcceptanceTester extends \Codeception\Actor {
         });
     }
 
+    public function login($name, $password) {
+        $I = $this;
+        $I->amOnPage('/');
+        $I->fillField('_username', $name);
+        $I->fillField('_password', $password);
+        $I->click('_submit');
+        $I->see('Aoshido');
+    }
+
 }

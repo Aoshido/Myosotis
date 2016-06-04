@@ -2,17 +2,14 @@
 use \Codeception\Util\Locator;
 
 $I = new AcceptanceTester($scenario);
-$I->wantTo('Login');
-$I->amOnPage('/');
-$I->fillField('_username', 'Aoshido');
-$I->fillField('_password', 'Aoshido');
-$I->click('_submit');
-$I->see('Aoshido');
+$I->login('Aoshido', 'Aoshido');
 
-$I->wantTo('Create a question');
+$I->wantTo('Create a pregunta');
 $I->amOnPage('/abms/preguntas');
 $I->see('Preguntas');
 $I->click(['xpath' => '//h3[@class=\'panel-title \']']);
+
+//http://stackoverflow.com/questions/29168107/how-to-fill-a-rich-text-editor-field-for-a-codeception-acceptance-test
 $I->fillCkEditorById('pregunta_contenido', "PreguntaSELES");
 $I->selectOption('pregunta[carrera]', '1');
 $I->selectOption('pregunta[materia]', '1');

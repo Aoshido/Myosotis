@@ -13,7 +13,7 @@ modules:
         - WebDriver:
             host: 192.168.33.1
             url: http://myosotis.dev
-            browser: firefox            
+            browser: firefox
         - \Helper\Acceptance
         - Db:
             populate: false
