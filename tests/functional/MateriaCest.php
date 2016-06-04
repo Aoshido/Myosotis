@@ -9,7 +9,7 @@ class MateriaCest {
     public function _after(FunctionalTester $I) {
         
     }
-
+/*
     public function DarAltaMateriaUnica(FunctionalTester $I) {
         $I->wantTo('Create 2 Materias with the same name');
         $I = $this->executeLogin($I);
@@ -55,7 +55,7 @@ class MateriaCest {
         );
         $I->see("La descripcion no puede estar vacia");
     }
-
+*/
     /*
      * http://stackoverflow.com/questions/20333240/codeception-keep-a-logged-in-state
      */
