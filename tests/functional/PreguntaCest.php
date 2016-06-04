@@ -40,6 +40,26 @@ class PreguntaCest {
      * http://stackoverflow.com/questions/20333240/codeception-keep-a-logged-in-state
      */
 
+    public function DarAltaPregunta(FunctionalTester $I) {
+        $I->wantTo('Create a new question');
+        $I = $this->executeLogin($I);
+        $I->amOnPage('/abms/preguntas');
+        $I->seeInCurrentUrl('/abms/preguntas');
+
+        $I->fillField('pregunta[contenido]','testCodeception');
+        $I->selectOption('pregunta[carrera]','Ingenieria en sistemas de información');
+        $I->wait(1);
+        $I->selectOption('pregunta[materia]','Sistemas Operativos');
+        $I->selectOption('pregunta[temas][]','Disco');
+        $I->click('pregunta[save]');
+        $I->see("Pregunta Agregada");
+        
+    }
+
+    /*
+     * http://stackoverflow.com/questions/20333240/codeception-keep-a-logged-in-state
+     */
+
     private function executeLogin(FunctionalTester $I) {
         $I->amOnPage('/');
         $I->submitForm(
@@ -52,5 +72,6 @@ class PreguntaCest {
         $I->seeInCurrentUrl('/profile');
         return ($I);
     }
+
 
 }

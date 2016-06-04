@@ -7,6 +7,14 @@
 class_name: AcceptanceTester
 modules:
     enabled:
-        - PhpBrowser:
+        #- PhpBrowser:
+            #url: http://myosotis.dev
+        #- \Helper\Acceptance
+        - WebDriver:
+            host: 192.168.33.1
             url: http://myosotis.dev
+            browser: firefox            
         - \Helper\Acceptance
+        - Db:
+            populate: false
+            cleanup: true
