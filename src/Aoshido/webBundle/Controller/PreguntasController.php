@@ -20,7 +20,7 @@ class PreguntasController extends Controller {
             'method' => 'GET',
         ));
 
-        $preguntas = $this->getPreguntasFiltered($request, $quicksearch_form, $fullsearch_form,$pregunta);
+        $preguntas = $this->getPreguntasFiltered($request, $quicksearch_form, $fullsearch_form, $pregunta);
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($preguntas, $this->getRequest()->query->get('page', 1), 5);
@@ -67,12 +67,12 @@ class PreguntasController extends Controller {
             'method' => 'GET',
         ));
 
-        $preguntas = $this->getPreguntasFiltered($request, $quicksearch_form, $fullsearch_form,$pregunta_model);
+        $preguntas = $this->getPreguntasFiltered($request, $quicksearch_form, $fullsearch_form, $pregunta_model);
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($preguntas, $this->getRequest()->query->get('page', 1), 5);
         $pagination->setPageRange(6);
-        
+
         $search_form = $this->get('form.factory')->create(new PreguntasFilterType());
 
         if ($request->query->has($search_form->getName())) {
@@ -138,8 +138,16 @@ class PreguntasController extends Controller {
     }
 
     public function disableAction($idPregunta) {
+        $em = $this->getDoctrine()->getManager();
 
-        $this->get('service_disabler')->disablePregunta($idPregunta);
+        $pregunta = $this->getDoctrine()
+                ->getRepository('AoshidowebBundle:Pregunta')
+                ->find($idPregunta);
+
+        $pregunta->setActivo(FALSE);
+        $em->persist($pregunta);
+        $em->flush();
+
         $this->get('session')->getFlashBag()->add('success', 'Pregunta eliminada !');
         return $this->redirect($this->generateUrl('abms_preguntas'));
     }
@@ -178,7 +186,7 @@ class PreguntasController extends Controller {
         return new JsonResponse($temas);
     }
 
-    public function getPreguntasFiltered(Request $request, $quicksearch_form, $fullsearch_form,$pregunta) {
+    public function getPreguntasFiltered(Request $request, $quicksearch_form, $fullsearch_form, $pregunta) {
 
         if ($request->query->has($quicksearch_form->getName())) {
             // manually bind values from the request
@@ -196,7 +204,7 @@ class PreguntasController extends Controller {
             $preguntas = $filterBuilder->getQuery()->getResult();
         } else if ($request->query->has($fullsearch_form->getName())) {
             $preguntas = new ArrayCollection();
-            
+
             $fullsearch_form->handleRequest($request);
 
             if ($fullsearch_form->isValid()) {
@@ -212,14 +220,14 @@ class PreguntasController extends Controller {
                 }
                 if (count($preguntas) == 0) {
                     $this->get('session')->getFlashBag()->add('error', 'Oops! Parece que no hay preguntas de esos temas');
-                    /*return $this->redirectToRoute('games_cards');*/
+                    /* return $this->redirectToRoute('games_cards'); */
                 }
             }
         } else {
             $preguntas = $this->getDoctrine()
                     ->getRepository('AoshidowebBundle:Pregunta')
                     ->findBy(array('activo' => TRUE));
-            
+
             //dump($preguntas);
         }
         return $preguntas;

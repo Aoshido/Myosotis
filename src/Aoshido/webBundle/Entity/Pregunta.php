@@ -197,6 +197,12 @@ class Pregunta {
      */
     public function setActivo($activo) {
         $this->activo = $activo;
+        
+        if (!$activo){
+            foreach ($this->respuestas as $respuesta){
+                $this->removeRespuesta($respuesta);
+            }
+        }
 
         return $this;
     }
@@ -249,6 +255,7 @@ class Pregunta {
      * @param \Aoshido\webBundle\Entity\Respuesta $respuestas
      */
     public function removeRespuesta(\Aoshido\webBundle\Entity\Respuesta $respuestas) {
+        $respuestas->setActivo(FALSE);
         $this->respuestas->removeElement($respuestas);
     }
 

@@ -104,12 +104,7 @@ class MateriasController extends Controller {
         $materia = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Materia')
                 ->find($idMateria);
-        
-        foreach ($materia->getTemas() as $tema){
-            $materia->removeTema($tema);
-            $em->persist($tema);
-        }
-        
+
         $materia->setActivo(FALSE);
         $em->persist($materia);
         $em->flush();

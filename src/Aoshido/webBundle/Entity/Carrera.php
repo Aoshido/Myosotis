@@ -91,6 +91,11 @@ class Carrera {
      */
     public function setActivo($activo) {
         $this->activo = $activo;
+        if (!$activo){
+            foreach ($this->materias as $materia){
+                $this->removeMateria($materia);
+            }
+        }
 
         return $this;
     }

@@ -97,24 +97,12 @@ class CarrerasController extends Controller {
         ));
     }
 
-    public function desvincularAction($idCarrera, $idMateria) {
-
-        $this->get('service_disabler')->desvincularMateria($idCarrera, $idMateria);
-
-        return $this->redirect($this->generateUrl('abms_carreras'));
-    }
-
     public function disableAction($idCarrera) {
         $em = $this->getDoctrine()->getManager();
 
         $carrera = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Carrera')
                 ->find($idCarrera);
-        
-        foreach ($carrera->getMaterias() as $materia){
-            $carrera->removeMateria($materia);
-            $em->persist($materia);
-        }
         
         $carrera->setActivo(FALSE);
         $em->persist($carrera);

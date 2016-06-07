@@ -137,6 +137,11 @@ class Materia {
      */
     public function setActivo($activo) {
         $this->activo = $activo;
+        if (!$activo){
+            foreach ($this->temas as $tema){
+                $this->removeTema($tema);
+            }
+        }
         return $this;
     }
 
@@ -201,7 +206,7 @@ class Materia {
         //Si me quedo sin Carreras asociadas, me borro al chizo
         $this->carreras->removeElement($carreras);
         if (count($this->carreras) == 0) {
-            $this->setActivo('false');
+            $this->setActivo(FALSE);
         }
     }
 
