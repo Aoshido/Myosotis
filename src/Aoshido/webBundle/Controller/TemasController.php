@@ -102,9 +102,16 @@ class TemasController extends Controller {
     }
 
     public function disableAction($idTema) {
+        $em = $this->getDoctrine()->getManager();
 
-        $this->get('service_disabler')->disableTema($idTema);
-        
+        $tema = $this->getDoctrine()
+                ->getRepository('AoshidowebBundle:Tema')
+                ->find($idTema);
+
+        $tema->setActivo(FALSE);
+        $em->persist($tema);
+        $em->flush();
+
         $this->get('session')->getFlashBag()->add('success', 'Tema eliminado !');
         return $this->redirect($this->generateUrl('abms_temas'));
     }
