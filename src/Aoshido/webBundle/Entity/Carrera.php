@@ -30,7 +30,6 @@ class Carrera {
 
     /**
      * @var string
-     * @Assert\NotNull(message = "La descripcion no puede estar vacia")
      * @Assert\NotBlank(message = "La descripcion no puede estar vacia")
      * @ORM\Column(name="Descripcion", type="text")
      */
