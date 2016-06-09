@@ -40,6 +40,7 @@ class PreguntaCest {
      * http://stackoverflow.com/questions/20333240/codeception-keep-a-logged-in-state
      */
 
+     /*
     public function DarAltaPregunta(FunctionalTester $I) {
         $I->wantTo('Create a new question');
         $I = $this->executeLogin($I);
@@ -53,8 +54,8 @@ class PreguntaCest {
         $I->selectOption('pregunta[temas][]','Disco');
         $I->click('pregunta[save]');
         $I->see("Pregunta Agregada");
-        
     }
+        */
 
     /*
      * http://stackoverflow.com/questions/20333240/codeception-keep-a-logged-in-state
