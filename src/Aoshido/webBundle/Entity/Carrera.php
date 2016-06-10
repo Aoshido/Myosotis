@@ -5,11 +5,16 @@ namespace Aoshido\webBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Carrera
  *
  * @ORM\Table()
+ * @UniqueEntity( 
+ *          fields = "Descripcion",
+ *          message = "Ya existe una carrera con ese nombre",
+ * )
  * @ORM\Entity(repositoryClass="Aoshido\webBundle\Entity\Carrerarepository")
  */
 class Carrera {
@@ -25,7 +30,7 @@ class Carrera {
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message = "La descripcion no puede estar vacia")
      * @ORM\Column(name="Descripcion", type="text")
      */
     private $Descripcion;
@@ -85,6 +90,11 @@ class Carrera {
      */
     public function setActivo($activo) {
         $this->activo = $activo;
+        if (!$activo){
+            foreach ($this->materias as $materia){
+                $this->removeMateria($materia);
+            }
+        }
 
         return $this;
     }

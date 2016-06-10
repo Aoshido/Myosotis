@@ -46,7 +46,7 @@
             </div>
 
         </div>
-        {{ form_start(form,{ 'attr': {'class': 'form-horizontal'} })}}
+        {{ form_start(form,{ 'attr': {'class': 'form-horizontal', 'id': 'carrera_form'} })}}
         {% if form_errors(form) %}
             <div class="alert alert-danger" role="alert">{{ form_errors(form)}}</div>
         {% endif %}
@@ -120,7 +120,7 @@
         var $collectionHolder;
 
         // setup an "add a tag" link
-        var $addTagLink = $('<button type="button" class="btn btn-success">\n\
+        var $addTagLink = $('<button id="addMateriaButton" name="addMateriaButton" type="button" class="btn btn-success">\n\
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>\n\
                                 Materia\n\
                             </button>');

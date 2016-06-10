@@ -38,7 +38,7 @@ class PreguntaType extends AbstractType {
 
         $builder->add('save', 'submit', array(
             'attr' => array(
-                'class' => 'btn btn-success'
+                'class' => 'btn btn-success',
             ),
         ));
     }
@@ -46,6 +46,7 @@ class PreguntaType extends AbstractType {
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'Aoshido\webBundle\Entity\Pregunta',
+            'attr'=>['id'=>'pregunta_form']
         ));
     }
 

@@ -43,13 +43,13 @@
             </div>
             <div class="modal-footer">
                 <div class="btn-group btn-group-sm">
-                    <button type="button" class="btn btn-info"  onclick="location.href = '{{ url('respuestas_new',{ 'idPregunta': pregunta.id}) }}';">
+                    <button type="button" class="btn btn-info" title="Responder" onclick="location.href = '{{ url('respuestas_new',{ 'idPregunta': pregunta.id}) }}';">
                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Responder
                     </button>
-                    <button type="button" class="btn btn-success" onclick="location.href = '{{ url('preguntas_edit',{ 'idPregunta': pregunta.id}) }}';">
+                    <button type="button" class="btn btn-success" title="Editar" onclick="location.href = '{{ url('preguntas_edit',{ 'idPregunta': pregunta.id}) }}';">
                         <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Editar
                     </button>    
-                    <button type="button" class="btn btn-danger"  title="Eliminar"  onclick=" location.href = '{{ url('preguntas_disable',{ 'idPregunta': pregunta.id}) }}';">
+                    <button type="button" class="btn btn-danger" title="Eliminar" onclick=" location.href = '{{ url('preguntas_disable',{ 'idPregunta': pregunta.id}) }}';">
                         <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Borrar
                     </button>    
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

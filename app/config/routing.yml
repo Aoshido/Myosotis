@@ -1,3 +1,7 @@
+aoshidoadmin:
+    resource: "@AoshidoadminBundle/Resources/config/routing.yml"
+    prefix:   /admin/
+
 aoshidoweb:
     resource: "@AoshidowebBundle/Resources/config/routing.yml"
     prefix:   /

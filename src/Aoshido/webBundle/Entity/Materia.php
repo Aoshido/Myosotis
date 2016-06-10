@@ -5,11 +5,16 @@ namespace Aoshido\webBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Materia
  *
  * @ORM\Table()
+ * @UniqueEntity( 
+ *          fields = "descripcion",
+ *          message = "Ya existe una materia con ese nombre",
+ * )
  * @ORM\Entity
  */
 class Materia {
@@ -27,8 +32,8 @@ class Materia {
      * @var string
      *
      * @ORM\Column(name="Descripcion", type="text")
-     * @Assert\NotNull(message = "La materia necesita una descripcion")
-     * @Assert\NotBlank(message = "La materia necesita una descripcion")
+     * @Assert\NotNull(message = "La descripcion no puede estar vacia")
+     * @Assert\NotBlank(message = "La descripcion no puede estar vacia")
      */
     private $descripcion;
 
@@ -132,6 +137,11 @@ class Materia {
      */
     public function setActivo($activo) {
         $this->activo = $activo;
+        if (!$activo){
+            foreach ($this->temas as $tema){
+                $this->removeTema($tema);
+            }
+        }
         return $this;
     }
 
@@ -196,7 +206,7 @@ class Materia {
         //Si me quedo sin Carreras asociadas, me borro al chizo
         $this->carreras->removeElement($carreras);
         if (count($this->carreras) == 0) {
-            $this->setActivo('false');
+            $this->setActivo(FALSE);
         }
     }
 

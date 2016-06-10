@@ -31,7 +31,7 @@ class MateriaType extends AbstractType {
 
         $builder->add('carreras', 'entity', array(
             'class' => 'AoshidowebBundle:Carrera',
-            'required' => false,
+            'required' => true,
             'expanded' => false,
             'multiple' => true,
             'property' => 'descripcion',
@@ -53,6 +53,7 @@ class MateriaType extends AbstractType {
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'Aoshido\webBundle\Entity\Materia',
+                'attr'=>['id'=>'materia_form']
         ));
     }
 

@@ -14,6 +14,7 @@
         {% if form_errors(form) %}
             <div class="alert alert-danger" role="alert">{{ form_errors(form)}}</div>
         {% endif %}
+
         <div class="col-sm-6">
             <div class="form-group">
                 {{ form_label(form.descripcion,null,{ 'label_attr' : { 'class' : 'col-sm-3 control-label' } })}}
@@ -27,7 +28,7 @@
                     {{ form_widget(form.aniocarrera,{ 'attr' : { 'class' : 'form-control' } }) }}
                 </div>
             </div>
-            {{ form_errors(form.carreras) }}
+            {# form_errors(form.carreras) #}
         </div>
 
         <div class="col-sm-6">

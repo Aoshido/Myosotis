@@ -4,6 +4,7 @@ namespace Aoshido\webBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Pregunta
@@ -25,7 +26,8 @@ class Pregunta {
 
     /**
      * @var string
-     *
+     * @Assert\NotNull(message = "El contenido no puede estar vacio")
+     * @Assert\NotBlank(message = "El contenido no puede estar vacio")
      * @ORM\Column(name="Contenido", type="text")
      */
     protected $contenido;
@@ -195,6 +197,12 @@ class Pregunta {
      */
     public function setActivo($activo) {
         $this->activo = $activo;
+        
+        if (!$activo){
+            foreach ($this->respuestas as $respuesta){
+                $this->removeRespuesta($respuesta);
+            }
+        }
 
         return $this;
     }
@@ -247,6 +255,7 @@ class Pregunta {
      * @param \Aoshido\webBundle\Entity\Respuesta $respuestas
      */
     public function removeRespuesta(\Aoshido\webBundle\Entity\Respuesta $respuestas) {
+        $respuestas->setActivo(FALSE);
         $this->respuestas->removeElement($respuestas);
     }
 

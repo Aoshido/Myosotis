@@ -22,7 +22,8 @@
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "lexik/form-filter-bundle": "~3.0",
         "knplabs/knp-markdown-bundle": "~1.3",
-        "dzango/twig-truncate-extension": "~1.0"
+        "dzango/twig-truncate-extension": "~1.0",
+        "codeception/codeception": "^2.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
