@@ -22,7 +22,6 @@ modules:
 coverage:
     enabled: true
     remote: false
-    c3_url: 'http://aosymf.dev/c3.php'
     whitelist:
         include:
             - src/*
