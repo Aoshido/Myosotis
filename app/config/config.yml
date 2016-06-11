@@ -94,6 +94,10 @@ fos_user:
     
 # Sonata admin
 sonata_admin:
+    dashboard:
+        blocks:
+            - { position: left, type: sonata.admin.block.admin_list }
+            - { position: right, type: aoshido.stats.block }
     templates:
         dashboard: SonataAdminBundle:Core:dashboard.html.twig
 sonata_block:
@@ -102,4 +106,6 @@ sonata_block:
         # enable the SonataAdminBundle block
         sonata.admin.block.admin_list:
             contexts: [admin]
+        sonata.admin.block.stats:
         # ...
+        aoshido.stats.block: ~
