@@ -37,3 +37,12 @@ services:
             - @doctrine.orm.entity_manager
         tags:
             - { name: sonata.block }
+            
+    aoshido.last_questions.block:
+        class: Aoshido\webBundle\Admin\blocks\LastQuestionsBlock
+        arguments:
+            - aoshido.lsat_questions.block
+            - "@templating"
+            - @doctrine.orm.entity_manager
+        tags:
+            - { name: sonata.block }

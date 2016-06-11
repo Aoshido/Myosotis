@@ -10,7 +10,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\CoreBundle\Validator\ErrorElement;
 use Sonata\BlockBundle\Block\BaseBlockService;
 
-class StatsBlock extends BaseBlockService {
+class LastQuestionsBlock extends BaseBlockService {
 
     protected $em;
     protected $templating;
@@ -24,7 +24,7 @@ class StatsBlock extends BaseBlockService {
 
     public function setDefaultSettings(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
-            'template' => 'AoshidowebBundle:Block:StatsBlock.html.twig',
+            'template' => 'AoshidowebBundle:Block:LastQuestionsBlock.html.twig',
         ));
     }
 
@@ -39,19 +39,13 @@ class StatsBlock extends BaseBlockService {
     public function execute(BlockContextInterface $blockContext, Response $response = null) {
         // merge settings
         $settings = $blockContext->getSettings();
-        
-        $preguntasPorCarrera = array();
 
-        $carreras = $this->em->getRepository('AoshidowebBundle:Carrera')->findBy(array(
+        $preguntas = $this->em->getRepository('AoshidowebBundle:Pregunta')->findBy(array(
             'activo' => TRUE
         ));
         
-        foreach ($carreras as $carrera){
-            $preguntasPorCarrera[$carrera->getDescripcion()] = sizeof($carrera->getPreguntasActivas());
-        }
-        
-        return $this->renderResponse('AoshidowebBundle:Block:StatsBlock.html.twig', array(
-                    'preguntasPorCarrera' => $preguntasPorCarrera,
+        return $this->renderResponse('AoshidowebBundle:Block:LastQuestionsBlock.html.twig', array(
+                    'preguntas' => $preguntas,
                     'block' => $blockContext->getBlock(),
                     'settings' => $settings
                         ), $response);
