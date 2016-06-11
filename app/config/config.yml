@@ -96,9 +96,11 @@ fos_user:
 sonata_admin:
     dashboard:
         blocks:
+            - { position: bottom, type: aoshido.last_questions.block,class: col-sm-10 col-sm-offset-1  }
             - { position: left, type: sonata.admin.block.admin_list }
             - { position: right, type: aoshido.stats.block }
     templates:
+        layout: AoshidowebBundle:Admin:standard_layout.html.twig
         dashboard: SonataAdminBundle:Core:dashboard.html.twig
 sonata_block:
     default_contexts: [cms]
@@ -109,3 +111,4 @@ sonata_block:
         sonata.admin.block.stats:
         # ...
         aoshido.stats.block: ~
+        aoshido.last_questions.block: ~
