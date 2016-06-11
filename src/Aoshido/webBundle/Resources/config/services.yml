@@ -28,3 +28,12 @@ services:
               manager_type: orm
               label: Bug
               group: "Soporte"
+              
+    aoshido.stats.block:
+        class: Aoshido\webBundle\Admin\blocks\StatsBlock
+        arguments:
+            - aoshido.stats.block
+            - "@templating"
+            - @doctrine.orm.entity_manager
+        tags:
+            - { name: sonata.block }

@@ -234,5 +234,38 @@ class Materia {
         }
         return $carrerasActivos;
     }
+    
+    /**
+     * Get Temas Activos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTemasActivos() {
+        $temasActivos = new ArrayCollection();
+
+        foreach ($this->temas as $tema) {
+            if ($tema->getActivo()) {
+                $temasActivos->add($tema);
+            }
+        }
+        return $temasActivos;
+    }
+    
+    /**
+     * Get Preguntas Activos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPreguntasActivas() {
+        $preguntasActivas = new ArrayCollection();
+
+        foreach ($this->getTemasActivos() as $tema) {
+            $preguntasActivas->add($tema->getPreguntasActivas());
+        }
+        
+        return $preguntasActivas;
+    }
+    
+    
 
 }
