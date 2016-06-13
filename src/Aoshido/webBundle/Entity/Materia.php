@@ -63,8 +63,7 @@ class Materia {
     protected $temas;
 
     /**
-     * 
-     * @ORM\ManyToMany(targetEntity="Carrera", inversedBy="materias"  )
+     * @ORM\ManyToMany(targetEntity="Carrera", inversedBy="materias", cascade={"persist"}  )
      * @ORM\JoinTable(name="MateriasCarreras")
      * @Assert\Count(
      *      min = "1",

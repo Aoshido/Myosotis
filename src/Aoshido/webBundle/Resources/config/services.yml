@@ -10,6 +10,24 @@ services:
               manager_type: orm
               label: Carrera
               group: "Academico"
+              
+    admin.materia:
+        class: Aoshido\webBundle\Admin\MateriaAdmin
+        arguments: [~, Aoshido\webBundle\Entity\Materia, ~]
+        tags:
+            - name: sonata.admin 
+              manager_type: orm
+              label: Materia
+              group: "Academico"
+              
+    admin.tema:
+        class: Aoshido\webBundle\Admin\TemaAdmin
+        arguments: [~, Aoshido\webBundle\Entity\Tema, ~]
+        tags:
+            - name: sonata.admin 
+              manager_type: orm
+              label: Tema
+              group: "Academico"
     
     admin.user:
         class: Aoshido\webBundle\Admin\UserAdmin

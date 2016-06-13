@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *          fields = "Descripcion",
  *          message = "Ya existe una carrera con ese nombre",
  * )
- * @ORM\Entity(repositoryClass="Aoshido\webBundle\Entity\Carrerarepository")
+ * @ORM\Entity
  */
 class Carrera {
 
