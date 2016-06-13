@@ -7,7 +7,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
-class CarreraAdmin extends AbstractAdmin {
+class TemaAdmin extends AbstractAdmin {
 
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper->add('descripcion', 'text');
@@ -16,7 +16,7 @@ class CarreraAdmin extends AbstractAdmin {
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper->add('id');
-        $datagridMapper->add('Descripcion');
+        $datagridMapper->add('descripcion');
         $datagridMapper->add('activo');
     }
 
@@ -27,9 +27,9 @@ class CarreraAdmin extends AbstractAdmin {
     }
 
     public function toString($object) {
-        return $object instanceof Carrera 
+        return $object instanceof Tema
                 ? $object->getDescripcion() 
-                : 'Carrera'; // shown in the breadcrumb on the create view
+                : 'Tema'; // shown in the breadcrumb on the create view
     }
 
 }
