@@ -1,5 +1,12 @@
 {% extends 'SonataAdminBundle::standard_layout.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '../app/Resources/public/css/*' filter='cssrewrite'%}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %}
+{% endblock %}
+
 {% block sonata_head_title %}
     Myosotis
 

@@ -10,7 +10,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\CoreBundle\Validator\ErrorElement;
 use Sonata\BlockBundle\Block\BaseBlockService;
 
-class LastQuestionsBlock extends BaseBlockService {
+class MostCreativeUsersBlock extends BaseBlockService {
 
     protected $em;
     protected $templating;
@@ -40,17 +40,24 @@ class LastQuestionsBlock extends BaseBlockService {
         // merge settings
         $settings = $blockContext->getSettings();
 
-        $preguntas = $this->em->getRepository('AoshidowebBundle:Pregunta')
+        $users = $this->em->getRepository('AoshidowebBundle:Pregunta')
                 ->createQueryBuilder('p')
+                ->leftJoin('p.creatorUser', 'u')
+                ->select('u.username , count(p.id) AS PreguntasCreadas')
                 ->where('p.activo = TRUE')
-                ->orderBy('p.creada','DESC')
-                ->setMaxResults(10)
+                ->orderBy('PreguntasCreadas', 'DESC')
+                ->groupBy('u.username')
+                ->setMaxResults(3)
                 ->getQuery()
                 ->getResult();
-        
-        
-        return $this->renderResponse('AoshidowebBundle:Block:LastQuestionsBlock.html.twig', array(
-                    'preguntas' => $preguntas,
+        $total = 0;
+        foreach ($users as $user) {
+            $total += $user['PreguntasCreadas'];
+        }
+
+        return $this->renderResponse('AoshidowebBundle:Block:MostCreativeUsersBlock.html.twig', array(
+                    'users' => $users,
+                    'total' => $total,
                     'block' => $blockContext->getBlock(),
                     'settings' => $settings
                         ), $response);
