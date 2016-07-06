@@ -1,7 +1,14 @@
 services:
-#    aoshidoweb.example:
-#        class: Aoshido\webBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    bug.listener:
+        class: Aoshido\webBundle\EventListener\BugMailer
+        arguments:
+            templating: "@twig"
+            mailer: "@mailer" 
+            token_storage: "@security.token_storage"
+        tags:
+            - { name: doctrine.event_listener, event: postUpdate , lazy: true }   
+
+#Sonata Blocks
     admin.carrera:
         class: Aoshido\webBundle\Admin\CarreraAdmin
         arguments: [~, Aoshido\webBundle\Entity\Carrera, ~]
