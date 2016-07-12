@@ -7,6 +7,15 @@ services:
             token_storage: "@security.token_storage"
         tags:
             - { name: doctrine.event_listener, event: postUpdate , lazy: true }   
+            
+    experience.handler.listener:
+        class: Aoshido\webBundle\EventListener\ExperienceHandler
+        arguments:
+            templating: "@twig"
+            mailer: "@mailer" 
+            token_storage: "@security.token_storage"
+        tags:
+            - { name: doctrine.event_listener, event: onFlush , lazy: true }   
 
 #Sonata Blocks
     admin.carrera:
