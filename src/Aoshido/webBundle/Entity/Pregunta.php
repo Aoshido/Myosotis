@@ -54,7 +54,7 @@ class Pregunta {
     protected $activo;
 
     /**
-     * @ORM\OneToMany(targetEntity="Respuesta", mappedBy="pregunta")
+     * @ORM\OneToMany(targetEntity="Respuesta", mappedBy="pregunta", cascade={"persist"})
      */
     protected $respuestas;
 
@@ -392,6 +392,29 @@ class Pregunta {
 
 
         return $dificultad;
+    }
+    
+    /**
+     * getDificultad
+     * 
+     * @param \Doctrine\Common\Collections\Collection $answers
+     *
+     * @return boolean
+     */
+    public function isAnsweredWith($answers){
+        $correctAnswers = $this->getRespuestasCorrectas();
+        
+        if (sizeof($correctAnswers) != sizeof($answers)){
+            return false;
+        }
+        
+        foreach ($answers as $answer){
+            if (!$correctAnswers->contains($answer)){
+                return false;
+            }
+        }
+        
+        return true;
     }
 
 }

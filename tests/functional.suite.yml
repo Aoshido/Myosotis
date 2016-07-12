@@ -9,8 +9,12 @@ modules:
     enabled:
         # add framework module here
         - \Helper\Functional
-        - Db:
-            populate: false
+        - Asserts
+        - Symfony2:
+           app_path: 'app/'
+           environment: 'dev'
+        - Doctrine2:
+            depends: Symfony2 # connect to Symfony
             cleanup: true
         - PhpBrowser:
             url: http://myosotis.dev
