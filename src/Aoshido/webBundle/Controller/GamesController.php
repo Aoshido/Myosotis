@@ -224,7 +224,7 @@ class GamesController extends Controller {
             $em->persist($preguntaEntity);
             $em->flush();
         }
-
+        
         $session = $request->getSession();
         $temasIds = $session->get('temas');
 
@@ -256,7 +256,7 @@ class GamesController extends Controller {
             ),
         ));
 
-        $accuracy = ($preguntasCorrectasCounter / ($preguntasIncorrectasCounter + $preguntasNoContestadasCounter + $preguntasCorrectasCounter)) * 100;
+        $accuracy = ($preguntasCorrectasCounter / ($preguntasIncorrectasCounter + $preguntasCorrectasCounter)) * 100;
 
         return $this->render('AoshidowebBundle:Games:pregunta.html.twig', array(
                     'quizForm' => $quizForm->createView(),

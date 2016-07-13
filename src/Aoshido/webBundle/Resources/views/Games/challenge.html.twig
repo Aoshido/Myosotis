@@ -114,7 +114,7 @@
 
             // Fire off the request to /form.php
             request = $.ajax({
-                url: "/games/challenge/newPregunta",
+                url: "{{path('games_challenge_new')}}",
                 type: "post",
                 data: serializedData
             });

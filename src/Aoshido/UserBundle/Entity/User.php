@@ -24,10 +24,21 @@ class User extends BaseUser {
      */
     protected $currentExperience;
 
+    /**
+     * @ORM\Column(name="level", type="integer")
+     */
+    protected $level;
+
+    /**
+     * @ORM\Column(name="class", type="integer")
+     */
+    protected $class;
+
     public function __construct() {
         parent::__construct();
         // your own logic
         $this->addRole('ROLE_STUDENT');
+        $this->setLevel(1);
     }
 
     /**
@@ -51,8 +62,7 @@ class User extends BaseUser {
     public function getCurrentExperience() {
         return $this->currentExperience;
     }
-    
-    
+
     /**
      * Set currentExperience
      *
@@ -62,8 +72,58 @@ class User extends BaseUser {
      */
     public function addExperience($experience) {
         $this->currentExperience += $experience;
+        $nextLevelExp = pow($this->getLevel(), 2);
+
+        if ($this->currentExperience >= $nextLevelExp) {
+            $this->currentExperience = 0;
+            $this->level += 1;
+        }
 
         return $this;
+    }
+
+    /**
+     * Set level
+     *
+     * @param integer $level
+     *
+     * @return User
+     */
+    public function setLevel($level) {
+        $this->level = $level;
+
+        return $this;
+    }
+
+    /**
+     * Get level
+     *
+     * @return integer
+     */
+    public function getLevel() {
+        return $this->level;
+    }
+
+    /**
+     * Set class
+     *
+     * @param integer $class
+     *
+     * @return User
+     */
+    public function setClass($class) {
+        $this->class = $class;
+
+        return $this;
+    }
+
+    /**
+     * Get class
+     *
+     * @return integer
+     */
+    public function getClass() {
+        return $this->class;
     }
 
 }
