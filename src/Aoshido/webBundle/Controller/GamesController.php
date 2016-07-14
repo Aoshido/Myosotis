@@ -14,34 +14,21 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class GamesController extends Controller {
 
     public function cardsAction(Request $request) {
-
         $pregunta = new Pregunta();
-
         $form = $this->createForm(new PreguntaType(), $pregunta, array(
             'method' => 'GET',
         ));
 
         $form->handleRequest($request);
-
         $preguntas = new ArrayCollection();
 
         if ($form->isValid()) {
-            foreach ($pregunta->getTemas() as $tema) {
-                $preguntas_temp = $tema->getPreguntas();
-                if (count($preguntas_temp) > 0) {
-                    foreach ($preguntas_temp as $pregunta_temp) {
-                        if ($pregunta_temp != $pregunta && !$preguntas->contains($pregunta_temp) && $pregunta_temp->getActivo()) {
-                            $preguntas->add($pregunta_temp);
-                        }
-                    }
-                }
-            }
+            $preguntas = $this->getPreguntasFromTemas($pregunta->getTemasActivos(),0,FALSE);
             if (count($preguntas) == 0) {
                 $this->get('session')->getFlashBag()->add('error', 'Oops! Parece que no hay preguntas de esos temas');
                 return $this->redirectToRoute('games_cards');
             }
         }
-
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($preguntas, $this->getRequest()->query->get('page', 1), 4);
@@ -224,7 +211,7 @@ class GamesController extends Controller {
             $em->persist($preguntaEntity);
             $em->flush();
         }
-        
+
         $session = $request->getSession();
         $temasIds = $session->get('temas');
 
@@ -340,6 +327,25 @@ class GamesController extends Controller {
         $resultados['total'] = count($preguntas);
 
         return ($resultados);
+    }
+
+    public function getPreguntasFromTemas($temas, $cantidad = 0, $conRespuestas = FALSE) {
+        foreach ($temas as $tema) {
+            $preguntasTemp = $tema->getPreguntasActivas();
+            if (count($preguntasTemp) > 0) {
+                foreach ($preguntasTemp as $preguntaTemp) {
+                    if ($preguntaTemp != $pregunta && !$preguntas->contains($preguntaTemp)) {
+                        if ($conRespuestas) {
+                            if (count($preguntaTemp->getRespuestas()) > 0) {
+                                $preguntas->add($preguntaTemp);
+                            }
+                        } else {
+                            $preguntas->add($preguntaTemp);
+                        }
+                    }
+                }
+            }
+        }
     }
 
 }
