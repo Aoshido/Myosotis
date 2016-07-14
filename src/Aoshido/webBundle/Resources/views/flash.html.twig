@@ -1,7 +1,13 @@
 {% for label, flashes in app.session.flashbag.all %}
     {% for flash in flashes %}
-        <script>
+        {% if (label == "levelUp") %}
+            <script>
+                alertify.log("<i class=\"fa fa-rocket fa-lg\"></i> {{flash}}", "success", 5000);
+            </script>
+        {% else %}
+            <script>
                 alertify.log("{{flash}}", "{{label}}", 5000);
-        </script>
+            </script>
+        {% endif %}
     {% endfor %}
 {% endfor %}

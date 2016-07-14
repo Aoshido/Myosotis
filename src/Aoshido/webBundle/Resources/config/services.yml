@@ -17,6 +17,16 @@ services:
             session: "@session"
         tags:
             - { name: doctrine.event_listener, event: onFlush , lazy: true }   
+            
+    level.notifier.listener:
+        class: Aoshido\webBundle\EventListener\LevelNotifier
+        arguments:
+            templating: "@twig"
+            mailer: "@mailer" 
+            token_storage: "@security.token_storage"
+            session: "@session"
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate , lazy: true }   
 
 #Sonata Blocks
     admin.carrera:

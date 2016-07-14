@@ -14,7 +14,7 @@ class ExperienceHandler {
     protected $tokenStorage;
     protected $session;
 
-    public function __construct(\Twig_Environment $twig, \Swift_Mailer $mailer, $tokenStorage , $session) {
+    public function __construct(\Twig_Environment $twig, \Swift_Mailer $mailer, $tokenStorage, $session) {
         $this->twig = $twig;
         $this->mailer = $mailer;
         $this->tokenStorage = $tokenStorage;
@@ -24,7 +24,7 @@ class ExperienceHandler {
     public function onFlush(OnFlushEventArgs $args) {
         $em = $args->getEntityManager();
         $uow = $em->getUnitOfWork();
-        
+
         foreach ($uow->getScheduledEntityUpdates() as $keyEntity => $entity) {
             if ($entity instanceof Pregunta) {
                 foreach ($uow->getEntityChangeSet($entity) as $keyField => $field) {
@@ -35,20 +35,9 @@ class ExperienceHandler {
                         $em->persist($user);
                         $classMetadata = $em->getClassMetadata('Aoshido\UserBundle\Entity\User');
                         $uow->computeChangeSet($classMetadata, $user);
-                        $em->flush();
                     }
                 }
             }
-            
-            if ($entity instanceof User) {
-                foreach ($uow->getEntityChangeSet($entity) as $keyField => $field) {
-                    if ($keyField == 'level') {
-                        $this->session->getFlashBag()->add('success', 'Woohoo ! Level Up');
-                    }
-                }
-            }
-            
-            
         }
     }
 
