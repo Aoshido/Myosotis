@@ -71,6 +71,19 @@ class Examen {
     }
 
     /**
+     * Add preguntas
+     *
+     * @param \Doctrine\Common\Collections\ArrayCollection $preguntasCollection
+     * @return Examen
+     */
+    public function addPreguntasCollection(\Doctrine\Common\Collections\ArrayCollection $preguntasCollection) {
+        foreach ($preguntasCollection as $pregunta) {
+            $this->preguntas[] = $pregunta;
+        }
+        return $this;
+    }
+
+    /**
      * Remove preguntas
      *
      * @param \Aoshido\webBundle\Entity\Pregunta $preguntas
@@ -95,8 +108,7 @@ class Examen {
      *
      * @return Pregunta
      */
-    public function setCreada($creada)
-    {
+    public function setCreada($creada) {
         $this->creada = $creada;
 
         return $this;
@@ -107,8 +119,7 @@ class Examen {
      *
      * @return \DateTime
      */
-    public function getCreada()
-    {
+    public function getCreada() {
         return $this->creada;
     }
 
@@ -117,8 +128,8 @@ class Examen {
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPreguntas()
-    {
+    public function getPreguntas() {
         return $this->preguntas;
     }
+
 }

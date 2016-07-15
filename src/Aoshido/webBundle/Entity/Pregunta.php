@@ -65,7 +65,7 @@ class Pregunta {
     protected $creatorUser;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Tema", inversedBy="preguntas", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Tema", inversedBy="preguntas", cascade={"persist"}, fetch="EAGER")
      * @ORM\JoinTable(name="PreguntasTemas")
      * */
     protected $temas;
@@ -197,9 +197,9 @@ class Pregunta {
      */
     public function setActivo($activo) {
         $this->activo = $activo;
-        
-        if (!$activo){
-            foreach ($this->respuestas as $respuesta){
+
+        if (!$activo) {
+            foreach ($this->respuestas as $respuesta) {
                 $this->removeRespuesta($respuesta);
             }
         }
@@ -389,32 +389,40 @@ class Pregunta {
         } else {
             $dificultad = 0;
         }
-
-
         return $dificultad;
     }
-    
+
     /**
-     * getDificultad
+     * isAnsweredWith
      * 
      * @param \Doctrine\Common\Collections\Collection $answers
      *
      * @return boolean
      */
-    public function isAnsweredWith($answers){
+    public function isAnsweredWith($answers) {
         $correctAnswers = $this->getRespuestasCorrectas();
-        
-        if (sizeof($correctAnswers) != sizeof($answers)){
+
+        if (sizeof($correctAnswers) != sizeof($answers)) {
             return false;
         }
-        
-        foreach ($answers as $answer){
-            if (!$correctAnswers->contains($answer)){
+
+        foreach ($answers as $answer) {
+            if (!$correctAnswers->contains($answer)) {
                 return false;
             }
         }
-        
+
         return true;
+    }
+    
+    /**
+     * getMateria()
+     *
+     * @return \Aoshido\webBundle\Entity\Materia
+     */
+    public function getMateria(){
+        $temaPivote = $this->getTemasActivos()->first();
+        return $temaPivote->getMateria();      
     }
 
 }
