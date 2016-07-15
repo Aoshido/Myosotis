@@ -9,7 +9,6 @@ use Aoshido\webBundle\Form\ExamenType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 class GamesController extends Controller {
 
@@ -23,7 +22,7 @@ class GamesController extends Controller {
         $preguntas = new ArrayCollection();
 
         if ($form->isValid()) {
-            $preguntas = $this->getPreguntasFromTemas($pregunta->getTemasActivos(),0,FALSE);
+            $preguntas = $this->getPreguntasFromTemas($pregunta->getTemasActivos(), 0, FALSE);
             if (count($preguntas) == 0) {
                 $this->get('session')->getFlashBag()->add('error', 'Oops! Parece que no hay preguntas de esos temas');
                 return $this->redirectToRoute('games_cards');
@@ -43,7 +42,6 @@ class GamesController extends Controller {
     public function quizAction(Request $request) {
 
         $pregunta = new Pregunta();
-
         $form = $this->createForm(new PreguntaType(), $pregunta, array(
             'method' => 'GET',
         ));
@@ -53,21 +51,14 @@ class GamesController extends Controller {
         if ($form->isValid()) {
             $quiz = new Examen();
 
-            foreach ($pregunta->getTemas() as $tema) {
-                $preguntas_temp = $tema->getPreguntas();
-                if (count($preguntas_temp) > 0) {
-                    foreach ($preguntas_temp as $pregunta_temp) {
-                        if ($pregunta_temp != $pregunta && !$quiz->getPreguntas()->contains($pregunta_temp) && $pregunta_temp->getActivo() && count($pregunta_temp->getRespuestas()) > 0) {
-                            $quiz->addPregunta($pregunta_temp);
-                        }
-                    }
-                }
-            }
+            $preguntas = $this->getPreguntasFromTemas($pregunta->getTemasActivos(), 0, TRUE);
 
-            if (count($quiz->getPreguntas()) == 0) {
+            if (sizeof($preguntas) == 0) {
                 $this->get('session')->getFlashBag()->add('error', 'Oops! Parece que no hay preguntas de esos temas');
                 return $this->redirectToRoute('games_quiz');
             }
+
+            $quiz->addPreguntasCollection($preguntas);
 
             $quizForm = $this->createForm(new ExamenType(), $quiz, array(
                 'method' => 'PATCH',
@@ -80,27 +71,30 @@ class GamesController extends Controller {
                     'class' => 'btn btn-success'
                 ),
             ));
-
-            return $this->render('AoshidowebBundle:Games:quiz.html.twig', array(
-                        'form' => $form->createView(),
-                        'quizForm' => $quizForm->createView(),
-                        'quiz' => $quiz
-            ));
         }
-
 
         return $this->render('AoshidowebBundle:Games:quiz.html.twig', array(
                     'form' => $form->createView(),
-                    'quizForm' => NULL,
-                    'quiz' => NULL
+                    'quizForm' => isset($quizForm) ? $quizForm->createView() : NULL,
+                    'quiz' => isset($quiz) ? $quiz : NULL
         ));
     }
 
     public function resultadosAction(Request $request) {
         $preguntas = $request->get('quiz')['preguntas'];
-
         $resultados = $this->corregirPreguntas($preguntas);
+        
+        $session = $request->getSession();
+        $session->set('resultados', $resultados);
 
+        return $this->redirectToRoute('games_resultados_show',array(),301);
+
+    }
+
+    public function showAction(Request $request) {
+        $session = $request->getSession();
+        $resultados = $session->get('resultados');
+        
         return $this->render('AoshidowebBundle:Games:results.html.twig', array(
                     'correctas' => $resultados['correctas'],
                     'incorrectas' => $resultados['incorrectas'],
@@ -108,14 +102,6 @@ class GamesController extends Controller {
                     'noContestadas' => $resultados['noContestadas'],
                     'total' => $resultados['total']
         ));
-    }
-
-    public function showAction(Request $request) {
-        /* $session = $request->getSession();
-          dump($session->get('correctas')[0]->getTemas());
-          die(); */
-
-        return $this->render('AoshidowebBundle:Games:results.html.twig', $parameters);
     }
 
     public function challengeAction(Request $request) {
@@ -330,11 +316,12 @@ class GamesController extends Controller {
     }
 
     public function getPreguntasFromTemas($temas, $cantidad = 0, $conRespuestas = FALSE) {
+        $preguntas = new ArrayCollection();
         foreach ($temas as $tema) {
             $preguntasTemp = $tema->getPreguntasActivas();
             if (count($preguntasTemp) > 0) {
                 foreach ($preguntasTemp as $preguntaTemp) {
-                    if ($preguntaTemp != $pregunta && !$preguntas->contains($preguntaTemp)) {
+                    if (!$preguntas->contains($preguntaTemp)) {
                         if ($conRespuestas) {
                             if (count($preguntaTemp->getRespuestas()) > 0) {
                                 $preguntas->add($preguntaTemp);
@@ -346,6 +333,10 @@ class GamesController extends Controller {
                 }
             }
         }
+        //TODO: Split by "cantidad"
+
+
+        return $preguntas;
     }
 
 }

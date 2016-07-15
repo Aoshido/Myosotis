@@ -39,7 +39,7 @@ class Tema {
     private $activo;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Materia", inversedBy="temas")
+     * @ORM\ManyToOne(targetEntity="Materia", inversedBy="temas",fetch="EAGER")
      * @ORM\JoinColumn(name="IdMateria", referencedColumnName="id")
      */
     protected $materia;
