@@ -1,0 +1,53 @@
+<div class="panel panel-danger">
+    <div class="panel-heading" role="tab" id="heading{{pregunta.id}}">
+        <h2 class="panel-title clickable" role="button" 
+            data-toggle="collapse" data-parent="#incorrect_accordion" href="#collapse{{pregunta.id}}" aria-expanded="false" aria-controls="collapse{{pregunta.id}}">
+            Pregunta: {{pregunta.id}}
+            {% for tema in pregunta.getTemasActivos %}
+                &nbsp;<span class="badge">{{tema.getDescripcion}}</span>&nbsp;
+            {% endfor %}
+        </h2>
+    </div>
+    <div id="collapse{{pregunta.id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{pregunta.id}}">
+        <div class="panel-body quiz_bg">
+            <blockquote>
+                <div style="height:150px;overflow:auto; text-overflow-multiline:ellipsis;">
+                    {{ pregunta.contenido|markdown }}
+                </div>
+            </blockquote>
+
+            {% for respuesta in pregunta.getRespuestas%}                        
+                {% set mistake = FALSE %}
+                {% for respuestaElegida in respuestas%}
+                    {% if respuesta == respuestaElegida%}
+                        {% set mistake = TRUE %}
+                    {% endif %}
+                {% endfor %}
+                <div class="col-xs-2">
+                    {% if mistake and respuesta.correcta%} 
+                        <p class="text-warning"><i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true"></i></p>
+                        {% else %}
+                            {% if mistake %} 
+                            <p class="text-danger"><i class="fa fa-times-circle-o fa-2x" aria-hidden="true"></i></p>
+                            {%endif%} 
+                            {% if respuesta.correcta %} 
+                            <p class="text-success"><i class="fa fa-check-circle fa-2x" aria-hidden="true"></i></p>
+                            {%endif%}
+                        {%endif%} 
+                </div>
+
+                <div class=" col-xs-10">
+                    <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
+                        {{ respuesta.contenido|markdown|raw|truncate(150) }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {#
+        <div class="panel-footer text-right">
+            <span class="badge" data-toggle="tooltip" data-placement="top" title="Vista:{{pregunta.getVecesVista}} Respondida:{{pregunta.getVecesAcertada}}">Dificultad: {{pregunta.getDificultad|number_format(0, '.', ',')}}%</span>
+            <span class="badge">Creada:{{pregunta.creada|date("d/m/Y")}}</span>
+        </div>
+    #}
+</div>
