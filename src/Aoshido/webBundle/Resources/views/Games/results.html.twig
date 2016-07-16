@@ -15,22 +15,20 @@
 {% block games_contenido %}
 
     <div class="container">
-        
-        <div class="c100 p{{((correctas.count/(correctas.count+noContestadas.count+incorrectas.count)*100))|round(0,'common') }} big">
-            <span>{{ ((correctas.count/(correctas.count+noContestadas.count+incorrectas.count)*100))|round(0,'common') }}%</span>
+        <div class="c100 p{{((correctas|length/(correctas|length+incorrectas|length)*100))|round(0,'common') }} big">
+            <span>{{ ((correctas|length/(correctas|length+incorrectas|length)*100))|round(0,'common') }}%</span>
             <div class="slice">
                 <div class="bar"></div>
                 <div class="fill"></div>
             </div>
         </div>
-        
     </div>
 
     <div class="panel panel-primary">
         <div class="panel-heading" role="tab" id="heading1">
             <h3 class="panel-title clickable"role="button" 
                 data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false" aria-controls="collapse1">
-                Preguntas Bien Contestadas: {{ correctas.count }}
+                Preguntas correctas: {{ correctas|length }}
             </h3>
         </div>
         <div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading1">
@@ -60,51 +58,18 @@
         </div>
     </div>
 
-    <div class="panel panel-warning">
-        <div class="panel-heading" role="tab" id="heading2">
-            <h3 class="panel-title clickable" role="button" 
-                data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                Preguntas No Contestadas: {{ noContestadas.count }}
-            </h3>
-        </div>
-        <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
-            <table class="table table-condensed">
-                {% for pregunta in noContestadas %}
-                    <tr class="row">
-                        <td clas="col-sm-12">
-                            <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
-                                {{ pregunta.contenido|markdown|raw|truncate(150) }}
-                            </div>
-                            <span class="badge progress-bar-warning">
-                                Vista: {{pregunta.vecesVista}}
-                            </span>
-                            <span class="badge progress-bar-success">
-                                Acertada: {{pregunta.vecesAcertada}}
-                            </span>
-                            <span class="badge progress-bar-info">
-                                {{pregunta.getTemas[0].getMateria.Descripcion}}
-                            </span>
-                            <span class="badge progress-bar-danger">
-                                {{pregunta.getCreada|date("d/m/Y")}}
-                            </span>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
-        </div>
-    </div>
-
     <div class="panel panel-danger">
         <div class="panel-heading" role="tab" id="heading3">
             <h3 class="panel-title clickable" role="button" 
                 data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                Preguntas Incorrectas: {{ incorrectas.count }} 
+                Preguntas incorrectas: {{ incorrectas|length }} 
             </h3>
-
         </div>
         <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
             <table class="table table-condensed">
-                {% for pregunta in incorrectasEntity %}
+                {% for pair in incorrectas %}
+                    {% set pregunta = pair.0 %}
+                    {% set respuestas = pair.1 %}
                     <tr class="row">
                         <td class="col-sm-12">        
                             <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
@@ -124,24 +89,21 @@
                             </span>
                         </td>
                     </tr>
-                    {% for preguntaElegida in incorrectas %}
-                        {% if preguntaElegida.id == pregunta.id %}
-                            {% for respuesta in preguntaElegida.respuestas%}
-                                {%set correctaClass = FALSE %}
-                                {% for correcta in pregunta.getRespuestasCorrectas %}
-                                    {%if correcta.id == respuesta.id%}
-                                        {%set correctaClass = TRUE %}
-                                    {%endif%}
-                                {%endfor%}
-                                <tr class="row">
-                                    <td class="col-sm-12{% if respuesta.elegida == '1'%} danger {%endif%} {% if correctaClass %} success {%endif%}">
-                                        <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
-                                            {{ respuesta.contenido|markdown|raw|truncate(150) }}
-                                        </div>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        {% endif %}
+
+                    {% for respuesta in pregunta.getRespuestas%}                        
+                        {% set mistake = FALSE %}
+                        {% for respuestaElegida in respuestas%}
+                            {% if respuesta == respuestaElegida%}
+                                {% set mistake = TRUE %}
+                            {% endif %}
+                        {% endfor %}
+                        <tr class="row">
+                            <td class="col-sm-12{% if mistake %} danger {%endif%} {% if respuesta.correcta %} success {%endif%}">
+                                <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
+                                    {{ respuesta.contenido|markdown|raw|truncate(150) }}
+                                </div>
+                            </td>
+                        </tr>
                     {% endfor %}
                 {% endfor %}
             </table>
