@@ -1,0 +1,36 @@
+{% extends 'SonataAdminBundle::standard_layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '../app/Resources/public/css/*' filter='cssrewrite'%}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block sonata_head_title %}
+    Myosotis
+
+    {% if _title is not empty %}
+        {{ _title|raw }}
+    {% else %}
+        {% if action is defined %}
+            -
+            {% for menu in breadcrumbs_builder.breadcrumbs(admin, action) %}
+                {% if not loop.first %}
+                    {%  if loop.index != 2 %}
+                        &gt;
+                    {% endif %}
+
+                    {{ menu.label }}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endif%}
+{% endblock %}
+{% block logo %}
+    {% spaceless %}
+        <a class="logo" href="{{ path('sonata_admin_dashboard') }}">
+            Myosotis 
+        </a>
+    {% endspaceless %}
+{% endblock %}

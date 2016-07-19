@@ -15,14 +15,10 @@ extensions:
 modules:
     config:
         Db:
-            dsn: 'mysql:host=localhost;dbname=aoshidoc_test'
-            user: 'root'
-            password: 'Aoshido'
-            dump: /MyosotisTestDump20160528.sql
+
 coverage:
     enabled: true
     remote: false
-    c3_url: 'http://aosymf.dev/c3.php'
     whitelist:
         include:
             - src/*

@@ -54,7 +54,7 @@
 </div>
 <input type="hidden" value={{correctas}} name="correctas" />
 <input type="hidden" value={{incorrectas}} name="incorrectas" />
-<input type="hidden" value={{nocontestadas}} name="nocontestadas" />
+
 {{ form_row(quizForm._token) }}
 {{ form_end(quizForm, {'render_rest': false}) }}
 
@@ -85,7 +85,7 @@
 
         // Fire off the request to /form.php
         request = $.ajax({
-            url: "/games/challenge/newPregunta",
+            url: "{{path('games_challenge_new')}}",
             type: "post",
             data: serializedData
         });
@@ -124,7 +124,8 @@
     });
 </script>
 
-
 <script type="text/javascript">
     $("[type='checkbox']").bootstrapSwitch();
 </script>
+
+{% include 'AoshidowebBundle::flash.html.twig' %}

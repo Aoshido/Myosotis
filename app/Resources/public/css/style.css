@@ -34,10 +34,10 @@ p{
 }
 
 .card_back{
-    background-image: url("/images/Myosotis1.jpg");
-    background-size: 100% 100%;
-    background-position-x: 0px;
-    background-position-y: 0px;
+    background-image: url("/images/CardBACK.jpg");
+    background-size: auto;
+    background-position-x: 50%;
+    background-position-y: 50%;
     //border-radius: 5%;
 }
 
@@ -52,10 +52,10 @@ p{
 }
 
 .card_front{
-    background-image: url("/images/Myosotis1.jpg");
-    background-size: 100% 100%;
-    background-position-x: 0px;
-    background-position-y: 0px;
+    background-image: url("/images/CardFRONT.jpg");
+    background-size: auto;
+    background-position-x: 50%;
+    background-position-y: 50%;
     /*padding-top: 5%;
     text-align: center;
     font-weight: bold;
@@ -246,83 +246,83 @@ a.clickable:hover { text-decoration:none; }
 
 /* Wrapper */
 .icon-button {
-	background-color: white;
-	border-radius: 3.6rem;
-	cursor: pointer;
-	display: inline-block;
-	font-size: 2.0rem;
-	height: 3.6rem;
-	line-height: 3.6rem;
-	margin: 0 5px;
-	position: relative;
-	text-align: center;
-	-webkit-user-select: none;
-	   -moz-user-select: none;
-	    -ms-user-select: none;
-	        user-select: none;
-	width: 3.6rem;
+    background-color: white;
+    border-radius: 3.6rem;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 2.0rem;
+    height: 3.6rem;
+    line-height: 3.6rem;
+    margin: 0 5px;
+    position: relative;
+    text-align: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 3.6rem;
 }
 
 /* Circle */
 .icon-button span {
-	border-radius: 0;
-	display: block;
-	height: 0;
-	left: 50%;
-	margin: 0;
-	position: absolute;
-	top: 50%;
-	-webkit-transition: all 0.3s;
-	   -moz-transition: all 0.3s;
-	     -o-transition: all 0.3s;
-	        transition: all 0.3s;
-	width: 0;
+    border-radius: 0;
+    display: block;
+    height: 0;
+    left: 50%;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    width: 0;
 }
 .icon-button:hover span {
-	width: 3.6rem;
-	height: 3.6rem;
-	border-radius: 3.6rem;
-	margin: -1.8rem;
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 3.6rem;
+    margin: -1.8rem;
 }
 .twitter span {
-	background-color: #4099ff;
+    background-color: #4099ff;
 }
 .facebook span {
-	background-color: #3B5998;
+    background-color: #3B5998;
 }
 .google-plus span {
-	background-color: #db5a3c;
+    background-color: #db5a3c;
 }
 
 /* Icons */
 .icon-button i {
-	background: none;
-	color: white;
-	height: 3.6rem;
-	left: 0;
-	line-height: 3.6rem;
-	position: absolute;
-	top: 0;
-	-webkit-transition: all 0.3s;
-	   -moz-transition: all 0.3s;
-	     -o-transition: all 0.3s;
-	        transition: all 0.3s;
-	width: 3.6rem;
-	z-index: 10;
+    background: none;
+    color: white;
+    height: 3.6rem;
+    left: 0;
+    line-height: 3.6rem;
+    position: absolute;
+    top: 0;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    width: 3.6rem;
+    z-index: 10;
 }
 .icon-button .icon-twitter {
-	color: #4099ff;
+    color: #4099ff;
 }
 .icon-button .icon-facebook {
-	color: #3B5998;
+    color: #3B5998;
 }
 .icon-button .icon-google-plus {
-	color: #db5a3c;
+    color: #db5a3c;
 }
 .icon-button:hover .icon-twitter,
 .icon-button:hover .icon-facebook,
 .icon-button:hover .icon-google-plus {
-	color: white;
+    color: white;
 }
 
 .modal-header-blue {
@@ -334,6 +334,23 @@ a.clickable:hover { text-decoration:none; }
     -webkit-border-top-right-radius: 5px;
     -moz-border-radius-topleft: 5px;
     -moz-border-radius-topright: 5px;
-     border-top-left-radius: 5px;
-     border-top-right-radius: 5px;
- }
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.vertical_align{
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.quiz_bg{
+    background-image: url("/images/QuizBG.jpg");
+    background-size: auto;
+    background-position-x: 100%;
+    background-position-y: 0%;
+    background-repeat: no-repeat;
+    //border-radius: 5%;
+}

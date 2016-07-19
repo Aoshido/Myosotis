@@ -33,9 +33,15 @@ class UserController extends Controller {
                 ->getRepository('AoshidoUserBundle:User')
                 ->find($idUser);
         
+        $user->setLevel(2);
+        $this->getDoctrine()->getManager()->persist($user);
+        $this->getDoctrine()->getManager()->flush();
+        
+        /*
         $userManager = $this->get('fos_user.user_manager');
         $user->addRole('ROLE_ADMIN');
         $userManager->updateUser($user);
+        */
         
         return $this->redirectToRoute('users_index');
     }

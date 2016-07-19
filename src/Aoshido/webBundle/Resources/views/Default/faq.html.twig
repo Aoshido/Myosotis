@@ -23,7 +23,7 @@
                         más fácil (y divertido).
                         Esta página esta dividida en 2 grandes secciones, el menú principal (Que permite crear Carreras,
                         Materias, Temas, Preguntas y Respuestas) y la sección de Juegos. 
-                        El primer uso de la pagina seriía que uno cree una pregunta con su respuesta, y después estudie
+                        El primer uso de la pagina sería que uno cree una pregunta con su respuesta, y después estudie
                         con alguno de los juegos disponibles.
                         Otro uso posible de la misma es, una vez creada la pregunta, si no se tiene una respuesta, publicarla
                         en alguna red social/foro/etc para que otra persona la pueda responder.
@@ -80,11 +80,11 @@
                 {% endblock %}
                 {% block content %}
                     <p> Si, cualquiera puede dar de alta una pregunta.
-                    No hay forma de corroborar la información, confiamos en que los usuarios no van a responder por responder y se favorece fuertemente
-                    la inclusión de <b>fuentes</b>.
-                    Las respuestas también se pueden editar y borrar, y están sujetas a moderación</p>
-                {% endblock %}
-            {% endembed %}
+                        No hay forma de corroborar la información, confiamos en que los usuarios no van a responder por responder y se favorece fuertemente
+                        la inclusión de <b>fuentes</b>.
+                        Las respuestas también se pueden editar y borrar, y están sujetas a moderación</p>
+                    {% endblock %}
+                {% endembed %}
 
             {% embed 'AoshidowebBundle:Default:_faqPanel.html.twig' with {'numero': '6'} %}
                 {% block title %}
@@ -169,6 +169,18 @@
                     </div>
                 {% endblock %}
             {% endembed %} 
+
+            {% embed 'AoshidowebBundle:Default:_faqPanel.html.twig' with {'numero': '9'} %}
+                {% block title %}
+                    Conteste una pregunta bien, pero me aparecio <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                {% endblock %}
+                {% block content %}
+                    <p> Hay algunas preguntas que poseen mas de una respuesta <b>correcta</b>, este icono aparece cuando
+                    elegiste <b>solo</b> alguna de sus respuestas correctas, o , elegiste una respuesta correcta y una
+                    incorrecta.</p>
+                {% endblock %}
+            {% endembed %}
+
         </div>
 
     </div>

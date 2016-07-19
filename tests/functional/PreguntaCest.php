@@ -9,6 +9,51 @@ class PreguntaCest {
     public function _after(FunctionalTester $I) {
         
     }
+    
+    public function ProbarPreguntaConRespuesta(FunctionalTester $I) {
+        $I->seeInRepository('AoshidowebBundle:Pregunta', array(
+            'id' => 1,
+        ));
+        $I->assertTrue(true);
+        
+        /*
+        $user = new \Aoshido\UserBundle\Entity\User;
+        //codecept_debug($I->grabFromRepository('AoshidowebBundle:Pregunta', 'id', array('id' => 1)));
+        codecept_debug($I->seeInRepository('AoshidowebBundle:Pregunta', array('id' => 1)));
+        
+        $pregunta = new \Aoshido\webBundle\Entity\Pregunta;
+        $pregunta->setContenido("test");
+        $pregunta->setActivo(TRUE);
+        $pregunta->setCreatorUser();
+        
+        $respuestaCorrecta1 = new \Aoshido\webBundle\Entity\Respuesta;
+        $respuestaCorrecta2 = new \Aoshido\webBundle\Entity\Respuesta;
+        $respuestaIncorrecta1 = new \Aoshido\webBundle\Entity\Respuesta;
+        
+        $pregunta->addRespuesta($respuestaCorrecta1);
+        $pregunta->addRespuesta($respuestaCorrecta2);
+        
+        $I->persistEntity($pregunta);
+        //$I->flushToDatabase();
+        
+        codecept_debug($pregunta->getRespuestasCorrectas());
+        
+        $respuestasPosibles1 = new \Doctrine\Common\Collections\ArrayCollection;
+        $respuestasPosibles1->add($respuestaCorrecta1);
+        $respuestasPosibles1->add($respuestaCorrecta2);
+        
+        $respuestasPosibles2 = new \Doctrine\Common\Collections\ArrayCollection;
+        $respuestasPosibles2->add($respuestaCorrecta1);
+        
+        $respuestasPosibles3 = new \Doctrine\Common\Collections\ArrayCollection;
+        $respuestasPosibles3->add($respuestaCorrecta1);
+        $respuestasPosibles3->add($respuestaIncorrecta1);
+                
+        codecept_debug($respuestasPosibles1);
+        $I->assertTrue($pregunta->isAnsweredWith($respuestasPosibles1));
+         */
+    }
+
 
     /*
     public function DarAltaCarreraUnica(FunctionalTester $I) {

@@ -46,70 +46,71 @@
 
     <div class="panel panel-primary">
         <div class="panel-heading text-right">Preguntas Disponibles: {{ paginas.getTotalItemCount }}</div>
-        
-            {% if paginas|length > 0 %}
-                <table class="table">
-                    <tr>
-                        {% for pregunta in paginas %}
-                            <td class="col-sm-6">
-                                <div class="flip-container " >
-                                    <div class="flipper" id="card-{{pregunta.id}}" >
-                                        <div class="front text-center card_back alpha60" onclick="document.querySelector('#card-{{pregunta.id}}').classList.toggle('flip-it');">
-                                            <div style="height:150px;overflow:hidden; text-overflow:ellipsis;">
-                                                {% set vermas=false %}
-                                                {% if pregunta.contenido|length > 100 %}
-                                                    {% set vermas=true %}
-                                                    {{ pregunta.contenido|markdown|raw|truncate(100) }}
-                                                {%else%}
-                                                    {{ (pregunta.contenido|markdown) }}
-                                                {%endif%}
-                                            </div>
-                                            {% if vermas  %}
-                                                <div style="vertical-align:bottom;">
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{pregunta.id}}">
-                                                        Ver mas
-                                                    </button>
-                                                </div>
-                                            {% endif %}
-                                        </div>
-                                        <div class="back text-center card_front" onclick="document.querySelector('#card-{{pregunta.id}}').classList.toggle('flip-it');">
-                                            <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
+
+        {% if paginas|length > 0 %}
+            <table class="table">
+                <tr>
+                    {% for pregunta in paginas %}
+                        <td class="col-sm-6">
+                            <div class="flip-container " >
+                                <div class="flipper" id="card-{{pregunta.id}}" >
+                                    <div class="front text-center card_back alpha60" onclick="document.querySelector('#card-{{pregunta.id}}').classList.toggle('flip-it');">
+                                        <div style="height:150px;overflow:hidden; text-overflow:ellipsis;">
+                                            {% set vermas=false %}
+                                            {% if pregunta.contenido|length > 100 %}
                                                 {% set vermas=true %}
-                                                {% for respuesta  in pregunta.respuestas %}
-                                                    {% if respuesta.correcta %}
-                                                        {% if respuesta.contenido|length > 100 %}
-                                                            {{ respuesta.contenido|truncate(100) }}
-                                                        {%else%}
-                                                            {{ (respuesta.contenido|markdown) }}
-                                                        {%endif%}
-                                                    {%endif%}
-                                                {% endfor %}
-                                            </div>
-                                            {% if vermas  %}
-                                                <div style="vertical-align:bottom;">
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{pregunta.id}}">
-                                                        Ver mas
-                                                    </button>
-                                                </div>
-                                            {% endif %}
+                                                {{ pregunta.contenido|markdown|raw|truncate(100) }}
+                                            {%else%}
+                                                {{ (pregunta.contenido|markdown) }}
+                                            {%endif%}
+
                                         </div>
+                                        {% if vermas  %}
+                                            <div style="vertical-align:bottom;">
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{pregunta.id}}">
+                                                    Ver mas
+                                                </button>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="back text-center card_front" onclick="document.querySelector('#card-{{pregunta.id}}').classList.toggle('flip-it');">
+                                        <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
+                                            {% set vermas=true %}
+                                            {% for respuesta  in pregunta.respuestas %}
+                                                {% if respuesta.correcta %}
+                                                    {% if respuesta.contenido|length > 100 %}
+                                                        {{ respuesta.contenido|truncate(100) }}
+                                                    {%else%}
+                                                        {{ (respuesta.contenido|markdown) }}
+                                                    {%endif%}
+                                                {%endif%}
+                                            {% endfor %}
+                                        </div>
+                                        {% if vermas  %}
+                                            <div style="vertical-align:bottom;">
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{pregunta.id}}">
+                                                    Ver mas
+                                                </button>
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 </div>
-                            </td>
-                            {% if ((loop.index+1) % 2) %}
-                            </tr><tr>
-                            {% endif %}
-                        {% endfor %}
-                    </tr>
-                </table>
-            {%else%}
-                <tr class="row">
-                    <td class="">
-                        <p class ="text-center"> ¡ Elija sus filtros ! </p>
-                    </td>
+                            </div>
+                        </td>
+                        {% if ((loop.index+1) % 2) %}
+                        </tr><tr>
+                        {% endif %}
+                    {% endfor %}
                 </tr>
-            {% endif %}
-        
+            </table>
+        {%else%}
+            <tr class="row">
+                <td class="">
+                    <p class ="text-center"> ¡ Elija sus filtros ! </p>
+                </td>
+            </tr>
+        {% endif %}
+
     </div>
     <div class="navigation text-center">
         {{ knp_pagination_render(paginas) }}

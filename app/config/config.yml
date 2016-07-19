@@ -91,3 +91,26 @@ fos_user:
     db_driver: orm 
     firewall_name: main
     user_class: Aoshido\UserBundle\Entity\User
+    
+# Sonata admin
+sonata_admin:
+    dashboard:
+        blocks:
+            - { position: top, type: aoshido.creative_users.block, class: col-sm-10 col-sm-offset-1 }
+            - { position: left, type: sonata.admin.block.admin_list }
+            - { position: right, type: aoshido.stats.block }
+            - { position: bottom, type: aoshido.last_questions.block, class: col-sm-10 col-sm-offset-1 }
+    templates:
+        layout: AoshidowebBundle:Admin:standard_layout.html.twig
+        dashboard: SonataAdminBundle:Core:dashboard.html.twig
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        # enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts: [admin]
+        sonata.admin.block.stats:
+        # ...
+        aoshido.stats.block: ~
+        aoshido.last_questions.block: ~
+        aoshido.creative_users.block: ~

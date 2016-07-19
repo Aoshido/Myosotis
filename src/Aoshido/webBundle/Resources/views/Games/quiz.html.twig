@@ -17,12 +17,16 @@
             {{ form_start(quizForm,{ 'attr': {'class': 'form-horizontal'} }) }}
             {% for pregunta in quizForm.preguntas %}
 
-                <div class="panel panel-primary collapse in">
-                    <div class="panel-heading">Temas: 
+                {#
+                <h2 class="panel-title clickable" role="button" 
+                data-toggle="collapse" data-parent="#accordion" href="#collapse{{numero}}" aria-expanded="false" aria-controls="collapse{{numero}}">
+                #}
+                <div id="pregunta_{{pregunta.vars.value.id}}" class="panel panel-primary collapse in" >
+                    <div class="panel-heading">Pregunta: {{pregunta.vars.value.id}}
                         {% for tema in pregunta.vars.value.getTemas %}
                             &nbsp;<span class="badge">{{tema.getDescripcion}}</span>&nbsp;
                         {% endfor %}</div>
-                    <div class="panel-body">
+                    <div class="panel-body quiz_bg">
                         <blockquote>
                             <div style="height:150px;overflow:auto; text-overflow-multiline:ellipsis;">
                                 {{ pregunta.vars.value.contenido|markdown }}

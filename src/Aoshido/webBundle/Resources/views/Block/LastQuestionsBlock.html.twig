@@ -1,0 +1,23 @@
+{% extends sonata_block.templates.block_base %}
+
+{% block block %}
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Ultimas 10 preguntas</h3>
+        </div>
+
+        <div class="box-body">
+            <table class="table table-condensed">
+                {% for pregunta in preguntas %}
+                    <tr>
+                        <td>{{ pregunta.Id}}</td>
+                        <td><div style="height:70px;overflow:auto; text-overflow:ellipsis;">
+                                        {{ pregunta.contenido|markdown|raw|truncate(100) }}
+                                    </div></td>
+                        <td>{{ pregunta.temas[0].materia.descripcion}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+    {% endblock block %}

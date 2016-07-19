@@ -63,8 +63,7 @@ class Materia {
     protected $temas;
 
     /**
-     * 
-     * @ORM\ManyToMany(targetEntity="Carrera", inversedBy="materias"  )
+     * @ORM\ManyToMany(targetEntity="Carrera", inversedBy="materias", cascade={"persist"}  )
      * @ORM\JoinTable(name="MateriasCarreras")
      * @Assert\Count(
      *      min = "1",
@@ -234,5 +233,38 @@ class Materia {
         }
         return $carrerasActivos;
     }
+    
+    /**
+     * Get Temas Activos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTemasActivos() {
+        $temasActivos = new ArrayCollection();
+
+        foreach ($this->temas as $tema) {
+            if ($tema->getActivo()) {
+                $temasActivos->add($tema);
+            }
+        }
+        return $temasActivos;
+    }
+    
+    /**
+     * Get Preguntas Activos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPreguntasActivas() {
+        $preguntasActivas = new ArrayCollection();
+
+        foreach ($this->getTemasActivos() as $tema) {
+            $preguntasActivas->add($tema->getPreguntasActivas());
+        }
+        
+        return $preguntasActivas;
+    }
+    
+    
 
 }

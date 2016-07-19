@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *          fields = "Descripcion",
  *          message = "Ya existe una carrera con ese nombre",
  * )
- * @ORM\Entity(repositoryClass="Aoshido\webBundle\Entity\Carrerarepository")
+ * @ORM\Entity
  */
 class Carrera {
 
@@ -90,8 +90,8 @@ class Carrera {
      */
     public function setActivo($activo) {
         $this->activo = $activo;
-        if (!$activo){
-            foreach ($this->materias as $materia){
+        if (!$activo) {
+            foreach ($this->materias as $materia) {
                 $this->removeMateria($materia);
             }
         }
@@ -139,6 +139,36 @@ class Carrera {
      */
     public function getMaterias() {
         return $this->materias;
+    }
+
+    /**
+     * Get materias activas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMateriasActivas() {
+        $materiasActivas = new ArrayCollection();
+        foreach ($this->materias as $materia) {
+            if ($materia->getActivo()) {
+                $materiasActivas->add($materia);
+            }
+        }
+        return $materiasActivas;
+    }
+    
+    /**
+     * Get preguntas activas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPreguntasActivas(){
+        $preguntasTotales = new ArrayCollection();
+        
+        foreach ($this->getMateriasActivas() as $materia) {
+            $preguntasTotales = $materia->getPreguntasActivas();
+        }
+        
+        return $preguntasTotales;
     }
 
 }

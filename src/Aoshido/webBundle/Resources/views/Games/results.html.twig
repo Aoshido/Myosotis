@@ -15,137 +15,29 @@
 {% block games_contenido %}
 
     <div class="container">
-        
-        <div class="c100 p{{((correctas.count/(correctas.count+noContestadas.count+incorrectas.count)*100))|round(0,'common') }} big">
-            <span>{{ ((correctas.count/(correctas.count+noContestadas.count+incorrectas.count)*100))|round(0,'common') }}%</span>
+        <div class="c100 p{{((correctas|length/(correctas|length+incorrectas|length)*100))|round(0,'common') }} big">
+            <span>{{ ((correctas|length/(correctas|length+incorrectas|length)*100))|round(0,'common') }}%</span>
             <div class="slice">
                 <div class="bar"></div>
                 <div class="fill"></div>
             </div>
         </div>
-        
     </div>
 
-    <div class="panel panel-primary">
-        <div class="panel-heading" role="tab" id="heading1">
-            <h3 class="panel-title clickable"role="button" 
-                data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false" aria-controls="collapse1">
-                Preguntas Bien Contestadas: {{ correctas.count }}
-            </h3>
-        </div>
-        <div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading1">
-            <table class="table">
-                {% for pregunta in correctas %}
-                    <tr class="row">
-                        <td clas="col-sm-12">        
-                            <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
-                                {{ pregunta.contenido|markdown|raw|truncate(150) }}
-                            </div>
-                            <span class="badge progress-bar-warning">
-                                Vista: {{pregunta.vecesVista}}
-                            </span>
-                            <span class="badge progress-bar-success">
-                                Acertada: {{pregunta.vecesAcertada}}
-                            </span>
-                            <span class="badge progress-bar-info">
-                                {{pregunta.getTemas[0].getMateria.Descripcion}}
-                            </span>
-                            <span class="badge progress-bar-danger">
-                                {{pregunta.getCreada|date("d/m/Y")}}
-                            </span>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
-        </div>
+    <h3>Correctas:</h3>            
+    <div class="panel-group" id="correct_accordion" role="tablist" aria-multiselectable="true">
+        {% for pregunta in correctas %}
+            {% embed 'AoshidowebBundle:Games:_resultCorrectQuestion.html.twig' with {'pregunta': pregunta} %}
+            {% endembed %}
+        {% endfor %}
     </div>
 
-    <div class="panel panel-warning">
-        <div class="panel-heading" role="tab" id="heading2">
-            <h3 class="panel-title clickable" role="button" 
-                data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                Preguntas No Contestadas: {{ noContestadas.count }}
-            </h3>
-        </div>
-        <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
-            <table class="table table-condensed">
-                {% for pregunta in noContestadas %}
-                    <tr class="row">
-                        <td clas="col-sm-12">
-                            <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
-                                {{ pregunta.contenido|markdown|raw|truncate(150) }}
-                            </div>
-                            <span class="badge progress-bar-warning">
-                                Vista: {{pregunta.vecesVista}}
-                            </span>
-                            <span class="badge progress-bar-success">
-                                Acertada: {{pregunta.vecesAcertada}}
-                            </span>
-                            <span class="badge progress-bar-info">
-                                {{pregunta.getTemas[0].getMateria.Descripcion}}
-                            </span>
-                            <span class="badge progress-bar-danger">
-                                {{pregunta.getCreada|date("d/m/Y")}}
-                            </span>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
-        </div>
-    </div>
-
-    <div class="panel panel-danger">
-        <div class="panel-heading" role="tab" id="heading3">
-            <h3 class="panel-title clickable" role="button" 
-                data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                Preguntas Incorrectas: {{ incorrectas.count }} 
-            </h3>
-
-        </div>
-        <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
-            <table class="table table-condensed">
-                {% for pregunta in incorrectasEntity %}
-                    <tr class="row">
-                        <td class="col-sm-12">        
-                            <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
-                                {{ pregunta.contenido|markdown|raw|truncate(150) }}
-                            </div>
-                            <span class="badge progress-bar-warning">
-                                Vista: {{pregunta.vecesVista}}
-                            </span>
-                            <span class="badge progress-bar-success">
-                                Acertada: {{pregunta.vecesAcertada}}
-                            </span>
-                            <span class="badge progress-bar-info">
-                                {{pregunta.getTemas[0].getMateria.Descripcion}}
-                            </span>
-                            <span class="badge progress-bar-danger">
-                                {{pregunta.getCreada|date("d/m/Y")}}
-                            </span>
-                        </td>
-                    </tr>
-                    {% for preguntaElegida in incorrectas %}
-                        {% if preguntaElegida.id == pregunta.id %}
-                            {% for respuesta in preguntaElegida.respuestas%}
-                                {%set correctaClass = FALSE %}
-                                {% for correcta in pregunta.getRespuestasCorrectas %}
-                                    {%if correcta.id == respuesta.id%}
-                                        {%set correctaClass = TRUE %}
-                                    {%endif%}
-                                {%endfor%}
-                                <tr class="row">
-                                    <td class="col-sm-12{% if respuesta.elegida == '1'%} danger {%endif%} {% if correctaClass %} success {%endif%}">
-                                        <div style="height:150px;overflow:hidden; text-overflow-multiline:ellipsis;">
-                                            {{ respuesta.contenido|markdown|raw|truncate(150) }}
-                                        </div>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        {% endif %}
-                    {% endfor %}
-                {% endfor %}
-            </table>
-        </div>    
+    <h3>Incorrectas:</h3>
+    <div class="panel-group" id="incorrect_accordion" role="tablist" aria-multiselectable="true">
+        {% for pair in incorrectas %}
+            {% embed 'AoshidowebBundle:Games:_resultIncorrectQuestion.html.twig' with {'pregunta': pair.0 , 'respuestas' : pair.1} %}
+            {% endembed %}
+        {% endfor %}
     </div>
 
     <div class="col-sm-12 text-center">

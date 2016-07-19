@@ -9,39 +9,25 @@ use Aoshido\webBundle\Form\ExamenType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 class GamesController extends Controller {
 
     public function cardsAction(Request $request) {
-
         $pregunta = new Pregunta();
-
         $form = $this->createForm(new PreguntaType(), $pregunta, array(
             'method' => 'GET',
         ));
 
         $form->handleRequest($request);
-
         $preguntas = new ArrayCollection();
 
         if ($form->isValid()) {
-            foreach ($pregunta->getTemas() as $tema) {
-                $preguntas_temp = $tema->getPreguntas();
-                if (count($preguntas_temp) > 0) {
-                    foreach ($preguntas_temp as $pregunta_temp) {
-                        if ($pregunta_temp != $pregunta && !$preguntas->contains($pregunta_temp) && $pregunta_temp->getActivo()) {
-                            $preguntas->add($pregunta_temp);
-                        }
-                    }
-                }
-            }
+            $preguntas = $this->getPreguntasFromTemas($pregunta->getTemasActivos(), 0, FALSE);
             if (count($preguntas) == 0) {
                 $this->get('session')->getFlashBag()->add('error', 'Oops! Parece que no hay preguntas de esos temas');
                 return $this->redirectToRoute('games_cards');
             }
         }
-
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($preguntas, $this->getRequest()->query->get('page', 1), 4);
@@ -56,7 +42,6 @@ class GamesController extends Controller {
     public function quizAction(Request $request) {
 
         $pregunta = new Pregunta();
-
         $form = $this->createForm(new PreguntaType(), $pregunta, array(
             'method' => 'GET',
         ));
@@ -66,21 +51,14 @@ class GamesController extends Controller {
         if ($form->isValid()) {
             $quiz = new Examen();
 
-            foreach ($pregunta->getTemas() as $tema) {
-                $preguntas_temp = $tema->getPreguntas();
-                if (count($preguntas_temp) > 0) {
-                    foreach ($preguntas_temp as $pregunta_temp) {
-                        if ($pregunta_temp != $pregunta && !$quiz->getPreguntas()->contains($pregunta_temp) && $pregunta_temp->getActivo() && count($pregunta_temp->getRespuestas()) > 0) {
-                            $quiz->addPregunta($pregunta_temp);
-                        }
-                    }
-                }
-            }
+            $preguntas = $this->getPreguntasFromTemas($pregunta->getTemasActivos(), 0, TRUE);
 
-            if (count($quiz->getPreguntas()) == 0) {
+            if (sizeof($preguntas) == 0) {
                 $this->get('session')->getFlashBag()->add('error', 'Oops! Parece que no hay preguntas de esos temas');
                 return $this->redirectToRoute('games_quiz');
             }
+
+            $quiz->addPreguntasCollection($preguntas);
 
             $quizForm = $this->createForm(new ExamenType(), $quiz, array(
                 'method' => 'PATCH',
@@ -93,49 +71,40 @@ class GamesController extends Controller {
                     'class' => 'btn btn-success'
                 ),
             ));
-
-            return $this->render('AoshidowebBundle:Games:quiz.html.twig', array(
-                        'form' => $form->createView(),
-                        'quizForm' => $quizForm->createView(),
-                        'quiz' => $quiz
-            ));
         }
-
 
         return $this->render('AoshidowebBundle:Games:quiz.html.twig', array(
                     'form' => $form->createView(),
-                    'quizForm' => NULL,
-                    'quiz' => NULL
+                    'quizForm' => isset($quizForm) ? $quizForm->createView() : NULL,
+                    'quiz' => isset($quiz) ? $quiz : NULL
         ));
     }
 
     public function resultadosAction(Request $request) {
         $preguntas = $request->get('quiz')['preguntas'];
+        $results = $this->calculateResults($preguntas);
+        
+        $session = $request->getSession();
+        $session->set('resultados', $results);
 
-        $resultados = $this->corregirPreguntas($preguntas);
+        return $this->redirectToRoute('games_resultados_show',array(),301);
 
-        return $this->render('AoshidowebBundle:Games:results.html.twig', array(
-                    'correctas' => $resultados['correctas'],
-                    'incorrectas' => $resultados['incorrectas'],
-                    'incorrectasEntity' => $resultados['incorrectasEntity'],
-                    'noContestadas' => $resultados['noContestadas'],
-                    'total' => $resultados['total']
-        ));
     }
 
     public function showAction(Request $request) {
-        /* $session = $request->getSession();
-          dump($session->get('correctas')[0]->getTemas());
-          die(); */
+        $session = $request->getSession();
+        $resultados = $session->get('resultados');
+        
+        
+        return $this->render('AoshidowebBundle:Games:results.html.twig', array(
+                    'correctas' => $resultados['correctas'],
+                    'incorrectas' => $resultados['incorrectas'],
 
-        return $this->render('AoshidowebBundle:Games:results.html.twig', $parameters);
+        ));
     }
 
     public function challengeAction(Request $request) {
-
         $pregunta = new Pregunta();
-        $temasIds = array();
-
         $form = $this->createForm(new PreguntaType(), $pregunta, array(
             'method' => 'GET',
         ));
@@ -146,27 +115,16 @@ class GamesController extends Controller {
         $quizForm = NULL;
 
         if ($form->isValid()) {
-            foreach ($pregunta->getTemas() as $tema) {
-                $preguntas_temp = $tema->getPreguntas();
-                $temasIds[] = $tema->getId();
-
-                foreach ($preguntas_temp as $pregunta_temp) {
-                    if ($pregunta_temp != $pregunta && !$preguntas->contains($pregunta_temp) && $pregunta_temp->getActivo() && count($pregunta_temp->getRespuestas()) > 0) {
-                        $preguntas->add($pregunta_temp);
-                    }
-                }
-            }
-
+            $preguntas = $this->getPreguntasFromTemas($pregunta->getTemasActivos(), 0, TRUE);
+            
             if (count($preguntas) == 0) {
                 $this->get('session')->getFlashBag()->add('error', 'Oops! Parece que no hay preguntas de esos temas');
                 return $this->redirectToRoute('games_challenge');
             }
 
             $random = rand(0, count($preguntas) - 1);
-
             $quiz = new Examen();
-
-            $quiz->addPregunta($preguntas[$random]);
+            $quiz->addPregunta($preguntas->get($random));
 
             $quizForm = $this->createForm(new ExamenType(), $quiz, array(
                 'method' => 'POST',
@@ -181,100 +139,27 @@ class GamesController extends Controller {
             ));
 
             $session = $request->getSession();
-
-            $session->set('temas', $temasIds);
+            $session->set('temas', $pregunta->getTemasActivos());
         }
 
         return $this->render('AoshidowebBundle:Games:challenge.html.twig', array(
-                    'quizForm' => $quizForm == NULL ? NULL : $quizForm->createView(),
+                    'quizForm' => isset($quizForm) ? $quizForm->createView() : NULL,
                     'form' => $form->createView()
         ));
     }
 
     public function newPreguntaAction(Request $request) {
-
         $preguntas = $request->get('quiz')['preguntas'];
-        $preguntasCorrectas = new ArrayCollection();
-        $preguntasIncorrectas = new ArrayCollection();
-        $preguntasIncorrectasEntity = new ArrayCollection();
-        $preguntasNoContestadas = new ArrayCollection();
-
-        foreach ($preguntas as &$pregunta) {
-            $noContestada = FALSE;
-            $malContestada = FALSE;
-            $bienContestada = FALSE;
-
-            $preguntaEntity = $this->getDoctrine()
-                    ->getRepository('AoshidowebBundle:Pregunta')
-                    ->find($pregunta['id']);
-
-            $preguntaEntity->increaseVecesVista();
-
-            //Reviso si la respuesta que eligio es alguna de las correctas
-            $correctas = 0;
-            foreach ($pregunta['respuestas'] as &$respuesta) {
-                if (array_key_exists('elegida', $respuesta)) {
-
-                    $respuestaEntity = $this->getDoctrine()
-                            ->getRepository('AoshidowebBundle:Respuesta')
-                            ->find($respuesta['id']);
-
-                    if ($preguntaEntity->getRespuestasCorrectas()->contains($respuestaEntity)) {
-                        $correctas++;
-                    } else {
-                        $malContestada = TRUE;
-                        if (!$preguntasIncorrectas->contains($pregunta)) {
-                            $preguntasIncorrectas->add($pregunta);
-                            $preguntasIncorrectasEntity->add($preguntaEntity);
-                        }
-                    }
-                } else {
-                    $respuesta['elegida'] = "0";
-                }
-            }
-
-            //Si no hay nignuna opcion correcta , ni incorrecta es pq no contesto
-            if ($correctas == 0 && $malContestada == FALSE) {
-                $noContestada = TRUE;
-                $preguntasNoContestadas->add($preguntaEntity);
-            } else {
-                //Me fijo que haya elegido TODAS las respuestas correctas
-                if ($correctas == count($preguntaEntity->getRespuestasCorrectas()) && $malContestada == FALSE) {
-                    $bienContestada = TRUE;
-                    $preguntasCorrectas->add($preguntaEntity);
-                    $preguntaEntity->increaseVecesAcertada();
-                } else {
-                    $malContestada = TRUE;
-                    if (!$preguntasIncorrectas->contains($pregunta)) {
-                        $preguntasIncorrectas->add($pregunta);
-                        $preguntasIncorrectasEntity->add($preguntaEntity);
-                    }
-                }
-            }
-        }
-
-        $this->getDoctrine()->getManager()->persist($preguntaEntity);
-        $this->getDoctrine()->getManager()->flush();
-
-        $session = $request->getSession();
-        $temasIds = $session->get('temas');
-
-        $preguntasNuevas = $this->getDoctrine()
-                        ->getRepository('AoshidowebBundle:Pregunta')
-                        ->createQueryBuilder('p')
-                        ->innerJoin('p.respuestas', 'r')
-                        ->innerJoin('p.temas', 't')
-                        ->where('p.activo = TRUE')
-                        ->andWhere('r.activo = TRUE')
-                        ->andWhere('t.id IN (:ids)')
-                        ->setParameter('ids', $temasIds)
-                        ->getQuery()->getResult();
-
+        
+        $results = $this->calculateResults($preguntas);
+        $preguntasCorrectasCounter = $request->get('correctas') + $results['correctasCounter'];
+        $preguntasIncorrectasCounter = $request->get('incorrectas') + $results['incorrectasCounter'];
+        
+        $temas = $request->getSession()->get('temas'); 
+        $preguntasNuevas = $this->getPreguntasFromTemas($temas , 0, TRUE);
         $random = rand(0, count($preguntasNuevas) - 1);
-
         $quiz = new Examen();
-
-        $quiz->addPregunta($preguntasNuevas[$random]);
+        $quiz->addPregunta($preguntasNuevas->get($random));
 
         $quizForm = $this->createForm(new ExamenType(), $quiz, array(
             'method' => 'POST',
@@ -288,93 +173,71 @@ class GamesController extends Controller {
             ),
         ));
 
-        $preguntasCorrectasCounter = $request->get('correctas') + count($preguntasCorrectas);
-        $preguntasIncorrectasCounter = $request->get('incorrectas') + count($preguntasIncorrectas);
-        $preguntasNoContestadasCounter = $request->get('nocontestadas') + count($preguntasNoContestadas);
+        $accuracy = ($preguntasCorrectasCounter / ($preguntasIncorrectasCounter + $preguntasCorrectasCounter)) * 100;
 
         return $this->render('AoshidowebBundle:Games:pregunta.html.twig', array(
                     'quizForm' => $quizForm->createView(),
-                    'accuracy' => ($preguntasCorrectasCounter / ($preguntasIncorrectasCounter + $preguntasNoContestadasCounter + $preguntasCorrectasCounter)) * 100,
+                    'accuracy' => $accuracy,
                     'correctas' => $preguntasCorrectasCounter,
                     'incorrectas' => $preguntasIncorrectasCounter,
-                    'nocontestadas' => $preguntasNoContestadasCounter,
         ));
     }
 
-    public function corregirPreguntas(array $preguntas) {
-
-        $preguntasCorrectas = new ArrayCollection();
-        $preguntasIncorrectas = new ArrayCollection();
-        $preguntasIncorrectasEntity = new ArrayCollection();
-        $preguntasNoContestadas = new ArrayCollection();
+    public function getPreguntasFromTemas($temas, $cantidad = 0, $conRespuestas = FALSE) {
+        $preguntas = new ArrayCollection();
+        foreach ($temas as $tema) {
+            $preguntasTemp = $tema->getPreguntasActivas();
+            if (count($preguntasTemp) > 0) {
+                foreach ($preguntasTemp as $preguntaTemp) {
+                    if (!$preguntas->contains($preguntaTemp)) {
+                        if ($conRespuestas) {
+                            if (count($preguntaTemp->getRespuestas()) > 0) {
+                                $preguntas->add($preguntaTemp);
+                            }
+                        } else {
+                            $preguntas->add($preguntaTemp);
+                        }
+                    }
+                }
+            }
+        }
+        //TODO: Split by "cantidad"
+        return $preguntas;
+    }
+    
+    public function calculateResults ($preguntas){
+        $em = $this->getDoctrine()->getManager();
+        $results['correctas'] = [];
+        $results['incorrectas'] = [];
         
-        foreach ($preguntas as &$pregunta) {
-            $noContestada = FALSE;
-            $bienContestada = FALSE;
-            $malContestada = FALSE;
-
+        foreach ($preguntas as $pregunta) {
             $preguntaEntity = $this->getDoctrine()
                     ->getRepository('AoshidowebBundle:Pregunta')
                     ->find($pregunta['id']);
 
             $preguntaEntity->increaseVecesVista();
+            $answers = new ArrayCollection();
 
-            //Reviso si la respuesta que eligio es alguna de las correctas
-            $correctas = 0;
-
-            foreach ($pregunta['respuestas'] as &$respuesta) {
+            foreach ($pregunta['respuestas'] as $respuesta) {
                 if (array_key_exists('elegida', $respuesta)) {
-
                     $respuestaEntity = $this->getDoctrine()
                             ->getRepository('AoshidowebBundle:Respuesta')
                             ->find($respuesta['id']);
 
-                    if ($preguntaEntity->getRespuestasCorrectas()->contains($respuestaEntity)) {
-                        $correctas++;
-                    } else {
-                        $malContestada = TRUE;
-                        if (!$preguntasIncorrectas->contains($pregunta)) {
-                            
-                            $preguntasIncorrectas->add($pregunta);
-                            $preguntasIncorrectasEntity->add($preguntaEntity);
-                        }
-                    }
-                } else {
-                    $respuesta['elegida'] = "0";
+                    $answers->add($respuestaEntity);
                 }
             }
 
-            //Si no hay nignuna opcion correcta , ni incorrecta es pq no contesto
-            if ($correctas == 0 && $malContestada == FALSE) {
-                $noContestada = TRUE;
-                $preguntasNoContestadas->add($preguntaEntity);
+            if ($preguntaEntity->isAnsweredWith($answers)) {
+                $preguntaEntity->increaseVecesAcertada();
+                $results['correctas'][] = $preguntaEntity;
             } else {
-                //Me fijo que haya elegido TODAS las respuestas correctas
-                if ($correctas == count($preguntaEntity->getRespuestasCorrectas()) && $malContestada == FALSE) {
-                    $bienContestada = TRUE;
-                    $preguntasCorrectas->add($preguntaEntity);
-                    $preguntaEntity->increaseVecesAcertada();
-                } else {
-                    $malContestada = TRUE;
-                    if (!$preguntasIncorrectas->contains($pregunta)) {
-                        $preguntasIncorrectas->add($pregunta);
-                        $preguntasIncorrectasEntity->add($preguntaEntity);
-                    }
-                }
+                $results['incorrectas'][] = [$preguntaEntity,$answers];
             }
-            $this->getDoctrine()->getManager()->persist($preguntaEntity);
+            $em->persist($preguntaEntity);
+            $em->flush();
         }
-        $this->getDoctrine()->getManager()->flush();
-
-        $resultados = new ArrayCollection();
-
-        $resultados['correctas'] = $preguntasCorrectas;
-        $resultados['incorrectas'] = $preguntasIncorrectas;
-        $resultados['incorrectasEntity'] = $preguntasIncorrectasEntity;
-        $resultados['noContestadas'] = $preguntasNoContestadas;
-        $resultados['total'] = count($preguntas);
-
-        return ($resultados);
-    }
+        return ($results);
+    } 
 
 }
