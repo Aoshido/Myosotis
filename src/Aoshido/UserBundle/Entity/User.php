@@ -38,7 +38,9 @@ class User extends BaseUser {
         parent::__construct();
         // your own logic
         $this->addRole('ROLE_STUDENT');
+        $this->setCurrentExperience(0);
         $this->setLevel(1);
+        $this->setClass(0);
     }
 
     /**

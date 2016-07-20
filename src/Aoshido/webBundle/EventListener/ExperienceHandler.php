@@ -30,11 +30,14 @@ class ExperienceHandler {
                 foreach ($uow->getEntityChangeSet($entity) as $keyField => $field) {
                     if ($keyField == 'vecesAcertada') {
                         $user = $this->tokenStorage->getToken()->getUser();
-
-                        $user->addExperience(round($entity->getDificultad()));
-                        $em->persist($user);
-                        $classMetadata = $em->getClassMetadata('Aoshido\UserBundle\Entity\User');
-                        $uow->computeChangeSet($classMetadata, $user);
+                        if ($user instanceof User) {
+                            $user->addExperience(round($entity->getDificultad()));
+                            $em->persist($user);
+                            $classMetadata = $em->getClassMetadata('Aoshido\UserBundle\Entity\User');
+                            $uow->computeChangeSet($classMetadata, $user);
+                        }else{
+                            $this->session->getFlashBag()->add('notice', 'De estar logueado hubieras ganado: ' . round($entity->getDificultad()) . ' puntos de experencia!');
+                        }
                     }
                 }
             }
