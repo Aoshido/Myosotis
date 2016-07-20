@@ -152,8 +152,8 @@ class GamesController extends Controller {
         $preguntas = $request->get('quiz')['preguntas'];
         
         $results = $this->calculateResults($preguntas);
-        $preguntasCorrectasCounter = $request->get('correctas') + $results['correctasCounter'];
-        $preguntasIncorrectasCounter = $request->get('incorrectas') + $results['incorrectasCounter'];
+        $preguntasCorrectasCounter = $request->get('correctas') + sizeof($results['correctas']);
+        $preguntasIncorrectasCounter = $request->get('incorrectas') + sizeof($results['incorrectas']);
         
         $temas = $request->getSession()->get('temas'); 
         $preguntasNuevas = $this->getPreguntasFromTemas($temas , 0, TRUE);

@@ -347,7 +347,7 @@ a.clickable:hover { text-decoration:none; }
 }
 
 .quiz_bg{
-    background-image: url("/images/QuizBG.jpg");
+    background-image: url("../img/QuizBG.jpg");
     background-size: auto;
     background-position-x: 100%;
     background-position-y: 0%;
