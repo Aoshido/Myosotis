@@ -3,7 +3,7 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
-    <div class="jumbotron alpha60 col-xs-12">
+    <div class="jumbotron alpha60 container-fluid">
 
         <div class="panel-heading">
             <div class="panel-title text-center">
@@ -11,7 +11,7 @@
                 <hr />
             </div>
         </div> 
-        <div class="main-login main-center">
+        <div class="container-fluid">
             <form action="{{ path('fos_user_registration_register') }}" 
                   {{ form_enctype(form) }} method="POST" class="fos_user_registration_register form-horizontal">
 

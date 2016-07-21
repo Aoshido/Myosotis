@@ -1,12 +1,12 @@
 #!/bin/bash
 
-sudo php app/console cache:clear --env=dev
-sudo php app/console cache:clear --env=prod
+app/console cache:clear --env=dev
+app/console cache:clear --env=prod
 
-sudo php app/console assets:install web
+app/console assets:install web
 
-sudo php app/console assetic:dump --env=prod
-sudo php app/console assetic:dump --env=dev
+app/console assetic:dump --env=prod
+app/console assetic:dump --env=dev
 
-sudo chmod -R 777 /var/www/aosymf/.*
+sudo chmod -R 775 app/cache/
 
