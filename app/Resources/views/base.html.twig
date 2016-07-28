@@ -6,8 +6,8 @@
         <!-- Facebook meta -->
         <meta property="og:title" content="Myosotis" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="http://myosotis.aoshido.com.ar" />
-        <meta property="og:image" content="{% image '@AoshidowebBundle/img/MyosotisSplash.png' %} {{ asset_url }} {% endimage %}" />
+        <meta property="og:url" content="http://myosotis.aoshido.com" />
+        <meta property="og:image" content="{{app.request.getSchemeAndHttpHost()}}{% image '@AoshidowebBundle/img/MyosotisSplash.png' %}{{ asset_url }}{% endimage %}" />
         <meta property="og:description" content="Lets grind some assignments!"/>
 
         <!-- Twitter meta -->
@@ -16,7 +16,7 @@
         <meta name="twitter:creator" content="@Aoshido">
         <meta name="twitter:title" content="Myosotis">
         <meta name="twitter:description" content="Lets grind some assignments!">
-        <meta name="twitter:image" content="{% image '@AoshidowebBundle/img/MyosotisSplash.png' %} {{ asset_url }} {% endimage %}" />
+        <meta name="twitter:image" content="{{app.request.getSchemeAndHttpHost()}}{% image '@AoshidowebBundle/img/MyosotisSplash.png' %}{{ asset_url }}{% endimage %}" />
 
         <title>{% block title %}Myosotis{% endblock %}</title>
         {% block stylesheets %}
