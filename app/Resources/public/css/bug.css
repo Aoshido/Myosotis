@@ -10,13 +10,12 @@
 .feedback{position: fixed;}
 
 .feedback textarea{height: 180px; }
-.feedback .screenshot{ position: relative; top: -24px; right: 10px; opacity: .6}
+.feedback .screenshot{ position: relative; top: -25px; right: 10px; opacity: .6}
 .feedback .screenshot:hover{  opacity: 1}
 .feedback .reported p, .feedback .failed p  { height: 190px}
 
-
 .feedback.left{left:5px; bottom:30px}
-.feedback.right{right:5px; bottom:15px}
+.feedback.right{right:5px; bottom:20px}
 
 .feedback .dropdown-menu{width: 290px;height: 320px;bottom: 50px;}
 .feedback.left .dropdown-menu{ left: 0px}
