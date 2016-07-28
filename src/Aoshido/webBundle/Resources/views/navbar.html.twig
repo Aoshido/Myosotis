@@ -111,9 +111,16 @@
                                 </a>
                             </li>
                             {% if is_granted('ROLE_ADMIN') %}
+                                {#
                                 <li>
                                     <a href="{{ path('users_index') }}">
                                         <span class="glyphicon glyphicon-console" aria-hidden="true"></span> Users ABM
+                                    </a>
+                                </li>
+                                #}
+                                <li>
+                                    <a href="{{ path('admin_cache') }}">
+                                        <i class="fa fa-cogs" aria-hidden="true"></i> Assets / Cache
                                     </a>
                                 </li>
                                 <li class="" {% block bugs %} {% endblock %} >

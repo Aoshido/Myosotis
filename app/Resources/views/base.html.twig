@@ -1,12 +1,4 @@
 <!DOCTYPE html>
-<?php
-
-define('C3_CODECOVERAGE_ERROR_LOG_FILE', '/path/to/c3_error.log'); //Optional (if not set the default c3 output dir will be used)
-include '/../c3.php';
-
-define('MY_APP_STARTED', true);
-App::start();
-?>
 <html>
     <head>
         <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1" />
@@ -15,7 +7,7 @@ App::start();
         <meta property="og:title" content="Myosotis" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="http://myosotis.aoshido.com.ar" />
-        <meta property="og:image" content="http://kurtnoble.com/labs/rrssb/media/facebook-share.jpg" />
+        <meta property="og:image" content="{% image '@AoshidowebBundle/img/MyosotisSplash.png' %} {{ asset_url }} {% endimage %}" />
         <meta property="og:description" content="Lets grind some assignments!"/>
 
         <!-- Twitter meta -->
@@ -24,7 +16,7 @@ App::start();
         <meta name="twitter:creator" content="@Aoshido">
         <meta name="twitter:title" content="Myosotis">
         <meta name="twitter:description" content="Lets grind some assignments!">
-        <meta name="twitter:image" content="http://kurtnoble.com/labs/rrssb/media/rrssb-preview.png">
+        <meta name="twitter:image" content="{% image '@AoshidowebBundle/img/MyosotisSplash.png' %} {{ asset_url }} {% endimage %}" />
 
         <title>{% block title %}Myosotis{% endblock %}</title>
         {% block stylesheets %}

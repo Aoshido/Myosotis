@@ -1,6 +1,6 @@
 admin_cache:
-    path:     /admin2/cache
-    defaults: { _controller: AoshidowebBundle:Default:cacheClear }
+    path:     /admin2/cache/{env}
+    defaults: { _controller: AoshidowebBundle:Default:cacheClear , env: dev }
 
 admin_error:
     path:     /admin2/throwFive
