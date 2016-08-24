@@ -1,19 +1,19 @@
 # This file is a "template" of what your parameters.yml file should look like
 parameters:
     database_driver:   pdo_mysql
-    database_host:     aoshido.com.ar
+    database_host:     aoshido.com
     database_port:     3306
-    database_name:     aoshidoc_prod
-    database_user:     
-    database_password: ~
+    database_name:     aoshido_prod
+    database_user:     aoshido_dbuser
+    database_password: (Myo37)
     database_memory: false
     # You should uncomment this if you want use pdo_sqlite
     #database_path: "%kernel.root_dir%/aosymf.db"
 
     mailer_transport:  smtp
-    mailer_host:       aoshido.com.ar
-    mailer_user:       notifications@aoshido.com.ar
-    mailer_password:   Myoshido777
+    mailer_host:       aoshido.com
+    mailer_user:       notifications@aoshido.com
+    mailer_password:   (Myo37)
 
     locale:            en
 
