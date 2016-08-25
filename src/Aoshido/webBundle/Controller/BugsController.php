@@ -72,7 +72,7 @@ class BugsController extends Controller {
 
             $message = \Swift_Message::newInstance()
                     ->setSubject('NEW BUG')
-                    ->setFrom(array('notifications@aoshido.com.ar' => 'Myosotis'))
+                    ->setFrom(array('notifications@aoshido.com' => 'Myosotis'))
                     ->setTo('aoshido@gmail.com')
                     ->setBody(
                     $this->renderView('Emails/newBug.html.twig', array(
@@ -91,6 +91,7 @@ class BugsController extends Controller {
                 $data = base64_decode($screen);
 
                 $attachment = Swift_Attachment::newInstance($data, 'screenshot.png', 'image/png');
+                sleep(20);
                 $message->attach($attachment);
             }
 

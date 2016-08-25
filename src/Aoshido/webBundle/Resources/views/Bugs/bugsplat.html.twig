@@ -6,9 +6,9 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-right dropdown-menu-form">
                 <li>
-                    <div class="report">
+                    <div id="bugsplat_report" class="report">
                         <h2 class="text-center">Reportar Bug</h2>
-                        <form class="doo" method="POST" action="{{path('aoshidoweb_bugsplat')}}">
+                        <form id="bugsplat_form" name="bugsplat_form" class="doo" method="POST" action="{{path('aoshidoweb_bugsplat')}}">
                             <div class="col-sm-12">
                                 <textarea required name="comment" class="form-control" placeholder="Por favor cuentenos que problema encontro, incluya todos los detalles posibles."></textarea>
                                 <input name="screenshot" type="hidden" class="screen-uri">
@@ -22,18 +22,18 @@
                             </div>
                         </form>
                     </div>
-                    <div class="loading text-center hideme">
+                    <div id="bugsplat_loading" class="loading text-center hideme">
                         <h2>Espere...</h2>
                         <h2><i class="fa fa-refresh fa-spin"></i></h2>
                     </div>
-                    <div class="reported text-center hideme">
+                    <div id="bugsplat_reported" class="reported text-center hideme">
                         <h2>Gracias!</h2>
                         <p>Su reporte fue recibido, lo contactaremos pronto.</p>
                         <div class="col-sm-12 clearfix">
                             <button class="btn btn-success btn-block do-close">Cerrar</button>
                         </div>
                     </div>
-                    <div class="failed text-center hideme">
+                    <div id="bugsplat_failed" class="failed text-center hideme">
                         <h2>Oh no!</h2>
                         <p>Parece que su reporte no pudo ser enviado.<br><br>
                             <a href="mailto:me@aoshido.com">Pruebe contactandonos a la antigua.</a>
