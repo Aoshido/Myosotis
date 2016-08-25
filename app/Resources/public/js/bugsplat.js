@@ -1,3 +1,73 @@
+// Variable to hold request
+var request;
+
+// Bind to the submit event of our form
+$("#bugsplat_form").submit(function (event) {
+
+    // Abort any pending request
+    if (request) {
+        request.abort();
+    }
+    // setup some local variables
+    var $form = $(this);
+
+    // Let's select and cache all the fields
+    var $inputs = $form.find("input, select, button, textarea");
+
+    // Serialize the data in the form
+    var serializedData = JSON.stringify($form.serializeArray());
+
+    // Let's disable the inputs for the duration of the Ajax request.
+    // Note: we disable elements AFTER the form data has been serialized.
+    // Disabled form elements will not be serialized.
+    $inputs.prop("disabled", true);
+
+    // Fire off the request to /form.php
+    request = $.ajax({
+        url: $("#bugsplat_form").attr("action"),
+        type: "post",
+        contentType: "application/json; charset=utf-8",
+        data: serializedData
+    });
+
+    $("#bugsplat_report").hide();
+    $("#bugsplat_loading").show();
+
+    // Callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR) {
+        // Log a message to the console
+        //console.log("Hooray, it worked!" + response + textStatus);
+        
+        $("#bugsplat_loading").hide();
+        $("#bugsplat_reported").show();
+    });
+ 
+   // Callback handler that will be called on failure
+    request.fail(function (jqXHR, textStatus, errorThrown) {
+        
+        $("#bugsplat_loading").hide();
+        $("#bugsplat_failed").show();
+        
+        // Log the error to the console
+        /*
+        console.error(
+                "The following error occurred: " +
+                textStatus, errorThrown
+                );
+                */
+    });
+
+    // Callback handler that will be called regardless
+    // if the request failed or succeeded
+    request.always(function () {
+        // Reenable the inputs
+        $inputs.prop("disabled", false);
+    });
+
+    // Prevent default posting of form
+    event.preventDefault();
+});
+
 (function ($) {
     $.fn.feedback = function (success, fail) {
         self = $(this);
@@ -24,29 +94,6 @@
             self.find('textarea').val('');
         });
 
-        failed = function () {
-            self.find('.loading').hide();
-            self.find('.failed').show();
-            if (fail)
-                fail();
-        }
-
-        self.find('form').on('submit', function () {
-            self.find('.report').hide();
-            self.find('.loading').show();
-            $.post($(this).attr('action'), $(this).serialize(), null, 'json').done(function (res) {
-                if (res.result == 'success') {
-                    self.find('.loading').hide();
-                    self.find('.reported').show();
-                    if (success)
-                        success();
-                } else
-                    failed();
-            }).fail(function () {
-                failed();
-            });
-            return false;
-        });
     };
 }(jQuery));
 
