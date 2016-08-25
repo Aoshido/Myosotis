@@ -5,13 +5,13 @@
 {% block breadcrumbs %}
     <ul class="breadcrumb">
         <li><a href="{{url('aoshidoweb_homepage')}}">Home</a></li>
-        {% if form.vars.method == 'PATCH'%} 
-        <li><a href="{{url('abms_preguntas')}}">Preguntas</a></li>
-        <li class="active">Editar</li> 
-        {%else%} 
-        <li class="active">Preguntas</li>
-        {%endif%} 
-        
+            {% if form.vars.method == 'PATCH'%} 
+            <li><a href="{{url('abms_preguntas')}}">Preguntas</a></li>
+            <li class="active">Editar</li> 
+            {%else%} 
+            <li class="active">Preguntas</li>
+            {%endif%} 
+
     </ul>
 {% endblock %}
 
@@ -86,21 +86,16 @@
     {% for pregunta in paginas %}
         {% include 'AoshidowebBundle:Preguntas:modal.html.twig' %}
     {%endfor%}
-        {% include 'AoshidowebBundle:Preguntas:form_filter.html.twig' %}
+    {% include 'AoshidowebBundle:Preguntas:form_filter.html.twig' %}
 
 {% endblock %}
 
 {% block javascripts %} 
     {{ parent() }}
 
-    {#<script type="text/javascript">
-        $("#pregunta_temas").popConfirm({
-            title: "Múltiples temas!",
-            content: "¿Sabias que podes elegir mas de un tema con CTRL (o CMD si usas mac)?",
-            placement: "Left",
-            yesBtn: "Ok"
-        });
-    </script>#}
+    {% javascripts '../app/Resources/public/js/jquery.popconfirm.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 
     <script type="text/javascript">
         $(".btn-danger").popConfirm({
@@ -112,6 +107,8 @@
         });
     </script>
 
+    <script src="/ckeditor/ckeditor.js"></script>
+    
     <script type="text/javascript">
         CKEDITOR.replace('pregunta_contenido');
     </script>
