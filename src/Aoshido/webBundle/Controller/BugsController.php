@@ -95,6 +95,7 @@ class BugsController extends Controller {
                 $data = base64_decode($screenshot);
 
                 $attachment = Swift_Attachment::newInstance($data, 'screenshot.png', 'image/png');
+                sleep(20);
                 $message->attach($attachment);
             }
 

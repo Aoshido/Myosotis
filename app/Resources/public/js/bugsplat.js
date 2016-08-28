@@ -37,7 +37,6 @@ $("#bugsplat_form").submit(function (event) {
     request.done(function (response, textStatus, jqXHR) {
         // Log a message to the console
         //console.log("Hooray, it worked!" + response + textStatus);
-        
         $("#bugsplat_loading").hide();
         $("#bugsplat_reported").show();
     });

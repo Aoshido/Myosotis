@@ -47,6 +47,7 @@
                 {% block content %}
 
                 {% endblock %}
+
                 <!--
                                 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                 <!-- Responsive Bottom ->
@@ -84,6 +85,10 @@
             {% endjavascripts %}
 
             {% javascripts '../app/Resources/public/js/alertify.min.js' %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+
+            {% javascripts '../app/Resources/public/js/rrssb.min.js' %}
             <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
 
