@@ -1,21 +1,14 @@
 <!DOCTYPE html>
-<?php
-
-define('C3_CODECOVERAGE_ERROR_LOG_FILE', '/path/to/c3_error.log'); //Optional (if not set the default c3 output dir will be used)
-include '/../c3.php';
-
-define('MY_APP_STARTED', true);
-App::start();
-?>
 <html>
     <head>
         <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1" />
 
         <!-- Facebook meta -->
+        <meta property="fb:app_id" content="628225720661887" />
         <meta property="og:title" content="Myosotis" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="http://myosotis.aoshido.com.ar" />
-        <meta property="og:image" content="http://kurtnoble.com/labs/rrssb/media/facebook-share.jpg" />
+        <meta property="og:url" content="http://myosotis.aoshido.com" />
+        <meta property="og:image" content="{{app.request.getSchemeAndHttpHost()}}{% image '@AoshidowebBundle/img/MyosotisSplash.png' %}{{ asset_url }}{% endimage %}" />
         <meta property="og:description" content="Lets grind some assignments!"/>
 
         <!-- Twitter meta -->
@@ -24,7 +17,7 @@ App::start();
         <meta name="twitter:creator" content="@Aoshido">
         <meta name="twitter:title" content="Myosotis">
         <meta name="twitter:description" content="Lets grind some assignments!">
-        <meta name="twitter:image" content="http://kurtnoble.com/labs/rrssb/media/rrssb-preview.png">
+        <meta name="twitter:image" content="{{app.request.getSchemeAndHttpHost()}}{% image '@AoshidowebBundle/img/MyosotisSplash.png' %}{{ asset_url }}{% endimage %}" />
 
         <title>{% block title %}Myosotis{% endblock %}</title>
         {% block stylesheets %}
@@ -35,13 +28,8 @@ App::start();
             <!-- Optional theme -->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
-
-            {# http://stackoverflow.com/questions/7044631/symfony2-assetic-load-images-in-css #}
-            {# http://www.craftitonline.com/2011/06/symfony2-beautify-with-assetic-and-a-template-part-ii/ #}
-
-            {#aca esta eactamente lo que necesito
-            http://stackoverflow.com/questions/23447339/symfony-2-set-background-image-using-css#}
+            <!-- Font awesome -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
             {% stylesheets '../app/Resources/public/css/*' filter='cssrewrite'%}
             <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
@@ -60,8 +48,9 @@ App::start();
 
                 {% endblock %}
 
-                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                <!-- Responsive Bottom -->
+                <!--
+                                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- Responsive Bottom ->
                 <ins class="adsbygoogle"
                      style="display:block"
                      data-ad-client="ca-pub-4410105350629177"
@@ -70,6 +59,7 @@ App::start();
                 <script>
                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
+                -->
             </div>
 
             {% include 'AoshidowebBundle::footer.html.twig' %}
@@ -84,21 +74,13 @@ App::start();
             <!-- Latest compiled and minified JavaScript -->
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-            {% javascripts '../app/Resources/public/js/jquery.popconfirm.js' %}
-            <script src="{{ asset_url }}"></script>
-            {% endjavascripts %}
-
             <script src = "//cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js" ></script>
 
             {% javascripts '../app/Resources/public/js/bugsplat.js' %}
             <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
 
-            {% javascripts '../web/socialite/socialite.js' %}
-            <script src="{{ asset_url }}"></script>
-            {% endjavascripts %}
-
-            {% javascripts '../app/Resources/public/js/bootstrap-switch.min.js' %}
+            {% javascripts '../app/Resources/public/js/rrssb.min.js' %}
             <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
 
@@ -109,51 +91,8 @@ App::start();
             {% javascripts '../app/Resources/public/js/rrssb.min.js' %}
             <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
-            
-            {% javascripts '../app/Resources/public/js/admin.js' %}
-            <script src="{{ asset_url }}"></script>
-            {% endjavascripts %}
 
             {% include 'AoshidowebBundle::flash.html.twig' %}
-
-            <script src="/ckeditor/ckeditor.js"></script>
-
-            <script>
-                    $(document).ready(function () {
-                        //Handles menu drop down
-                        $('.dropdown-menu').find('form').click(function (e) {
-                            e.stopPropagation();
-                        });
-                    });
-            </script>
-
-            <script>
-                function htmlbodyHeightUpdate() {
-                    var height3 = $(window).height();
-                    var height1 = $('.nav').height() + 50;
-                    height2 = $('.main').height();
-                    if (height2 > height3) {
-                        $('html').height(Math.max(height1, height3, height2) + 10);
-                        $('body').height(Math.max(height1, height3, height2) + 10);
-                    }
-                    else
-                    {
-                        $('html').height(Math.max(height1, height3, height2));
-                        $('body').height(Math.max(height1, height3, height2));
-                    }
-
-                }
-                $(document).ready(function () {
-                    htmlbodyHeightUpdate();
-                    $(window).resize(function () {
-                        htmlbodyHeightUpdate();
-                    });
-                    $(window).scroll(function () {
-                        height2 = $('.main').height();
-                        htmlbodyHeightUpdate();
-                    });
-                });
-            </script>
 
             <!-- Facebook SDK -->
             <script>
@@ -176,37 +115,6 @@ App::start();
                     fjs.parentNode.insertBefore(js, fjs);
                 }(document, 'script', 'facebook-jssdk'));
             </script>
-
-            
-            <!-- admin sidebar responsive -->
-            <script type="text/javascript">
-                function htmlbodyHeightUpdate() {
-                    var height3 = $(window).height()
-                    var height1 = $('.nav').height() + 50
-                    height2 = $('.main').height()
-                    if (height2 > height3) {
-                        $('html').height(Math.max(height1, height3, height2) + 10);
-                        $('body').height(Math.max(height1, height3, height2) + 10);
-                    }
-                    else
-                    {
-                        $('html').height(Math.max(height1, height3, height2));
-                        $('body').height(Math.max(height1, height3, height2));
-                    }
-
-                }
-                $(document).ready(function () {
-                    htmlbodyHeightUpdate()
-                    $(window).resize(function () {
-                        htmlbodyHeightUpdate()
-                    });
-                    $(window).scroll(function () {
-                        height2 = $('.main').height()
-                        htmlbodyHeightUpdate()
-                    });
-                });
-            </script>
-
 
         {% endblock %}
     </body>

@@ -43,10 +43,10 @@ class MostCreativeUsersBlock extends BaseBlockService {
         $users = $this->em->getRepository('AoshidowebBundle:Pregunta')
                 ->createQueryBuilder('p')
                 ->leftJoin('p.creatorUser', 'u')
-                ->select('u.username , count(p.id) AS PreguntasCreadas')
+                ->select('u.username, u.id, u.level , count(p.id) AS PreguntasCreadas')
                 ->where('p.activo = TRUE')
                 ->orderBy('PreguntasCreadas', 'DESC')
-                ->groupBy('u.username')
+                ->groupBy('u.username, u.id , u.level')
                 ->setMaxResults(3)
                 ->getQuery()
                 ->getResult();

@@ -52,6 +52,14 @@ class BugsController extends Controller {
             $time = date('Y-m-d H:i:s');
             $comment = $request->get('comment');
 
+            $params = array();
+            $content = $request->getContent();
+            if (!empty($content)) {
+                $params = json_decode($content, true); // 2nd param to get as array
+                $comment = $params[0]["value"];
+                $screenshot = $params[1]["value"];
+            }
+
             if ($this->getUser() != null) {
                 $user = $this->getUser();
             } else {
@@ -72,7 +80,7 @@ class BugsController extends Controller {
 
             $message = \Swift_Message::newInstance()
                     ->setSubject('NEW BUG')
-                    ->setFrom(array('notifications@aoshido.com.ar' => 'Myosotis'))
+                    ->setFrom(array('notifications@aoshido.com' => 'Myosotis'))
                     ->setTo('aoshido@gmail.com')
                     ->setBody(
                     $this->renderView('Emails/newBug.html.twig', array(
@@ -81,16 +89,13 @@ class BugsController extends Controller {
                         'user' => $user->getUsername(),
                     )), 'text/html');
 
-            if ($request->get('screenshot') != NULL) {
-
-
-                $screen = $request->get('screenshot');
-                
-                $screen = str_replace('data:image/png;base64,', '', $screen);
-                $screen = str_replace(' ', '+', $screen);
-                $data = base64_decode($screen);
+            if ($screenshot != "") {
+                $screenshot = str_replace('data:image/png;base64,', '', $screenshot);
+                $screenshot = str_replace(' ', '+', $screenshot);
+                $data = base64_decode($screenshot);
 
                 $attachment = Swift_Attachment::newInstance($data, 'screenshot.png', 'image/png');
+                sleep(20);
                 $message->attach($attachment);
             }
 

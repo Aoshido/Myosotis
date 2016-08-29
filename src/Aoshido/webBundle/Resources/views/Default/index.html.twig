@@ -6,12 +6,12 @@
 {% block content %}
     <div class="jumbotron alpha60">
         <h1 id="test">Estudiantes!</h1>
-        <p>{{'Esta'|trans}} página nació con la intención de ayudar a estudiar (o quizás memorizar mejor)
+        <p> Esta página nació con la intención de ayudar a estudiar (o quizás memorizar mejor)
             todos esos millones y millones de verdaderos o falsos, múltiples choices, conceptos y
             demás cuestiones tan necesarias para aprobar.</p>
         <p>Si no estás seguro de como usar la página, <a href="{{path('aoshidoweb_faq')}}"> visita nuestro FAQ!</a></p>
 
-        <h2>{{'Modos'|trans}}</h2>
+        <h2>Modos</h2>
         <div class="row">
             <div class="col-md-4">
                 <div class="thumbnail">
@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="row text-center" style="max-width:60%; float:none; margin: 0 auto;">
-            {% include 'AoshidowebBundle:Default:_socialButtons2.html.twig' %}
+            {% include 'AoshidowebBundle:Default:_socialButtons.html.twig' %}
         </div>
     </div>
 </div>
@@ -59,57 +59,4 @@
 {% block javascripts %} 
     {{ parent() }}
 
-    {% for label, flashes in app.session.flashbag.all %}
-        {% for flash in flashes %}
-            <script>
-                alertify.log("{{flash}}", "{{label}}", 5000);
-            </script>
-        {% endfor %}
-    {% endfor %}
-
-    <script>
-        $('#test').html = "asdf";
-    </script>
-
-    <div id="fb-root"></div>
-    <script>(function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id))
-                return;
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
-
-
-    <script type="text/javascript">
-        (function () {
-            var po = document.createElement('script');
-            po.type = 'text/javascript';
-            po.async = true;
-            po.src = 'https://apis.google.com/js/plusone.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(po, s);
-        }
-        )();
-    </script>
-
-    <script>
-        !function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
-            if (!d.getElementById(id)) {
-                js = d.createElement(s);
-                js.id = id;
-                js.src = p + '://platform.twitter.com/widgets.js';
-                fjs.parentNode.insertBefore(js, fjs);
-            }
-        }(document, 'script', 'twitter-wjs');
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            Socialite.load();
-        });
-    </script>
 {% endblock %}

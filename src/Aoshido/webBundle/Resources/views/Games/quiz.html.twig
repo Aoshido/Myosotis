@@ -70,6 +70,10 @@
 {% block javascripts %} 
     {{ parent() }}
 
+    {% javascripts '../app/Resources/public/js/bootstrap-switch.min.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
     <script type="text/javascript">
         $("[replace='yes']").bootstrapSwitch();
     </script>

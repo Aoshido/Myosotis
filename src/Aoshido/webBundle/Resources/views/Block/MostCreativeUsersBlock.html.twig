@@ -8,20 +8,27 @@
 
         <div class="box-body">
             <table class="table table-condensed">
-                {% for user in users %}
-                    <tr>
-                        <td>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{(user.PreguntasCreadas / total) * 100|number_format(0, '.', ',')}}%;">
-                                    <span class="sr-only">{{(user.PreguntasCreadas / total) * 100|number_format(0, '.', ',')}}% Preguntas</span>
+                <div class="row">
+                    {% for user in users %}
+                        <div class="col-xs-4">
+                            <div class="well well-xs">
+                                <a class="thumbnail pull-left" href="#" style="margin-right: 10px;">
+                                    <img alt="" style="max-height: 100px; max-width: 100px;" src="{% image '@AoshidowebBundle/img/bichi.jpg' %} {{ asset_url }} {% endimage %}">
+                                </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading">{{user.username}}</h4>
+                                    <p><span class="label label-info">{{user.PreguntasCreadas}} Preguntas</span> <span class="label label-primary">Level {{user.level}} </span></p>
+                                    <p>
+                                        <a href="{{path('admin_aoshido_user_user_edit', {'id': user.id })}}" class="btn btn-xs btn-default"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+                                        <a href="{{path('admin_aoshido_user_user_delete', {'id': user.id })}}" class="btn btn-xs btn-default"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a>
+                                    </p>
                                 </div>
-                                <span class="progress-type">{{ user.username }} {{ user.PreguntasCreadas }}</span>
-                                <span class="progress-completed">{{(user.PreguntasCreadas / total) * 100|number_format(0, '.', ',')}}%</span>
                             </div>
-                        </td>
-                    </tr>
-                {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
             </table>
         </div>
+    </div>
 
-    {% endblock block %}
+{% endblock block %}
