@@ -2,14 +2,14 @@
 
 {% block block %}
     <div class="box">
-        <div class="box-header">
+        <div class="box-header grad_vertical2">
             <h3 class="box-title">Preguntas por carrera</h3>
         </div>
 
-        <div class="box-body">
+        <div class="box-body grad_box">
             <div id="donut-example" style="height: 250px;"></div>
         </div>
-
+        
         <script>
             $.getScript('http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js', function () {
                 $.getScript('http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.0/morris.min.js', function () {
@@ -25,4 +25,5 @@
                 });
             });
         </script>
-    {% endblock %}
+    </div>
+{% endblock block %}

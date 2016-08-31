@@ -107,7 +107,9 @@ sonata_admin:
             
     templates:
         layout: AoshidowebBundle:Admin:standard_layout.html.twig
-        dashboard: SonataAdminBundle:Core:dashboard.html.twig
+        dashboard: AoshidowebBundle:Admin:dashboard.html.twig
+        user_block: AoshidowebBundle:Admin:user_block.html.twig
+        list_block: AoshidowebBundle:Admin:block_admin_list.html.twig
 sonata_block:
     default_contexts: [cms]
     blocks:

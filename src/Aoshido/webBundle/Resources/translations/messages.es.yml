@@ -1,2 +1,8 @@
 Modes: Modos
 Esta: __Esta
+
+menus:
+    sonata:
+        profile: perfil
+           
+    
