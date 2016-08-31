@@ -39,11 +39,11 @@
         <link rel="icon" type="image/x-icon" href="{% image '@AoshidowebBundle/img/webpage_icon.png' %} {{ asset_url }} {% endimage %}" />
     </head>
 
-    <body class="" background="{% image '@AoshidowebBundle/img/background.jpg' %} {{ asset_url }} {% endimage %}">
+    <body style="padding-top: 70px; " background="{% image '@AoshidowebBundle/img/background.jpg' %} {{ asset_url }} {% endimage %}">
         {% block body %}
             {% include 'AoshidowebBundle::navbar.html.twig' %}
 
-            <div class="container container-fluid">
+            <div class="container container-fluid col-sm-10 col-sm-offset-1">
                 {% block content %}
 
                 {% endblock %}
