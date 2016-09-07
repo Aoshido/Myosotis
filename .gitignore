@@ -16,5 +16,5 @@
 /nbproject
 aosymf.zip
 dandelion.yml
-
+composer.lock
 tests/_output/*
