@@ -1,26 +1,40 @@
 {% extends sonata_block.templates.block_base %}
 
 {% block block %}
-    <div class="box">
-        <div class="box-header grad_vertical2">
+    <div class="box box-success">
+        <div class="box-header">
             <h3 class="box-title">Ultimas 10 preguntas</h3>
         </div>
-
-        <div class="box-body grad_box">
+        <div class="box-body table-responsive no-padding">
             <table class="table table-condensed">
-                {% for pregunta in preguntas %}
+                <tbody>
                     <tr>
-                        <td>{{ pregunta.Id}}</td>
-                        <td>
-                            <div style="height:70px;overflow:auto; text-overflow:ellipsis;">
-                                {{ pregunta.contenido|markdown|raw|truncate(100) }}
-                            </div>
-                        </td>
-                        <td>{{ pregunta.temas[0].materia.descripcion}}</td>
+                        <th>ID</th>
+                        <th>Contenido</th>
+                        <th>Dificultad</th>
+                        <th>Materia</th>
+                        <th>Carrera</th>
                     </tr>
-                {% endfor %}
+                    {% for pregunta in preguntas %}
+                        <tr>
+                            <td>{{ pregunta.Id}}</td>
+                            <td>
+                                <div style="overflow:auto; text-overflow:ellipsis;">
+                                    {{ pregunta.contenido|markdown|raw|truncate(100) }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress progress-xs progress-striped active" style="max-height:10px">
+                                    <div class="progress-bar progress-bar-success" style="width: {{pregunta.getDificultad}}%"></div>
+                                </div>
+                            </td>
+                            <td><span class="label label-success" style="font-size: 100%">{{ pregunta.temas[0].materia.descripcion|truncate(15)}}</span></td>
+                            <td><span class="label label-primary" style="font-size: 100%">{{ pregunta.temas[0].materia.carreras[0].descripcion|truncate(10)}}</span></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
+                
     </div>
-
 {% endblock block %}
