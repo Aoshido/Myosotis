@@ -34,8 +34,8 @@ p{
 }
 
 .card_back{
-    background-image: url("/images/CardBACK.jpg");
-    background-size: auto;
+    background-image: url("/images/cardback.jpg");
+    background-size: 100%;
     background-position-x: 50%;
     background-position-y: 50%;
     //border-radius: 5%;
@@ -52,8 +52,8 @@ p{
 }
 
 .card_front{
-    background-image: url("/images/CardFRONT.jpg");
-    background-size: auto;
+    background-image: url("/images/cardfront.jpg");
+    background-size: 100%;
     background-position-x: 50%;
     background-position-y: 50%;
     /*padding-top: 5%;
@@ -347,7 +347,7 @@ a.clickable:hover { text-decoration:none; }
 }
 
 .quiz_bg{
-    background-image: url("../img/QuizBG.jpg");
+    background-image: url('../images/QuizBG.jpg');
     background-size: auto;
     background-position-x: 100%;
     background-position-y: 0%;
