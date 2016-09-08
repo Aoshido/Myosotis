@@ -93,9 +93,9 @@
 {% block javascripts %} 
     {{ parent() }}
 
-    {% javascripts '../app/Resources/public/js/jquery.popconfirm.js' %}
-    <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+    <script type="text/javascript">
+        CKEDITOR.replace('pregunta_contenido');
+    </script>
 
     <script type="text/javascript">
         $(".btn-danger").popConfirm({
@@ -104,18 +104,6 @@
             placement: "top",
             yesBtn: "Si",
             noBtn: "No"
-        });
-    </script>
-
-    <script src="/ckeditor/ckeditor.js"></script>
-    
-    <script type="text/javascript">
-        CKEDITOR.replace('pregunta_contenido');
-    </script>
-
-    <script type="text/javascript">
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
 

@@ -8,7 +8,7 @@
         <meta property="og:title" content="Myosotis" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="http://myosotis.aoshido.com" />
-        <meta property="og:image" content="{{app.request.getSchemeAndHttpHost()}}{% image '@AoshidowebBundle/img/MyosotisSplash.png' %}{{ asset_url }}{% endimage %}" />
+        <meta property="og:image" content="{{app.request.getSchemeAndHttpHost()}}{% image '@AoshidowebBundle/Resources/public/images/MyosotisSplash.png' %}{{ asset_url }}{% endimage %}" />
         <meta property="og:description" content="Lets grind some assignments!"/>
 
         <!-- Twitter meta -->
@@ -17,7 +17,7 @@
         <meta name="twitter:creator" content="@Aoshido">
         <meta name="twitter:title" content="Myosotis">
         <meta name="twitter:description" content="Lets grind some assignments!">
-        <meta name="twitter:image" content="{{app.request.getSchemeAndHttpHost()}}{% image '@AoshidowebBundle/img/MyosotisSplash.png' %}{{ asset_url }}{% endimage %}" />
+        <meta name="twitter:image" content="{{app.request.getSchemeAndHttpHost()}}{% image '@AoshidowebBundle/Resources/public/images/MyosotisSplash.png' %}{{ asset_url }}{% endimage %}" />
 
         <title>{% block title %}Myosotis{% endblock %}</title>
         {% block stylesheets %}
@@ -35,11 +35,16 @@
             <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
             {% endstylesheets %}
 
+            {% stylesheets '../src/Aoshido/webBundle/Resources/public/css/style.css' filter='cssrewrite'%}
+            <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+            {% endstylesheets %}
+
+
         {% endblock %}
-        <link rel="icon" type="image/x-icon" href="{% image '@AoshidowebBundle/img/webpage_icon.png' %} {{ asset_url }} {% endimage %}" />
+        <link rel="icon" type="image/x-icon" href="{% image '@AoshidowebBundle/Resources/public/images/webpage_icon.png' %} {{ asset_url }} {% endimage %}" />
     </head>
 
-    <body style="padding-top: 70px; " background="{% image '@AoshidowebBundle/img/background.jpg' %} {{ asset_url }} {% endimage %}">
+    <body style="padding-top: 70px; " background="{% image '@AoshidowebBundle/Resources/public/images/background.jpg' %} {{ asset_url }} {% endimage %}">
         {% block body %}
             {% include 'AoshidowebBundle::navbar.html.twig' %}
 
