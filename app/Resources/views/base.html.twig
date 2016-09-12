@@ -44,11 +44,10 @@
         <link rel="icon" type="image/x-icon" href="{% image '@AoshidowebBundle/Resources/public/images/webpage_icon.png' %} {{ asset_url }} {% endimage %}" />
     </head>
 
-    <body style="padding-top: 70px; " background="{% image '@AoshidowebBundle/Resources/public/images/background.jpg' %} {{ asset_url }} {% endimage %}">
+    <body class="container-fluid" style="padding-top: 70px; " background="{% image '@AoshidowebBundle/Resources/public/images/background.jpg' %} {{ asset_url }} {% endimage %}">
         {% block body %}
             {% include 'AoshidowebBundle::navbar.html.twig' %}
 
-            <div class="container container-fluid col-sm-10 col-sm-offset-1">
                 {% block content %}
 
                 {% endblock %}
@@ -65,7 +64,7 @@
                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
                 -->
-            </div>
+            
 
             {% include 'AoshidowebBundle::footer.html.twig' %}
             {% include 'AoshidowebBundle:Bugs:bugsplat.html.twig' %}
@@ -107,28 +106,7 @@
                 {% set exp = 0 %}
             {% endif %}
 
-            <script>
-                var bar = new ProgressBar.Path('#leaf-path', {
-                    color: '#00a65a',
-                    strokeWidth: 1,
-                    trailWidth: 1,
-                    easing: 'easeInOut',
-                    duration: 1400,
-                    text: {
-                        autoStyleContainer: false
-                    },
-                    from: {color: '#00a65a', width: 1},
-                    to: {color: '#ffcc00', width: 1},
-                    // Set default step function for all animate calls
-                    step: function (state, circle) {
-                        circle.path.setAttribute('stroke', state.color);
-                        circle.path.setAttribute('stroke-width', state.width);
-                    }
-                });
-
-                bar.set(0);
-                bar.animate({{exp}});  // Number from 0.0 to 1.0
-            </script>
+            
 
 
             <!-- Facebook SDK -->

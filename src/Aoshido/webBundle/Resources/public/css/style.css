@@ -34,7 +34,7 @@ p{
 }
 
 .card_back{
-    background-image: url("/images/cardback.jpg");
+    background-image: url('../images/cardback.jpg');
     background-size: 100%;
     background-position-x: 50%;
     background-position-y: 50%;
@@ -52,7 +52,7 @@ p{
 }
 
 .card_front{
-    background-image: url("/images/cardfront.jpg");
+    background-image: url('../images/cardfront.jpg');
     background-size: 100%;
     background-position-x: 50%;
     background-position-y: 50%;
