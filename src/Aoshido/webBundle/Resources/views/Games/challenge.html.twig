@@ -85,8 +85,12 @@
 
 {% endblock %}
 
+
 {% block javascripts %} 
     {{ parent() }}
+
+    
+
     <script>
         // Variable to hold request
         var request;
@@ -154,9 +158,9 @@
     </script>
 
     {% javascripts '../app/Resources/public/js/bootstrap-switch.min.js' %}
-            <script src="{{ asset_url }}"></script>
+    <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
-    
+
     <script type="text/javascript">
         $("[replace='yes']").bootstrapSwitch();
     </script>

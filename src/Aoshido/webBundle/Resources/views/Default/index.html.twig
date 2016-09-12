@@ -16,7 +16,7 @@
             <div class="col-md-4">
                 <div class="thumbnail">
                     <a href="{{path('games_quiz')}}">
-                        <img src="{% image '@AoshidowebBundle/Resources/public/images/quiz.jpg' %} {{ asset_url }} {% endimage %}" alt="Quiz">
+                        <img src="{{ absolute_url(asset('bundles/aoshidoweb/images/quiz.jpg')) }}" alt="Quiz">
                     </a>
                     <div class="caption">
                         <h3 class="text-center">Modo Exámen</h3>
