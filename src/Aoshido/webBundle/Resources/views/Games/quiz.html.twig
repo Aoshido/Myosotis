@@ -26,7 +26,7 @@
                         {% for tema in pregunta.vars.value.getTemas %}
                             &nbsp;<span class="badge">{{tema.getDescripcion}}</span>&nbsp;
                         {% endfor %}</div>
-                    <div class="panel-body quiz_bg">
+                    <div class="panel-body quiz_bg" >
                         <blockquote>
                             <div style="height:150px;overflow:auto; text-overflow-multiline:ellipsis;">
                                 {{ pregunta.vars.value.contenido|markdown }}
@@ -36,11 +36,11 @@
                         </blockquote>
 
                         {% for respuesta in pregunta.respuestas %}
-                            <div class="col-xs-12">
-                                <div class="col-xs-2 text-right">
+                            <div class="col-xs-12" style="padding:0;">
+                                <div class="col-xs-2 text-right " style="padding:0;"> 
                                     {{ form_widget(respuesta.elegida,{ 'attr' : { 'data-on-text' : 'V' , 'data-off-text' : 'F', 'replace' : 'yes' , 'data-size' : 'small'  } }) }}
                                 </div>
-                                <div class="col-xs-10 text-left" style="{%if respuesta.vars.value.contenido|length >= 150%}height:150px;{%endif%} overflow:auto; text-overflow-multiline:ellipsis;">
+                                <div class="col-xs-10 text-left" style="padding-right:0 ; overflow:auto; text-overflow-multiline:ellipsis; {%if respuesta.vars.value.contenido|length >= 150%}height:150px;{%endif%}">
                                     {{ respuesta.vars.value.contenido|markdown }}
                                     {{ form_widget(respuesta.contenido) }}
                                     {{ form_widget(respuesta.id) }}
