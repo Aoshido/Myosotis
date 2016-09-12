@@ -38,9 +38,6 @@
         <div class="panel-heading text-right">Preguntas Disponibles: {{ paginas.getTotalItemCount }}</div>
 
         <table class="table table-condensed">
-            <tr class="row">
-                <th class="col-sm-12 info text-left"> Filtros </th>
-            </tr>
             {% for pregunta in paginas %}
                 <tr class="row">
                     <td class="col-sm-12 clickable" data-toggle="modal" data-target="#myModal-{{pregunta.id}}">

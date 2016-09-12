@@ -7,6 +7,36 @@
 {% block javascripts %} 
     {{ parent() }}
     
+    {% if app.user %}
+        {% set exp = ( app.user.currentExperience / ((2**app.user.level) - app.user.currentExperience)) %}
+    {% else %}
+        {% set exp = 0 %}
+    {% endif %}
+
+    <script>
+        var bar = new ProgressBar.Path('#leaf-path2', {
+            color: '#00a65a',
+            strokeWidth: 1,
+            trailWidth: 1,
+            easing: 'easeInOut',
+            duration: 1400,
+            text: {
+                autoStyleContainer: false
+            },
+            from: {color: '#00a65a', width: 1},
+            to: {color: '#ffcc00', width: 1},
+            // Set default step function for all animate calls
+            step: function (state, circle) {
+                circle.path.setAttribute('stroke', state.color);
+                circle.path.setAttribute('stroke-width', state.width);
+            }
+        });
+
+        bar.set(0);
+        bar.animate({{exp}});  // Number from 0.0 to 1.0
+    </script>
+    
+    
     <script type="text/javascript">
         $(document).ready(function () {
             $(".btn-pref .btn").click(function () {
@@ -18,3 +48,4 @@
 
     </script>
 {% endblock %}
+
