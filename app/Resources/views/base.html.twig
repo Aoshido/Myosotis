@@ -100,15 +100,6 @@
 
             {% include 'AoshidowebBundle::flash.html.twig' %}
 
-            {% if app.user %}
-                {% set exp = ( app.user.currentExperience / ((2**app.user.level) - app.user.currentExperience)) %}
-            {% else %}
-                {% set exp = 0 %}
-            {% endif %}
-
-            
-
-
             <!-- Facebook SDK -->
             <script>
                 window.fbAsyncInit = function () {
