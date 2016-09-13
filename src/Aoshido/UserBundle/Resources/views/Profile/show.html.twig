@@ -8,9 +8,9 @@
     {{ parent() }}
     
     {% if app.user %}
-        {% set exp = ( app.user.currentExperience / ((2**app.user.level) - app.user.currentExperience)) %}
+        {% set expPercentage =  (app.user.currentExperience / (2**app.user.level)) %}
     {% else %}
-        {% set exp = 0 %}
+        {% set expPercentage = 0 %}
     {% endif %}
 
     <script>
@@ -33,7 +33,7 @@
         });
 
         bar.set(0);
-        bar.animate({{exp}});  // Number from 0.0 to 1.0
+        bar.animate({{expPercentage}});  // Number from 0.0 to 1.0
     </script>
     
     
