@@ -1,8 +1,8 @@
 {% extends sonata_block.templates.block_base %}
 
 {% block block %}
-    <div class="box">
-        <div class="box-header">
+    <div class="box box-success">
+        <div class="box-header with-border">
             <h3 class="box-title">Usuarios con mas preguntas</h3>
         </div>
 
@@ -13,7 +13,7 @@
                         <div class="col-xs-4">
                             <div class="well well-xs">
                                 <a class="thumbnail pull-left" href="#" style="margin-right: 10px;">
-                                    <img alt="" style="max-height: 100px; max-width: 100px;" src="{% image '@AoshidowebBundle/img/bichi.jpg' %} {{ asset_url }} {% endimage %}">
+                                    <img alt="" style="max-height: 100px; max-width: 100px;" src="{% image '@AoshidowebBundle/Resources/public/images/bichi.jpg' %} {{ asset_url }} {% endimage %}">
                                 </a>
                                 <div class="media-body">
                                     <h4 class="media-heading">{{user.username}}</h4>

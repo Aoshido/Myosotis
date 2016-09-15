@@ -38,9 +38,6 @@
         <div class="panel-heading text-right">Preguntas Disponibles: {{ paginas.getTotalItemCount }}</div>
 
         <table class="table table-condensed">
-            <tr class="row">
-                <th class="col-sm-12 info text-left"> Filtros </th>
-            </tr>
             {% for pregunta in paginas %}
                 <tr class="row">
                     <td class="col-sm-12 clickable" data-toggle="modal" data-target="#myModal-{{pregunta.id}}">
@@ -93,9 +90,9 @@
 {% block javascripts %} 
     {{ parent() }}
 
-    {% javascripts '../app/Resources/public/js/jquery.popconfirm.js' %}
-    <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+    <script type="text/javascript">
+        CKEDITOR.replace('pregunta_contenido');
+    </script>
 
     <script type="text/javascript">
         $(".btn-danger").popConfirm({
@@ -104,18 +101,6 @@
             placement: "top",
             yesBtn: "Si",
             noBtn: "No"
-        });
-    </script>
-
-    <script src="/ckeditor/ckeditor.js"></script>
-    
-    <script type="text/javascript">
-        CKEDITOR.replace('pregunta_contenido');
-    </script>
-
-    <script type="text/javascript">
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
 

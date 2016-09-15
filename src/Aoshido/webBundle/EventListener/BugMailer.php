@@ -24,19 +24,19 @@ class BugMailer {
         if ($entity instanceof Bug) {
 
             if ($entity->getStatus() != "Reported") {
-                  $message = \Swift_Message::newInstance()
-                  ->setSubject('Tu reporte de bug fue contestado!')
-                  ->setFrom(array('notifications@aoshido.com.ar' => 'Myosotis'))
-                  ->setTo($entity->getReportedUser()->getEmail())
-                  ->setBody(
-                  $this->twig->render('AoshidowebBundle:Emails:bugAnswer.html.twig', array(
-                  'time' => date('Y-m-d H:i:s'),
-                  'content' => $entity->getContenido(),
-                  'user' => $entity->getReportedUser()->getUsername(),
-                  'answer' => $entity->getRespuesta()
-                  )), 'text/html');
+                $message = \Swift_Message::newInstance()
+                        ->setSubject('Tu reporte de bug fue contestado!')
+                        ->setFrom(array('notifications@aoshido.com' => 'Myosotis'))
+                        ->setTo($entity->getReportedUser()->getEmail())
+                        ->setBody(
+                        $this->twig->render('AoshidowebBundle:Emails:bugAnswer.html.twig', array(
+                            'time' => date('Y-m-d H:i:s'),
+                            'content' => $entity->getContenido(),
+                            'user' => $entity->getReportedUser()->getUsername(),
+                            'answer' => $entity->getRespuesta()
+                        )), 'text/html');
 
-                  $this->mailer->send($message);
+                $this->mailer->send($message);
             }
         }
     }

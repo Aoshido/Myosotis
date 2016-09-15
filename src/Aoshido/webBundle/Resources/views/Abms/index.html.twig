@@ -16,3 +16,20 @@
 
     </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts '../app/Resources/public/js/jquery.popconfirm.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script src="/ckeditor/ckeditor.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
+{% endblock %}
