@@ -74,7 +74,7 @@ class User extends BaseUser {
      */
     public function addExperience($experience) {
         $this->currentExperience += $experience;
-        $nextLevelExp = pow($this->getLevel(), 2);
+        $nextLevelExp = pow(2,$this->getLevel());
 
         if ($this->currentExperience >= $nextLevelExp) {
             $this->currentExperience = 0;

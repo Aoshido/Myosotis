@@ -1,12 +1,20 @@
 {{ form_start(quizForm,{ 'attr': {'class': 'form-horizontal' , 'id' : 'quiz_form_ajax'} }) }}
 {% for pregunta in quizForm.preguntas %}
     <div class="panel panel-primary">
-        
+
         <div class="panel-heading">Pregunta: {{pregunta.vars.value.id}}
             {% for tema in pregunta.vars.value.getTemas %}
                 &nbsp;<span class="badge">{{tema.getDescripcion}}</span>&nbsp;
-            {% endfor %}</div>
-        <div class="panel-body quiz_bg" >
+            {% endfor %}
+        </div>
+
+        <div class="panel-body quiz_bg loading text-center" id="loading" style="display:none;">
+            <h2>Cambiando Pregunta...</h2>
+            <h2><i class="fa fa-cog fa-spin fa-2x"></i></h2>
+        </div>
+
+
+        <div class="panel-body quiz_bg" id="newBody" >
             <blockquote>
                 <div style="height:150px;overflow:auto; text-overflow-multiline:ellipsis;">
                     {{ pregunta.vars.value.contenido|markdown }}
@@ -42,23 +50,26 @@
                 <table class="table table-condensed" style="margin-top: 1%; margin-bottom: 0;">
                     <tr>
                         <td class="col-xs-12" style ="border-top: none !important;">
-                            <div class="progress progress-xs progress-striped active" style="max-height:20px; margin:0">
-                                <div class="progress-bar progress-bar-warning" style="width: 30%">Combo </div>
+                            <div class="progress progress-striped active" style="margin:0">
+                                <div class="progress-bar progress-bar-warning" style="width: 0%"></div>
+                                <span class="progress-type">Combo</span>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-xs-12" style ="border-top: none !important;">
-                            <div class="progress progress-xs progress-striped active" style="max-height:20px; margin:0">
-                                <div class="progress-bar progress-bar-success" style="width: {{ app.user.level }}%">{{ app.user.level }}</div>
+                            <div class="progress progress-xs progress-striped active" style="margin:0">
+                                <div class="progress-bar progress-bar-success" style="width: {{ app.user.level }}%"></div>
+                                <span class="progress-type">Nivel: {{ app.user.level }}</span>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-xs-12" style ="border-top: none !important;">
                             {% set expPercentage =  (app.user.currentExperience / (2**app.user.level)*100)|round %}
-                            <div class="progress progress-xs progress-striped active" style="max-height:20px; margin:0">
-                                <div class="progress-bar progress-bar-success" style="width: {{expPercentage}}%">{{ app.user.currentExperience }} de {{ (2**app.user.level) }} Puntos</div>
+                            <div class="progress progress-xxs progress-striped active" style=" margin:0">
+                                <div class="progress-bar progress-bar-success" style="width: {{expPercentage}}%"></div>
+                                <span class="progress-type">Exp: {{ app.user.currentExperience }} de {{ (2**app.user.level) }} Puntos</span>
                             </div>
                         </td>
                     </tr>
@@ -139,7 +150,7 @@
         });
 
         $('#loading').show();
-        $("#reemplazo").hide();
+        $("#newBody").hide();
 
         // Callback handler that will be called on success
         request.done(function (response, textStatus, jqXHR) {
@@ -147,7 +158,7 @@
             console.log("Hooray, it worked!");
 
             $("#reemplazo").html(response);
-            $("#reemplazo").show();
+            $("#newBody").show();
             $('#loading').hide();
         });
 

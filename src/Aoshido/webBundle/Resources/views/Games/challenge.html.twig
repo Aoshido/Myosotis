@@ -16,11 +16,6 @@
 {% block games_contenido %}
 
     {%if quizForm != NULL%}
-        <div class="loading text-center" id="loading" style="display:none;">
-            <h2>Cambiando Pregunta...</h2>
-            <h2><i class="fa fa-cog fa-spin fa-2x"></i></h2>
-        </div>
-
         <div id="reemplazo">
             {{ form_start(quizForm,{ 'attr': {'class': 'form-horizontal' , 'id' : 'quiz_form'} }) }}
             {% for pregunta in quizForm.preguntas %}
@@ -29,7 +24,13 @@
                         {% for tema in pregunta.vars.value.getTemas %}
                             &nbsp;<span class="badge">{{tema.getDescripcion}}</span>&nbsp;
                         {% endfor %}</div>
-                    <div class="panel-body quiz_bg" >
+
+                    <div class="panel-body quiz_bg loading text-center" id="loading" style="display:none;">
+                        <h2>Cambiando Pregunta...</h2>
+                        <h2><i class="fa fa-cog fa-spin fa-2x"></i></h2>
+                    </div>
+
+                    <div class="panel-body quiz_bg" id="newBody">
                         <blockquote>
                             <div style="height:150px;overflow:auto; text-overflow-multiline:ellipsis;">
                                 {{ pregunta.vars.value.contenido|markdown }}
@@ -53,7 +54,7 @@
                     </div>
                     <div class="panel panel-footer container-fluid" style="padding: 0; margin:0;">
 
-                        <div class="col-xs-3" style="padding: 0;">
+                        <div class="col-xs-2" style="padding: 0;">
                             <div id="barra2" class="center-block text-right" style ="padding-top: 5%; ">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="-2 -1 42 42" style="max-width: 120px">
                                 <path fill-opacity="0" stroke-width="1" stroke="#bbb" d="M 10.0107,39.0535 C 8.0927139,38.92517 5.9822053,38.337159 4.85338,36.6592 5.1822895,31.473484 6.0915318,25.778099 10.003886,22.003739 c 2.71587,-3.008117 6.27305,-5.12009 10.09069,-6.41333 3.230497,-1.120181 6.381864,-2.482311 9.233666,-4.390459 0.887933,-0.562007 2.434702,-1.5837221 2.867808,-1.9618053 -3.703234,1.9987263 -7.617793,3.6392523 -11.743033,4.5245803 -6.879194,1.79858 -13.339879,6.39582 -16.0204699,13.156317 -0.9352635,1.5582 -0.8847742,4.848531 -1.8828122,5.479146 C 0.16224651,30.881946 0.26671867,27.738843 0.45311284,25.24957 0.89346848,19.257586 4.3468258,13.526107 9.6683567,10.648051 15.45406,7.2390015 22.279572,6.5690208 28.820743,5.8571903 32.792319,5.5308631 36.731262,3.4982988 38.7831,0 37.534226,8.9455616 34.855699,17.833743 30.046303,25.533672 26.207096,31.688991 20.324069,36.91901 13.102522,38.530907 12.08423,38.769771 11.050708,38.942911 10.0107,39.0535 Z"/>
@@ -61,12 +62,13 @@
                                 </svg>
                             </div>
                         </div>
-                        <div class="col-xs-9">
+                        <div class="col-xs-10">
                             <table class="table table-condensed" style="margin-top: 1%; margin-bottom: 0;">
                                 <tr>
                                     <td class="col-xs-10" style ="border-top: none !important;">
-                                        <div class="progress progress-xs progress-striped active" style="max-height:20px; margin:0">
-                                            <div class="progress-bar progress-bar-warning" style="width: 30%">Combo </div>
+                                        <div class="progress progress-striped active" style="margin:0">
+                                            <div class="progress-bar progress-bar-warning" style="width: 0%"></div>
+                                            <span class="progress-type">Combo</span>
                                         </div>
                                     </td>
                                     <td class="col-xs-2" style ="border-top: none !important;">
@@ -81,8 +83,9 @@
                                 </tr>
                                 <tr>
                                     <td class="col-xs-10" style ="border-top: none !important;">
-                                        <div class="progress progress-xs progress-striped active" style="max-height:20px; margin:0">
-                                            <div class="progress-bar progress-bar-success" style="width: {{ app.user.level }}%">{{ app.user.level }}</div>
+                                        <div class="progress progress-xs progress-striped active" style="margin:0">
+                                            <div class="progress-bar progress-bar-success" style="width: {{ app.user.level }}%"></div>
+                                            <span class="progress-type">Nivel: {{ app.user.level }}</span>
                                         </div>
                                     </td>
                                     <td class="col-xs-2" style ="border-top: none !important;">
@@ -99,8 +102,9 @@
                                 <tr>
                                     <td class="col-xs-10" style ="border-top: none !important;">
                                         {% set expPercentage =  (app.user.currentExperience / (2**app.user.level)*100)|round %}
-                                        <div class="progress progress-xs progress-striped active" style="max-height:20px; margin:0">
-                                            <div class="progress-bar progress-bar-success" style="width: {{expPercentage}}%">{{ app.user.currentExperience }} de {{ (2**app.user.level) }} Puntos</div>
+                                        <div class="progress progress-xxs progress-striped active" style=" margin:0">
+                                            <div class="progress-bar progress-bar-success" style="width: {{expPercentage}}%"></div>
+                                            <span class="progress-type">Exp: {{ app.user.currentExperience }} de {{ (2**app.user.level) }} Puntos</span>
                                         </div>
                                     </td>
                                     <td class="col-xs-2" style ="border-top: none !important;">
@@ -140,7 +144,7 @@
     {% else %}
         {% set expPercentage = 0 %}
     {% endif %}
-    
+
     <script>
         var bar = new ProgressBar.Path('#leaf-path2', {
             color: '#00a65a',
@@ -199,7 +203,7 @@
             });
 
             $('#loading').show();
-            $("#reemplazo").hide();
+            $("#newBody").hide();
 
             // Callback handler that will be called on success
             request.done(function (response, textStatus, jqXHR) {
@@ -207,7 +211,7 @@
                 console.log("Hooray, it worked!");
 
                 $("#reemplazo").html(response);
-                $("#reemplazo").show();
+                $("#newBody").show();
                 $('#loading').hide();
             });
 
