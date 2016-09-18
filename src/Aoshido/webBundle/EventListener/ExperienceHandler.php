@@ -31,7 +31,7 @@ class ExperienceHandler {
                     if ($keyField == 'vecesAcertada') {
                         $user = $this->tokenStorage->getToken()->getUser();
                         if ($user instanceof User) {
-                            $user->addExperience(round($entity->getDificultad()));
+                            $user->addExperience(round($entity->getDificultad()) * $this->session->get('combo'));
                             $em->persist($user);
                             $classMetadata = $em->getClassMetadata('Aoshido\UserBundle\Entity\User');
                             $uow->computeChangeSet($classMetadata, $user);
@@ -43,5 +43,4 @@ class ExperienceHandler {
             }
         }
     }
-
 }

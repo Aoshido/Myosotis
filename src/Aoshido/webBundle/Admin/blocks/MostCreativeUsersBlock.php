@@ -39,6 +39,7 @@ class MostCreativeUsersBlock extends BaseBlockService {
     public function execute(BlockContextInterface $blockContext, Response $response = null) {
         // merge settings
         $settings = $blockContext->getSettings();
+        dump($blockContext);
 
         $users = $this->em->getRepository('AoshidowebBundle:Pregunta')
                 ->createQueryBuilder('p')
