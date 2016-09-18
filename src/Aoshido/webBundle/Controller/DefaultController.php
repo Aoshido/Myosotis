@@ -12,6 +12,9 @@ use Symfony\Component\Console\Output\BufferedOutput;
 class DefaultController extends Controller {
 
     public function indexAction(Request $request) {
+        $session = $request->getSession();
+        // store an attribute for reuse during a later user request
+        $session->set('foo', 'bar');
         $locale = $request->getLocale();
 
         return $this->render('AoshidowebBundle:Default:index.html.twig', array(
@@ -34,7 +37,7 @@ class DefaultController extends Controller {
         $input1 = new ArrayInput(array(
             'command' => 'assetic:dump',
             '--env' => 'dev'
-        ));        
+        ));
         $output1 = new BufferedOutput();
 
         $application->run($input1, $output1);
@@ -64,7 +67,7 @@ class DefaultController extends Controller {
         $content[] = $content1;
         $content[] = $content2;
         $content[] = $content3;
-        
+
         //return $this->redirect($this->generateUrl('aoshidoweb_homepage'));
         return new Response(implode("", $content));
     }

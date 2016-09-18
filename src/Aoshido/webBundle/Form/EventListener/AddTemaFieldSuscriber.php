@@ -33,7 +33,7 @@ class AddTemaFieldSuscriber implements EventSubscriberInterface {
             'attr'          => array(
                 'class' => 'tema_selector',
                 'data-toggle' => 'tooltip' ,
-                'data-placement' => 'right' , 
+                'data-placement' => 'bottom' , 
                 'title' => '¿Sabias que con CTRL/CMD podes elegir mas de un tema?'
             ),
             'data' => $tema_seleccionado,
