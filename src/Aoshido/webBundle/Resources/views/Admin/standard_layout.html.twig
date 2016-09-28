@@ -9,7 +9,7 @@
 
 {% block meta_tags %}
     {{ parent() }}
-    <link rel="icon" type="image/x-icon" href="{% image '@AoshidowebBundle/Resources/public/images/webpage_icon.png' %} {{ asset_url }} {% endimage %}" />
+    <link rel="icon" type="image/x-icon" href="{% image '@AoshidowebBundle/Resources/public/images/webpageIcon.png' %} {{ asset_url }} {% endimage %}" />
 {% endblock %}
 
 {% block sonata_head_title %}
@@ -35,9 +35,8 @@
 
 {% block logo %}
     {% spaceless %}
-        <a class="logo" style="color: white; background-color: #00a65a" href="{{ path('sonata_admin_dashboard') }}">
-            <i class="fa fa-envira green fa-rotate-90"></i>
-            Myosotis
+        <a class="logo" style="color: white; background-color: #00a65a; " href="{{ path('sonata_admin_dashboard') }}">
+            <img src="{% image '@AoshidowebBundle/Resources/public/images/webpageLogo.png' %} {{ asset_url }} {% endimage %}" alt="logo" style="max-height: 50px; max-width: 100px;">
         </a>
     {% endspaceless %}
 {% endblock %}
