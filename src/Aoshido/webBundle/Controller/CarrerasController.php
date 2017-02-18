@@ -11,12 +11,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class CarrerasController extends Controller {
 
     public function newAction(Request $request) {
-        //Display a list of all Carreras
-        $carreras = $this->getDoctrine()
-                ->getRepository('AoshidowebBundle:Carrera')
-                ->createQueryBuilder('c')
-                ->where('c.activo = TRUE')
-                ->getQuery();
+        
+        $carreras = $this->getCarreras();
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($carreras, $this->getRequest()->query->get('page', 1), 10);
@@ -37,7 +33,7 @@ class CarrerasController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($carrera);
             $em->flush();
-            
+
             $this->get('session')->getFlashBag()->add('success', 'Carrera creada !');
             return $this->redirect($this->generateUrl('abms_carreras'));
         }
@@ -67,12 +63,12 @@ class CarrerasController extends Controller {
         foreach ($carrera->getMaterias() as $materia_original) {
             $materiasOriginales->add($materia_original);
         }
-        
+
         //Utilizo PATCH porque POST pone en null los campos no explicitamente inicializados
         //En este caso Carrera->getMaterias->getCarreras
-        $form = $this->createForm(new CarreraType(), $carrera , array('method' => 'PATCH'));
+        $form = $this->createForm(new CarreraType(), $carrera, array('method' => 'PATCH'));
         $form->handleRequest($request);
-        
+
         if ($form->isValid()) {
             //Reviso si todavia tiene la materia original, o hay que removerla
             foreach ($materiasOriginales as $materia_original) {
@@ -81,7 +77,7 @@ class CarrerasController extends Controller {
                 }
                 $em->persist($materia_original);
             }
-            
+
             $em->persist($carrera);
             $em->flush();
 
@@ -103,13 +99,24 @@ class CarrerasController extends Controller {
         $carrera = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Carrera')
                 ->find($idCarrera);
-        
+
         $carrera->setActivo(FALSE);
         $em->persist($carrera);
         $em->flush();
-        
+
         $this->get('session')->getFlashBag()->add('success', 'Carrera eliminada !');
         return $this->redirect($this->generateUrl('abms_carreras'));
+    }
+
+    private function getCarreras() {
+        //Display a list of all Carreras
+        $carreras = $this->getDoctrine()
+                ->getRepository('AoshidowebBundle:Carrera')
+                ->createQueryBuilder('c')
+                ->where('c.activo = TRUE')
+                ->orderBy('c.id','DESC')
+                ->getQuery();
+        return ($carreras);
     }
 
 }

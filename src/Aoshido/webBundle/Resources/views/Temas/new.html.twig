@@ -11,15 +11,19 @@
 
 {% block section %}Temas{% endblock %}
 {% block abms_contenido %} 
-    
+
     {% include 'AoshidowebBundle:Temas:form.html.twig' %}
-    
+
     <div class="panel panel-primary">
         <div class="panel-heading text-right">Temas Disponibles: {{ paginas.getTotalItemCount }}</div>
 
         <table class="table table-condensed">
-            <th class="col-sm-8 info {% if paginas.isSorted('t.descripcion') %}sorted{% endif %}">{{ knp_pagination_sortable(paginas, 'Descripcion', 't.descripcion') }} </th>
-            <th class="col-sm-1 info text-center {% if paginas.isSorted('t.Materias.descripcion') %}sorted{% endif %}">{{ knp_pagination_sortable(paginas, 'Materia', 't.Materias.descripcion') }}</th>
+            <th class="col-sm-8 info {% if paginas.isSorted('t.descripcion') %}sorted{% endif %}">
+                {{ knp_pagination_sortable(paginas, 'Descripcion', 't.descripcion') }} 
+            </th>
+            <th class="col-sm-1 info text-center {% if paginas.isSorted('m.descripcion') %}sorted{% endif %}">
+                {{ knp_pagination_sortable(paginas, 'Materia', 'm.descripcion') }}
+            </th>
             <th class="col-sm-3 info text-right"> Opciones </th>
                 {% for tema in paginas %}
                 <tr>
@@ -50,7 +54,7 @@
         {{ knp_pagination_render(paginas) }}
     </div>
 
-    
+
 
 {% endblock %}
 

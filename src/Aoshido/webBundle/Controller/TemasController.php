@@ -15,7 +15,9 @@ class TemasController extends Controller {
         $temas = $this->getDoctrine()
                 ->getRepository('AoshidowebBundle:Tema')
                 ->createQueryBuilder('t')
+                ->join('t.materia','m')                 //Para el KNP paginator sort
                 ->where('t.activo = TRUE')
+                ->orderBy('t.id','desc')
                 ->getQuery();
 
         $paginator = $this->get('knp_paginator');

@@ -19,7 +19,7 @@
         <meta name="twitter:description" content="Lets grind some assignments!">
         <meta name="twitter:image" content="{{app.request.getSchemeAndHttpHost()}}{% image '@AoshidowebBundle/Resources/public/images/MyosotisSplash.png' %}{{ asset_url }}{% endimage %}" />
 
-        <title>Myosotis {% block title %}{% endblock %}</title>
+        <title>Myosotis - {% block title %}Let's study!{% endblock %}</title>
         {% block stylesheets %}
 
             <!-- Latest compiled and minified CSS -->
@@ -38,7 +38,6 @@
             {% stylesheets 'bundles/aoshidoweb/css/style.css' filter='cssrewrite'%}
             <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
             {% endstylesheets %}
-
 
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{% image '@AoshidowebBundle/Resources/public/images/webpageIcon.png' %} {{ asset_url }} {% endimage %}" />
@@ -91,10 +90,6 @@
             {% endjavascripts %}
 
             {% javascripts '../app/Resources/public/js/alertify.min.js' %}
-            <script src="{{ asset_url }}"></script>
-            {% endjavascripts %}
-
-            {% javascripts '../app/Resources/public/js/rrssb.min.js' %}
             <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
 

@@ -26,7 +26,10 @@ class PreguntasController extends Controller {
         $pagination = $paginator->paginate($preguntas, $this->getRequest()->query->get('page', 1), 5);
         $pagination->setPageRange(6);
 
-        $form = $this->createForm(new PreguntaType(), $pregunta);
+        $form = $this->createForm(new PreguntaType(), $pregunta, array(
+            'action' => $this->generateUrl('abms_preguntas'),
+        ));
+
 
         $form->add('save', 'submit', array(
             'label' => 'Agregar Pregunta',
@@ -112,10 +115,19 @@ class PreguntasController extends Controller {
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $temas = $form->get('temas')->getData();
+
+            foreach ($pregunta->getTemas() as $tema) {
+                $pregunta->removeTema($tema);
+                $em->persist($tema);
+            }
+
+            foreach ($temas as $tema) {
+                $pregunta->addTema($tema);
+                $em->persist($tema);
+            }
             $pregunta->setActivo(TRUE);
 
-            $em->persist($pregunta);
-            $em->flush();
             $this->get('session')->getFlashBag()->add('success', 'Pregunta editada !');
             return $this->redirect($this->generateUrl('abms_preguntas'));
         }
@@ -217,7 +229,8 @@ class PreguntasController extends Controller {
         } else {
             $preguntas = $this->getDoctrine()
                     ->getRepository('AoshidowebBundle:Pregunta')
-                    ->findBy(array('activo' => TRUE));
+                    ->findBy(array('activo' => TRUE),
+                            array('id' => 'DESC'));
 
             //dump($preguntas);
         }

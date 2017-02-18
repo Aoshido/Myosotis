@@ -20,22 +20,23 @@
         <div class="col-sm-6">
             Preguntas
         </div>
-        <div class="col-sm-1">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-search">Filtros</button>
-        </div>
-
-        <div class="col-sm-5">
-            {% include 'AoshidowebBundle:Preguntas:quicksearch.html.twig' %}        
-        </div>
     </div>
 {% endblock %}
 
 {% block abms_contenido %} 
 
-    {% include 'AoshidowebBundle:Preguntas:form.html.twig' %}
-
     <div class="panel panel-primary">
-        <div class="panel-heading text-right">Preguntas Disponibles: {{ paginas.getTotalItemCount }}</div>
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-sm-7 text-left">
+                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal-add"><i class="fa fa-plus"></i> Agregar</button>
+                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal-search"><i class="fa fa-list"></i> Filtrar</button>
+                </div>
+                <div class="col-sm-5 text-right">
+                    {% include 'AoshidowebBundle:Preguntas:quicksearch.html.twig' %}        
+                </div>
+            </div>
+        </div>
 
         <table class="table table-condensed">
             {% for pregunta in paginas %}
@@ -84,14 +85,41 @@
         {% include 'AoshidowebBundle:Preguntas:modal.html.twig' %}
     {%endfor%}
     {% include 'AoshidowebBundle:Preguntas:form_filter.html.twig' %}
+    {% include 'AoshidowebBundle:Preguntas:form_modal.html.twig' %}
 
 {% endblock %}
 
 {% block javascripts %} 
     {{ parent() }}
-
+    
+    {% if form.vars.method == 'PATCH'%} 
+        <script type="text/javascript">
+            $(window).load(function () {
+                $('#myModal-add').modal('show');
+            });
+        </script>
+    {%endif%}
+    
     <script type="text/javascript">
-        CKEDITOR.replace('pregunta_contenido');
+        $.fn.modal.Constructor.prototype.enforceFocus = function () {
+            $(document)
+                    .off('focusin.bs.modal') // guard against infinite focus loop
+                    .on('focusin.bs.modal', $.proxy(function (e) {
+                        if (
+                                this.$element[ 0 ] !== e.target && !this.$element.has(e.target).length
+                                // CKEditor compatibility fix start.
+                                && !$(e.target).closest('.cke_dialog, .cke').length
+                                // CKEditor compatibility fix end.
+                                ) {
+                            this.$element.trigger('focus');
+                        }
+                    }, this));
+        };
+    </script>
+    <script type="text/javascript">
+        CKEDITOR.replace('pregunta_contenido', {
+            customConfig: 'custom/ckeditor_config.js'
+        });
     </script>
 
     <script type="text/javascript">
